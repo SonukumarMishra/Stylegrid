@@ -166,9 +166,4 @@ class StylistWebsiteController extends Controller
             }
         }  
     }
-    
-    
-    
-    
-    
-}
+    }
