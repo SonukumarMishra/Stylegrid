@@ -25,11 +25,23 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
   //Route::domain('stylist.com')->group(function () {
   Route::get('/loadgridview',[CreateGridController::class,'loadgridview']);
   Route::post('/add-grid',[CreateGridController::class,'add_grid']);
-  Route::post('/get-grid-data','App\Http\Controllers\CreateGridController@get_grid_data');
+  Route::post('/get-grid-data',[CreateGridController::class,'get_grid_data']);
  // });
  //stylist Section Start
  Route::get('/', [StylistWebsite::class, 'index']);
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
+
+ 
+ Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist'], function () {
+
+  Route::group(['prefix' => 'grid', 'as' => 'grid'], function () {
+
+    Route::get('/create', 'GridController@createGridIndex')->name('create_index');
+    Route::post('/get_grid_data_json', 'GridController@getGridDataJson')->name('grid_data_json');
+
+  });
+
+ });
 
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
  Route::post('/check-stylist-existance', [StylistWebsite::class, 'checkStylistExistance']);
