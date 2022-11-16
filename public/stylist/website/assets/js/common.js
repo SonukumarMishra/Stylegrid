@@ -193,12 +193,21 @@ function showTab(n) {
         }
 
 function addStylistSecondProcess(){
-  var  brands_arr = $('#myTags').tagsValues();
-  var brands_list='';
-  if(brands_arr.length>0){
-    brands_list= brands_arr.toString();
-    $('#favourite_brand_list').val(brands_list);
-  }
+    var  brands_arr = $('#myTags').tagsValues();
+    var brands_list='';
+    if(brands_arr.length>0){
+      brands_list= brands_arr.toString();
+      $('#favourite_brand_list').val(brands_list);
+    }
+    var preferred_style_arr=[];
+      $(".selected_preferred_style_type").each(function(){
+      preferred_style_arr.push($(this).attr('data_id'));
+    });
+    var preferred_style_type_list='';
+    if(preferred_style_arr.length>0){
+      preferred_style_type_list=preferred_style_arr.toString();
+    }
+    $('#preferred_style_type_list').val(preferred_style_type_list);
  
     $.ajax({
       type: 'POST',
@@ -246,7 +255,6 @@ function addStylist(){
 })
 }
 function stylistSetpOneValidation(){
-
   $('#stylist-registration-final-step-form input ').css('border', '1px solid #ccc');
   $('.error').html('');
   $('.message').html('');
@@ -320,18 +328,12 @@ function stylistSetpOneValidation(){
 function stylistSetpTwoValidation(){
   var status=true;
   var short_bio=makeTrim($('#short_bio').val());
- // var favourite_brands=makeTrim($('#favourite_brands').val());
   var preferred_style=makeTrim($('#preferred_style').val());
   if(short_bio==''){
     $('#short_bio').css('border', '2px solid #cc0000');
     $('#short_bio_error').html('This field is required');
     status=false;
   }
-  //if(favourite_brands==''){
-   // $('#favourite_brands').css('border', '2px solid #cc0000');
-   // $('#favourite_brands_error').html('This field is required');
-   // status=false;
-  //}
   if(preferred_style==''){
     $('#preferred_style').css('border', '2px solid #cc0000');
     $('#preferred_style_error').html('This field is required');
@@ -511,5 +513,25 @@ function runSuggestions(element,query) {
          
     }
   })
+  
+}
+
+function removePreferredStyle(id){
+  $('.error').html('');
+  $('#add-preferred_style'+id).prop('disabled', false);
+  $('#select_preferred_data'+id).remove();
+}
+function addPreferredStyle(add_preferred_style){
+  $('.error').html('');
+  if($(".selected_preferred_style_type").length<=2){
+    var id=$(add_preferred_style).attr('data_id');
+    var name=$(add_preferred_style).attr('data_value');
+    var html='<span id="select_preferred_data'+id+'"><button class="add-item-btn-input px-2 my-2 selected_preferred_style_type" type="button" data_value="'+name+'" id="added_preferred_style'+id+'" data_id="'+id+'"  onClick="removePreferredStyle('+id+')">'+name+' X</button><br></span>';
+    $('#preferred_style_section').append(html);
+    $(add_preferred_style).prop('disabled', true);
+  }else{
+    $('#preferred_style_error').html('You can not add more than 3 preferred style type!')
+  }
+
 }
  
