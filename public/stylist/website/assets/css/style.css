@@ -1,0 +1,1337 @@
+@font-face {
+    font-family: 'Genos';
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Genos';
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Genos-Light';
+    src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif';
+    src: url(../font/silk-serif/Silk\ Serif\ Light.otf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif Medium';
+    src: url(../font/silk-serif/Silk\ Serif\ Medium.otf);
+  }
+  @font-face {
+    font-family: 'Silk Serif Black';
+    src: url(../font/silk-serif/Silk\ Serif\ Black.otf);
+  }
+  
+  @font-face {
+    font-family: 'Avenir';
+    src: url(../font/Avenir/AvenirLTStd-Black.otf);
+  
+  }
+  
+  @font-face {
+    font-family: 'Roboto';
+    src: url(../font/Roboto/Roboto-Black.ttf);
+  
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Light';
+    src: url(../font/Roboto/Roboto-Light.ttf);
+  
+  }
+  
+  ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  ul li {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    /* padding: 10px; */
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  ul>li>a {
+    text-decoration: none;
+    color: #000000;
+  }
+  #navbarSupporthbvbedContent{
+    margin-top: -18px;
+  }
+  .signup-btn {
+    background: #172625;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 0;
+    color: #E5E5E5;
+    padding:8px 27px 8px 27px;
+  }
+  .signup-btn:hover{
+    background: #172625;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 0;
+    color: #E5E5E5;
+  }
+  
+  /*****************multistep form css***********/
+  * {
+    box-sizing: border-box;
+  }
+  
+  #regForm {
+    /* background-color: #ffffff; */
+    margin: 0px auto;
+    font-family: Raleway;
+    /* padding: 40px; */
+    width: 70%;
+    min-width: 300px;
+  }
+  
+  #step1 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  #step1 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  #step2 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 73px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  #step2 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  #step2 h6 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  #step2 .inputbox {
+    position: relative;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 50px;
+  }
+  
+  #step2 .inputbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid #000;
+    outline: none;
+    background: none;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  
+  #step2 .inputbox span {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    transition: 0.6s;
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+  }
+  
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  button {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    border: 0;
+    background-color: transparent;
+    color: #000000;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+  
+  #prevBtn {
+    background-color: transparent;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #04AA6D;
+  }
+  
+  .signup-bg-img {
+    background: url(../images/signup2.png);
+    background-size: cover;
+    position: relative;
+    /* width: 420px; */
+    height: 416px;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .layer {
+    background: linear-gradient(179.86deg, rgba(255, 255, 255, 0) 22%, rgba(0, 0, 0, 0.7) 99.88%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  }
+  
+  .signup-bg-img-1 {
+    background: url(../images/signup1.png);
+    background-size: cover;
+    position: relative;
+    /* width: 420px; */
+    height: 416px;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .signup-bg-img h2,
+  .signup-bg-img-1 h2 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 37.7467px;
+    line-height: 106.6%;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+  }
+  
+  .signup-bg-img p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.5822px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #FFFFFF;
+  }
+  
+  .signup-btn-1 {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18.8734px;
+    line-height: 23px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    background: #FAFFEB;
+    border: 0;
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+  }
+  
+  #signup h1,
+  #signup-5 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 73px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  #signup p,
+  #signup-5 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* text-align: center; */
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  #signup h6 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  /* #signup form {
+    width: 481px;
+  } */
+  textarea::placeholder{
+    text-align: left !important;
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 119.5%;
+    color: #575757;
+  }
+  #signup form input::placeholder {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+    /* Firefox */
+  }
+  
+  #signup form input :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+  }
+  
+  #signup form input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+  }
+  
+  #signup form .form-control {
+    border: 1px solid #000;
+    border-radius: 0px;
+    height: 50px;
+  }
+  
+  #full_name::placeholder,#email::placeholder,#phone::placeholder{
+    font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 30px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #7A7A7A;
+  }
+  #signup .inputbox input::placeholder{
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    
+    color: #7A7A7A;
+  }
+  .next-btn {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    border: 0;
+    margin-right: 40px;
+    background-color: transparent;
+    color: #000000;
+  }
+  
+  h2 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  h5 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  .select-btn {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0px;
+    text-decoration: none;
+    background: #172625;
+    color: #E5E5E5;
+    padding: 7px 70px;
+  }
+  .select-btn:hover {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0px;
+    text-decoration: none;
+    background: #172625;
+    color: #E5E5E5;
+    padding: 7px 70px;
+  }
+  .img-fluid {
+    height: 156px;
+  }
+  
+  /* input[type=checkbox] {
+    background: url("../images/checkbox.png") no-repeat !important;
+    height: 25px;
+    width: 25px;
+    background-size: 50%;
+  }
+  
+  input[type=checkbox]:checked {
+    display: inline-block;
+    background: url("../images/checkbox.png") no-repeat !important;
+    height: 25px;
+    width: 25px;
+    background-size: 50%;
+  } */
+  
+  .icon {
+    padding-right: 25px;
+    background: url("../images/upload.png") no-repeat right;
+    background-size: 20px;
+    position: relative;
+    right: 6px;
+  }
+  
+  .input-city {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    /* height: 50px; */
+  }
+  
+  .input-city .form-control {
+    border: 0px;
+    /* height: 50px; */
+    /* box-shadow: inset 0 0px 0px !important; */
+  }
+  
+  #signup-5 h4 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  #signup-5 img {
+    border-radius: 35px;
+  }
+  
+  .new-para {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    text-align: left;
+    color: #000000;
+  }
+  
+  .styling-btn {
+    background: #172625;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0;
+    color: #E5E5E5;
+    padding: 7px;
+  }
+  
+  /****************checkbox********************/
+  input[type=checkbox] {
+    display: none;
+  }
+  
+  input[type=checkbox]+label {
+    display: inline-block;
+    padding: 0 0 0 0px;
+    background: url("..") no-repeat;
+    height: 38px;
+    width: 75px;
+    ;
+    background-size: 50%;
+  }
+  
+  input[type=checkbox]:checked+label {
+    background: url("../images/checkbox.png") no-repeat;
+    height: 38px;
+    width: 75px;
+    display: inline-block;
+    background-size: 50%;
+  }
+  
+  .dis-flex {
+    display: grid;
+    justify-content: center;
+  }
+  
+  .mt-2 {
+    margin-top: 3.50rem;
+  }
+  
+  /*******************mediaqueres**************/
+  /* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    .text-center {
+        text-align: center;
+    }
+  
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+  
+    .mt-5 {
+        margin-top: 50px;
+    }
+    .navbar-dark{
+      background-color: #f8f9fa!important;
+    }
+    /* #styling_experience_error{
+      top: 76% !important;
+      left: 30%;
+    }
+    #fashion_beauty_brands_error{
+      top: 212% !important;
+    }
+    #stronger_experience_error{
+      top: 258% !important;
+    } */
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .text-center {
+        text-align: center;
+    }
+  
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+  
+    .mt-5 {
+        margin-top: 50px;
+    }
+    .navbar-dark{
+      background-color: #f8f9fa!important;
+    }
+    /* #styling_experience_error{
+      top: 76% !important;
+      left: 30% ;
+    }
+    #fashion_beauty_brands_error{
+      top: 212% !important ;
+    }
+    #stronger_experience_error{
+      top: 258% !important;
+    } */
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .text-lg-left {
+        text-align: left;
+    }
+  
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 48px;
+        line-height: 73px;
+    }
+  
+    /* .mt-lg-5 {
+        margin-top: 100px;
+    } */
+    .navbar-dark{
+      background-color: #f8f9fa!important;
+    }
+    /* #styling_experience_error{
+      top: 78% !important;
+      left: 30%;
+    }
+    #fashion_beauty_brands_error{
+      top: 205% !important;
+    }
+    #stronger_experience_error{
+      top: 247% !important;
+    } */
+  }
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .text-lg-left {
+        text-align: left;
+    }
+    .navbar-dark{
+      background-color: transparent!important;
+    }
+/* #fashion_beauty_brands_error{
+     
+      top: 182% !important;
+     
+      left: 30%;
+    }
+    #styling_experience_error{
+      top: 70% !important ;
+      left: 30%;
+    }
+    #stronger_experience_error{
+      top: 220% !important;
+      left: 30% ;
+    } */
+
+  }
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .text-lg-left {
+        text-align: left;
+    }
+    .navbar-dark{
+      background-color: transparent!important;
+    }
+  }
+  
+  
+  
+  #signup .inputbox {
+    position: relative;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 50px;
+  }
+  
+  #signup .inputbox-2 {
+    position: relative;
+    /* width: 300px; */
+    /* height: 50px; */
+    margin-bottom: 50px;
+  }
+  
+  #signup .inputbox-1 input {
+    width: 400px;
+    height: 50px;
+    border-radius: 0;
+    
+  }
+  .form-control{
+    border: 1px solid #000;
+  }
+  #signup .inputbox input {
+    /* position: absolute; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid #000;
+    outline: none;
+    background: none;
+    padding: 10px;
+  
+    font-size: 1.2em;
+  }
+  
+  #signup .inputbox:last-child {
+    margin-bottom: 0;
+  }
+  
+  #signup .inputbox span {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  
+    transition: 0.6s;
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+  }
+  
+  #signup .inputbox input:focus~span,
+  #signup .inputbox input:valid~span {
+    transform: translateX(-13px) translateY(-35px);
+    font-size: 1em;
+  }
+  
+  
+  /* .input-city {
+        height:50px;
+        background: #FFFFFF;
+        border: 1px solid #000000;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        position:relative;
+    }
+    
+  
+  
+  .input-city img {
+    
+    position:absolute;
+    right:10px;
+    top:14px;
+  }
+  
+  .input-city input {
+    width:100%;
+    height: 48px;
+  } */
+  
+  h1 {
+    text-align: center;
+  }
+  
+  input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+  }
+  
+  /* Mark input boxes that gets an error on validation: */
+  input.invalid {
+    background-color: #ffdddd;
+  }
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+  }
+  
+  .step.active {
+    opacity: 1;
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #172625;
+  }
+  
+  label {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 119.5%;
+    text-align: center;
+  
+    color: #000000;
+  }
+  
+  textarea {
+    width: 100%;
+    height: 200px !important;
+    border-radius: 0px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+  textarea.form-control {
+    max-width: 400px !important;
+    border-radius: 0px;
+  }
+  #signup-1 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 126.1%;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  
+  #signup-1 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  .back-to {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    background: #172625;
+    border: 0;
+    color: #E5E5E5;
+    text-decoration: none;
+  }
+  
+  
+  /**************navbar****************/
+  
+  .has-search input::placeholder{
+    text-align: left !important;
+  }
+  .has-search img {
+    position: absolute;
+    top: 48%;
+  }
+  
+  .has-search .form-control {
+    padding: 0.375rem 1.75rem;
+    border: 0;
+  }
+  .has-search .form-control::placeholder{
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  .nav-link {
+    font-family: 'Genos-Light';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+  
+    text-align: center;
+    letter-spacing: 0.04em;
+  
+    color: #000000;
+  }
+  
+  .signup-btn {
+    background: #172625;
+    font-family: 'Genos-Light';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0;
+    color: #E5E5E5;
+  }
+  
+  /* .custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+  } */
+  [data-toggle="collapse"].collapsed .if-not-collapsed {
+    display: none;
+  }
+  [data-toggle="collapse"]:not(.collapsed) .if-collapsed {
+    display: none;
+  }
+  .collapsed span,.if-not-collapsed span{
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  /* a{
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  a:hover{
+    color: #000;
+    font-size: 20px;
+    text-decoration: none;
+  } */
+  .Neon {
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #494949;
+    position: relative;
+  
+  
+  }
+  
+  .Neon * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  .Neon-input-dragDrop {
+    display: block;
+    width:max-content;
+    margin: 0 auto 25px auto;
+    padding: 25px;
+    color: #8d9499;
+    color: #97A1A8;
+    background: #fff;
+    border: 1px solid #000;
+    text-align: center;
+    -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+    -moz-transition: box-shadow 0.3s, border-color 0.3s;
+    transition: box-shadow 0.3s, border-color 0.3s;
+  }
+  
+  .Neon-input-dragDrop .Neon-input-icon {
+    font-size: 48px;
+    margin-top: -10px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  
+  .Neon-input-text h3 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    
+    color: #7A7A7A;
+  }
+  
+  .Neon-input-text span {
+    font-size: 12px;
+  }
+  
+  .Neon-input-choose-btn.blue {
+    color: #000 !important;
+    /* border: 1px solid #008BFF; */
+    /* font-size: 50px; */
+    font-weight: 100;
+  }
+  
+  .Neon-input-choose-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    border-radius: 3px;
+    border: transparent;
+    vertical-align: middle;
+    /* background-color: #fff;
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.05); */
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+  #filer_input2{
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    height: 100%;
+    opacity: 0;
+  }
+  ::placeholder {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+        color: #7A7A7A;
+  }
+  .forgot-pass h3 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-align:right;
+    letter-spacing: 0.04em;
+    /* margin-top: 58px; */
+    color: #000000;
+  }
+  .sign-in {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    background: #172625;
+    color: #E5E5E5;
+    text-decoration: none;
+    width: 130px;
+    height: 34px;
+  }
+  .error{
+    color: red;
+    /* position: absolute; */
+    /* top: 103%; */
+    font-size: 1rem;
+    /* left: 1%; */
+    text-align: initial;
+    font-family: "Genos";
+  }
+  .flex-column {
+    -ms-flex-direction: column!important;
+    flex-direction: column!important;
+}
+  #frame-image{
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    height: 100%;
+    opacity: 0;
+  }
+  /* #preferred_style_error{
+    color: red;
+    position: absolute;
+    top: 101%;
+    font-size: 0.7rem;
+    left: 17%;
+  } */
+  /* #stronger_experience_error,#fashion_beauty_brands_error,#styling_experience_error{
+    color: red;
+    position: absolute;
+    top: 182% !important;
+    
+    font-size: 0.7rem;
+    left: 30% !important;
+  }
+  #styling_experience_error{
+    top: 70% !important;
+    left: 30% !important ;
+  }
+  #stronger_experience_error{
+    top: 220% !important;
+    left: 30% !important;
+  } */
+
+  select {
+    /* -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none !important; */
+    background-image: none;
+  } 
+  #next-previous{
+    /* padding-top: 171px; */
+    padding-right: 50px;
+  }
+  #steps-next-previous{
+    opacity: 0;
+  }
+  u{
+    text-decoration: 2px solid #8d9499 underline;
+  }
+  #short_bio::placeholder{
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+  }
+  select{
+    border: 0px !important;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.04em;
+    color: #000000;
+  }
+  option{
+    
+  }
+  .add-items{
+    border: 1px solid;
+    width: 400px;
+  }
+.add-item-btn{
+  background: rgba(118, 118, 118, 0.15);
+  border-radius: 15px;
+  font-family: 'Genos';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: #000000;
+  /* width: 108px; */
+    height: 28px;
+    text-decoration: none;
+}
+.add-item-btn-input{
+  background: rgba(118, 118, 118, 0.15);
+  border-radius: 15px;
+  font-family: 'Genos';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: #000000;
+  /* width: 108px; */
+    height: 28px;
+    text-decoration: none;
+    position: absolute;
+    left: 20px;
+}
+  
+  a#image_preview_remove {
+    position: absolute;
+}
+
+  .tags-input{
+    width: 100%;
+}
+
+ 
+
+.tags-input input:focus{
+    border: none;
+    box-shadow: none;
+    outline: none;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+
+}
+
+
+.tags-input .tag{
+    padding-top:2px ;
+    padding-bottom: 2px;
+    border: 2px solid #5f6368;
+    border-radius: 10px;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 12px;
+    color: black;
+    margin: 5px;
+    display: inline-block;
+}
+
+.tags-input .tag .text{
+    margin-right: 5px;
+}
+.tags-input .tag .close{
+    border-radius: 50%;
+    min-height: 20px;
+    padding-left: 4px;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+    padding-right: 4px;
+    color: black;
+    font-weight: bolder;
+}
+
+.tags-input .autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+.tags-input .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.tags-input .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.tags-input .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.tags-input .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+

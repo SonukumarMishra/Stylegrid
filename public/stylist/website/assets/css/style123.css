@@ -1,0 +1,817 @@
+@font-face {
+    font-family: 'Genos';
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Genos';
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Genos-Light';
+    src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
+}
+
+@font-face {
+    font-family: 'Silk Serif';
+    src: url(../font/silk-serif/Silk\ Serif\ Light.otf);
+}
+
+@font-face {
+    font-family: 'Silk Serif Medium';
+    src: url(../font/silk-serif/Silk\ Serif\ Medium.otf);
+}
+
+@font-face {
+    font-family: 'Avenir';
+    src: url(../font/Avenir/AvenirLTStd-Black.otf);
+
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(../font/Roboto/Roboto-Black.ttf);
+
+}
+
+@font-face {
+    font-family: 'Roboto-Light';
+    src: url(../font/Roboto/Roboto-Light.ttf);
+
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: center;
+}
+
+ul li {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    /* padding: 10px; */
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+ul>li>a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.signup-btn {
+    background: #172625;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border: 0;
+    color: #E5E5E5;
+}
+
+/*****************multistep form css***********/
+* {
+    box-sizing: border-box;
+}
+
+#regForm {
+    /* background-color: #ffffff; */
+    margin: 0px auto;
+    font-family: Raleway;
+    /* padding: 40px; */
+    width: 70%;
+    min-width: 300px;
+}
+
+#step1 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 60px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+#step1 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+#step2 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 73px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+#step2 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+#step2 h6 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+#step2 .inputbox {
+    position: relative;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 50px;
+}
+
+#step2 .inputbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid #000;
+    outline: none;
+    background: none;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+#step2 .inputbox span {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    transition: 0.6s;
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+button {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    border: 0;
+    background-color: transparent;
+    color: #000000;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#prevBtn {
+    background-color: transparent;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #04AA6D;
+}
+
+.signup-bg-img {
+    background: url(../images/signup2.png);
+    background-size: cover;
+    position: relative;
+    /* width: 420px; */
+    height: 416px;
+    left: 0px;
+    top: 0px;
+}
+
+.layer {
+    background: linear-gradient(179.86deg, rgba(255, 255, 255, 0) 22%, rgba(0, 0, 0, 0.7) 99.88%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+.signup-bg-img-1 {
+    background: url(../images/signup1.png);
+    background-size: cover;
+    position: relative;
+    /* width: 420px; */
+    height: 416px;
+    left: 0px;
+    top: 0px;
+}
+
+.signup-bg-img h2,
+.signup-bg-img-1 h2 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 37.7467px;
+    line-height: 106.6%;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #FFFFFF;
+}
+
+.signup-bg-img p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12.5822px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #FFFFFF;
+}
+
+.signup-btn-1 {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18.8734px;
+    line-height: 23px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    background: #FAFFEB;
+    border: 0;
+    text-decoration: none;
+    color: #000000;
+    cursor: pointer;
+}
+
+#signup h1,
+#signup-5 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 73px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+#signup p,
+#signup-5 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    /* text-align: center; */
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+#signup h6 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+/* #signup form {
+    width: 481px;
+} */
+
+#signup form input::placeholder {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+    /* Firefox */
+}
+
+#signup form input :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+}
+
+#signup form input::-ms-input-placeholder {
+    /* Microsoft Edge */
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+}
+
+#signup form .form-control {
+    border: 1px solid #000;
+    border-radius: 0px;
+    height: 50px;
+}
+
+.next-btn {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 30px;
+    letter-spacing: 0.04em;
+    text-decoration-line: underline;
+    border: 0;
+    margin-right: 40px;
+    background-color: transparent;
+    color: #000000;
+}
+
+h2 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+h5 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+.select-btn {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0px;
+    background: #172625;
+    color: #E5E5E5;
+    padding: 7px 70px;
+}
+
+.img-fluid {
+    height: 156px;
+}
+
+/* input[type=checkbox] {
+    background: url("../images/checkbox.png") no-repeat !important;
+    height: 25px;
+    width: 25px;
+    background-size: 50%;
+}
+
+input[type=checkbox]:checked {
+    display: inline-block;
+    background: url("../images/checkbox.png") no-repeat !important;
+    height: 25px;
+    width: 25px;
+    background-size: 50%;
+} */
+
+.icon {
+    padding-right: 25px;
+    background: url("../images/upload.png") no-repeat right;
+    background-size: 20px;
+    position: relative;
+    right: 6px;
+}
+
+.input-city {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    height: 50px;
+}
+
+.input-city .form-control {
+    border: 0px;
+    height: 50px;
+    box-shadow: inset 0 0px 0px !important;
+}
+
+#signup-5 h4 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+#signup-5 img {
+    border-radius: 35px;
+}
+
+.new-para {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.04em;
+    text-align: left;
+    color: #000000;
+}
+
+.styling-btn {
+    background: #172625;
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    border: 0;
+    color: #E5E5E5;
+    padding: 7px;
+}
+
+/****************checkbox********************/
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]+label {
+    display: inline-block;
+    padding: 0 0 0 0px;
+    background: url("..") no-repeat;
+    height: 38px;
+    width: 75px;
+    ;
+    background-size: 50%;
+}
+
+input[type=checkbox]:checked+label {
+    background: url("../images/checkbox.png") no-repeat;
+    height: 38px;
+    width: 75px;
+    display: inline-block;
+    background-size: 50%;
+}
+
+.dis-flex {
+    display: grid;
+    justify-content: center;
+}
+
+.mt-2 {
+    margin-top: 3.50rem;
+}
+
+/*******************mediaqueres**************/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .text-center {
+        text-align: center;
+    }
+
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+
+    .mt-5 {
+        margin-top: 50px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .text-center {
+        text-align: center;
+    }
+
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 25px;
+        line-height: 30px;
+    }
+
+    .mt-5 {
+        margin-top: 50px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .text-lg-left {
+        text-align: left;
+    }
+
+    #signup h1,
+    #signup-5 h1 {
+        font-size: 48px;
+        line-height: 73px;
+    }
+
+    .mt-lg-5 {
+        margin-top: 100px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .text-lg-left {
+        text-align: left;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .text-lg-left {
+        text-align: left;
+    }
+}
+
+
+
+#signup .inputbox {
+    position: relative;
+    width: 300px;
+    height: 50px;
+    margin-bottom: 50px;
+}
+
+#signup .inputbox-1 {
+    position: relative;
+    /* width: 300px; */
+    /* height: 50px; */
+    margin-bottom: 50px;
+}
+
+#signup .inputbox input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 1px solid #000;
+    outline: none;
+    background: none;
+    padding: 10px;
+
+    font-size: 1.2em;
+}
+
+#signup .inputbox:last-child {
+    margin-bottom: 0;
+}
+
+#signup .inputbox span {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+
+    transition: 0.6s;
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 30px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #7A7A7A;
+}
+
+#signup .inputbox input:focus~span,
+#signup .inputbox input:valid~span {
+    transform: translateX(-13px) translateY(-35px);
+    font-size: 1em;
+}
+
+
+/* .input-city {
+        height:50px;
+        background: #FFFFFF;
+        border: 1px solid #000000;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+        position:relative;
+    }
+    
+
+
+.input-city img {
+    
+    position:absolute;
+    right:10px;
+    top:14px;
+}
+
+.input-city input {
+    width:100%;
+    height: 48px;
+} */
+
+h1 {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    font-family: Raleway;
+    border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+    background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+    display: none;
+}
+
+
+/* Make circles that indicate the steps of the form: */
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+}
+
+.step.active {
+    opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+    background-color: #172625;
+}
+
+label {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 119.5%;
+    text-align: center;
+
+    color: #000000;
+}
+
+textarea {
+    width: 100%;
+    height: 200px !important;
+}
+textarea.form-control {
+    max-width: 400px !important;
+}
+#signup-1 h1 {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 126.1%;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}
+
+#signup-1 p {
+    font-family: 'Silk Serif';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #000000;
+}
+
+.back-to {
+    font-family: 'Genos';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    background: #172625;
+    border: 0;
+    color: #E5E5E5;
+    text-decoration: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {...}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {...}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {...}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {...}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {...}
