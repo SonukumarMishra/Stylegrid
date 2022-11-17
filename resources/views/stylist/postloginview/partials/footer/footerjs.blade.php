@@ -102,6 +102,10 @@
  
   <script src="{{asset('stylist/assets/js/common.js')}}"></script>
 
+    @include('scripts.common_scripts')
+
+    @yield('page-scripts')
+
 </html>
 
 
