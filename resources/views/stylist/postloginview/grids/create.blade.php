@@ -12,7 +12,19 @@
         position: absolute;
         left: 45%;
         top: 31%;
+    }
 
+    .style-grid-block-input-file{
+        z-index: 999;
+        opacity: 0;
+        width: auto !important;
+        height: 200px;
+        position: absolute;
+        right: 0px;
+        left: 0px;
+        margin-right: auto;
+        margin-left: auto;
+        cursor: pointer;
     }
 </style>
 <div class="app-content content bg-white">
@@ -44,7 +56,7 @@
             </div>
 
             <!-------------------- fulfil souring request--------->
-            <div id="main-grid" class="mt-5">
+            <div id="create-grid" class="mt-5">
                 <div class="row">
 
                     <div class="col-lg-11">
