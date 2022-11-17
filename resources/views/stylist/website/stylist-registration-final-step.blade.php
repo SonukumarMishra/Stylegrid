@@ -110,7 +110,7 @@
                             <div class="inputbox-1 mt-5">
                                 <div class="form-group text-center">
                                     <div class="d-flex justify-content-center flex-column">
-                                    <div id="preferred_style_section" class="d-flex justify-content-center preferred_style-border">
+                                    <div id="preferred_style_section" class="d-flex justify-content-center preferred_style">
                                     </div>
                                         <div id="preferred_style_error" class="error"></div>
                                     </div>
@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    </div>
+   
     <div style="overflow:auto;" id="next-previous">
         <div style="float:right;">
             <button type="button" id="prevBtn" onclick="nextPrevStep(-1)">Previous</button>

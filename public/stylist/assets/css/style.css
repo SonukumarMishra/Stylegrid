@@ -2764,3 +2764,11 @@ transform: rotate(180deg);
 ._2-wzdc{
     transform: rotate(180deg) !important;
     } 
+    .addblock{
+      border: 0 !important;
+      background-color: transparent !important;
+    }
+    .addblock:focus{
+      outline: 0;
+      border: 0;
+    }
