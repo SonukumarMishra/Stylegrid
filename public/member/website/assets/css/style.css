@@ -505,7 +505,7 @@ input[type=checkbox]:checked {
 }
 
 .input-city .form-control {
-  border: 0px;
+  border: 0px !important;
   height: 47px;
   margin-left: 6px;
   /* box-shadow: inset 0 0px 0px !important; */
@@ -1137,4 +1137,21 @@ select{
   line-height: 19px;
   letter-spacing: 0.04em;
   color: #000000;
+}
+input:focus, textarea:focus, select:focus{
+  outline: none !important;
+}
+select{
+  appearance: none;
+}
+.brand-border{
+  border: 1px solid #000;
+}
+.brand-border img{
+  height: 30px;
+}
+.brand-border span{
+  position: relative;
+    top: -9px;
+    left: -9px;
 }
