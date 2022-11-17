@@ -37,7 +37,9 @@ $(function(){
             }, 500);
             }else{
               $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
-              $('#message_box').after("<a href='"+response['verification_url']+"' target='_blank'>Click here to verify your account!</a></p>");
+              if(response['verification_url']!=''){
+                $('#message_box').after("<a href='"+response['verification_url']+"' target='_blank'>Click here to verify your account!</a></p>");
+              }
             }
         }
     })
@@ -45,6 +47,104 @@ $(function(){
       $('#message_box').html('<div class="alert alert-danger">Please enter all the mandatory fields!</div>');
     }
   })
+
+  $('#send-reset-link-btn').click(function(){
+    $('#send-reset-link-form input').css('border', '1px solid #ccc');
+    $('.error').html('');
+    $('.message').html('');
+    var email=makeTrim($('#email').val());
+    var status=true;
+    if(email==''){
+      $('#email').css('border', '2px solid #cc0000');
+      $('#email_error').html('Please enter email');
+      status=false;
+    }else{
+      if (!validEmail(email)) {
+        $('#email').css('border', '2px solid #cc0000');
+        $('#email_error').html('Please enter a valid Email ID');
+        status = false;
+      }
+    }
+    if(status){
+      $.ajax({
+        url : '/member-forgot-password-post',
+        method : "POST",
+        async: false,
+        data : $('#send-reset-link-form').serialize(),
+        success : function (ajaxresponse){
+            response = JSON.parse(ajaxresponse);
+            if(response['status']){
+              $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+              $('#signup').html($('#forgot_password_success_section').html());
+            }else{
+              $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+             }
+        }
+    })
+    } 
+  })
+  $('#member-reset-password-btn').click(function(){
+    $('#member-reset-password-form input').css('border', '1px solid #ccc');
+    $('.error').html('');
+    $('.message').html('');
+    var password=makeTrim($('#password').val());
+    var confirm_password=makeTrim($('#confirm_password').val());
+    var status=true;
+    
+  if(password==''){
+    $('#password').css('border', '2px solid #cc0000');
+    $('#password_error').html('Please enter Password');
+    status=false;
+  }else{
+    if (password.length < 8) {
+        $('#password').css('border', '2px solid #cc0000');
+        $('#password_error').html('Your password must be at least 8 characters.');
+        status = false;
+    }
+    else if (password.search(/[a-z]/i) < 0) {
+        $('#password').css('border', '2px solid #cc0000');
+        $('#password_error').html('Your password must contain at least one letter.');
+        status = false;
+    }else if(password.search(/[0-9]/) < 0){
+        $('#password').css('border', '2px solid #cc0000');
+        $('#password_error').html('Your password must contain at least one digit.');
+        status = false;
+    }
+  }
+  if (confirm_password == '') {
+    $('#confirm_password').css('border', '2px solid #cc0000');
+    $('#confirm_password_error').html('Required*');
+    status = false;
+  }
+  if (password != '') {
+    if (confirm_password != password) {
+      $('#confirm_password').css('border', '2px solid #cc0000');
+      $('#confirm_password_error').html('Password and Confirm Password do not match.');
+      status = false;
+    }
+  }
+    if(status){
+      $.ajax({
+        url : '/member-reset-password-post',
+        method : "POST",
+        async: false,
+        data : $('#member-reset-password-form').serialize(),
+        success : function (ajaxresponse){
+            response = JSON.parse(ajaxresponse);
+            if(response['status']){
+              $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+              setTimeout(function(){
+                window.location = "/member-login";
+            }, 500);
+            }else{
+              $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+            }
+        }
+    })
+    }
+  })
+  
+
 })
 if(constants.current_url=='/member-registration'){
           var currentTab = 0; // Current tab is set to be the first tab (0)

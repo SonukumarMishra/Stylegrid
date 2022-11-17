@@ -74,6 +74,9 @@ Route::get('/member-login', [Website::class, 'memberLogin']);
 Route::post('/member-login-post', [Website::class, 'memberLoginPost']);
 Route::get('/member-logout', [Website::class, 'memberLogout']);
 Route::get('/member-forgot-password', [Website::class, 'memberForgotPassword']);
+Route::post('/member-forgot-password-post', [Website::class, 'memberForgotPasswordPost']);
+Route::get('/member-reset-password/{title}', [Website::class, 'memberResetPassword']);
+Route::post('/member-reset-password-post', [Website::class, 'memberResetPasswordPost']);
 
 Route::get('/member-registration', [Website::class, 'index']);
 Route::get('/member-account-verification/{title}', [Website::class, 'memberAccountVerification']);

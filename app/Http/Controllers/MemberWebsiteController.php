@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Str;
 use Session;
 
@@ -131,10 +132,11 @@ class MemberWebsiteController extends Controller
                     'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
                 ]);
             }else{
-                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!']);
+                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!','verification_url'=>'']);
             }
         }  
     }
+
     public function memberAccountVerification($token){
         if(!empty($token)){
             $member=new Member();
@@ -144,7 +146,7 @@ class MemberWebsiteController extends Controller
                     echo "Your Account is already verified";
                 }else{
                     echo "You have successfully verified you account";
-                    $member->addUpdateData(['id'=>$member_data->id,'token'=>$token,'verified'=>1],'sg_member');
+                    $member->addUpdateData(['id'=>$member_data->id,'token'=>'','verified'=>1],'sg_member');
                 }
             }
         }else{
@@ -155,4 +157,50 @@ class MemberWebsiteController extends Controller
     public function memberForgotPassword(){
         return view('member.website.member-forgot-password');
     }
+
+    public function memberForgotPasswordPost(Request $request){
+        if($request->ajax() && !Session::get('Memberloggedin')){
+            $member=new Member();
+            $email=$request->email;
+            $member_data=$member->checkMemberExistance(['m.email'=>$email]);
+            if($member_data){
+                $member->addUpdateData(['id'=>$member_data->id,'token'=>sha1(time())],'sg_member');
+                return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
+            }else{
+                return json_encode(['status'=>0,'message'=>'Email Id not correct!']);
+            }
+        }  
+    }
+
+    public function memberResetPassword($token){
+        if(!empty($token)){
+            $member=new Member();
+            $member_data=$member->checkMemberExistance(['m.token'=>$token]);
+            if($member_data){
+                Session::put('processed_member_id', $member_data->id);
+                return view('member.website.member-reset-password');
+            }else{
+                return redirect('/member-login');
+            }
+        }else{
+            return redirect('/member-login');
+        }
+    }
+
+    public function memberResetPasswordPost(Request $request){
+        if($request->ajax()){
+            if(Session::get('processed_member_id')>0){
+                $member=new Member();
+                $member_data=$member->checkMemberExistance(['m.id'=>Session::get('processed_member_id')]);
+                if($member_data){
+                    $member->addUpdateData(['id'=>$member_data->id,'token'=>'','verified'=>1,'password'=>sha1($request->password)],'sg_member');
+                    return json_encode(['status'=>1,'message'=>'Your password has been updated successfully!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+                }
+            }
+            return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+        }  
+    }
+    
 }
