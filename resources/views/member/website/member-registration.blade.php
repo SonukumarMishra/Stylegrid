@@ -4,7 +4,7 @@
     @csrf
     <!-- One "tab" for each step in the form: -->
     <!-- <div class="mt-2"><h5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
-
+    <span style="display:none;">
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    <div class="tab">
+    <div class="tab" >
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
                 <div class="justify-content-center">
@@ -198,7 +198,8 @@
 
             </div>
         </div>
-    </div>
+    </div> 
+</span>
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -212,6 +213,7 @@
         </div>
         <div class="container-fluid">
             <div id="fifth_step_message_box" class="message"></div>
+            <>
             <div class="row my-5">
                 <?php 
                

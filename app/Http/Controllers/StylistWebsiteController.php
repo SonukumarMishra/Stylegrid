@@ -119,7 +119,8 @@ class StylistWebsiteController extends Controller
             if($stylist_data){
                 if($stylist_data->verified){
                     Session::put('processed_stylist_id', $stylist_data->id);
-                    return view('stylist.website.stylist-registration-final-step',compact('stylist_data'));
+                    $preferred_style=$member->getPreferredStyleList(['ps.status'=>1]);
+                    return view('stylist.website.stylist-registration-final-step',compact('stylist_data','preferred_style'));
                 }else{
                     return view('stylist.website.stylist-registration-final-step-without-verification');
                 }
