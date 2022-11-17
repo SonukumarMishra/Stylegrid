@@ -129,7 +129,6 @@ class MemberWebsiteController extends Controller
                     'status'=>0,
                     'message'=>'Account not verified',
                     'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-
                 ]);
             }else{
                 return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!']);
@@ -151,5 +150,9 @@ class MemberWebsiteController extends Controller
         }else{
             return redirect('/member-login');
         }
-    }     
+    }
+    
+    public function memberForgotPassword(){
+        return view('member.website.member-forgot-password');
+    }
 }

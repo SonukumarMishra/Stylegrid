@@ -4,7 +4,6 @@
     @csrf
     <!-- One "tab" for each step in the form: -->
     <!-- <div class="mt-2"><h5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
-    <span style="display:none;">
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -191,15 +190,13 @@
                             }
                             ?>
                         </select>
-                        <!--<input type="text" class="form-control icon" id="" aria-describedby="emailHelp"
-                            placeholder="Enter your city and country here...">-->
                     </div>
                 </div>
 
             </div>
         </div>
     </div> 
-</span>
+
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
