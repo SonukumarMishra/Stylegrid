@@ -11,7 +11,7 @@
                 @csrf
                 <div class="reset-inputbox inputbox">
                     <div class="form-group">
-                        <input type="text" name="email" id="email">
+                        <input type="text" name="email" id="email" maxlength="40">
                         <div id="email_error" class="error"></div>
                         <span>Email Address</span>
                     </div>

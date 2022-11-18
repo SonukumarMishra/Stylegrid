@@ -57,10 +57,10 @@
                             </div>
                         </div>
                      
-
+    
                 </div>
-
-
+    
+    
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
                     <p class="text-center">It’s time to get styling. For us to be able to find your perfect stylist,
                         we will need to find out a<br class="d-lg-block d-none">
                         little more information about your tastes and style preferences.</p>
-
+    
                 </div>
                 <div id="second_step_message_box" class="message"></div>
                 <div class="row">
@@ -127,7 +127,7 @@
                     <h1>What is your gender?</h1>
                     <p class="text-center">Understanding how you identify willhelp us match you with stylists and<br class="d-lg-block d-none">
                         brands that suit you best.</p>
-
+    
                 </div>
                 <div id="third_step_message_box" class="message"></div>
                 <div class="row mt-3">
@@ -160,7 +160,7 @@
                         <div class="text-center">
                             <img src="{{ asset('member/website/assets/images/non-binary.png') }}" class="img-fluid" alt="">
                             <h2 class="mt-2 mb-4">Non Binary</h2>
-
+    
                             <a class="select-btn mt-2">Select</a>
                         </div>
                     </label>
@@ -176,7 +176,7 @@
                     <h1>Where are you based?</h1>
                     <p class="text-center">Style and taste is often influenced by your environment. Let us know
                         where<br class="d-lg-block d-none"> you are based to help us understand more about you.</p>
-
+    
                 </div>
                 <div>
                     <div id="fourth_step_message_box" class="message"></div>
@@ -193,11 +193,10 @@
                         </select>
                     </div>
                 </div>
-
+    
             </div>
         </div>
     </div> 
-
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -209,63 +208,43 @@
                 </div>
                 
                 <div>
-                        <div class="form-group input-city mt-2">
-                            <input type="text" class="form-control icon" id="" aria-describedby="emailHelp"
-                                placeholder="Enter your city and country here...">
+                    <div class="form-group input-city mt-2">
+                            <input type="text" class="form-control icon" id="search_brand_list" aria-describedby="Brand Search"
+                                placeholder="Search Brand here">
                         </div>
                     </div>
                    
-                    <div class="brand-border row justify-content-center mt-5 py-2">
-    
-                
-            <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
-               <span >X</span>
-            </div>
-            <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
-               <span >X</span>
-            </div> 
-            <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
-               <span >X</span>
-            </div>
-            <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
-               <span >X</span></div> <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
-               <span >X</span></div> <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
-               <span >X</span></div> <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
-               <span >X</span></div> <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
-               <span >X</span></div> <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
-               <span>X</span></div>
-                <div class="my-2">
-               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
-               <span>X</span></div>
-               
-               </div>
+                    <div class="row justify-content-center mt-5 py-2" id="selected_brand_section">
+                        <!--
+                        <div class="my-2">
+                            <img src="{{asset('member/website/assets/images/alax.png')}}" alt="" class="img-fluid mx-2">
+                                <span >X</span>
+                        </div>
+
+                        <div class="my-2">
+                            <img src="{{asset('member/website/assets/images/image1.png')}}" alt="" class="img-fluid mx-2">
+                            <span >X</span>
+                        </div>
+                    -->
+                    </div>
                 </div>
             </div>
        
         <div class="container-fluid">
             <div id="fifth_step_message_box" class="message"></div>
            
-            <div class="row my-5">
+            <div class="row my-5" id="member_brand_search_data_list">
                 <?php 
                
-                foreach($brand_list as $index => $brand){
+                foreach($brand_list as $brand){
                     ?>
                     <div class="col-md-3 text-center">
                         <div class="text-right">
                         
-                            <input type="checkbox" name="brands[]" class="brand_list_check" id="check-<?php  echo $index;  ?>" value="{{$brand->id}}">
-                            <label for="check-<?php  echo $index;  ?>"></label>
+                            <input type="checkbox" class="brand_list_check" id="check-<?php  echo $brand->id;  ?>" onclick="selectBrand(this)" value="{{$brand->id}}">
+                            <label for="check-<?php  echo $brand->id;  ?>"></label>
                         </div>
-                        <label for="check-<?php  echo $index;  ?>">
+                        <label for="check-<?php  echo $brand->id;  ?>">
                             <img src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt="">
 
                         </label>
@@ -326,4 +305,55 @@
         <span class="step"></span>
     </div>
 </form>
+
 @stop
+<script>
+    function selectBrand(event){
+        if($(event).is(':checked')){
+            addselectedBrand($(event).val());
+        }else{
+            removeSelectedBrand($(event).val());
+        }
+    }
+    function addselectedBrand(brand_id){
+        if(brand_id>0){
+            $('#selected_brand_section').addClass('brand-border');
+            $('#selected_brand'+brand_id).remove();
+            //brand-border
+            $.ajax({
+                url : '/get-brands-list',
+                method : "POST",
+                data : {
+                    'brand_id':brand_id,
+                    '_token': constants.csrf_token
+                },
+                success : function (ajaxresponse){
+                    response = JSON.parse(ajaxresponse);
+                    if (response['status']) {
+                        if(response['data'].length>0){                    
+                            var html='';
+                            for(i=0;i<response['data'].length;i++){
+                                html +='<div class="my-2 selected_brand" data_id="'+response['data'][i]['id']+'" id="selected_brand'+response['data'][i]['id']+'">';
+                                html +='<img src="'+constants['base_url']+'/member/website/assets/images/'+response['data'][i]['logo']+'" alt="" class="img-fluid mx-2">';
+                                html +='<span onClick="removeSelectedBrand('+response['data'][i]['id']+')">X</span>';
+                                html +='</div>';
+                            }
+                            $('#selected_brand_section').append(html);
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+
+    function removeSelectedBrand(brand_id){
+        $('#selected_brand'+brand_id).remove();
+        if($('#check-'+brand_id).is(':checked')){
+            $('#check-'+brand_id).prop('checked', false);
+        }
+        if($('.selected_brand').length==0){
+            $('#selected_brand_section').removeClass('brand-border');
+        }
+    }
+</script>

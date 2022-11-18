@@ -6,6 +6,7 @@
 
 <script>
     var constants = {
+        base_url:"{{URL::to('/')}}",
         current_url:"{{str_replace(URL::to('/'),'',URL::current())}}",
         csrf_token: '{{ csrf_token() }}',
     };

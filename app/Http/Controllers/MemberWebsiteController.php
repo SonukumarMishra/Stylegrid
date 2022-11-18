@@ -89,26 +89,26 @@ class MemberWebsiteController extends Controller
     public function getBrandList(Request $request){
         if($request->ajax()){
             $member=new Member();
-            $search_brand=$request->brand_search;
+            $search_brand=$request->brand_search?$request->brand_search:'';
+            $brand_id=$request->brand_id?$request->brand_id:0;
             $not_where_in=[];
-           if(!empty($request->existing_data)){
+            if(!empty($request->existing_data)){
                 $existing_data=$request->existing_data;
                 if(!empty($existing_data)){
                     $not_where_in=$existing_data;
                 }
-           }
-           
-            if(!empty($search_brand)){
-                $brand_list=$member->getBrandList([],$search_brand,$not_where_in);
-                if(count($brand_list)){
-                    $response['status']=1;
-                }else{
-                    $response['status']=0;
-                }
-                $response['data']=$brand_list;
+            }
+            $where=[];
+            if($brand_id>0){
+                $where=['b.id'=>$brand_id];
+            }
+            $brand_list=$member->getBrandList($where,$search_brand,$not_where_in);
+            if(count($brand_list)){
+                $response['status']=1;
             }else{
                 $response['status']=0;
             }
+            $response['data']=$brand_list;
             return json_encode($response);
         }  
     }

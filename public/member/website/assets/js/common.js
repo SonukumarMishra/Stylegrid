@@ -1,4 +1,54 @@
 $(function(){
+  $('#search_brand_list').blur(function(){
+    var selected_brand=[];
+    $(".selected_brand").each(function(){
+      selected_brand.push($(this).attr('data_id'));
+    });
+    var brand_search=$(this).val();
+    if(brand_search.length>0){
+      $.ajax({
+        url : '/get-brands-list',
+        method : "POST",
+        data : {
+            'brand_search':brand_search,
+            '_token': constants.csrf_token
+        },
+        success : function (ajaxresponse){
+            response = JSON.parse(ajaxresponse);
+            if (response['status']) {
+              $('#member_brand_search_data_list').html('');
+                 if(response['data'].length>0){                    
+                     var html='';
+                     for(i=0;i<response['data'].length;i++){
+                      //console.log(selected_brand);
+                      var checked='';
+                     // console.log(selected_brand.indexOf(response['data'][i]['id']));
+                     // if($.inArray(response['data'][i]['id'],selected_brand)!== -1){
+                      //  console.log('yes');
+                      //  checked='checked';
+                     // }else{
+                     //   console.log('no');
+                     // }
+                      html +='<div class="col-md-3 text-center">';
+                      html +='<div class="text-right">';
+
+                      html +='<input type="checkbox" class="brand_list_check" id="check-'+response['data'][i]['id']+'" '+checked+' onclick="selectBrand(this)" value="'+response['data'][i]['id']+'">';
+                      
+                      html +='<label for="check-'+response['data'][i]['id']+'"></label>';
+                      html +='</div>';
+                      html +='<label for="check-'+response['data'][i]['id']+'">';
+                      html +='<img src="'+constants['base_url']+'/member/website/assets/images/'+response['data'][i]['logo']+'" alt="">';
+                      html +='</label>';
+                      html +='</div>';
+                  }
+                  $('#member_brand_search_data_list').html(html);
+                  
+                }
+             }
+        }
+    })
+    }
+  })
   $('#member-login-btn').click(function(){
     $('#member-login-form input').css('border', '1px solid #ccc');
     $('.error').html('');
@@ -405,3 +455,4 @@ function validEmail(email) {
   var re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
   return re.test(email);
 }
+
