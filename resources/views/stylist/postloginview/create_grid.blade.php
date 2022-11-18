@@ -146,7 +146,7 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 				html +='<div class="showblock_'+dataa[i].grid_id+' d-flex flex-wrap"></div>';
 
 				
-				html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother1"><button type="submit" class=" px-3 form-border addblock" onclick="addblock('+dataa[i].grid_id+')"   ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
+				// html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother1"><button type="submit" class=" px-3 form-border addblock" onclick="addblock('+dataa[i].grid_id+')"   ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
 
 				html +='</div></div>';
 
@@ -221,7 +221,7 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 	 
 	 // html +='<div class="col-lg-5"><div class="Neon Neon-theme-dragdropbox mt-5"><input name="files[]" id="filer_input2" multiple="multiple"type="file"><div class="Neon-input-dragDrop"><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div></div>';
 	 
-	 html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother1"><button type="submit" class=" px-3 form-border addblock" onclick="addblock(1)"   ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
+	//  html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother1"><button type="submit" class=" px-3 form-border addblock" onclick="addblock(1)"   ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
 	
 	 html +='</div></div>';
 	 
@@ -420,7 +420,7 @@ function makeTrim(x) {
 	if(count<11){
 
 	
-	var html ='<div class="row mt-2 mjrowtrack" id="row_'+count+'"><div class="col-lg-11"><div class="grid-bg mx-4 px-4 py-2 mb-4"><div class="row"><div class="col-8"><h1>STYLEGRID</h1></div><div class="col-4 text-right "><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid"  value="mybutton1" onclick="removegrid(this)" alt=""/></div></div><div class="row add-item">';
+	var html ='<div class="row mt-2 mjrowtrack" id="row_'+count+'"><div class="col-lg-11"><div class="grid-bg mx-4 px-4 py-2 mb-4"><div class="row"><div class="col-8"><h1>STYLEGRID</h1></div><div class="col-4 text-right "><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid"  value="mybutton1" onclick="removegrid(this)" alt=""/></div></div><div class="row px-0  justify-content-center  mjaddanother" id="addanother'+count+'"><button type="submit" class="px-3 form-border addblock" onclick="addblock('+count+')"  ><div class="row"><img src="stylist/app-assets/images/icons/plus.png" alt="" class="h-25 mt-2"><br>Add<br> another<br> block<div></button></div><div class="row add-item mt-3">';
 	
 	 html +='<div class="col-lg-6 d-flex align-items-center"><div class="row">';
 	 
@@ -432,7 +432,7 @@ function makeTrim(x) {
 	
 	 html +='</div></div>';
 	 
-	  html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother'+count+'"><button type="submit" class="px-3 form-border addblock" onclick="addblock('+count+')"  ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
+	  //html +='<div class="col-lg-2 px-0 text-lg-left text-center mjaddanother" id="addanother'+count+'"><button type="submit" class="px-3 form-border addblock" onclick="addblock('+count+')"  ><img src="stylist/app-assets/images/icons/plus.png" alt=""><br>Add another block</button></div>';
 	 
 	  html +='<div class="col-lg-6 px-lg-5"><div class="Neon Neon-theme-dragdropbox mt-5"><input name="files[]" id="filer_input2" multiple="multiple" type="file"><div class="Neon-input-dragDrop py-5 px-4 mx-lg-3"><div class="Neon-input-inner py-2"><div class="Neon-input-text"><h3>Add your feature image here...</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div></div></div></div></div><div class="col-lg-1"></div></div>';
 

@@ -526,7 +526,7 @@ function addPreferredStyle(add_preferred_style){
   if($(".selected_preferred_style_type").length<=2){
     var id=$(add_preferred_style).attr('data_id');
     var name=$(add_preferred_style).attr('data_value');
-    var html='<span id="select_preferred_data'+id+'"><button class="add-item-btn-input px-2 my-2 selected_preferred_style_type" type="button" data_value="'+name+'" id="added_preferred_style'+id+'" data_id="'+id+'"  onClick="removePreferredStyle('+id+')">'+name+' X</button><br></span>';
+    var html='<span id="select_preferred_data'+id+'"><button class="add-item-btn-input px-2 my-2 mx-2 selected_preferred_style_type" type="button" data_value="'+name+'" id="added_preferred_style'+id+'" data_id="'+id+'"  onClick="removePreferredStyle('+id+')">'+name+' X</button><br></span>';
     $('#preferred_style_section').append(html);
     $(add_preferred_style).prop('disabled', true);
   }else{

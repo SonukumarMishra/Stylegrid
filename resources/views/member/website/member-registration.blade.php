@@ -3,10 +3,8 @@
 <form id="member-registration-form" action="">
     @csrf
     <!-- One "tab" for each step in the form: -->
-    <!-- <div class="mt-2"><h.
-    03
-   /+ 5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
- 
+    <!-- <div class="mt-2"><h5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
+    
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -211,11 +209,48 @@
                         our featured list below, or
                         use the search bar to expand your choice.</p>
                 </div>
+                
+                <div>
+                        <div class="form-group input-city mt-2">
+                            <input type="text" class="form-control icon" id="" aria-describedby="emailHelp"
+                                placeholder="Enter your city and country here...">
+                        </div>
+                    </div>
+                   
+                    <div class="brand-border row justify-content-center mt-5 py-2">
+    
+                <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div>
+                <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> 
+               <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/alax.png" alt="" class="img-fluid mx-2">
+               <span >X</span></div> <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image1.png" alt="" class="img-fluid mx-2">
+               <span>X</span></div>
+                <div class="my-2">
+               <img src="http://127.0.0.1:8000/member/website/assets/images/image2.png" alt="" class="img-fluid mx-2">
+               <span>X</span></div>
+               
+               </div>
+                </div>
             </div>
-        </div>
+       
         <div class="container-fluid">
             <div id="fifth_step_message_box" class="message"></div>
-            <>
+           
             <div class="row my-5">
                 <?php 
                

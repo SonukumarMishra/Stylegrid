@@ -110,7 +110,7 @@
                             <div class="inputbox-1 mt-5">
                                 <div class="form-group text-center">
                                     <div class="d-flex justify-content-center flex-column">
-                                    <div id="preferred_style_section">
+                                    <div id="preferred_style_section" class="d-flex justify-content-center preferred_style">
                                     </div>
                                         <div id="preferred_style_error" class="error"></div>
                                     </div>
@@ -122,7 +122,7 @@
                                     if(count($preferred_style)){
                                         foreach($preferred_style as $preferred){
                                             ?>
-                                            <div class="col-4"><button class="add-item-btn px-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">{{$preferred->name}} +</button></div>
+                                            <div class="col-4 my-2"><button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">{{$preferred->name}} +</button></div>
                                             <?php
                                         }
                                     }
@@ -169,7 +169,7 @@
             </div>
         </div>
     </div>
-    </div>
+   
     <div style="overflow:auto;" id="next-previous">
         <div style="float:right;">
             <button type="button" id="prevBtn" onclick="nextPrevStep(-1)">Previous</button>
