@@ -3,8 +3,10 @@
 <form id="member-registration-form" action="">
     @csrf
     <!-- One "tab" for each step in the form: -->
-    <!-- <div class="mt-2"><h5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
-    <span style="display:none;">
+    <!-- <div class="mt-2"><h.
+    03
+   /+ 5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
+ 
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -199,7 +201,7 @@
             </div>
         </div>
     </div> 
-</span>
+
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -247,7 +249,7 @@
 
                 </div>
                 <div class="row my-4">
-                    <div class="col-   md-5 text-lg-left text-center">
+                    <div class="col-   md-5 text-lg-left /... text-center">
                         <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" alt="">
                     </div>
                     <div class="col-md-7 text-lg-left text-center">

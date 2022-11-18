@@ -1,4 +1,4 @@
-@extends('member.dashboard.layouts.default')
++@extends('member.dashboard.layouts.default')
 @section('content')
 <div class="content-wrapper">
     <div class="content-header row">
@@ -8,7 +8,7 @@
         <div class="row mt-md-3">
             <div class="col-8">
                 <h1>Congratulations! You have accepted an offer.</h1>
-                <h3>You are one step closer to receving your dream product. The stylist who is fufilling your
+                <h3>You are one step closer to receving your dream product. The stylist who is fufilling your+9*869\-*//6
                     request has been notified and will be in touch shortly. Feel free to drop them a message
                     now.</h3>
             </div>
@@ -19,7 +19,7 @@
                     <!-- <a href="" class="mx-1"><img src="app-assets/images/icons/File Invoice.svg" alt=""></a> -->
                     <a href="" class="mx-lg-1"><img src="member/website/app-assets/images/icons/Gear.svg" alt=""></a>
                 </div>
-
+k9
             </div>
         </div>
         <!-------------------- fulfil souring request--------->
