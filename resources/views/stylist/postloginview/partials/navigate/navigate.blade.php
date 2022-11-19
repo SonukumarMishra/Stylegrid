@@ -68,13 +68,13 @@
                 <li class="nav-item"><a href="" class="py-1 pl-5 text-center"><span class="menu-title profession"
                             data-i18n=""><img src="{{ asset('stylist/app-assets/images/gallery/check-mark.png') }}" alt=""></span></a> </li>
                 </li>
-                <li class=" nav-item mt-5"><a href="/"><i class="ft-home"></i><span class="menu-title"
+                <li class=" nav-item mt-5"><a href="/stylist-dashboard"><i class="ft-home"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-layers"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
-                <li class=" nav-item"><a href="loadgridview" class="active"><i class="ft-monitor active"></i><span
+                <li class=" nav-item"><a href="{{ route('stylist.grid.create') }}" class="active"><i class="ft-monitor active"></i><span
                             class="menu-title" data-i18n="">Grids</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title"

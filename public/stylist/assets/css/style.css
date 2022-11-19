@@ -2764,3 +2764,58 @@ transform: rotate(180deg);
 ._2-wzdc{
     transform: rotate(180deg) !important;
     } 
+
+.error {
+  color: #fa626b !important;
+}
+
+/* toast css */
+/* ----------*/
+/* toast container opacity */
+#toast-container > div {
+  opacity: 0.9;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  filter: alpha(opacity=90);
+  max-width: none;
+}
+
+/* toast container hover shadow */
+.toast-container > div {
+  box-shadow: none !important;
+}
+
+/* toast background colors starts */
+.toast {
+  background-color: #5A8DEE !important;
+}
+
+.toast-success {
+  background-color: #39DA8A !important;
+}
+
+.toast-error {
+  background-color: #FF5B5C !important;
+}
+
+.toast-info {
+  background-color: #00CFDD !important;
+}
+
+.toast-warning {
+  background-color: #FDAC41 !important;
+}
+
+.height_300{
+  height: 300px;
+}
+
+
+.height_200{
+  height: 200px;
+}
+
+.img_preview{
+  width: 100%;
+  height: 100%; 
+  object-fit: contain;
+}

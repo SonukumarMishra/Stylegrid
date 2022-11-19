@@ -39,7 +39,7 @@
                                             <p class="">Style a new look for your clients.</p>
                                         </div>
                                         <div class="text-right col">
-                                           <a href="loadgridview"> <button class=" px-2 grey-bg">Create Grid</button></a>
+                                           <a href="{{ route('stylist.grid.create') }}"> <button class=" px-2 grey-bg">Create Grid</button></a>
                                         </div>
                                     </div>
                                 </div>

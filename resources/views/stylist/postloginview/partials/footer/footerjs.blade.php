@@ -89,9 +89,15 @@
 <!-- END: Theme JS-->
 <!---->
 
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+{{-- <script src="//code.jquery.com/jquery-1.12.4.js"></script> --}}
+<script src="{{ asset('stylist/app-assets/js/core/libraries/jquery_3_6.min.js') }}"></script>
+<script src="{{ asset('stylist/app-assets/js/core/libraries/jquery_ui_1_13.min.js') }}"></script>
+<script src="{{ asset('stylist/app-assets/js/core/libraries/bootstrap_3.4.min.js') }}"></script>
+<script src="{{ asset('stylist/app-assets/js/core/libraries/jquery_validate_1_19_5.min.js') }}" ></script>
+<script src="{{ asset('extensions/toastr/js/toastr.min.js') }}"></script>
+<script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
+<script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
+
 <script>
     var constants = {
         base_url:"{{URL::to('/')}}",

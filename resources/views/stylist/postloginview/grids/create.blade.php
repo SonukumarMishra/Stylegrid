@@ -26,12 +26,6 @@
         margin-left: auto;
         cursor: pointer;
     }
-
-    .modal-body {
-        max-height: calc(100vh - 110px);
-        overflow-x: hidden;
-    }
-
 </style>
 <div class="app-content content bg-white">
     <div class="content-wrapper">
@@ -63,54 +57,64 @@
 
             <!-------------------- fulfil souring request--------->
             <div id="create-grid" class="mt-5">
-                <div class="row">
 
-                    <div class="col-lg-11">
+                <form action="{{ route('stylist.grid.save') }}" method="POST" id="stylegrid_main_frm">
 
-                        <div class="grid-bg mx-4 mt-3 mb-2 p-4">
-                            <a href="grid-design.html">
-                                <h1>STYLEGRID</h1>
-                            </a>
-                            <div class="row">
-                                <div class="col-lg-6 d-flex align-items-center">
-                                    <input type="text" placeholder="Name your grid here..." class="w-100 name-grid">
+                    <input type="hidden" name="stylegrid_json">
 
-                                </div>
-                                <div class="col-lg-6">
+                    <div class="row">
 
-                                    <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">
-                                        <!--   <input name="files[]" id="filer_input2" multiple="multiple" type="file">-->
-                                        <div class="Neon-input-dragDrop py-5 px-4 mm">
-                                            <div class="Neon-input-inner py-4">
-                                                <div class="Neon-input-text">
-                                                    <h3>Add your feature image here...</h3>
-                                                </div><a class="Neon-input-choose-btn blue"><img
-                                                        src="{{asset('stylist/app-assets/images/icons/plus.png')}}"
-                                                        alt=""></a>
-                                            </div>
+                        <div class="col-lg-11">
+
+                            <div class="grid-bg mx-4 mt-3 mb-2 p-4">
+                                <a href="grid-design.html">
+                                    <h1>STYLEGRID</h1>
+                                </a>
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex align-items-center">
+                                        <div class="col-12">
+                                            <input type="text" name="title" placeholder="Name your grid here..." class="w-100 name-grid" required>
                                         </div>
                                     </div>
+                                    <div class="col-lg-6">
 
+                                        <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">
+                                            <input name="feature_image" class="style-grid-block-input-file" data-img-preview-selector=".feature-image-src" type="file" required>
+                                            <div class="Neon-input-dragDrop d-flex align-items-center height_300">
+                                                <div class="Neon-input-inner">
+                                                    <div class="Neon-input-text">
+                                                        <h3>Add your feature image here...</h3>
+                                                    </div>
+                                                    <a class="Neon-input-choose-btn blue">
+                                                        <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
+                        <div class="col-lg-1 d-lg-block d-flex justify-lg-content-start justify-content-center my-auto">
+                            <div class='grid-numbering-container'></div>
+
+                            <div class="gradiant-bg text-center mt-1 mx-lg-0 mx-2" id="add_grid_btn">
+                                <span><img src="{{asset('stylist/app-assets/images/icons/green-logo.png')}}" class="img-fluid" alt=""></span>
+                            </div>
+                        </div>
+                        
                     </div>
-
-                    <div class="col-lg-1 d-lg-block d-flex justify-lg-content-start justify-content-center my-auto">
-
-                        <div class='grid-numbering-container'></div>
-
-
-                        <div class="gradiant-bg text-center mt-1 mx-lg-0 mx-2" id="addGridBtn"><span><img
-                                    src="{{asset('stylist/app-assets/images/icons/green-logo.png')}}" class="img-fluid "
-                                    alt="">
-                            </span></div>
-
+                    <div class="style-grids-container">
                     </div>
-                </div>
-                <div class="style-grids-container">
-                </div>
+                    <div class="row col-12 justify-content-end mb-3 mt-2">
+
+                        <div class="">
+                            <button class="submit-request" id="stylegrid_main_frm_btn">Save Stylegrid</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -118,8 +122,7 @@
 
 <!--------------------end of fulfil souring request--------->
 
-<!--  Modal -->
-<div class="modal fade" id="grid-item-details-modal" tabindex="-1" role="dialog" aria-labelledby="acceptLabel" style="top: 10% !important;" aria-hidden="true">
+<div class="modal" id="grid_item_details_modal" tabindex="-1" role="dialog" style="top: 5% !important;">
     <div class="modal-dialog" role="document">
         <div class="modal-content pt-1">
             <div class="mr-2">
@@ -129,73 +132,72 @@
                 </button>
             </div>
             <div class="modal-body py-2">
-                <h1 class="text-center modal-submit-request">Submit Sourcing Request</h1>
+                <h1 class="text-center modal-submit-request">Product Details <span id="modal_stylegrid_item_title"></span></h1>
                 <div id="browse-soursing" class="mt-2">
 
-                    <div class="row align-items-center" id="fulfill-request">
-                        <div class="col-lg-6 ">
-                            <div class="Neon Neon-theme-dragdropbox mt-3">
-                                <input name="files[]" id="filer_input2" multiple="multiple" type="file">
-                                <div class="Neon-input-dragDrop py-5 px-4">
-                                    <div class="Neon-input-inner py-4">
-                                        <div class="Neon-input-text ">
-                                            <h3>Upload an image of the product here</h3>
-                                        </div><a class="Neon-input-choose-btn blue"><img
-                                                src="{{asset('stylist/app-assets/images/icons/plus.png')}}" alt=""></a>
+                    <form action="#" method="POST" id="stylegrid_item_frm">
+
+                        <input type="hidden" id="modal_stylegrid_index">
+                        <input type="hidden" id="modal_stylegrid_item_index">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 ">
+                                <div class="Neon Neon-theme-dragdropbox">
+                                    <input name="product_image" class="style-grid-block-input-file" type="file" data-img-preview-selector=".item-modal-image-src" required>
+                                    <div class="Neon-input-dragDrop d-flex align-items-center height_300">
+                                        <div class="Neon-input-inner">
+                                            <div class="Neon-input-text ">
+                                                <h3>Upload an image of the product here</h3>
+                                            </div>
+                                            <a class="Neon-input-choose-btn blue"><img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="item-modal-image-src img_preview" id="product_image_preview" alt=""></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="p-3 lg-border-left ">
-                                <form id="submit-request" action="client-submit-request-complete.html" class=" ">
+                            <div class="col-lg-6">
+                                <div class="p-2 lg-border-left">
                                     <div class="form-group">
                                         <label for="">Enter the name of the product here:</label>
-                                        <input type="text" class="form-control submit-input"
-                                            aria-describedby="emailHelp" placeholder="Enter product name...">
+                                        <input type="text" name="product_name" class="form-control submit-input"
+                                             placeholder="Enter product name..."  required>
 
                                     </div>
                                     <div class="form-group">
                                         <label for="">Tell us the brand of the product:</label>
-                                        <input type="text" class="form-control submit-input"
-                                            aria-describedby="emailHelp" placeholder="Enter brand name...">
+                                        <input type="text"  name="product_brand" class="form-control submit-input"
+                                             placeholder="Enter brand name..."  required>
 
                                     </div>
                                     <div class="form-group">
                                         <label for="">What is the product type? (Bag, Dress, Heels etc)</label>
-                                        <input type="text" class="form-control submit-input"
-                                            aria-describedby="emailHelp" placeholder="Enter product type...">
+                                        <input type="text"  name="product_type" class="form-control submit-input"
+                                             placeholder="Enter product type..."  required>
 
                                     </div>
                                     <div class="form-group">
                                         <label for="">Does the product have a size? Leave blank if none.</label>
-                                        <input type="text" class="form-control submit-input"
-                                            aria-describedby="emailHelp" placeholder="Enter product size...">
+                                        <input type="text" name="product_size" class="form-control submit-input"
+                                             placeholder="Enter product size...">
 
                                     </div>
                                     <!-- <div class="form-group">
                                         <label for="">What region the product needs to be delivered to:</label>
-                                        <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
+                                        <input type="text" class="form-control submit-input" 
                                             placeholder="Enter region...">
 
                                     </div>
                                     <div class="form-group">
                                         <label for="">When do you require the product by?</label>
                                         <input type="text" class="form-control submit-input" id="" placeholder="Enter due date...">
-                                    </div> -->
-                                
-                                </form>
-                            </div>
+                                    </div> -->                                    
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <a href="">
-                            <button type="submit" class="submit-request px-3  ">Submit
-                                request</button></a>
-                        <div><a href=""><button class="back-btn ml-2" type="button" class="close"
-                                    data-dismiss="modal" aria-label="Close">Go Back</button></a></div>
-                    </div>
+                        <div class="row justify-content-center">
+                            <button class="submit-request" id="stylegrid_item_frm_btn">Save</button>
+                            <button class="back-btn ml-2" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                    </form>
                 </div>
 
             </div>

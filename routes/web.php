@@ -32,13 +32,13 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
  
- Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist'], function () {
+ Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
-  Route::group(['prefix' => 'grid', 'as' => 'grid'], function () {
+  Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
-    Route::get('/create', 'GridController@createGridIndex')->name('create_index');
-    Route::post('/get_grid_data_json', 'GridController@getGridDataJson')->name('grid_data_json');
-
+    Route::get('/create', 'GridController@createGridIndex')->name('create');
+    Route::post('/save', 'GridController@saveGridDetails')->name('save');
+    
   });
 
  });
@@ -50,7 +50,7 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::post('/add-stylist-second-process', [StylistWebsite::class, 'addStylistSecondProcess']);
  Route::get('/stylist-login', [StylistWebsite::class, 'stylistLogin']);
  Route::post('/stylist-login-post', [StylistWebsite::class, 'stylistLoginPost']);
- Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard']);
+ Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard'])->name('stylist.dashboard');
  Route::get('/stylist-logout', [StylistWebsite::class, 'stylistLogout']);
  Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing']);
  Route::get('/stylist-fulfill-source-request/{title}', [Stylist::class, 'stylistFulfillSourceRequest']);

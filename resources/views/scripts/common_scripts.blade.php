@@ -45,6 +45,7 @@
             $(selector).validate({
                 rules: options.rules ? options.rules : {},
                 messages: options.messages ? options.messages : {},
+                focusInvalid: options.focusInvalid ? options.focusInvalid : true,
                 errorPlacement: function(error, element) {
 
                     if (element.attr("data-element-ref") == 'select2') {
@@ -79,28 +80,28 @@
 
         }
 
-        // var loadingDialogToast = Swal.mixin({
-        //     title: 'Please wait......',
-        //     showConfirmButton: false,
-        //     allowOutsideClick: false
-        // });
+        var loadingDialogToast = Swal.mixin({
+            title: 'Please wait......',
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
 
-        // window.showLoadingDialog = function(target = '') {
+        window.showLoadingDialog = function(target = '') {
 
-        //     loadingDialogToast.fire({
-        //         target: (target != '' ? document.getElementById(target) : 'body'),
-        //         onBeforeOpen: () => {
-        //             Swal.showLoading();
-        //         }
+            loadingDialogToast.fire({
+                target: (target != '' ? document.getElementById(target) : 'body'),
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                }
 
-        //     });
-        // }
+            });
+        }
 
-        // window.hideLoadingDialog = function() {
+        window.hideLoadingDialog = function() {
 
-        //     loadingDialogToast.close();
+            loadingDialogToast.close();
 
-        // }
+        }
 
         window.showSuccessMessage = function(title = '', sub_title = '') {
 
@@ -211,6 +212,18 @@
 
         window.formatNumber = function(number) {
             return parseFloat(number).toFixed(2);
+        }
+
+        window.fileChangePreviewImage = function(input, src_selector) {
+            
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(src_selector).attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
     }(window));
