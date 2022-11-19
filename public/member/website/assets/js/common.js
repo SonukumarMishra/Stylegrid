@@ -1,5 +1,18 @@
+function checkArray(key,array){
+  var status = false;
+  for(var i=0; i<array.length; i++){
+    var id = array[i];
+    if(id == key){
+      status = true;
+      break;
+    }
+  }
+  return status;
+}
+
 $(function(){
   $('#search_brand_list').blur(function(){
+    $('.message').html('');
     var selected_brand=[];
     $(".selected_brand").each(function(){
       selected_brand.push($(this).attr('data_id'));
@@ -20,15 +33,13 @@ $(function(){
                  if(response['data'].length>0){                    
                      var html='';
                      for(i=0;i<response['data'].length;i++){
-                      //console.log(selected_brand);
-                      var checked='';
-                     // console.log(selected_brand.indexOf(response['data'][i]['id']));
-                     // if($.inArray(response['data'][i]['id'],selected_brand)!== -1){
-                      //  console.log('yes');
-                      //  checked='checked';
-                     // }else{
-                     //   console.log('no');
-                     // }
+                     var checked='';
+                     if(selected_brand.length>0){
+                      if(checkArray(response['data'][i]['id'],selected_brand)){
+                        checked='checked';
+                      }
+                     }
+                     
                       html +='<div class="col-md-3 text-center">';
                       html +='<div class="text-right">';
 
@@ -275,7 +286,61 @@ if(constants.current_url=='/member-registration'){
             //... and adds the "active" class on the current step:
             x[n].className += " active";
         }
+
+        function selectBrand(event){
+          $('.message').html('');
+          if($(event).is(':checked')){
+              addselectedBrand($(event).val());
+          }else{
+              removeSelectedBrand($(event).val());
+          }
+      }
+      function addselectedBrand(brand_id){
+          if(brand_id>0){
+              $('#selected_brand_section').addClass('brand-border');
+              $('#selected_brand'+brand_id).remove();
+              $.ajax({
+                  url : '/get-brands-list',
+                  method : "POST",
+                  data : {
+                      'brand_id':brand_id,
+                      '_token': constants.csrf_token
+                  },
+                  success : function (ajaxresponse){
+                      response = JSON.parse(ajaxresponse);
+                      if (response['status']) {
+                          if(response['data'].length>0){                    
+                              var html='';
+                              for(i=0;i<response['data'].length;i++){
+                                  html +='<div class="my-2 selected_brand" data_id="'+response['data'][i]['id']+'" id="selected_brand'+response['data'][i]['id']+'">';
+                                  html +='<img src="'+constants['base_url']+'/member/website/assets/images/'+response['data'][i]['logo']+'" alt="" class="img-fluid mx-2">';
+                                  html +='<span onClick="removeSelectedBrand('+response['data'][i]['id']+')">X</span>';
+                                  html +='</div>';
+                              }
+                              $('#selected_brand_section').append(html);
+                          }
+                      }
+                  }
+              })
+          }
+      }
+      function removeSelectedBrand(brand_id){
+          $('#selected_brand'+brand_id).remove();
+          if($('#check-'+brand_id).is(':checked')){
+              $('#check-'+brand_id).prop('checked', false);
+          }
+          if($('.selected_brand').length==0){
+              $('#selected_brand_section').removeClass('brand-border');
+          }
+      }
 function addMember(){
+  var selected_brand=[];
+  $(".selected_brand").each(function(){
+    selected_brand.push($(this).attr('data_id'));
+  });
+  if(selected_brand.length>0){
+    $('#selected_brand_list').val(selected_brand.toString());
+  }
   $.ajax({
     url : '/add-member',
     method : "POST",
@@ -287,6 +352,19 @@ function addMember(){
           $('#next-previous').remove();
           $('#steps-next-previous').remove();
           $('.success_tab').show();
+          if(response['stylist_data']){
+            $('#stylist_name').html(response['stylist_data']['name']);
+            var image='default_image.png';
+            if(response['stylist_data']['profile_image']!=''){
+              image=response['stylist_data']['profile_image'];
+            }
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/'+image+'" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_sort_bio').html(response['stylist_data']['short_bio']);
+          }else{
+            $('#stylist_name').html('Need to set Default Name');
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/default_image.png" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_sort_bio').html('need to set default update Sort bio');
+          }
         }else{
           $('#fifth_step_message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
           currentTab = currentTab - 1;
@@ -435,9 +513,12 @@ function setpFourValidation(){
 }
 
 function setpFiveValidation(){
+  var selected_brand=[];
+  $(".selected_brand").each(function(){
+    selected_brand.push($(this).attr('data_id'));
+  });
   var status=true;
-  var total_selected_brand=$('.brand_list_check').filter(':checked').length;
-  if(total_selected_brand==0){
+  if(selected_brand.length==0){
     status=false;
     $('#fifth_step_message_box').html('<div class="alert alert-danger">Please select at least one brand!</div>');
   }

@@ -55,14 +55,18 @@ class MemberWebsiteController extends Controller
             $response=$member->addUpdateData($save_data,'sg_member'); 
             if($response['reference_id']){
                 $member->addUpdateData(['id'=>$response['reference_id'],'slug'=>$save_data['slug'].'-'.$response['reference_id']],'sg_member');   
-                if(count($request->brands)>0){
-                    foreach($request->brands as $brand){
-                        $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'brand_id'=>$brand],'sg_member_brand');   
+                if(!empty($request->selected_brand_list)){
+                    $selected_brand_list=explode(',',$request->selected_brand_list);
+                    if(count($selected_brand_list)>0){
+                        foreach($selected_brand_list as $brand){
+                            $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'brand_id'=>$brand],'sg_member_brand');   
+                        }
                     }
                 }
                 $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_subscription');   
-               // $verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
-                return json_encode(['status'=>1,'message'=>'Member Added Successfully!']);
+                $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
+                //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
+                return json_encode(['status'=>1,'message'=>'Member Added Successfully!','stylist_data'=>$stylist_data]);
             }
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);
         }  

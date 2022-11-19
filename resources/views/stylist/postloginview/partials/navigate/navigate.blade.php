@@ -59,7 +59,7 @@
 
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
-                            <h2 class="stylish-name">Max Melia</h2><br>
+                            <h2 class="stylish-name">{{Session::get('stylist_data')->name}}</h2><br>
 
                         </span></a> </li>
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"

@@ -87,9 +87,9 @@ class StylistWebsiteController extends Controller
                             'profile_image'=>$profile_image_name,
                             'password'=>sha1($request->password),
                             'short_bio'=>$request->short_bio,
-                            //'favourite_brands'=>$request->favourite_brands,
                             'preferred_style'=>$request->preferred_style,
                             'token'=>'',
+                            'registration_completed'=>1,
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){

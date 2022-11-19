@@ -206,26 +206,13 @@
                         our featured list below, or
                         use the search bar to expand your choice.</p>
                 </div>
-                
                 <div>
                     <div class="form-group input-city mt-2">
                             <input type="text" class="form-control icon" id="search_brand_list" aria-describedby="Brand Search"
                                 placeholder="Search Brand here">
                         </div>
                     </div>
-                   
                     <div class="row justify-content-center mt-5 py-2" id="selected_brand_section">
-                        <!--
-                        <div class="my-2">
-                            <img src="{{asset('member/website/assets/images/alax.png')}}" alt="" class="img-fluid mx-2">
-                                <span >X</span>
-                        </div>
-
-                        <div class="my-2">
-                            <img src="{{asset('member/website/assets/images/image1.png')}}" alt="" class="img-fluid mx-2">
-                            <span >X</span>
-                        </div>
-                    -->
                     </div>
                 </div>
             </div>
@@ -240,13 +227,11 @@
                     ?>
                     <div class="col-md-3 text-center">
                         <div class="text-right">
-                        
                             <input type="checkbox" class="brand_list_check" id="check-<?php  echo $brand->id;  ?>" onclick="selectBrand(this)" value="{{$brand->id}}">
                             <label for="check-<?php  echo $brand->id;  ?>"></label>
                         </div>
                         <label for="check-<?php  echo $brand->id;  ?>">
                             <img src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt="">
-
                         </label>
                     </div>
                     <?php
@@ -266,12 +251,14 @@
 
                 </div>
                 <div class="row my-4">
-                    <div class="col-   md-5 text-lg-left text-center">
+                    <div class="col-   md-5 text-lg-left text-center" id="stylist_image">
                         <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" alt="">
                     </div>
                     <div class="col-md-7 text-lg-left text-center">
-                        <h4>Francesca</h4>
-                        <p class="new-para text-lg-left text-center">Francesca’s extensive experience is afforded
+                        <h4 id="stylist_name">Francesca</h4>
+                        <p class="new-para text-lg-left text-center" id="stylist_sort_bio">
+                            
+                            Francesca’s extensive experience is afforded
                             through years of working with prestigious fashion houses including Browns and
                             Net-A-Porter in addition to privately dressing discerning men and women across the globe
                             <br class="d-lg-block d-none">
@@ -294,6 +281,7 @@
         <div style="float:right;" class="mt-5">
             <button type="button" id="prevBtn" class="next-btn" onclick="nextPrev(-1)">Previous</button>
             <button type="button" id="nextBtn" class="next-btn" onclick="nextPrev(1)">Next</button>
+            <input type="hidden" name="selected_brand_list" id="selected_brand_list">
         </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
@@ -305,55 +293,4 @@
         <span class="step"></span>
     </div>
 </form>
-
 @stop
-<script>
-    function selectBrand(event){
-        if($(event).is(':checked')){
-            addselectedBrand($(event).val());
-        }else{
-            removeSelectedBrand($(event).val());
-        }
-    }
-    function addselectedBrand(brand_id){
-        if(brand_id>0){
-            $('#selected_brand_section').addClass('brand-border');
-            $('#selected_brand'+brand_id).remove();
-            //brand-border
-            $.ajax({
-                url : '/get-brands-list',
-                method : "POST",
-                data : {
-                    'brand_id':brand_id,
-                    '_token': constants.csrf_token
-                },
-                success : function (ajaxresponse){
-                    response = JSON.parse(ajaxresponse);
-                    if (response['status']) {
-                        if(response['data'].length>0){                    
-                            var html='';
-                            for(i=0;i<response['data'].length;i++){
-                                html +='<div class="my-2 selected_brand" data_id="'+response['data'][i]['id']+'" id="selected_brand'+response['data'][i]['id']+'">';
-                                html +='<img src="'+constants['base_url']+'/member/website/assets/images/'+response['data'][i]['logo']+'" alt="" class="img-fluid mx-2">';
-                                html +='<span onClick="removeSelectedBrand('+response['data'][i]['id']+')">X</span>';
-                                html +='</div>';
-                            }
-                            $('#selected_brand_section').append(html);
-                        }
-                    }
-                }
-            })
-        }
-    }
-
-
-    function removeSelectedBrand(brand_id){
-        $('#selected_brand'+brand_id).remove();
-        if($('#check-'+brand_id).is(':checked')){
-            $('#check-'+brand_id).prop('checked', false);
-        }
-        if($('.selected_brand').length==0){
-            $('#selected_brand_section').removeClass('brand-border');
-        }
-    }
-</script>

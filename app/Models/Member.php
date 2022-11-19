@@ -49,7 +49,9 @@ class Member extends Model
 				"s.full_name as name",
 				"s.email",
             	"s.phone",
-				"s.verified"
+				"s.verified",
+				"s.short_bio",
+				"s.profile_image"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();
