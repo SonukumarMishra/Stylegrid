@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" placeholder="Full Name...">
+                                <input type="text" name="full_name" id="full_name" placeholder="Full Name..." onkeypress="return lettersOnly(event)" maxlength="50">
                                 <!-- <span>Full Name</span> -->
                             </div>
                             <div id="full_name_error" class="error"></div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" id="phone" name="phone" placeholder="Phone Number...">
+                                <input type="text" id="phone" name="phone" placeholder="Phone Number..." onkeypress="return isNumberKey(event)" maxlength="10">
                                 <div id="phone_error" class="error"></div>
                                 <!-- <span>Phone Number</span> -->
                             </div>
@@ -208,8 +208,8 @@
                 </div>
                 <div>
                     <div class="form-group input-city mt-2">
-                            <input type="text" class="form-control icon" id="search_brand_list" aria-describedby="Brand Search"
-                                placeholder="Search Brand here">
+                            <input type="text" class="form-control icon" id="search_brand_list" aria-describedby="Brand Search" onkeypress="return lettersOnly(event)"
+                                placeholder="Search Brand here" maxlength="10">
                         </div>
                     </div>
                     <div class="row justify-content-center mt-5 py-2" id="selected_brand_section">

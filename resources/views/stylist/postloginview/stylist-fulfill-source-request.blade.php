@@ -29,8 +29,8 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="row  text-aligns-center">
-                            <h1 class="col-9">Hermes Mini Kelly 20</h1>
-                            <h2 class="px-2 mt-1 col-2">Hermes</h2>
+                            <h1 class="col-9">{{$source_data->p_name}}</h1>
+                            <h2 class="px-2 mt-1 col-2">{{$source_data->name}}</h2>
                             <a href="" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
                                     Request</button></a>
                         </div>
@@ -66,15 +66,15 @@
                 <div class="row" id="fulfill-request">
                     <div class="col-lg-6 text-center">
                         <div class="border-right1 my-3">
-                            <img src="{{asset('member/dashboard/attachments/source/'.$source_data->p_image)}}" class="img-fluid" alt="">
+                            <img src="{{asset('attachments/source/'.$source_data->p_image)}}" class="img-fluid" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6 text-lg-left text-center">
                         <div class="p-3">
-                            <h1>Hermes Mini Kelly 20</h1>
-                            <h6>Hermes</h6>
-                            <h4 class="mt-3">Required in: Dubai, UAE</h4>
-                            <h4>Date required: ASAP</h4>
+                            <h1>{{$source_data->p_name}}</h1>
+                            <h6>{{$source_data->name}}</h6>
+                            <h4 class="mt-3">Required in: {{$source_data->country_name}}</h4>
+                            <h4>Date required: {{$source_data->p_deliver_date}}</h4>
                             <h4>Condition requested: New</h4>
                             <form id="stylist-fulfill-source-request-form" class="mt-3">
                                 @csrf
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="w-100">
                                     <input type="text" placeholder="Input price here..." id="source_price" name="source_price"
-                                        class="w-100 form-control submit-input">
+                                        class="w-100 form-control submit-input" maxlength="6">
                                         <div id="source_price_error" class="error"></div>
                                 </div>
                                 <div class="my-2">

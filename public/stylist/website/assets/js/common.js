@@ -85,6 +85,104 @@ $(function(){
        // });
     }
 });
+
+
+$('#send-reset-link-btn').click(function(){
+  $('#send-reset-link-form input').css('border', '1px solid #ccc');
+  $('.error').html('');
+  $('.message').html('');
+  var email=makeTrim($('#email').val());
+  var status=true;
+  if(email==''){
+    $('#email').css('border', '2px solid #cc0000');
+    $('#email_error').html('Please enter email');
+    status=false;
+  }else{
+    if (!validEmail(email)) {
+      $('#email').css('border', '2px solid #cc0000');
+      $('#email_error').html('Please enter a valid Email ID');
+      status = false;
+    }
+  }
+  if(status){
+    $.ajax({
+      url : '/stylist-forgot-password-post',
+      method : "POST",
+      async: false,
+      data : $('#send-reset-link-form').serialize(),
+      success : function (ajaxresponse){
+          response = JSON.parse(ajaxresponse);
+          if(response['status']){
+            $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+            $('#signup').html($('#forgot_password_success_section').html());
+          }else{
+            $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+           }
+      }
+  })
+  } 
+})
+$('#stylist-reset-password-btn').click(function(){
+  $('#stylist-reset-password-form input').css('border', '1px solid #ccc');
+  $('.error').html('');
+  $('.message').html('');
+  var password=makeTrim($('#password').val());
+  var confirm_password=makeTrim($('#confirm_password').val());
+  var status=true;
+  
+if(password==''){
+  $('#password').css('border', '2px solid #cc0000');
+  $('#password_error').html('Please enter Password');
+  status=false;
+}else{
+  if (password.length < 8) {
+      $('#password').css('border', '2px solid #cc0000');
+      $('#password_error').html('Your password must be at least 8 characters.');
+      status = false;
+  }
+  else if (password.search(/[a-z]/i) < 0) {
+      $('#password').css('border', '2px solid #cc0000');
+      $('#password_error').html('Your password must contain at least one letter.');
+      status = false;
+  }else if(password.search(/[0-9]/) < 0){
+      $('#password').css('border', '2px solid #cc0000');
+      $('#password_error').html('Your password must contain at least one digit.');
+      status = false;
+  }
+}
+if (confirm_password == '') {
+  $('#confirm_password').css('border', '2px solid #cc0000');
+  $('#confirm_password_error').html('Required*');
+  status = false;
+}
+if (password != '') {
+  if (confirm_password != password) {
+    $('#confirm_password').css('border', '2px solid #cc0000');
+    $('#confirm_password_error').html('Password and Confirm Password do not match.');
+    status = false;
+  }
+}
+  if(status){
+    $.ajax({
+      url : '/stylist-reset-password-post',
+      method : "POST",
+      async: false,
+      data : $('#stylist-reset-password-form').serialize(),
+      success : function (ajaxresponse){
+          response = JSON.parse(ajaxresponse);
+          if(response['status']){
+            $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+            setTimeout(function(){
+              window.location = "/stylist-login";
+          }, 500);
+          }else{
+            $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+          }
+      }
+  })
+  }
+})
+
 })
 if(constants.current_url=='/stylist-registration' || constants.current_url.search('/stylist-account-confirmation')!=-1){
   var currentTab = 0;
@@ -533,5 +631,21 @@ function addPreferredStyle(add_preferred_style){
     $('#preferred_style_error').html('You can not add more than 3 preferred style type!')
   }
 
+}
+
+function lettersOnly(evt) {
+  evt = (evt) ? evt : event;
+  var charCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+     ((evt.which) ? evt.which : 0));
+  if (charCode > 31 && (charCode < 65 || charCode > 90) &&
+     (charCode < 97 || charCode > 122)) {
+     return false;
+  }
+  return true;
+}
+function isNumberKey(evt) {
+  var charCode = (evt.which) ? evt.which : evt.keyCode
+  if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
 }
  

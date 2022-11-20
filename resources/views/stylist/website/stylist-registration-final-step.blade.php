@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" placeholder="Create username...">
+                                <input type="text" name="user_name" id="user_name" placeholder="Create username..." onkeypress="return lettersOnly(event)" maxlength="25">
                                 <div id="user_name_error" class="error"></div>
                             </div>
                             
@@ -91,7 +91,7 @@
                                 <div class="form-group text-center">
                                     <div class="d-flex justify-content-center flex-column">
                                         <textarea name="short_bio" id="short_bio" class="form-control"
-                                            placeholder="Type your short bio here"></textarea>
+                                            placeholder="Type your short bio here" ></textarea>
                                         <div id="short_bio_error" class="error"></div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                     <span class="data">
                                     </span>
                                     <span class="autocomplete">
-                                        <input type="text" id="favourite_brands" class="form-control" placeholder="Add your favourite brands here">
+                                        <input type="text" id="favourite_brands"  onkeypress="return lettersOnly(event)" maxlength="10" class="form-control" placeholder="Add your favourite brands here">
                                         <div class="autocomplete-items"></div>
                                     </span>
                                     <div id="favourite_brands_error" class="error"></div>

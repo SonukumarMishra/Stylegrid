@@ -15,7 +15,7 @@
                         @csrf
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="email" id="email" placeholder="Email Address...">
+                                <input type="text" name="email" id="email" placeholder="Email Address..." maxlength="50">
                                 <div id="email_error" class="error" ></div>
                                 <!-- <span>Email Address</span> -->
                             </div>

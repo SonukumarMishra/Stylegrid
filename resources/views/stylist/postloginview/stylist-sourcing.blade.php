@@ -137,8 +137,6 @@
                                             <?php
                                         }
                                         ?>
-                                        
-            
                                     </tbody>
                                 </table>
                             </div>
