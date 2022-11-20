@@ -39,8 +39,6 @@ class GridController extends BaseController
 
             $style_grid_request = json_decode($request->stylegrid_json);
 
-            Log::info("json decode ". print_r($style_grid_request, true));
-  
             $stylist_id = Session::get("stylist_id");
 
             $style_grid = new StyleGrids;
@@ -178,4 +176,45 @@ class GridController extends BaseController
             return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
         }
     }
+
+    public function view($grid_id)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($grid_id);
+
+            if($style_grid_dtls){
+
+                $style_grid_dtls->grids = StyleGridDetails::where([
+                                                'stylegrid_id' => $style_grid_dtls->stylegrid_id,
+                                                'is_active' => 1
+                                            ])->get();
+
+                if(count($style_grid_dtls->grids)){
+                    
+                    foreach ($style_grid_dtls->grids as $key => $value) {
+
+                        $style_grid_dtls->grids[$key]['items'] = StyleGridProductDetails::where([
+                                                                    'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
+                                                                    'is_active' => 1
+                                                                ])->get();
+
+
+                    }
+                }
+                
+                Log::info("info ". print_r($style_grid_dtls, true));
+
+                return view('stylist.postloginview.grids.view', compact('style_grid_dtls'));
+
+            }else{
+
+                return redirect()->back();
+            }
+
+        }catch(\Exception $e){
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+	
 }

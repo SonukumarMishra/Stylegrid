@@ -37,6 +37,7 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
     Route::get('/create', 'GridController@createGridIndex')->name('create');
+    Route::get('/view/{grid_id}', 'GridController@view')->name('view');
     Route::post('/save', 'GridController@saveGridDetails')->name('save');
     
   });
