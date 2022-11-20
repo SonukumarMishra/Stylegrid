@@ -2772,3 +2772,10 @@ transform: rotate(180deg);
       outline: 0;
       border: 0;
     }
+    .error {
+      color: red;
+      top: 103%;
+      font-size: 1rem;
+      left: 1%;
+      font-family: "Genos";
+    }

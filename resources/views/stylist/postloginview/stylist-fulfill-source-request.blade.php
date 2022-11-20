@@ -31,7 +31,7 @@
                         <div class="row  text-aligns-center">
                             <h1 class="col-9">{{$source_data->p_name}}</h1>
                             <h2 class="px-2 mt-1 col-2">{{$source_data->name}}</h2>
-                            <a href="" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
+                            <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
                                     Request</button></a>
                         </div>
                     </div>

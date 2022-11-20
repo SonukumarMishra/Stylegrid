@@ -27,7 +27,7 @@
             <!-------------------- fulfil souring request--------->
             <div id="browse-soursing" class="mt-5">
                 <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8"> 
                             <div class="row  text-aligns-center">
                                 <h1 class="col-lg-6 text-lg-left text-center">Hermes Mini Kelly 20</h1>
                                 <h2 class="px-2 mt-1 col-lg-2 col-4 text-lg-left text-center">Hermes</h2>
@@ -66,8 +66,6 @@
                 <form id="submit-request-form" action="" class=" ">
                     @csrf
                 <div class="row align-items-center mt-3 mt-lg-0" id="fulfill-request">
-                    
-                    
                     <div class="col-lg-6 ">
                         <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                             <input name="source_image" id="source_image" multiple="multiple"  type="file">
@@ -131,7 +129,6 @@
                                 <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
                         </div>
                     </div>
-                    
                 </div>
             </form>
             </div>
