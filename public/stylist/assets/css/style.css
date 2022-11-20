@@ -2841,3 +2841,18 @@ transform: rotate(180deg);
   background-size: cover !important;
   background-repeat: no-repeat !important;
 }
+.addblock{
+  border: 0 !important;
+  background-color: transparent !important;
+}
+.addblock:focus{
+  outline: 0;
+  border: 0;
+}
+.error {
+  color: red;
+  top: 103%;
+  font-size: 1rem;
+  left: 1%;
+  font-family: "Genos";
+}

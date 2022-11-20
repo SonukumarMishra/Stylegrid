@@ -8,58 +8,60 @@
         </div>
         <div class="content-body">
             <!-- Revenue, Hit Rate & Deals -->
-            <div class="row my-3">
-                <div class="col-md-8">
-                    <h1>Welcome to your product sourcing hub.</h1>
-                    <h3>Submit sourcing requests or fufill sourcing tickets from the live feed.</h3>
-                </div>
-                <div class="col-md-4 quick-link text-right">
-                    <span class="mr-5"><a hrf="">Quick Link</a></span>
-                    <div class="row justify-content-end my-2">
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+            <div class="mt-lg-3 row">
+                    <div class="col-8">
+                        <h1>Welcome to your product sourcing hub.</h1>
+                        <h3>Submit sourcing requests or fufill sourcing tickets from the live feed.</h3>
+                    </div>
+                    <div class="col-4 quick-link text-right">
+                        <span class="mr-lg-5"><a hrf="">Quick Link</a></span>
+                        <div class="d-flex justify-content-end my-2">
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
+                            <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+
+                        </div>
 
                     </div>
-
                 </div>
-            </div>
+            
             <!--------------------souring hub--------->
             <div id="browse-soursing" class="mt-5">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <div class="row  text-aligns-center">
-                            <h1 class="col-4">Live Tickets</h1>
-                            <h2 class="px-2 mt-1 col-5">1,092 requests this week</h2>
-                            <a href="{{url('/stylist-create-source-request')}}" class=" col-3 mt-2"><button class="request-btn px-2">Make Request</button></a>
+                <div class="col-lg-8">
+                            <div class="row  text-aligns-center justify-content-center justify-content-lg-start">
+                                <h1 class="col-lg-4 text-lg-left text-center">Live Tickets</h1>
+                                <h2 class="px-2 mt-1 col-lg-5 col-6 text-lg-left text-center">1,092 requests this week</h2>
+                                <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-3 col-6 mt-2 text-lg-left text-center"><button class="request-btn px-2">Make Request</button></a>
+                            </div>
                         </div>
-                    </div>
+                    
                     <!-- Pills navs -->
-                    <div class="col-lg-4 d-flex justify-content-end mt-lg-0 mt-2">
-                        <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
-                            <li class="nav-item ">
-                                <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
-                                    aria-selected="true"
-                                    class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
-                                    aria-controls="Fashion" aria-selected="false"
-                                    class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
-                                    aria-controls="Beauty" aria-selected="false"
-                                    class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
-                                    aria-controls="Travel" aria-selected="false"
-                                    class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
-                            </li>
+                    <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-2">
+                            <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
+                                <li class="nav-item ">
+                                    <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
+                                        aria-selected="true"
+                                        class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
+                                        aria-controls="Fashion" aria-selected="false"
+                                        class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
+                                        aria-controls="Beauty" aria-selected="false"
+                                        class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
+                                        aria-controls="Travel" aria-selected="false"
+                                        class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
+                                </li>
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
                 </div>
                 <div class="row w-100">
                     <div id="TabContent" class="tab-content my-2 w-100">
@@ -135,8 +137,6 @@
                                             <?php
                                         }
                                         ?>
-                                        
-            
                                     </tbody>
                                 </table>
                             </div>

@@ -54,12 +54,20 @@
                 </li>
 
                 <li class="nav-item text-center">
-                    <div class="stylish-img"><img src="{{ asset('stylist/app-assets/images/gallery/stylist.png') }}" class="img-fluid" alt="">
+                    <div class="stylish-img">
+                        <?php
+                        if(is_file('stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image)){
+                            $image='stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image;
+                        }else{
+                            $image='stylist/app-assets/images/gallery/stylist.png';
+                        }
+                        ?>
+                        <img src="{{ asset($image) }}" class="img-fluid" alt="">
                     </div>
 
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
-                            <h2 class="stylish-name">Max Melia</h2><br>
+                            <h2 class="stylish-name">{{Session::get('stylist_data')->name}}</h2><br>
 
                         </span></a> </li>
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"

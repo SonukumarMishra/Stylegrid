@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use Illuminate\Support\Str;
 use Session;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 @author-Sunil Kumar Mishra
@@ -87,9 +89,9 @@ class StylistWebsiteController extends Controller
                             'profile_image'=>$profile_image_name,
                             'password'=>sha1($request->password),
                             'short_bio'=>$request->short_bio,
-                            //'favourite_brands'=>$request->favourite_brands,
                             'preferred_style'=>$request->preferred_style,
                             'token'=>'',
+                            'registration_completed'=>1,
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){
@@ -119,7 +121,8 @@ class StylistWebsiteController extends Controller
             if($stylist_data){
                 if($stylist_data->verified){
                     Session::put('processed_stylist_id', $stylist_data->id);
-                    return view('stylist.website.stylist-registration-final-step',compact('stylist_data'));
+                    $preferred_style=$member->getPreferredStyleList(['ps.status'=>1]);
+                    return view('stylist.website.stylist-registration-final-step',compact('stylist_data','preferred_style'));
                 }else{
                     return view('stylist.website.stylist-registration-final-step-without-verification');
                 }
@@ -166,4 +169,70 @@ class StylistWebsiteController extends Controller
             }
         }  
     }
+
+    function stylistForgotPassword(){
+        return view('stylist.website.stylist-forgot-password');
+    }
+    public function stylistForgotPasswordPost(Request $request){
+        if($request->ajax() && !Session::get('Stylistloggedin')){
+            $member=new Member();
+            $email=$request->email;
+            $stylist_data=$member->checkStylistExistance(['s.email'=>$email]);
+            if($stylist_data){
+               // $info = array(
+               //     'name' => "Sonu Kumar"
+               // );
+               // Mail::send(['text' => 'mail'], $info, function ($message)
+               // {
+                //    $message->to('sonumospido@gmail.com', 'Mishra')
+                //        ->subject('Test Mail.');
+               //     $message->from('skmishrakosi@gmail.com', 'Sonu Mishra');
+               // });
+
+             //  Mail::send('welcome',['name','sonu'],function($message){
+             //   $message->to('sonumospido@gmail.com')->subject("Email Testing with Laravel");
+              //  $message->from('skmishrakosi@gmail.com','test Mail');
+           // });
+                $member->addUpdateData(['id'=>$stylist_data->id,'token'=>sha1(time())],'sg_stylist');
+                return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
+            }else{
+                return json_encode(['status'=>0,'message'=>'Email Id not correct!']);
+            }
+        }  
+    }
+
+    public function stylistResetPassword($token){
+        if(!empty($token)){
+            $member=new Member();
+            $stylist_data=$member->checkStylistExistance(['s.token'=>$token]);
+            if($stylist_data){
+                Session::put('processed_stylist_id', $stylist_data->id);
+                return view('stylist.website.stylist-reset-password');
+            }else{
+                return redirect('/stylist-login');
+            }
+        }else{
+            return redirect('/stylist-login');
+        }
+    }
+
+    public function stylistResetPasswordPost(Request $request){
+        if($request->ajax()){
+            if(Session::get('processed_stylist_id')>0){
+                $member=new Member();
+                $stylist_data=$member->checkStylistExistance(['s.id'=>Session::get('processed_stylist_id')]);
+                if($stylist_data){
+                    $member->addUpdateData(['id'=>$stylist_data->id,'token'=>'','verified'=>1,'password'=>sha1($request->password)],'sg_stylist');
+                    return json_encode(['status'=>1,'message'=>'Your password has been updated successfully!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+                }
+            }
+            return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+        }  
+    }
+
+
+
+
     }

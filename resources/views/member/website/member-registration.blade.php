@@ -4,7 +4,7 @@
     @csrf
     <!-- One "tab" for each step in the form: -->
     <!-- <div class="mt-2"><h5>if you are a client,<a href="{{url('/member-login')}}"> Please click here to <br>Sign Up.</a></h5></div> -->
-
+    
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" placeholder="Full Name...">
+                                <input type="text" name="full_name" id="full_name" placeholder="Full Name..." onkeypress="return lettersOnly(event)" maxlength="50">
                                 <!-- <span>Full Name</span> -->
                             </div>
                             <div id="full_name_error" class="error"></div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" id="phone" name="phone" placeholder="Phone Number...">
+                                <input type="text" id="phone" name="phone" placeholder="Phone Number..." onkeypress="return isNumberKey(event)" maxlength="10">
                                 <div id="phone_error" class="error"></div>
                                 <!-- <span>Phone Number</span> -->
                             </div>
@@ -57,10 +57,10 @@
                             </div>
                         </div>
                      
-
+    
                 </div>
-
-
+    
+    
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
                     <p class="text-center">It’s time to get styling. For us to be able to find your perfect stylist,
                         we will need to find out a<br class="d-lg-block d-none">
                         little more information about your tastes and style preferences.</p>
-
+    
                 </div>
                 <div id="second_step_message_box" class="message"></div>
                 <div class="row">
@@ -127,7 +127,7 @@
                     <h1>What is your gender?</h1>
                     <p class="text-center">Understanding how you identify willhelp us match you with stylists and<br class="d-lg-block d-none">
                         brands that suit you best.</p>
-
+    
                 </div>
                 <div id="third_step_message_box" class="message"></div>
                 <div class="row mt-3">
@@ -160,7 +160,7 @@
                         <div class="text-center">
                             <img src="{{ asset('member/website/assets/images/non-binary.png') }}" class="img-fluid" alt="">
                             <h2 class="mt-2 mb-4">Non Binary</h2>
-
+    
                             <a class="select-btn mt-2">Select</a>
                         </div>
                     </label>
@@ -169,14 +169,14 @@
             </div>
         </div>
     </div>
-    <div class="tab">
+    <div class="tab" >
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
                 <div class="justify-content-center">
                     <h1>Where are you based?</h1>
                     <p class="text-center">Style and taste is often influenced by your environment. Let us know
                         where<br class="d-lg-block d-none"> you are based to help us understand more about you.</p>
-
+    
                 </div>
                 <div>
                     <div id="fourth_step_message_box" class="message"></div>
@@ -191,14 +191,12 @@
                             }
                             ?>
                         </select>
-                        <!--<input type="text" class="form-control icon" id="" aria-describedby="emailHelp"
-                            placeholder="Enter your city and country here...">-->
                     </div>
                 </div>
-
+    
             </div>
         </div>
-    </div>
+    </div> 
     <div class="tab">
         <div class="container mt-lg-5 mt-3">
             <div id="signup">
@@ -208,24 +206,32 @@
                         our featured list below, or
                         use the search bar to expand your choice.</p>
                 </div>
+                <div>
+                    <div class="form-group input-city mt-2">
+                            <input type="text" class="form-control icon" id="search_brand_list" aria-describedby="Brand Search" onkeypress="return lettersOnly(event)"
+                                placeholder="Search Brand here" maxlength="10">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center mt-5 py-2" id="selected_brand_section">
+                    </div>
+                </div>
             </div>
-        </div>
+       
         <div class="container-fluid">
             <div id="fifth_step_message_box" class="message"></div>
-            <div class="row my-5">
+           
+            <div class="row my-5" id="member_brand_search_data_list">
                 <?php 
                
-                foreach($brand_list as $index => $brand){
+                foreach($brand_list as $brand){
                     ?>
                     <div class="col-md-3 text-center">
                         <div class="text-right">
-                        
-                            <input type="checkbox" name="brands[]" class="brand_list_check" id="check-<?php  echo $index;  ?>" value="{{$brand->id}}">
-                            <label for="check-<?php  echo $index;  ?>"></label>
+                            <input type="checkbox" class="brand_list_check" id="check-<?php  echo $brand->id;  ?>" onclick="selectBrand(this)" value="{{$brand->id}}">
+                            <label for="check-<?php  echo $brand->id;  ?>"></label>
                         </div>
-                        <label for="check-<?php  echo $index;  ?>">
+                        <label for="check-<?php  echo $brand->id;  ?>">
                             <img src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt="">
-
                         </label>
                     </div>
                     <?php
@@ -245,12 +251,14 @@
 
                 </div>
                 <div class="row my-4">
-                    <div class="col-   md-5 text-lg-left text-center">
+                    <div class="col-   md-5 text-lg-left text-center" id="stylist_image">
                         <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" alt="">
                     </div>
                     <div class="col-md-7 text-lg-left text-center">
-                        <h4>Francesca</h4>
-                        <p class="new-para text-lg-left text-center">Francesca’s extensive experience is afforded
+                        <h4 id="stylist_name">Francesca</h4>
+                        <p class="new-para text-lg-left text-center" id="stylist_sort_bio">
+                            
+                            Francesca’s extensive experience is afforded
                             through years of working with prestigious fashion houses including Browns and
                             Net-A-Porter in addition to privately dressing discerning men and women across the globe
                             <br class="d-lg-block d-none">
@@ -273,6 +281,7 @@
         <div style="float:right;" class="mt-5">
             <button type="button" id="prevBtn" class="next-btn" onclick="nextPrev(-1)">Previous</button>
             <button type="button" id="nextBtn" class="next-btn" onclick="nextPrev(1)">Next</button>
+            <input type="hidden" name="selected_brand_list" id="selected_brand_list">
         </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->

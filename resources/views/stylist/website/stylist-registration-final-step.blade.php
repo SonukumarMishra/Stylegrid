@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" placeholder="Create username...">
+                                <input type="text" name="user_name" id="user_name" placeholder="Create username..." onkeypress="return lettersOnly(event)" maxlength="25">
                                 <div id="user_name_error" class="error"></div>
                             </div>
                             
@@ -91,7 +91,7 @@
                                 <div class="form-group text-center">
                                     <div class="d-flex justify-content-center flex-column">
                                         <textarea name="short_bio" id="short_bio" class="form-control"
-                                            placeholder="Type your short bio here"></textarea>
+                                            placeholder="Type your short bio here" ></textarea>
                                         <div id="short_bio_error" class="error"></div>
                                     </div>
                                 </div>
@@ -101,42 +101,35 @@
                                     <span class="data">
                                     </span>
                                     <span class="autocomplete">
-                                        <input type="text" id="favourite_brands" class="form-control" placeholder="Add your favourite brands here">
+                                        <input type="text" id="favourite_brands"  onkeypress="return lettersOnly(event)" maxlength="10" class="form-control" placeholder="Add your favourite brands here">
                                         <div class="autocomplete-items"></div>
                                     </span>
                                     <div id="favourite_brands_error" class="error"></div>
                                 </div>
-                                <!-- <div class="form-group text-center">
-                                    <div class="d-flex justify-content-center flex-column">
-                                        <input type="text" name="favourite_brands" id="favourite_brands" class="form-control"
-                                            placeholder="Add your favourite brands here">
-                                            <div id="favourite_brands_error" class="error"></div>
-                                    </div>
-                                </div>-->
                             </div>
                             <div class="inputbox-1 mt-5">
                                 <div class="form-group text-center">
                                     <div class="d-flex justify-content-center flex-column">
-                                        <input type="text" name="preferred_style" id="preferred_style" class="form-control"
-                                        placeholder="Add your preferred style type/s here">
-                                        <div id="preferred_style_error" class="error"></div>
+                                    <div id="preferred_style_section" class="d-flex justify-content-center preferred_style">
                                     </div>
-                                </div>
-                            </div>
-                            <div class="inputbox-1 mt-5">
-                                <div class="form-group text-center">
-                                    <div class="d-flex justify-content-center flex-column">
-                                        <div>
-                                        <button class="add-item-btn-input px-2 my-2">Streetstyle X</button>
-                                        
-                                        <input type="text" name="preferred_style" id="preferred_style" class="form-control"
-                                        placeholder=""></div>
                                         <div id="preferred_style_error" class="error"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="add-items py-2 px-3 mt-5">
-                                <div class="row">
+                                <div class="row" id="preferred_style_list_section">
+                                    <?php
+                                    if(count($preferred_style)){
+                                        foreach($preferred_style as $preferred){
+                                            ?>
+                                            <div class="col-4 my-2"><button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">{{$preferred->name}} +</button></div>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    
+                                </div>
+                                <!--<div class="row">
                                     <div class="col-4"><button class="add-item-btn px-2">Streetstyle +</button></div>
                                     <div class="col-4"><button class="add-item-btn px-3">Smart +</button></div>
                                     <div class="col-4"><button class="add-item-btn px-2">Minimalist +</button></div>
@@ -150,7 +143,7 @@
                                     <div class="col-4"><button class="add-item-btn px-3">Athletic +</button></div>
                                     <div class="col-4"></div>
                                     <div class="col-4"></div>
-                                </div>
+                                </div>-->
                             </div>
                        
                     </div>
@@ -176,12 +169,13 @@
             </div>
         </div>
     </div>
-    </div>
+   
     <div style="overflow:auto;" id="next-previous">
         <div style="float:right;">
             <button type="button" id="prevBtn" onclick="nextPrevStep(-1)">Previous</button>
             <button type="button" id="nextBtn" onclick="nextPrevStep(1)">Next</button>
             <input type="hidden" id="favourite_brand_list" name="favourite_brand_list">
+            <input type="hidden" id="preferred_style_type_list" name="preferred_style_type_list">
         </div>
     </div>
     <!-- Circles which indicates the steps of the form: -->
@@ -190,5 +184,4 @@
         <span class="step"></span>
     </div>
 </form>
-
 @stop

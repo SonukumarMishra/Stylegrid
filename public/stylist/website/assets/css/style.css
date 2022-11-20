@@ -1234,7 +1234,7 @@ color: #7A7A7A;
   letter-spacing: 0.04em;
   color: #000000;
   /* width: 108px; */
-    height: 28px;
+    /* height: 28px; */
     text-decoration: none;
 }
 .add-item-btn-input{
@@ -1251,10 +1251,17 @@ color: #7A7A7A;
   /* width: 108px; */
     height: 28px;
     text-decoration: none;
-    position: absolute;
-    left: 20px;
+    /* position: absolute;
+    left: 20px; */
 }
-  
+  .preferred_style-border{
+    border: 1px solid;
+    width: 400px;
+    /* justify-content: center; */
+  }
+  .preferred_style-border span{
+    
+  }
   a#image_preview_remove {
     position: absolute;
 }

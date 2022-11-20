@@ -49,13 +49,29 @@ class Member extends Model
 				"s.full_name as name",
 				"s.email",
             	"s.phone",
-				"s.verified"
+				"s.verified",
+				"s.short_bio",
+				"s.profile_image"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();
 			return $response_data;
 		}
 	}
+
+	function getPreferredStyleList($where){
+		$this->db = DB::table('sg_preferred_style as ps');
+	   $this->db->select([
+		   "ps.id",
+		   "ps.name",
+	   ]);
+	   if(count($where)){
+		   $this->db->where($where);
+	   }
+	   $response_data=$this->db->get();
+	   return $response_data;
+   }
+   
 	function sourceApplicable($where){
 		if(count($where)){
 			$this->db = DB::table('sg_member_subscription as ms');
