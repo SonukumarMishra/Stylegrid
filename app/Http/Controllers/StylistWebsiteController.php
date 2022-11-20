@@ -189,9 +189,9 @@ class StylistWebsiteController extends Controller
                //     $message->from('skmishrakosi@gmail.com', 'Sonu Mishra');
                // });
 
-             //  Mail::send('welcome',['name','sonu'],function($message){
-             //   $message->to('sonumospido@gmail.com')->subject("Email Testing with Laravel");
-              //  $message->from('skmishrakosi@gmail.com','test Mail');
+           // Mail::send('welcome',['name','sonu'],function($message){
+           // $message->to('sonumospido@gmail.com')->subject("Email Testing with Laravel");
+           // $message->from('skmishrakosi@gmail.com','test Mail');
            // });
                 $member->addUpdateData(['id'=>$stylist_data->id,'token'=>sha1(time())],'sg_stylist');
                 return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
