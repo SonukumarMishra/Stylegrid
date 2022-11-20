@@ -28,6 +28,29 @@ class GridController extends BaseController
         });
     }
 
+    public function index()
+	{
+        try{
+
+            $stylist_id = Session::get("stylist_id");
+
+            $style_grids = StyleGrids::where([
+                                        'stylist_id' => $stylist_id,
+                                        'is_active' => 1
+                                    ])
+                                    ->orderBy('stylegrid_id', 'desc')
+                                    ->get();
+
+    		return view('stylist.postloginview.grids.index', compact('style_grids'));
+
+        }catch(\Exception $e){
+
+            Log::info("index error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+	}
+    
     public function createGridIndex()
 	{
 		return view('stylist.postloginview.grids.create');
@@ -202,8 +225,6 @@ class GridController extends BaseController
 
                     }
                 }
-                
-                Log::info("info ". print_r($style_grid_dtls, true));
 
                 return view('stylist.postloginview.grids.view', compact('style_grid_dtls'));
 

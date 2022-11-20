@@ -21,11 +21,11 @@
              <div class="col-md-4 quick-link text-right">
                 <span class="mr-5"><a hrf="">Quick Link</a></span>
                 <div class="row justify-content-end my-2">
-                   <a href="" class="mx-1"><img src="{{asset('stylist/stylist/app-assets/images/icons/Chat.svg')}}"
+                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
                       alt=""></a>
-                   <a href="" class="mx-1"><img src="{{asset('stylist/stylist/app-assets/images/icons/File Invoice.svg')}}"
+                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}"
                       alt=""></a>
-                   <a href="" class="mx-1"><img src="{{asset('stylist/stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
                 </div>
              </div>
           </div>
@@ -122,12 +122,8 @@
              <div id="browse-soursing" class="mt-2">
                    <div class="row align-items-center">
                       <div class="col-lg-6 ">
-                         <div class="Neon Neon-theme-dragdropbox">
-                            <div class="Neon-input-dragDrop d-flex align-items-center height_300">
-                               <div class="Neon-input-inner">
-                                  <a class="Neon-input-choose-btn blue"><img src="" class="item-modal-image-src img_preview" id="product_image_preview" alt=""></a>
-                               </div>
-                            </div>
+                         <div class="p-1">
+                            <img src="" class="item-modal-image-src img_preview" id="product_image_preview" alt="">
                          </div>
                       </div>
                       <div class="col-lg-6">

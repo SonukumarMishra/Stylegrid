@@ -79,8 +79,8 @@
                                     <div class="col-lg-6">
 
                                         <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">
-                                            <input name="feature_image" class="style-grid-block-input-file" data-img-preview-selector=".feature-image-src" type="file" required>
-                                            <div class="Neon-input-dragDrop d-flex align-items-center height_300">
+                                            <input name="feature_image" class="style-grid-block-input-file" data-img-preview-selector=".feature-image-src" type="file">
+                                            <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-main-feature-image-block">
                                                 <div class="Neon-input-inner">
                                                     <div class="Neon-input-text">
                                                         <h3>Add your feature image here...</h3>

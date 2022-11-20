@@ -2809,6 +2809,10 @@ transform: rotate(180deg);
   height: 300px !important;
 }
 
+.height_350{
+  height: 350px !important;
+}
+
 .height_400{
   height: 400px !important;
 }

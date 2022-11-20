@@ -176,11 +176,26 @@
                 
                 var is_valid_grid = true;
 
+                if(CreateGridRef.styleGridJson.main_grid.feature_image == ""){
+
+                    // check main grid feature image 
+                    is_valid_grid = false;
+
+                    $('.style-grid-main-feature-image-block').addClass('border-2 border-danger');
+
+                }
+
                 $.each(CreateGridRef.styleGridJson['grids'], function (key, val) {
                     
-                    console.log(val);
-
                     var grid_index_id = val.stylegrid_index;
+
+                    if(val.feature_image == ""){
+
+                        is_valid_grid = false;
+
+                        $('.style-grid-feature-image-block[data-index="'+grid_index_id+'"]').addClass('border-2 border-danger');
+
+                    }
 
                     $(".style-grid-item-left-row[data-index='"+grid_index_id+"']").children(".item-block-inner-row").each(function (in_key, in_val) {
                         
@@ -217,7 +232,7 @@
                         if(response.status == 1){
                             
                             showSuccessMessage(response.message);
-                            window.location.href = '{{ route("stylist.dashboard") }}';
+                            window.location.href = '{{ route("stylist.grid.index") }}';
 
                         }else{
                             
@@ -265,12 +280,13 @@
                                 
                                 if(obj_index != -1){
                                     CreateGridRef.styleGridJson.grids[obj_index]['feature_image'] = img_blob;
+                                    $('.style-grid-feature-image-block[data-index="'+parent_index+'"]').removeClass('border-2 border-danger');
                                 }
 
                             }else{
                                 // This is first block's feature image 
                                 CreateGridRef.styleGridJson['main_grid']['feature_image'] = img_blob;
-
+                                $('.style-grid-main-feature-image-block').removeClass('border-2 border-danger');
                             }
 
                         }
@@ -324,8 +340,8 @@
             html+= '            </div>';
             html+= '            <div class="col-lg-6">';
             html+= '               <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">';
-            html+= '                  <input name="item_feature_image['+index+']" class="style-grid-block-input-file"  data-img-preview-selector=".grid-feature-image-src" type="file" data-index="'+index+'" required>';
-            html+= '                  <div class="Neon-input-dragDrop d-flex align-items-center height_300">';
+            html+= '                  <input name="item_feature_image['+index+']" class="style-grid-block-input-file"  data-img-preview-selector=".grid-feature-image-src" type="file" data-index="'+index+'">';
+            html+= '                  <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-feature-image-block"  data-index="'+index+'">';
             html+= '                     <div class="Neon-input-inner">';
             html+= '                        <div class="Neon-input-text">';
             html+= '                           <h3>Add your feature image here...</h3>';

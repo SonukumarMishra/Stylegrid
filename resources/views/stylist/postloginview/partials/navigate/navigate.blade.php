@@ -82,7 +82,7 @@
                 <li class=" nav-item"><a href="#"><i class="ft-layers"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ route('stylist.grid.create') }}" class="active"><i class="ft-monitor active"></i><span
+                <li class=" nav-item"><a href="{{ route('stylist.grid.index') }}" class="active"><i class="ft-monitor active"></i><span
                             class="menu-title" data-i18n="">Grids</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title"
