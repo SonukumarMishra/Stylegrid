@@ -37,31 +37,31 @@
                         </div>
                     
                     <!-- Pills navs -->
-                    <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-2">
-                            <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
-                                <li class="nav-item ">
-                                    <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
-                                        aria-selected="true"
-                                        class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
-                                        aria-controls="Fashion" aria-selected="false"
-                                        class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
-                                        aria-controls="Beauty" aria-selected="false"
-                                        class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
-                                        aria-controls="Travel" aria-selected="false"
-                                        class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
-                                </li>
+                    <div class="col-lg-4 d-flex justify-content-end mt-lg-0 mt-2">
+                        <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
+                            <li class="nav-item ">
+                                <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
+                                    aria-selected="true"
+                                    class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
+                                    aria-controls="Fashion" aria-selected="false"
+                                    class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
+                                    aria-controls="Beauty" aria-selected="false"
+                                    class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
+                                    aria-controls="Travel" aria-selected="false"
+                                    class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
+                            </li>
 
-                            </ul>
-                        </div>
+                        </ul>
+                    </div>
                 </div>
                 <div class="row w-100">
                     <div id="TabContent" class="tab-content my-2 w-100">
