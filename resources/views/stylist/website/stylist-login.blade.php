@@ -18,7 +18,7 @@
                         @csrf
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" id="email" name="email" placeholder="Email Address...">
+                                <input type="text" id="email" name="email" placeholder="Email Address..." maxlength="40">
                                 <div id="email_error" class="error"></div>
                                 <!-- <span>Email Address</span> -->
                             </div>
@@ -30,7 +30,7 @@
                                 <!--<span>Create Password</span>-->
                             </div>
                         </div>
-                        <div><a href="#" class="forgot-pass">
+                        <div><a href="{{url('stylist-forgot-password')}}" class="forgot-pass">
                             <h3>Forgot password?</h3>
                         </a></div>
                         <div class="text-center mt-5"><a href="javascript:void(0)"><button class="sign-in px-2" type="button" id="stylist-login-btn">Sign In</button></a>

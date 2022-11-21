@@ -27,7 +27,7 @@
             <!-------------------- fulfil souring request--------->
             <div id="browse-soursing" class="mt-5">
                 <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8"> 
                             <div class="row  text-aligns-center">
                                 <h1 class="col-lg-6 text-lg-left text-center">Hermes Mini Kelly 20</h1>
                                 <h2 class="px-2 mt-1 col-lg-2 col-4 text-lg-left text-center">Hermes</h2>
@@ -66,8 +66,6 @@
                 <form id="submit-request-form" action="" class=" ">
                     @csrf
                 <div class="row align-items-center mt-3 mt-lg-0" id="fulfill-request">
-                    
-                    
                     <div class="col-lg-6 ">
                         <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                             <input name="source_image" id="source_image" multiple="multiple"  type="file">
@@ -88,26 +86,26 @@
                                 <div class="form-group">
                                     <label for="">Enter the name of the product here:</label>
                                     <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                        placeholder="Enter product name..."  id="product_name" name="product_name">
+                                        placeholder="Enter product name..."  id="product_name" name="product_name" onkeypress="return lettersOnly(event)" maxlength="50" >
                                     <div id="product_name_error" class="error"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tell us the brand of the product:</label>
                                     <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                        placeholder="Enter brand name..." id="brand" name="brand">
+                                        placeholder="Enter brand name..." id="brand" name="brand" onkeypress="return lettersOnly(event)" maxlength="10" >
                                     <div id="autsuggestion_section"></div>
                                     <div id="brand_error" class="error"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="">What is the product type? (Bag, Dress, Heels etc)</label>
                                     <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                        placeholder="Enter product type..." id="product_type" name="product_type">
+                                        placeholder="Enter product type..." id="product_type" name="product_type" onkeypress="return lettersOnly(event)" maxlength="25">
                                         <div id="product_type_error" class="error"></div>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Does the product have a size? Leave blank if none.</label>
                                     <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                        placeholder="Enter product size..." id="product_size" name="product_size">
+                                        placeholder="Enter product size..." id="product_size" name="product_size" onkeypress="return isNumberKey(event)" maxlength="4">
                                 </div>
                                 <div class="form-group">
                                     <label for="">What region the product needs to be delivered to:</label>
@@ -131,7 +129,6 @@
                                 <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
                         </div>
                     </div>
-                    
                 </div>
             </form>
             </div>

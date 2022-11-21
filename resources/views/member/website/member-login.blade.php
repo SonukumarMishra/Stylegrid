@@ -15,7 +15,7 @@
                         @csrf
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="email" id="email" placeholder="Email Address...">
+                                <input type="text" name="email" id="email" placeholder="Email Address..." maxlength="50">
                                 <div id="email_error" class="error" ></div>
                                 <!-- <span>Email Address</span> -->
                             </div>
@@ -27,7 +27,7 @@
                                 <!-- <span>Password</span> -->
                             </div>
                         </div>
-                        <div><a href="#" class="forgot-pass">
+                        <div><a href="{{url('/member-forgot-password')}}" class="forgot-pass">
                             <h3 class=" mt-2">Forgot password?</h3>
                         </a></div>
                         <div class="text-center mt-4"><a href="javascript:void(0);"><button type="button" class="sign-in px-3" id="member-login-btn">Sign In</button></a>

@@ -32,7 +32,7 @@
                      
                     <div class="inputbox">
                         <div class="form-group mb-0">
-                            <input type="text" name="full_name" id="full_name" placeholder="Full Name...">
+                            <input type="text" name="full_name" id="full_name" placeholder="Full Name..." onkeypress="return lettersOnly(event)" maxlength="40">
                             <!-- <span>Full Name</span> -->
                         </div>
                         <div id="full_name_error" class="error"></div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="inputbox">
                         <div class="form-group">
-                            <input type="text" id="phone" name="phone" placeholder="Phone Number...">
+                            <input type="text" id="phone" name="phone" maxlength="10" placeholder="Phone Number..." onkeypress="return isNumberKey(event)">
                             <div id="phone_error" class="error"></div>
                             <!-- <span>Phone Number</span> -->
                         </div>
