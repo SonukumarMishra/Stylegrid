@@ -98,7 +98,7 @@ class StylistController extends Controller
                 $response=$member->addUpdateData(array(
                     'id'=>0,
                     'sourcing_id'=>$request->source_id,
-                    'stylelist_id'=>Session::get("stylist_id"),
+                    'stylist_id'=>Session::get("stylist_id"),
                     'price'=>$request->source_price,
                     'offer_date'=>now()
                 ),'sg_sourcing_offer');

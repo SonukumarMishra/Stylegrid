@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Str;
 use Session;
 
@@ -54,14 +55,18 @@ class MemberWebsiteController extends Controller
             $response=$member->addUpdateData($save_data,'sg_member'); 
             if($response['reference_id']){
                 $member->addUpdateData(['id'=>$response['reference_id'],'slug'=>$save_data['slug'].'-'.$response['reference_id']],'sg_member');   
-                if(count($request->brands)>0){
-                    foreach($request->brands as $brand){
-                        $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'brand_id'=>$brand],'sg_member_brand');   
+                if(!empty($request->selected_brand_list)){
+                    $selected_brand_list=explode(',',$request->selected_brand_list);
+                    if(count($selected_brand_list)>0){
+                        foreach($selected_brand_list as $brand){
+                            $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'brand_id'=>$brand],'sg_member_brand');   
+                        }
                     }
                 }
                 $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_subscription');   
-               // $verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
-                return json_encode(['status'=>1,'message'=>'Member Added Successfully!']);
+                $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
+                //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
+                return json_encode(['status'=>1,'message'=>'Member Added Successfully!','stylist_data'=>$stylist_data]);
             }
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);
         }  
@@ -88,26 +93,26 @@ class MemberWebsiteController extends Controller
     public function getBrandList(Request $request){
         if($request->ajax()){
             $member=new Member();
-            $search_brand=$request->brand_search;
+            $search_brand=$request->brand_search?$request->brand_search:'';
+            $brand_id=$request->brand_id?$request->brand_id:0;
             $not_where_in=[];
-           if(!empty($request->existing_data)){
+            if(!empty($request->existing_data)){
                 $existing_data=$request->existing_data;
                 if(!empty($existing_data)){
                     $not_where_in=$existing_data;
                 }
-           }
-           
-            if(!empty($search_brand)){
-                $brand_list=$member->getBrandList([],$search_brand,$not_where_in);
-                if(count($brand_list)){
-                    $response['status']=1;
-                }else{
-                    $response['status']=0;
-                }
-                $response['data']=$brand_list;
+            }
+            $where=[];
+            if($brand_id>0){
+                $where=['b.id'=>$brand_id];
+            }
+            $brand_list=$member->getBrandList($where,$search_brand,$not_where_in);
+            if(count($brand_list)){
+                $response['status']=1;
             }else{
                 $response['status']=0;
             }
+            $response['data']=$brand_list;
             return json_encode($response);
         }  
     }
@@ -129,13 +134,13 @@ class MemberWebsiteController extends Controller
                     'status'=>0,
                     'message'=>'Account not verified',
                     'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-
                 ]);
             }else{
-                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!']);
+                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!','verification_url'=>'']);
             }
         }  
     }
+
     public function memberAccountVerification($token){
         if(!empty($token)){
             $member=new Member();
@@ -145,11 +150,61 @@ class MemberWebsiteController extends Controller
                     echo "Your Account is already verified";
                 }else{
                     echo "You have successfully verified you account";
-                    $member->addUpdateData(['id'=>$member_data->id,'token'=>$token,'verified'=>1],'sg_member');
+                    $member->addUpdateData(['id'=>$member_data->id,'token'=>'','verified'=>1],'sg_member');
                 }
             }
         }else{
             return redirect('/member-login');
         }
-    }     
+    }
+    
+    public function memberForgotPassword(){
+        return view('member.website.member-forgot-password');
+    }
+
+    public function memberForgotPasswordPost(Request $request){
+        if($request->ajax() && !Session::get('Memberloggedin')){
+            $member=new Member();
+            $email=$request->email;
+            $member_data=$member->checkMemberExistance(['m.email'=>$email]);
+            if($member_data){
+                $member->addUpdateData(['id'=>$member_data->id,'token'=>sha1(time())],'sg_member');
+                return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
+            }else{
+                return json_encode(['status'=>0,'message'=>'Email Id not correct!']);
+            }
+        }  
+    }
+
+    public function memberResetPassword($token){
+        if(!empty($token)){
+            $member=new Member();
+            $member_data=$member->checkMemberExistance(['m.token'=>$token]);
+            if($member_data){
+                Session::put('processed_member_id', $member_data->id);
+                return view('member.website.member-reset-password');
+            }else{
+                return redirect('/member-login');
+            }
+        }else{
+            return redirect('/member-login');
+        }
+    }
+
+    public function memberResetPasswordPost(Request $request){
+        if($request->ajax()){
+            if(Session::get('processed_member_id')>0){
+                $member=new Member();
+                $member_data=$member->checkMemberExistance(['m.id'=>Session::get('processed_member_id')]);
+                if($member_data){
+                    $member->addUpdateData(['id'=>$member_data->id,'token'=>'','verified'=>1,'password'=>sha1($request->password)],'sg_member');
+                    return json_encode(['status'=>1,'message'=>'Your password has been updated successfully!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+                }
+            }
+            return json_encode(['status'=>0,'message'=>'Something went wrong!']);
+        }  
+    }
+    
 }

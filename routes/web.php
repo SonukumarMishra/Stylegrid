@@ -32,13 +32,15 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
  
- Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist'], function () {
+ Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
-  Route::group(['prefix' => 'grid', 'as' => 'grid'], function () {
+  Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
-    Route::get('/create', 'GridController@createGridIndex')->name('create_index');
-    Route::post('/get_grid_data_json', 'GridController@getGridDataJson')->name('grid_data_json');
-
+    Route::get('/index', 'GridController@index')->name('index');
+    Route::get('/create', 'GridController@createGridIndex')->name('create');
+    Route::get('/view/{grid_id}', 'GridController@view')->name('view');
+    Route::post('/save', 'GridController@saveGridDetails')->name('save');
+    
   });
 
  });
@@ -50,7 +52,11 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::post('/add-stylist-second-process', [StylistWebsite::class, 'addStylistSecondProcess']);
  Route::get('/stylist-login', [StylistWebsite::class, 'stylistLogin']);
  Route::post('/stylist-login-post', [StylistWebsite::class, 'stylistLoginPost']);
- Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard']);
+ Route::get('/stylist-forgot-password', [StylistWebsite::class, 'stylistForgotPassword']);
+ Route::post('/stylist-forgot-password-post', [StylistWebsite::class, 'stylistForgotPasswordPost']);
+ Route::get('/stylist-reset-password/{title}', [StylistWebsite::class, 'stylistResetPassword']);
+ Route::post('/stylist-reset-password-post', [StylistWebsite::class, 'stylistResetPasswordPost']);
+ Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard'])->name('stylist.dashboard');;
  Route::get('/stylist-logout', [StylistWebsite::class, 'stylistLogout']);
  Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing']);
  Route::get('/stylist-fulfill-source-request/{title}', [Stylist::class, 'stylistFulfillSourceRequest']);
@@ -73,6 +79,11 @@ Route::post('/check-member-existance', [Website::class, 'checkMemberExistance'])
 Route::get('/member-login', [Website::class, 'memberLogin']);
 Route::post('/member-login-post', [Website::class, 'memberLoginPost']);
 Route::get('/member-logout', [Website::class, 'memberLogout']);
+Route::get('/member-forgot-password', [Website::class, 'memberForgotPassword']);
+Route::post('/member-forgot-password-post', [Website::class, 'memberForgotPasswordPost']);
+Route::get('/member-reset-password/{title}', [Website::class, 'memberResetPassword']);
+Route::post('/member-reset-password-post', [Website::class, 'memberResetPasswordPost']);
+
 Route::get('/member-registration', [Website::class, 'index']);
 Route::get('/member-account-verification/{title}', [Website::class, 'memberAccountVerification']);
 //Route::get('/search-product/{title}','ProductController@searchProduct');
