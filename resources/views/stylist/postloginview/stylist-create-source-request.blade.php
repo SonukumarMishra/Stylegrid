@@ -27,7 +27,7 @@
             <!-------------------- fulfil souring request--------->
             <div id="browse-soursing" class="mt-5">
                 <div class="row">
-                <div class="col-lg-8"> 
+                <div class="col-lg-8">
                             <div class="row  text-aligns-center">
                                 <h1 class="col-lg-6 text-lg-left text-center">Hermes Mini Kelly 20</h1>
                                 <h2 class="px-2 mt-1 col-lg-2 col-4 text-lg-left text-center">Hermes</h2>
@@ -129,6 +129,7 @@
                                 <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
                         </div>
                     </div>
+                    
                 </div>
             </form>
             </div>

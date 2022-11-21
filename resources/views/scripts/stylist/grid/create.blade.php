@@ -335,7 +335,7 @@
             html+= '                        <span class="style-grid-inner-block-title" data-inner-index="1" data-parent-index="'+index+'" style="position: absolute;top: 0;right: 25px;">#1</span>';
             html+= '                    </div>';
             html+= '                  </div>';
-            html+= '                  <div class="col-lg-2 text-center add-another-block-div" data-index="'+index+'"><button class=" px-3 form-border add-item-block-btn"  data-index="'+index+'" ><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" alt=""><br>Add another block</button></div>';
+            html+= '                  <div class="col-lg-2 text-center add-another-block-div" data-index="'+index+'"><button class="sss px-3 form-border add-item-block-btn"  data-index="'+index+'" ><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" alt=""><br>Add another block</button></div>';
             html+= '               </div>';
             html+= '            </div>';
             html+= '            <div class="col-lg-6">';
