@@ -15,6 +15,8 @@ use Validator,Redirect;
 use Config;
 use Storage;
 use Helper;
+use Dompdf\Dompdf;
+use PDF;
 
 class GridController extends BaseController
 {
@@ -231,6 +233,50 @@ class GridController extends BaseController
             }else{
 
                 return redirect()->back();
+            }
+
+        }catch(\Exception $e){
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
+    public function exportGridPdf($grid_id)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($grid_id);
+
+            if($style_grid_dtls){
+
+                $style_grid_dtls->grids = StyleGridDetails::where([
+                                                'stylegrid_id' => $style_grid_dtls->stylegrid_id,
+                                                'is_active' => 1
+                                            ])->get();
+
+                if(count($style_grid_dtls->grids)){
+                    
+                    foreach ($style_grid_dtls->grids as $key => $value) {
+
+                        $style_grid_dtls->grids[$key]['items'] = StyleGridProductDetails::where([
+                                                                    'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
+                                                                    'is_active' => 1
+                                                                ])->get();
+
+
+                    }
+                }
+
+                return view('stylist.postloginview.grids.pdf_view', compact('style_grid_dtls'));
+                
+                $pdf = PDF::loadView('stylist.postloginview.grids.pdf_view', compact('style_grid_dtls'));
+                echo "Export PDF";
+                return $pdf->download(time().'.pdf');
+
+
+            }else{
+
+                return response()->json(['status' => 0, 'message' => trans('pages.crud_messages.no_data', [ 'attr' => 'stylegrid' ]) ]);
+
             }
 
         }catch(\Exception $e){
