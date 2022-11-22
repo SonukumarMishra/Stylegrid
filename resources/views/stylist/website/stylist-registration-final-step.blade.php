@@ -132,16 +132,19 @@
                                     if(count($preferred_style)){
                                         foreach($preferred_style as $preferred){
                                         ?>
-                                        <div class="text-right">
+                                        <div class="col-4">
+                                            <div class="d-flex">
+                                        <div class="text-center">
                                         <input type="checkbox" name="preferred_style[]" id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">
                                         <label for="add-preferred_style{{$preferred->id}}"></label>
-                                    </div>
+                                        </div>
                                     <label for="add-preferred_style{{$preferred->id}}">
                                         <div class="text-center">
                                             <h2 class="mt-2 tag-h2">{{$preferred->name}}</h2>
                                         </div>
                                     </label>
-
+                                    </div>
+                                    </div>
                                     <?php
                                         }
                                     }
