@@ -74,7 +74,7 @@
                         <!-- The slideshow -->
                         <div class="carousel-inner">
                             <?php
-                            $counter=1;
+;;                            $counter=1;
                             foreach($offer_list as $offer){
                                 $class='';
                                 if($counter==1){
