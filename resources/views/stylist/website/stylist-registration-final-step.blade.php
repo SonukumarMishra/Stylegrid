@@ -118,24 +118,19 @@
                             </div>
                             <div class="add-items py-2 px-3 mt-5">
                                 <div class="row" id="preferred_style_list_section">
-                                    <?php
-                                    if(count($preferred_style)){
-                                        foreach($preferred_style as $preferred){
-                                            ?>
-                                            <div class="col-4 my-2">
-                                                <input type="checkbox" name="preferred_style[]"  id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">{{$preferred->name}}
-                                                <label for="preferred_style"></label>
-                                                <!--<button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">
-                                                    {{$preferred->name}} +</button>-->
-                                                </div>
-                                            <?php
-                                        }
-                                    }
-                                    ?>
-                                    
-                                </div>
+                                <div class="text-right">
+                            <input type="checkbox" name="source" id="source" value="source">
+                            <label for="source"></label>
+                        </div>
+                        <label for="source">
+                            <div class="text-center">
+                                <h2 class="mt-2">Source</h2>
+                                
+                            </div>
+                        </label>
+                                  </div>
                                 <!--<div class="row">
-                                    <div class="col-4"><button class="add-item-btn px-2">Streetstyle +</button></div>
+                                    <div class="col-4"></div>
                                     <div class="col-4"><button class="add-item-btn px-3">Smart +</button></div>
                                     <div class="col-4"><button class="add-item-btn px-2">Minimalist +</button></div>
                                 </div>
