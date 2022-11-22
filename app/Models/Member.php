@@ -58,18 +58,21 @@ class Member extends Model
 			return $response_data;
 		}
 	}
-
+	
+	function deleteExistingdata($where,$table){
+		return DB::table($table)->where($where)->delete();
+   }
 	function getPreferredStyleList($where){
 		$this->db = DB::table('sg_preferred_style as ps');
-	   $this->db->select([
+	    $this->db->select([
 		   "ps.id",
 		   "ps.name",
-	   ]);
-	   if(count($where)){
+	    ]);
+	    if(count($where)){
 		   $this->db->where($where);
-	   }
-	   $response_data=$this->db->get();
-	   return $response_data;
+	    }
+	    $response_data=$this->db->get();
+	    return $response_data;
    }
    
 	function sourceApplicable($where){

@@ -122,7 +122,12 @@
                                     if(count($preferred_style)){
                                         foreach($preferred_style as $preferred){
                                             ?>
-                                            <div class="col-4 my-2"><button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">{{$preferred->name}} +</button></div>
+                                            <div class="col-4 my-2">
+                                                <input type="checkbox" name="preferred_style[]"  id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">{{$preferred->name}}
+                                                <label for="preferred_style"></label>
+                                                <!--<button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">
+                                                    {{$preferred->name}} +</button>-->
+                                                </div>
                                             <?php
                                         }
                                     }

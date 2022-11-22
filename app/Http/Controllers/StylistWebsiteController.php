@@ -71,11 +71,16 @@ class StylistWebsiteController extends Controller
     }
     public function addStylistSecondProcess(Request $request){
         if($request->ajax()){
+          
+
             if(Session::get('processed_stylist_id')>0){
+               
                 $member=new Member();
                 $member_data=$member->checkStylistExistance(['s.id'=>Session::get('processed_stylist_id')]);
                 if($member_data){
+                 
                     if($member_data->verified){
+                      
                         $profile_image_name='';
                         $profile_image= $request->file('profile_image');
                         if(!empty($profile_image)){
@@ -89,14 +94,16 @@ class StylistWebsiteController extends Controller
                             'profile_image'=>$profile_image_name,
                             'password'=>sha1($request->password),
                             'short_bio'=>$request->short_bio,
-                            'preferred_style'=>$request->preferred_style,
+                           // 'preferred_style'=>$request->preferred_style,
                             'token'=>'',
                             'registration_completed'=>1,
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){
+                           
                             $favourite_brand_list=explode(',',$request->favourite_brand_list);
                             if(count($favourite_brand_list)>0){
+                                $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_brand');
                                 foreach($favourite_brand_list as $favourite_brand){
                                     $member->addUpdateData([
                                         'id'=>0,
@@ -105,6 +112,18 @@ class StylistWebsiteController extends Controller
                                     ],'sg_stylist_brand'); 
                                 }
                             }
+                            if(count($request->preferred_style)>0){
+                                $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_preferred_style_type');
+                                foreach($request->preferred_style as $preferred_style){
+                                    $member->addUpdateData([
+                                        'id'=>0,
+                                        'stylist_id'=>$response['reference_id'],
+                                        'preferred_style_id'=>$preferred_style,
+                                        'added_date'=>now(),
+                                    ],'sg_stylist_preferred_style_type'); 
+                                }
+                            }
+                            
                             return json_encode(['status'=>1,'message'=>'Stylist Added Successfully!']);
                         }
                     }

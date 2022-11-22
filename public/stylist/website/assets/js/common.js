@@ -297,6 +297,7 @@ function addStylistSecondProcess(){
       brands_list= brands_arr.toString();
       $('#favourite_brand_list').val(brands_list);
     }
+    /*
     var preferred_style_arr=[];
       $(".selected_preferred_style_type").each(function(){
       preferred_style_arr.push($(this).attr('data_id'));
@@ -306,6 +307,7 @@ function addStylistSecondProcess(){
       preferred_style_type_list=preferred_style_arr.toString();
     }
     $('#preferred_style_type_list').val(preferred_style_type_list);
+    */
  
     $.ajax({
       type: 'POST',
@@ -621,16 +623,11 @@ function removePreferredStyle(id){
 }
 function addPreferredStyle(add_preferred_style){
   $('.error').html('');
-  if($(".selected_preferred_style_type").length<=2){
-    var id=$(add_preferred_style).attr('data_id');
-    var name=$(add_preferred_style).attr('data_value');
-    var html='<span id="select_preferred_data'+id+'"><button class="add-item-btn-input px-2 my-2 mx-2 selected_preferred_style_type" type="button" data_value="'+name+'" id="added_preferred_style'+id+'" data_id="'+id+'"  onClick="removePreferredStyle('+id+')">'+name+' X</button><br></span>';
-    $('#preferred_style_section').append(html);
-    $(add_preferred_style).prop('disabled', true);
-  }else{
+  if($(".preferred_style_type:checkbox").filter(":checked").length>3){
+    var data_id=$(add_preferred_style).attr('data_id');
+    $('#add-preferred_style'+data_id).prop('checked', false);
     $('#preferred_style_error').html('You can not add more than 3 preferred style type!')
   }
-
 }
 
 function lettersOnly(evt) {
