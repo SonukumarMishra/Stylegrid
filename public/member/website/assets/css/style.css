@@ -563,8 +563,7 @@ input[type=checkbox]+label {
   background: url("..") no-repeat;
   height: 38px;
   width: 75px;
-  ;
-  background-size: 50%;
+ background-size: 50%;
 }
 
 input[type=checkbox]:checked+label {
