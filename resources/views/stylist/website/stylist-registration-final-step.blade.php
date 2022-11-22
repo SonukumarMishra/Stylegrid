@@ -118,32 +118,35 @@
                             </div>
                             <div class="add-items py-2 px-3 mt-5">
                                 <div class="row" id="preferred_style_list_section">
-                                <div class="text-right">
-                            <input type="checkbox" name="source" id="source" value="source">
-                            <label for="source"></label>
-                        </div>
-                        <label for="source">
-                            <div class="text-center">
-                                <h2 class="mt-2">Source</h2>
-                                
-                            </div>
-                        </label>
-                                  </div>
-                                <!--<div class="row">
-                                    <div class="col-4"></div>
-                                    <div class="col-4"><button class="add-item-btn px-3">Smart +</button></div>
-                                    <div class="col-4"><button class="add-item-btn px-2">Minimalist +</button></div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-4"><button class="add-item-btn px-3">Designer +</button></div>
-                                    <div class="col-6"><button class="add-item-btn px-3">Business Casual +</button></div>
-                                    <div class="col-4"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4"><button class="add-item-btn px-3">Athletic +</button></div>
-                                    <div class="col-4"></div>
-                                    <div class="col-4"></div>
-                                </div>-->
+                                    <!--<div class="text-right">
+                                        <input type="checkbox" name="source" id="source" value="source">
+                                        <label for="source"></label>
+                                    </div>
+                                    <label for="source">
+                                        <div class="text-center">
+                                        <h2 class="mt-2">Source</h2>
+                                        </div>
+                        </label>-->
+
+                        <?php
+                                    if(count($preferred_style)){
+                                        foreach($preferred_style as $preferred){
+                                        ?>
+                                        <div class="text-right">
+                                        <input type="checkbox" name="preferred_style[]" id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">
+                                        <label for="add-preferred_style{{$preferred->id}}"></label>
+                                    </div>
+                                    <label for="add-preferred_style{{$preferred->id}}">
+                                        <div class="text-center">
+                                            <h2 class="mt-2 tag-h2">{{$preferred->name}}</h2>
+                                        </div>
+                                    </label>
+
+                                    <?php
+                                        }
+                                    }
+                                    ?>
+                         </div>
                             </div>
                        
                     </div>

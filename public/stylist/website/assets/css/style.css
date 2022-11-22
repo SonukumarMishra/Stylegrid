@@ -591,7 +591,10 @@ color: #7A7A7A;
   }
   
   /****************checkbox********************/
- 
+ .tag-h2{
+  font-size:16px;
+  font-family:'Genos'
+ }
   input[type=checkbox] {
     display: none;
   }
