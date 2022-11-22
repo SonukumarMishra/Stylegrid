@@ -104,7 +104,10 @@
         current_url:'{{str_replace(URL::to("/"),'',URL::current())}}',
         csrf_token: '{{ csrf_token() }}',
     };
-  </script>
+
+    var asset_url = "{{URL::to('/')}}"+'/';
+
+</script>
  
   <script src="{{asset('stylist/assets/js/common.js')}}"></script>
 

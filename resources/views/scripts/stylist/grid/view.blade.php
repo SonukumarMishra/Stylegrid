@@ -31,7 +31,7 @@
 
                 e.preventDefault();
 
-                var stylegrid_dtls_id = $(this).data('inner-stylegrid-dtls-id');
+                var stylegrid_dtls_id = $(this).data('stylegrid-dtls-id');
                 var stylegrid_product_id = $(this).data('stylegrid-product-id');
 
                 ViewGridRef.bindGridItemDetailsModal(stylegrid_dtls_id, stylegrid_product_id);
@@ -45,7 +45,7 @@
         
         ViewGridRef.bindGridItemDetailsModal = function(stylegrid_dtls_id, stylegrid_product_id) {
             
-            var obj_index = ViewGridRef.styleGridJson['grids'].findIndex(x => x.stylestylegrid_dtls_id == stylegrid_dtls_id);
+            var obj_index = ViewGridRef.styleGridJson['grids'].findIndex(x => x.stylegrid_dtls_id == stylegrid_dtls_id);
 
             if(obj_index != -1){
 
@@ -59,7 +59,7 @@
                     $('#product_brand').html(item_details.product_brand);
                     $('#product_type').html(item_details.product_type);
                     $('#product_size').html(item_details.product_size);
-                    $('#product_image_preview').attr('src', item_details.product_image);
+                    $('#product_image_preview').attr('src', asset_url+item_details.product_image);
 
                 }
 

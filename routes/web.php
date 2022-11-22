@@ -36,9 +36,11 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
 
   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
+    Route::get('/index', 'GridController@index')->name('index');
     Route::get('/create', 'GridController@createGridIndex')->name('create');
     Route::get('/view/{grid_id}', 'GridController@view')->name('view');
     Route::post('/save', 'GridController@saveGridDetails')->name('save');
+    Route::get('/export/pdf/{grid_id}', 'GridController@exportGridPdf')->name('download.pdf');
     
   });
 
