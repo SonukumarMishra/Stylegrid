@@ -127,7 +127,7 @@ class MemberWebsiteController extends Controller
                     Session::put('member_data', $login_data);
                     Session::put('member_id', $login_data->id);
                     Session::put('Memberloggedin',TRUE);
-                    return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                    return json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
                 }
                 return json_encode(
                     [
@@ -136,7 +136,7 @@ class MemberWebsiteController extends Controller
                     'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
                 ]);
             }else{
-                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!','verification_url'=>'']);
+                return json_encode(['status'=>0,'message'=>'Invalid Email Id or Password!','verification_url'=>'']);
             }
         }  
     }

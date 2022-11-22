@@ -75,7 +75,7 @@
                             <div class="Neon-input-dragDrop py-5 px-4">
                                 <div class="Neon-input-inner py-4">
                                     <div class="Neon-input-text ">
-                                        <h3>Upload an image of the product here</h3>
+                                        <h3>Upload your profile</br> picture here</h3>
                                     </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('/stylist/website/assets/images/plus.png') }}" alt="" id="image_preview"></a>
                                     <div id="image_error" class="error"></div>
                                     <div id="divImageMediaPreview"></div>
@@ -116,7 +116,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="add-items py-2 px-3 mt-5">
+							Select your preferred style type's here
+                            <div class="add-items py-2 px-3 mt-1">
                                 <div class="row" id="preferred_style_list_section">
                                     <!--<div class="text-right">
                                         <input type="checkbox" name="source" id="source" value="source">

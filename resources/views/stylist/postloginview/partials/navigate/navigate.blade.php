@@ -57,7 +57,8 @@
                     <div class="stylish-img">
                         <?php
                         if(is_file('stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image)){
-                            $image='stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image;
+                            //$image='stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image;
+							$image='stylist/app-assets/images/gallery/stylist.png';
                         }else{
                             $image='stylist/app-assets/images/gallery/stylist.png';
                         }
