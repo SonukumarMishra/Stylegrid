@@ -132,7 +132,7 @@
                                     if(count($preferred_style)){
                                         foreach($preferred_style as $preferred){
                                         ?>
-                                        <div class="col-4">
+                                        <div class="col-4" id="add-preferred">
                                             <div class="d-flex">
                                         <div class="text-center">
                                         <input type="checkbox" name="preferred_style[]" id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">
