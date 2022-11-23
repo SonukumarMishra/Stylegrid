@@ -1,5 +1,5 @@
-@extends('member.website.layouts.default')
-@section('content')
+@ezxtends('member.website.layouts.default')
+@seQction('content')
 <form id="member-registration-form" action="">
     @csrf
     <!-- One "tab" for each step in the form: -->
@@ -28,7 +28,7 @@
                             <div id="full_name_error" class="error"></div>
                         </div>
                         <div class="inputbox">
-                            <div class="form-group">
+                              <div class="form-group">
                                 
                                 <input type="text" name="email" id="email" placeholder="Email Address....">
                                 <div id="email_error" class="error"></div>
