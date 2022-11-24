@@ -113,6 +113,38 @@
 
     @include('scripts.common_scripts')
 
+    {{-- Pusher code for realtime chat --}}
+
+    <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
+
+    <script >
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+        
+        var pusher = new Pusher("{{ config('chat.pusher.key') }}", {
+            encrypted: true,
+            cluster: "{{ config('chat.pusher.options.cluster') }}",
+            authEndpoint: '{{route("stylist.messanger.pusher.auth")}}',
+            auth: {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }
+        });
+
+        var auth_id = {{ Session::get("stylist_id") }},
+            chat_baseurl = constants.base_url+'/stylist/';
+        
+        console.log("pusher obj ", pusher);
+        // Bellow are all the methods/variables that using php to assign globally.
+        const allowedImages = {!! json_encode(config('chat.attachments.allowed_images')) !!} || [];
+        const allowedFiles = {!! json_encode(config('chat.attachments.allowed_files')) !!} || [];
+        const getAllowedExtensions = [...allowedImages, ...allowedFiles];
+        const getMaxUploadSize = {{ config('chat.attachments.max_upload_size') * 1048576 }};
+    </script>
+      
+    @include('scripts.chat_scripts')
+
     @yield('page-scripts')
 
 </html>

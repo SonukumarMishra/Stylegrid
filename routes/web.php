@@ -31,8 +31,18 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::get('/', [StylistWebsite::class, 'index']);
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
- 
  Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
+
+  
+  Route::group(['prefix' => 'messanger', 'as' => 'messanger.'], function () {
+
+    Route::get('/', 'ChatController@index')->name('index');
+    Route::post('/auth', 'ChatController@pusherAuth')->name('pusher.auth');
+    Route::POST('/getContacts', 'ChatController@getContacts')->name('contacts');
+    Route::post('/auth1', 'ChatController@pusherAuth')->name('send.message');
+
+  });
+
 
   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
