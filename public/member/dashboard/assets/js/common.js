@@ -4,7 +4,7 @@ function selectBrand(brand_id){
     $('#brand').val(brandList[brand_id]);
     $('#autsuggestion_section').html('');
 }
-$(window).load(function() {
+$(window).on('load', function(){
     if(document.referrer!=''){
         if(document.referrer.replace(constants.base_url,'')=='/member-submit-request'){
             $('#submit-request-form').get(0).reset();

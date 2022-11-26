@@ -108,6 +108,13 @@ Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest']);
 Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);
 
+// Memeber panel chat
+Route::get('/member-messanger', 'Member\ChatController@index')->name('member.messanger.index');
+Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name('member.messanger.pusher.auth');
+Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts')->name('member.messanger.contacts');
+Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');
+Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoomMessage')->name('member.messanger.room.messages');
+
 //member section End
 
 // Route::get('/loadgridview', function () {

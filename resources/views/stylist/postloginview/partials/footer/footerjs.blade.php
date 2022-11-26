@@ -144,7 +144,7 @@
         const getMaxUploadSize = {{ config('chat.attachments.max_upload_size') * 1048576 }};
     </script>
       
-    @include('scripts.chat_scripts')
+    @include('scripts.stylist.messanger.index')
 
     @yield('page-scripts')
 
