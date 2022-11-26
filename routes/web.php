@@ -33,17 +33,6 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
 
  Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
-  
-  Route::group(['prefix' => 'messanger', 'as' => 'messanger.'], function () {
-
-    Route::get('/', 'ChatController@index')->name('index');
-    Route::post('/auth', 'ChatController@pusherAuth')->name('pusher.auth');
-    Route::POST('/getContacts', 'ChatController@getContacts')->name('contacts');
-    Route::post('/auth1', 'ChatController@pusherAuth')->name('send.message');
-
-  });
-
-
   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
     Route::get('/index', 'GridController@index')->name('index');
@@ -55,6 +44,12 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
   });
 
  });
+ 
+  Route::get('/stylist-messanger', 'Stylist\ChatController@index')->name('stylist.messanger.index');
+  Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
+  Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
+  Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
+  Route::post('/stylist-messanger-room-messages', 'Stylist\ChatController@getChatRoomMessage')->name('stylist.messanger.room.messages');
 
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
  Route::post('/check-stylist-existance', [StylistWebsite::class, 'checkStylistExistance']);

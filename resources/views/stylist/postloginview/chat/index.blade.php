@@ -3,7 +3,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <!-- BEGIN: Content-->
 <style>
-
+    .messenger-listView .m-body{
+        margin-top: 53px !important;
+    }
+    .messenger-list-item{
+        box-shadow: 0px 0px 10px rgb(0 0 0 / 12%) !important;
+    }
 </style>
 
 <div class="app-content content bg-white">
@@ -47,7 +52,7 @@
                             </nav> --}}
                         {{-- </nav> --}}
                         {{-- Search input --}}
-                        <input type="text" class="messenger-search" placeholder="Search" />
+                        {{-- <input type="text" class="messenger-search" placeholder="Search" /> --}}
                         {{-- Tabs --}}
                         <div class="messenger-listView-tabs">
                             <a href="#" class="active-tab" data-view="users">
@@ -61,10 +66,10 @@
                        <div class="show messenger-tab users-tab app-scroll" data-view="users">
             
                            {{-- Favorites --}}
-                           <div class="favorites-section">
+                           {{-- <div class="favorites-section">
                             <p class="messenger-title">Favorites</p>
                             <div class="messenger-favorites app-scroll-thin"></div>
-                           </div>
+                           </div> --}}
             
                            {{-- Contact --}}
                            <div class="listOfContacts" style="width: 100%;height: calc(100% - 200px);position: relative;"></div>
@@ -83,7 +88,7 @@
                 </div>
             
                 {{-- ----------------------Messaging side---------------------- --}}
-                <div class="messenger-messagingView">
+                <div class="messenger-messagingView" style="border: 1px solid;">
                     {{-- header title [conversation name] amd buttons --}}
                     <div class="m-header m-header-messaging">
                         <nav class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
@@ -121,12 +126,20 @@
                         </div>
                         {{-- Send Message Form --}}
 
-                        <div class="messenger-sendCard">
+                        <div class="messenger-sendCard" style="border: 1px solid; padding: 5px;">
                             <form id="message-form" method="POST" action="{{ route('stylist.messanger.send.message') }}" enctype="multipart/form-data">
                                 @csrf
-                                <label><span class="fas fa-paperclip"></span><input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" /></label>
+                                <label>
+                                    <span class="fas fa-paperclip">
+                                        <img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}"alt="">
+                                    </span>
+                                    <input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
+                                </label>
                                 <textarea readonly='readonly' name="message" class="m-send app-scroll" placeholder="Type a message.."></textarea>
-                                <button disabled='disabled'><span class="fas fa-paper-plane"></span></button>
+                                <input type="hidden" name="type" value="text" />
+                                <input type="hidden" name="receiver_id" value="" />
+                                <input type="hidden" name="receiver_user" value="" />
+                                <button class="btn btn-success" disabled='disabled'><span class="ft-zap text-primary" style="font-size:24px;" ></span></button>
                             </form>
                         </div>
                         

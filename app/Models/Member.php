@@ -10,6 +10,10 @@ date:19-10-2022
 class Member extends Model
 {
     public $db;
+	
+	protected $table='sg_member';
+    protected $primaryKey = 'id';
+
 	function getCountryList($where=[]){
 		$this->db = DB::table('sg_country AS c');
 		$this->db->select([

@@ -97,7 +97,7 @@
 <script src="{{ asset('extensions/toastr/js/toastr.min.js') }}"></script>
 <script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
-
+<script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script>
     var constants = {
         base_url:"{{URL::to('/')}}",
@@ -133,8 +133,9 @@
         });
 
         var auth_id = {{ Session::get("stylist_id") }},
-            chat_baseurl = constants.base_url+'/stylist/';
-        
+            chat_baseurl = constants.base_url+'/',
+            auth_user_type = 'stylist';
+
         console.log("pusher obj ", pusher);
         // Bellow are all the methods/variables that using php to assign globally.
         const allowedImages = {!! json_encode(config('chat.attachments.allowed_images')) !!} || [];

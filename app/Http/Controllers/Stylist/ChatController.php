@@ -46,51 +46,27 @@ class ChatController extends BaseController
         return $result;
     }
     
-    public function getContacts(Request $request)
+    public function getChatContacts(Request $request)
     {
-
-        $auth_user = $this->auth_user;
+        $result = ChatRepo::getChatContacts($request, $this->auth_user);
         
-        DB::connection()->enableQueryLog();
-
-        $users = DB::table('sg_chat_room as room')
-                            ->select("room.*")
-                            ->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = room.sender_id LIMIT 1)  
-                                                WHEN room.sender_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = room.sender_id LIMIT 1)
-                                                ELSE "" END) AS sender_name'))
-                            ->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = room.receiver_id LIMIT 1)  
-                                                WHEN room.receiver_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = room.receiver_id LIMIT 1)
-                                                ELSE "" END) AS receiver_name'))
-
-                            ->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = room.sender_id LIMIT 1)  
-                                                WHEN room.sender_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = room.sender_id LIMIT 1)
-                                                ELSE "" END) AS sender_profile'))
-
-                            ->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = room.receiver_id LIMIT 1)  
-                                                WHEN room.receiver_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = room.receiver_id LIMIT 1)
-                                                ELSE "" END) AS receiver_profile'))
-
-                            ->addSelect(DB::raw("( SELECT cr1.message FROM chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
-                            ->addSelect(DB::raw("( SELECT cr1.created_at FROM chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))
-                                            
-                            ->where(function ($q) use($auth_user) {
-                                $q->where('room.sender_id', $auth_user['auth_id'])
-                                ->where('room.sender_user', 'stylist');
-                            })
-                            ->orwhere(function ($q) use($auth_user) {
-                                $q->where('room.receiver_id', $auth_user['auth_id'])
-                                ->where('room.receiver_user', 'stylist');
-                            })
-                            ->where('room.is_active', 1)
-                            ->groupBy('room.chat_room_id')
-                            ->orderBy('room.created_at')
-                            ->get();
-                            $queries = DB::getQueryLog();
-                            Log::info(print_r($queries, true)); 
-         
-
-        $response_array = ['status' => 1, 'message' => trans('pages.action_success'), 'data' => $users ];
+        $response_array = ['status' => 1, 'message' => trans('pages.action_success'), 'data' => $result ];
 
         return response()->json($response_array, 200);
     }
+
+    public function saveChatMessage(Request $request){
+
+        $result = ChatRepo::saveChatMessage($request, $this->auth_user);     
+        return response()->json($result, 200);
+
+    }
+
+    public function getChatRoomMessage(Request $request){
+
+        $result = ChatRepo::getChatMessages($request, $this->auth_user);     
+        return response()->json($result, 200);
+
+    }
+    
 }
