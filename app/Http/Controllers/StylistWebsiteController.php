@@ -26,6 +26,8 @@ class StylistWebsiteController extends Controller
         return redirect('/stylist-dashboard');
         
     }  
+
+ 
     public function checkStylistExistance(Request $request){
         if($request->ajax()){
             $member=new Member();
@@ -35,17 +37,22 @@ class StylistWebsiteController extends Controller
             if(!$status){
                 return json_encode(['status'=>1,'message'=>'Success']);
             }else{
-                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                $status=$member->checkMemberExistance(['s.'.$key=>$value]);
+                if(!$status){
+                    return json_encode(['status'=>1,'message'=>'Success']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }
         }  
     }
     public function addStylist(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkStylistExistance(['s.email'=>$request->email])){
+            if($member->checkStylistExistance(['s.email'=>$request->email]) || $member->checkMemberExistance(['s.email'=>$request->email])){
                 return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone])){
+            if($member->checkStylistExistance(['s.phone'=>$request->phone]) || $member->checkMemberExistance(['s.phone'=>$request->phone])){
                 return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
             }
             $save_data=array(

@@ -31,10 +31,10 @@ class MemberWebsiteController extends Controller
     public function addMember(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkMemberExistance(['m.email'=>$request->email])){
+            if($member->checkMemberExistance(['m.email'=>$request->email]) || $member->checkStylistExistance(['s.email'=>$request->email])){
                 return json_encode(['status'=>0,'message'=>'Email already exists!']);
             }
-            if($member->checkMemberExistance(['m.phone'=>$request->phone])){
+            if($member->checkMemberExistance(['m.phone'=>$request->phone]) || $member->checkStylistExistance(['s.phone'=>$request->phone])){
                 return json_encode(['status'=>0,'message'=>'Phone already exists!']);
             }
             $save_data=array(
@@ -66,6 +66,7 @@ class MemberWebsiteController extends Controller
                 $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_subscription');   
                 $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
                 //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
+                $member->addUpdateData(['id'=>$response['reference_id'],'assigned_stylist'=>$stylist_data],'sg_member');   
                 return json_encode(['status'=>1,'message'=>'Member Added Successfully!','stylist_data'=>$stylist_data]);
             }
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);
@@ -80,7 +81,12 @@ class MemberWebsiteController extends Controller
             if(!$status){
                 return json_encode(['status'=>1,'message'=>'Success']);
             }else{
-                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                $status=$member->checkStylistExistance(['s.'.$key=>$value]);
+                if(!$status){
+                    return json_encode(['status'=>1,'message'=>'Success']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }
         }  
     }
