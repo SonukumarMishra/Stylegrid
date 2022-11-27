@@ -1,5 +1,5 @@
-@ezxtends('member.website.layouts.default')
-@seQction('content')
+@extends('member.website.layouts.default')
+@section('content')
 <form id="member-registration-form" action="">
     @csrf
     <!-- One "tab" for each step in the form: -->

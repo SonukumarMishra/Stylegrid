@@ -18,8 +18,8 @@ class DashboardController extends Controller
             return redirect("/admin");
         }
         return $next($request);
-    });
-}
+        });
+    }
     public function adminDashboard(Request $request){
         return view('admin.admin-dashboard');
     }
@@ -44,8 +44,10 @@ class DashboardController extends Controller
         if(!empty($id)){
             $dashboard=new Dashboard();
             $member_details=$dashboard->getMemberDetails(['m.slug'=>$id]);
-            $member_brands=$dashboard->getMemberBrands(['mb.member_id'=>$member_details->id]);
-            return view('admin.admin-member-details',compact('member_details','member_brands'));
+            if($member_details){
+                $member_brands=$dashboard->getMemberBrands(['mb.member_id'=>$member_details->id]);
+                return view('admin.admin-member-details',compact('member_details','member_brands'));
+            }
         }
         return redirect("/admin-member-list");
     }
@@ -53,15 +55,16 @@ class DashboardController extends Controller
     public function adminStylist(Request $request){
         return view('admin.admin-stylist');
     }
+    
     public function adminStylistListAjax(Request $request){
         if($request->ajax()){
               $dashboard=new Dashboard();
               $total_data= $dashboard->adminStylistListAjax($request,true);
               $result_data= $dashboard->adminStylistListAjax($request);
               $json_data = array(
-                  "recordsTotal"    =>$total_data,  
-                  "recordsFiltered" => $total_data,
-                  "data"            => $result_data 
+                "recordsTotal"    =>$total_data,  
+                "recordsFiltered" => $total_data,
+                "data"            => $result_data 
             );
             return $json_data;
         }

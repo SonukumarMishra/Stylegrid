@@ -26,7 +26,10 @@ class Dashboard extends Model
 		]);
 		$this->db->join('sg_country as c', 'c.id', '=', 'm.country_id');
 		if($data['search']!=''){
-			$this->db->where('m.full_name', 'like','%'.$data['search'].'%');
+			$search=$data['search'];
+            $this->db->where(function($query) use ($search) {
+                $query->where('m.full_name', 'LIKE', '%'.$search.'%')->orWhere('m.phone', 'LIKE', '%'.$search.'%')->orWhere('m.email', 'LIKE', '%'.$search.'%');
+            });
 		}
 		if($data['order'][0]['column']!=''){
 			$order_by = '';
@@ -121,8 +124,11 @@ class Dashboard extends Model
 	   ]);
 	   $this->db->join('sg_country as c', 'c.id', '=', 's.country_id');
 	   if($data['search']!=''){
-		   $this->db->where('s.full_name', 'like','%'.$data['search'].'%');
-	   }
+		$search=$data['search'];
+		$this->db->where(function($query) use ($search) {
+			$query->where('s.full_name', 'LIKE', '%'.$search.'%')->orWhere('sphone', 'LIKE', '%'.$search.'%')->orWhere('s.email', 'LIKE', '%'.$search.'%');
+		});
+	}
 	   if($data['order'][0]['column']!=''){
 		   $order_by = '';
 			   switch ($data['order'][0]['column']) {

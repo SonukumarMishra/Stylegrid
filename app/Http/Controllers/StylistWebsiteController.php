@@ -35,14 +35,14 @@ class StylistWebsiteController extends Controller
             $value=$request->value;
             $status=$member->checkStylistExistance(['s.'.$key=>$value]);
             if(!$status){
-                return json_encode(['status'=>1,'message'=>'Success']);
-            }else{
-                $status=$member->checkMemberExistance(['s.'.$key=>$value]);
+                $status=$member->checkMemberExistance(['m.'.$key=>$value]);
                 if(!$status){
                     return json_encode(['status'=>1,'message'=>'Success']);
                 }else{
                     return json_encode(['status'=>0,'message'=>$key .' already exists!']);
                 }
+            }else{
+                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
             }
         }  
     }

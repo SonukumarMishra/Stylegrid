@@ -18,6 +18,7 @@ class MemberWebsiteController extends Controller
             $member=new Member();
             $country_list=$member->getCountryList();
             $brand_list=$member->getBrandList(['b.brand_mg' => 0]);
+          
             return view('member.website.member-registration',compact('country_list','brand_list'));
         }
         return redirect('/member-dashboard');
@@ -79,14 +80,14 @@ class MemberWebsiteController extends Controller
             $value=$request->value;
             $status=$member->checkMemberExistance(['m.'.$key=>$value]);
             if(!$status){
-                return json_encode(['status'=>1,'message'=>'Success']);
-            }else{
                 $status=$member->checkStylistExistance(['s.'.$key=>$value]);
                 if(!$status){
                     return json_encode(['status'=>1,'message'=>'Success']);
                 }else{
                     return json_encode(['status'=>0,'message'=>$key .' already exists!']);
                 }
+            }else{
+                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
             }
         }  
     }
