@@ -25,6 +25,8 @@ class ChatController extends BaseController
             $this->auth_user = [
                 'auth_id' => Session::get("stylist_id"),
                 'auth_name' => Session::get('stylist_data')->name,
+                'auth_profile' => Session::get('stylist_data')->profile_image,
+                'auth_user' => 'stylist',
                 'user_type' => 'stylist'
             ];
 

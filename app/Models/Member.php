@@ -37,7 +37,8 @@ class Member extends Model
 				"m.email",
             	"m.phone",
             	"m.token",
-				"m.verified"
+				"m.verified",
+				"m.profile_image"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();

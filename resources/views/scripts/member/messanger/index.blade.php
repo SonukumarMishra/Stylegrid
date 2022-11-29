@@ -43,23 +43,37 @@
     */
 
     // subscribe to the channel
-    // var channel = pusher.subscribe("private-chatify");
+    var channel = pusher.subscribe("private-chatify");
 
-    // // Listen to messages, and append if data received
-    // channel.bind("messaging", function (data) {
-    //     if (data.from_id == getMessengerId() && data.to_id == auth_id) {
-    //         $(".messages").find(".message-hint").remove();
-    //         messagesContainer.find(".messages").append(data.message);
-    //         scrollToBottom(messagesContainer);
-    //         makeSeen(true);
-    //         // remove unseen counter for the user from the contacts list
-    //         $(".messenger-list-item[data-contact=" + getMessengerId() + "]")
-    //         .find("tr>td>b")
-    //         .remove();
+    // Listen to messages, and append if data received
+    channel.bind("messaging", function (data) {
+        if (data.chat_room_id == selectedRoomId && data.message_obj.receiver_user == auth_user_type && data.message_obj.receiver_id == auth_id) {
+            $(".messages").find(".message-hint").remove();
+            messagesContainer.find(".messages").append(getChatMessagesUI([data.message_obj]));
+            scrollToBottom(messagesContainer);
+
+            // update contact item
+            updateContactItem(data.chat_room_id, data.message_obj);
+            
+            // makeSeen(true);
+            // // remove unseen counter for the user from the contacts list
+            // $(".messenger-list-item[data-contact=" + selectedRoomId + "]")
+            // .find("tr>td>b")
+            // .remove();
+        }
+    });
+
+        
+    // listen to contact item updates event
+    // channel.bind("client-contactItem", function (data) {
+    //     if (data.update_for == auth_id) {
+    //         data.updating == true
+    //         ? updateContactItem(data.update_to)
+    //         : console.error("[Contact Item updates] Updating failed!");
     //     }
     // });
 
-        
+     
     /**
      *-------------------------------------------------------------
     * Trigger contact item updates
@@ -67,7 +81,7 @@
     */
     function sendContactItemUpdates(status) {
         // return channel.trigger("client-contactItem", {
-        //     update_for: getMessengerId(), // Messenger
+        //     update_for: selectedRoomId, // Messenger
         //     update_to: auth_id, // Me
         //     updating: status,
         // });

@@ -56,6 +56,7 @@ class MemberWebsiteController extends Controller
             if($response['reference_id']){
                 $member->addUpdateData(['id'=>$response['reference_id'],'slug'=>$save_data['slug'].'-'.$response['reference_id']],'sg_member');   
                 if(!empty($request->selected_brand_list)){
+
                     $selected_brand_list=explode(',',$request->selected_brand_list);
                     if(count($selected_brand_list)>0){
                         foreach($selected_brand_list as $brand){

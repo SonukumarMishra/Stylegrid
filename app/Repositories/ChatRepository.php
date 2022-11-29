@@ -19,27 +19,33 @@ class ChatRepository {
 
 	public function __construct()
     {
-        $this->pusher = new Pusher(
-            config('chat.pusher.key'),
-            config('chat.pusher.secret'),
-            config('chat.pusher.app_id'),
-            config('chat.pusher.options'),
-        );
+        // $this->pusher = new Pusher(
+        //     config('chat.pusher.key'),
+        //     config('chat.pusher.secret'),
+        //     config('chat.pusher.app_id'),
+        //     config('chat.pusher.options'),
+        // );
     }
 
-	public static function pusherAuth($request, $auth_user) {
+	public function pusherAuth($request, $auth_user) {
 
 		try{
-
+		Log::info("data ". print_r($auth_user, true));
 			// Auth data
 			$authData = json_encode([
-				'user_id' => $auth_user['auth_id'],
-				'user_info' => [
-					'name' => $auth_user['auth_name']
-				]
+				'auth_id' => $auth_user['auth_id'],
+				'auth_user' => $auth_user['auth_user'],
+				'user_info' => $auth_user,
 			]);
 	
-			return $this->pusher->socket_auth($request->channel_name, $request->socket_id, $authData);
+			$pusher_ref = new Pusher(
+				config('chat.pusher.key'),
+				config('chat.pusher.secret'),
+				config('chat.pusher.app_id'),
+				config('chat.pusher.options'),
+			);
+
+			return $pusher_ref->socket_auth($request->channel_name, $request->socket_id, $authData);
     
 		}catch(\Exception $e) {
 
@@ -60,24 +66,8 @@ class ChatRepository {
 
 			$users = DB::table('sg_chat_room as room')
 						->select("room.*")
-						->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = room.sender_id LIMIT 1)  
-											WHEN room.sender_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = room.sender_id LIMIT 1)
-											ELSE "" END) AS sender_name'))
-						->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = room.receiver_id LIMIT 1)  
-											WHEN room.receiver_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = room.receiver_id LIMIT 1)
-											ELSE "" END) AS receiver_name'))
-	
-						->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = room.sender_id LIMIT 1)  
-											WHEN room.sender_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = room.sender_id LIMIT 1)
-											ELSE "" END) AS sender_profile'))
-	
-						->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = room.receiver_id LIMIT 1)  
-											WHEN room.receiver_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = room.receiver_id LIMIT 1)
-											ELSE "" END) AS receiver_profile'))
-	
 						->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
 						->addSelect(DB::raw("( SELECT cr1.created_at FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))
-										
 						->where(function ($q) use($auth_user) {
 							$q->where('room.sender_id', $auth_user['auth_id'])
 							->where('room.sender_user', $auth_user['user_type']);
@@ -95,10 +85,117 @@ class ChatRepository {
 			}
 
 			$users = $users->get();
-	
-			$queries = DB::getQueryLog();
 			
-			Log::info(print_r($queries, true)); 
+			if(count($users)){
+
+				foreach ($users as $key => $value) {
+					
+					$temp_sender_id = $value->sender_id;
+					$temp_sender_user = $value->sender_user;
+					
+					$temp_receiver_id = $value->receiver_id;
+					$temp_receiver_user = $value->receiver_user;
+
+					if($auth_user['user_type'] == "stylist"){
+
+						if($temp_sender_user == $auth_user['user_type']){
+
+							$users[$key]->sender_id = $temp_sender_id;
+							$users[$key]->receiver_id = $temp_receiver_id;
+
+							$users[$key]->sender_user = $temp_sender_user;
+							$users[$key]->receiver_user = $temp_receiver_user;
+
+						}else if($temp_receiver_user == $auth_user['user_type']){
+							
+							$users[$key]->sender_id = $temp_receiver_id;
+							$users[$key]->receiver_id = $temp_sender_id;
+
+							$users[$key]->sender_user = $temp_receiver_user;
+							$users[$key]->receiver_user = $temp_sender_user;
+
+						}
+
+					}else if($auth_user['user_type'] == "member"){
+
+						if($temp_sender_user == $auth_user['user_type']){
+
+							$users[$key]->sender_id = $temp_sender_id;
+							$users[$key]->receiver_id = $temp_receiver_id;
+
+							$users[$key]->sender_user = $temp_sender_user;
+							$users[$key]->receiver_user = $temp_receiver_user;
+							
+
+						}else if($temp_receiver_user == $auth_user['user_type']){
+
+							$users[$key]->sender_id = $temp_receiver_id;
+							$users[$key]->receiver_id = $temp_sender_id;
+
+							$users[$key]->sender_user = $temp_receiver_user;
+							$users[$key]->receiver_user = $temp_sender_user;
+
+						}
+
+					}
+					
+					$users[$key]->sender_name = "";
+					$users[$key]->sender_profile = "";
+					$users[$key]->sender_is_online = "";
+					$users[$key]->receiver_name = "";
+					$users[$key]->receiver_profile = "";
+					$users[$key]->receiver_is_online = "";
+
+					$sender_info = $receiver_info = false;
+
+					if($users[$key]->sender_user == 'stylist'){
+						
+						$sender_info = Stylist::where('id', $users[$key]->sender_id)
+											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_is_online')
+											->first();
+						
+					}else if($users[$key]->sender_user == 'member'){
+
+						$sender_info = Member::where('id', $users[$key]->sender_id)
+											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_is_online')
+											->first();						
+					}
+
+					if($users[$key]->receiver_user == 'stylist'){
+						
+						$receiver_info = Stylist::where('id', $users[$key]->receiver_id)
+											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_is_online')
+											->first();
+						
+					}else if($users[$key]->receiver_user == 'member'){
+
+						$receiver_info = Member::where('id', $users[$key]->receiver_id)
+											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_is_online')
+											->first();						
+					}
+
+					if($sender_info){
+
+						$users[$key]->sender_name = $sender_info->sender_name;
+						$users[$key]->sender_profile = $sender_info->sender_profile;
+						$users[$key]->sender_is_online = $sender_info->sender_is_online;
+
+					}
+
+					if($receiver_info){
+
+						$users[$key]->receiver_name = $receiver_info->receiver_name;
+						$users[$key]->receiver_profile = $receiver_info->receiver_profile;
+						$users[$key]->receiver_is_online = $receiver_info->receiver_is_online;
+
+					}
+
+				}
+			}
+
+			// $queries = DB::getQueryLog();
+			
+			// Log::info(print_r($users, true)); 
 			
 			$result['list'] = $users;
 
@@ -187,12 +284,17 @@ class ChatRepository {
 						$chat_message['last_message_on'] = $chat_message->created_at;
 						$chat_message['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
 						
-						// send to user using pusher
-						// Chatify::push('private-chatify', 'messaging', [
-						// 	'from_id' => Auth::user()->id,
-						// 	'to_id' => $request['id'],
-						// 	'message' => Chatify::messageCard($messageData, 'default')
-						// ]);
+						$pusher_ref = new Pusher(
+							config('chat.pusher.key'),
+							config('chat.pusher.secret'),
+							config('chat.pusher.app_id'),
+							config('chat.pusher.options'),
+						);
+			
+						$pusher_ref->trigger('private-chatify', 'messaging', [
+									'chat_room_id' => $request->chat_room_id,
+									'message_obj' => $chat_message
+								]);
 						
 						$response_array = array('status' => 1, 'data' => $chat_message );
 	
