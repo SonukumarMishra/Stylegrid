@@ -49,11 +49,11 @@ class StylistWebsiteController extends Controller
     public function addStylist(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkStylistExistance(['s.email'=>$request->email]) || $member->checkMemberExistance(['s.email'=>$request->email])){
+            if($member->checkStylistExistance(['s.email'=>$request->email]) || $member->checkMemberExistance(['m.email'=>$request->email])){
                 return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone]) || $member->checkMemberExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
+            if($member->checkStylistExistance(['s.phone'=>$request->phone]) || $member->checkMemberExistance(['m.phone'=>$request->phone])){
+                return json_encode(['status'=>0,'message'=>'Phone Oalready exists!','url'=>'']);
             }
             $save_data=array(
                 'id'=>0,
@@ -66,6 +66,7 @@ class StylistWebsiteController extends Controller
                 'shop'=>$request->shop?$request->shop:'',
                 'style'=>$request->style?$request->style:'',
                 'source'=>$request->source?$request->source:'',
+                'gender'=>$request->gender,
                 'verified'=>1
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 

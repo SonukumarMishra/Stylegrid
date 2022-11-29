@@ -113,7 +113,7 @@ class Dashboard extends Model
 	   $this->db->select([
 		   "s.id",
 		   "s.full_name",
-		   "s.id as gender",
+		   "s.gender",
 		   "c.country_name",
 		   "s.email",
 		   "s.phone",
@@ -137,7 +137,7 @@ class Dashboard extends Model
 				   break;
 				   
 				   case 1:
-				   $order_by = 's.id';
+				   $order_by = 's.gender';
 				   break;
 				   
 				   case 2:
