@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Gender</div>
-                                    <div class="max-info col-8">Female</div>
+                                    <div class="max-info col-8">{{$stylist_details->gender}}</div>
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4 ">Location</div>

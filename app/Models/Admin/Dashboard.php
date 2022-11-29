@@ -28,7 +28,11 @@ class Dashboard extends Model
 		if($data['search']!=''){
 			$search=$data['search'];
             $this->db->where(function($query) use ($search) {
-                $query->where('m.full_name', 'LIKE', '%'.$search.'%')->orWhere('m.phone', 'LIKE', '%'.$search.'%')->orWhere('m.email', 'LIKE', '%'.$search.'%');
+                $query->where('m.full_name', 'LIKE', '%'.$search.'%')
+				->orWhere('m.phone', 'LIKE', '%'.$search.'%')
+				->orWhere('m.gender', 'LIKE', '%'.$search.'%')
+				->orWhere('c.country_name', 'LIKE', '%'.$search.'%')
+				->orWhere('m.email', 'LIKE', '%'.$search.'%');
             });
 		}
 		if($data['order'][0]['column']!=''){
@@ -126,7 +130,11 @@ class Dashboard extends Model
 	   if($data['search']!=''){
 		$search=$data['search'];
 		$this->db->where(function($query) use ($search) {
-			$query->where('s.full_name', 'LIKE', '%'.$search.'%')->orWhere('sphone', 'LIKE', '%'.$search.'%')->orWhere('s.email', 'LIKE', '%'.$search.'%');
+			$query->where('s.full_name', 'LIKE', '%'.$search.'%')
+					->orWhere('s.phone', 'LIKE', '%'.$search.'%')
+					->orWhere('s.gender', 'LIKE', '%'.$search.'%')
+					->orWhere('c.country_name', 'LIKE', '%'.$search.'%')
+					->orWhere('s.email', 'LIKE', '%'.$search.'%');
 		});
 	}
 	   if($data['order'][0]['column']!=''){
@@ -238,6 +246,7 @@ class Dashboard extends Model
 				"s.full_name",
 				"c.country_name",
 				"s.email",
+				"s.gender",
 				"s.phone",
 				"s.profile_image",
 				"s.id as spend",
