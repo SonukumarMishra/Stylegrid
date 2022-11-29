@@ -11,7 +11,7 @@ function checkArray(key,array){
 }
 
 $(function(){
-  $('#search_brand_list').blur(function(){
+  $('#search_brand_list').keyup(function(){
     $('.message').html('');
     var selected_brand=[];
     $(".selected_brand").each(function(){

@@ -26,6 +26,8 @@ class StylistWebsiteController extends Controller
         return redirect('/stylist-dashboard');
         
     }  
+
+ 
     public function checkStylistExistance(Request $request){
         if($request->ajax()){
             $member=new Member();
@@ -33,7 +35,12 @@ class StylistWebsiteController extends Controller
             $value=$request->value;
             $status=$member->checkStylistExistance(['s.'.$key=>$value]);
             if(!$status){
-                return json_encode(['status'=>1,'message'=>'Success']);
+                $status=$member->checkMemberExistance(['m.'.$key=>$value]);
+                if(!$status){
+                    return json_encode(['status'=>1,'message'=>'Success']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }else{
                 return json_encode(['status'=>0,'message'=>$key .' already exists!']);
             }
@@ -42,11 +49,11 @@ class StylistWebsiteController extends Controller
     public function addStylist(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkStylistExistance(['s.email'=>$request->email])){
+            if($member->checkStylistExistance(['s.email'=>$request->email]) || $member->checkMemberExistance(['m.email'=>$request->email])){
                 return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
+            if($member->checkStylistExistance(['s.phone'=>$request->phone]) || $member->checkMemberExistance(['m.phone'=>$request->phone])){
+                return json_encode(['status'=>0,'message'=>'Phone Oalready exists!','url'=>'']);
             }
             $save_data=array(
                 'id'=>0,
@@ -59,6 +66,7 @@ class StylistWebsiteController extends Controller
                 'shop'=>$request->shop?$request->shop:'',
                 'style'=>$request->style?$request->style:'',
                 'source'=>$request->source?$request->source:'',
+                'gender'=>$request->gender,
                 'verified'=>1
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 

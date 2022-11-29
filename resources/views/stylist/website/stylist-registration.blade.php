@@ -209,8 +209,56 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        
+    <div class="tab">
+        <div class="container mt-lg-5 mt-3">
+            <div id="signup">
+                <div class=" justify-content-center">
+                    <h1>What is your gender?</h1>
+                    <p class="text-center">Understanding how you identify willhelp us match you with stylists and<br class="d-lg-block d-none">
+                        brands that suit you best.</p>
+    
+                </div>
+                <div id="fifth_step_message_box" class="message"></div>
+                <div class="row mt-3">
+                    <div class="col-md-4 text-center mt-2">
+                    <label>
+                        <input type="radio" name="gender" value="Male" checked>
+                        <img src="{{ asset('member/website/assets/images/white-check.png') }}" alt="option1">
+                        <div class="text-center">
+                            <img src="{{ asset('member/website/assets/images/male.png') }}" alt="option 1">
+                            <h2 class="mt-2 mb-4">Male</h2>
+                            <a class="select-btn mt-2">Select</a>
+                        </div>
+                    </label>
+                    </div>
+                    <div class="col-md-4 text-center mt-2">
+                        <label>
+                              <input type="radio" name="gender" value="Female">
+                                <img src="{{ asset('member/website/assets/images/white-check.png') }}" alt="option1">
+                                <div class="text-center">
+                                    <img src="{{ asset('member/website/assets/images/female.png') }}" class="img-fluid" alt="">
+                                    <h2 class="mt-2 mb-4">Female</h2>
+                                    <a class="select-btn mt-2">Select</a>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="col-md-4 text-center mt-2">
+                    <label>
+                        <input type="radio" name="gender" value="Non Binary">
+                        <img src="{{ asset('member/website/assets/images/white-check.png') }}" alt="option1">
+                        <div class="text-center">
+                            <img src="{{ asset('member/website/assets/images/non-binary.png') }}" class="img-fluid" alt="">
+                            <h2 class="mt-2 mb-4">Non Binary</h2>
+    
+                            <a class="select-btn mt-2">Select</a>
+                        </div>
+                    </label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="success_tab" style="display:none;">
         <div class="container mt-lg-5 mt-3">
@@ -241,7 +289,6 @@
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
-        
     </div>
 </form>
 

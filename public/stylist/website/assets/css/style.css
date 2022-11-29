@@ -593,8 +593,28 @@ color: #7A7A7A;
   /****************checkbox********************/
  .tag-h2{
   font-size:16px;
-  font-family:'Genos'
+  font-family:'Genos';
+  line-height: 1;
  }
+ #add-preferred input[type=checkbox] {
+  display: none;
+}
+#add-preferred input[type=checkbox]+label {
+  display: inline-block;
+  padding: 0 0 0 0px;
+  background: url("..") no-repeat;
+  height: 38px;
+  width: 38px;
+  background-size: 50%;
+}
+
+#add-preferred input[type=checkbox]:checked+label {
+  background: url("../images/checkbox.png") no-repeat;
+  height: 38px;
+  width: 38px;
+  display: inline-block;
+  background-size: 50%;
+}
   input[type=checkbox] {
     display: none;
   }
@@ -604,14 +624,14 @@ color: #7A7A7A;
     padding: 0 0 0 0px;
     background: url("..") no-repeat;
     height: 38px;
-    width: 75px;
+    width: 65px;
     background-size: 50%;
   }
   
   input[type=checkbox]:checked+label {
     background: url("../images/checkbox.png") no-repeat;
     height: 38px;
-    width: 75px;
+    width: 65px;
     display: inline-block;
     background-size: 50%;
   }
