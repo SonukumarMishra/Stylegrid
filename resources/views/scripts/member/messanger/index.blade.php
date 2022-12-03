@@ -668,23 +668,22 @@
 
     
     function attachmentValidate(file) {
-        const fileElement = $(".upload-attachment");
-        const { name: fileName, size: fileSize } = file;
-        const fileExtension = fileName.split(".").pop();
-        if (
-            !getAllowedExtensions.includes(fileExtension.toString().toLowerCase())
-        ) {
-            showErrorMessage('file type not allowed');
-            fileElement.val("");
-            return false;
-        }
-        // Validate file size.
-        if (fileSize > getMaxUploadSize) {
-            showErrorMessage("File is too large!");
-            return false;
-        }
-        return true;
-    }
+       
+       const { name: fileName, size: fileSize } = file;
+       const fileExtension = fileName.split(".").pop();
+       if (
+           !getAllowedExtensions.includes(fileExtension.toString().toLowerCase())
+       ) {
+           showErrorMessage('file type not allowed');
+           return false;
+       }
+       // Validate file size.
+       if (fileSize > getMaxUploadSize) {
+           showErrorMessage("File is too large. Maximum size for each file uploads is {{ config('chat.attachments.max_upload_size') }} MB.");
+           return false;
+       }
+       return true;
+   }
     
     function getAttachmentMaxIndexCount() {
             
@@ -787,8 +786,10 @@
                 for (i = 0; i < total_selected_files; i++) {
 
                     let file = e.target.files[i];
-                
-                    if (!attachmentValidate(file)) return false;
+
+                    if (!attachmentValidate(file)){
+                        return false;
+                    }
 
                     var reader = new FileReader();
 
