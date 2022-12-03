@@ -116,6 +116,8 @@ Route::get('/admin-member-details/{title}', [AdminDashboard::class, 'adminMember
 Route::get('/admin-stylist', [AdminDashboard::class, 'adminStylist']);
 Route::post('/admin-stylist-list-ajax', [AdminDashboard::class, 'adminStylistListAjax']);
 Route::get('/admin-stylist-details/{title}', [AdminDashboard::class, 'adminStylistDetails']);
+Route::post('/admin-cancel-membership', [AdminDashboard::class, 'adminCancelMembership']);
+
 
 //admin section end
 

@@ -9,8 +9,8 @@
             <!-- Revenue, Hit Rate & Deals -->
             <div class=" mt-lg-3 row">
                 <div class="col-lg-8">
-                    <h1>StyleGrid Stylist: Claire Beck</h1>
-                    <h3>View Claire’s platform history.</h3>
+                    <h1>StyleGrid Stylist: {{$stylist_details->full_name}}</h1>
+                    <h3>View <?php echo explode(" ",$stylist_details->full_name)[0];?>’s platform history.</h3>
                     <!-- <a href=""><button class="grid-btn">Create Grid</button></a> -->
                 </div>
                 <div class="col-lg-4">
@@ -27,16 +27,9 @@
                         <div class="col-md-5">
                             <div class="member-detail py-3">
                                 <div class="text-center">
-                                    <?php
-                                 if(is_file(public_path().'/stylist/attachments/profileImage/'.$stylist_details->profile_image)){
-                                    $image=asset('/stylist/attachments/profileImage/'.$stylist_details->profile_image);
-                                }else{
-                                    $image=asset('/stylist/attachments/profileImage/default_image.png');
-                                }
-                                ?>
-                                    <a href=""><img src="{{$image}}" alt="" style="height: 100px;width:100px;"></a>
+                                <a href=""><img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" style="height: 100px;width:100px;"></a>
                                 </div>
-                                <div class="mem-name mt-2">Claire Beck</div>
+                                <div class="mem-name mt-2">{{$stylist_details->full_name}}</div>
                                 <div class="mem-add my-1">StyleGrid Stylist since <?php echo date('Y',strtotime($stylist_details->added_date));?></div>
                                 <div class="mem-add">Gold Tier</div>
                             </div>
@@ -45,46 +38,32 @@
                                     <div class="mem-name text-left ml-3">Client List</div>
                                 </div>
                                 <div class="outer-border">
-                                    <?php
-                                    if(count($stylist_clients)){
-                                        $counter=1;
+                                    <table class="table  w-100 table-responsive" id="stylist_client_list_table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" class="text-left pl-4">Name</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
                                         foreach($stylist_clients as $clients){
-                                            ?>
-                                            <div class="d-flex mt-1">
-                                                <div class="max-data col-9 pr-0 ">{{$clients->full_name;}}</div>
-                                                <div class=" col-3 text-right"><img class="img-fluid max-img"
-                                                        src="{{asset('admin-section/app-assets/images/gallery/msg.png')}}" alt="">
-                                                </div>
-                                            </div>
-                                            <?php
-                                                if(count($stylist_clients)!=$counter){
-                                                    ?>
-                                                    <hr>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <?php
-                                                $counter++;
-                                            
-                                        }
-                                    }
+                                        ?> 
+                                        <tr>
+                                            <td class="d-flex">{{$clients->full_name}}</td>
+                                            <td><img class="img-fluid max-img" src="{{asset('admin-section/app-assets/images/gallery/msg.png')}}" alt=""></td>
+                                            </tr>
+                                    <?php
+                                    }    
                                     ?>
+                                    </tbody>
+                                </table>
                                 </div>
-                                <!-------------pagination---------->
-                                <nav aria-label="Page navigation d-flex " id="pagination">
-                                    <ul class="pagination justify-content-end pr-3">
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link">of</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-
-                                    </ul>
-                                </nav>
-                                <!--------------end of pagination--->
                             </div>
                         </div>
                         <div class="col-md-7 mt-md-0 mt-3">
                             <div class="member-detail pt-2 pb-3">
-                                <div class="mem-name text-left ml-2 pl-1">{{$stylist_details->full_name}} Data</div>
+                                <div class="mem-name text-left ml-2 pl-1"><?php echo explode(" ",$stylist_details->full_name)[0];?>’s Data</div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4 ">Full name</div>
                                     <div class="max-info col-8">{{$stylist_details->full_name}}</div>
@@ -107,7 +86,7 @@
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Date joined</div>
-                                    <div class="max-info col-8">{{$stylist_details->added_date}}</div>
+                                    <div class="max-info col-8"><?php echo date('m-d-Y',strtotime($stylist_details->added_date));?></div>
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Status</div>
@@ -123,29 +102,27 @@
                                 <div class="row">
                                     <div class="col-12 pr-0 mt-1">
                                         <div class="outer-border">
+
+                                            <table class="table  w-100 table-responsive" id="stylist_favroute_brand_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="text-left pl-4">Name</th>
+                                                        <th scope="col">Logo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                foreach($stylist_brands as $brand){
+                                                ?> 
+                                                <tr>
+                                                    <td class="d-flex">{{$brand->name}}</td>
+                                                    <td><img class="img-fluid max-img" src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt=""></td>
+                                                    </tr>
                                             <?php
-                                            $counter=1;
-                                            foreach($stylist_brands as $brand){
-                                                ?>
-                                                <div class="d-flex  ml-1">
-                                                    <div class="max-data col-6 ">{{$brand->name;}}</div>
-                                                    <div class=" col-6"><img class="img-fluid max-img"
-                                                            src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt="">
-                                                    </div>
-                                                </div>
-                                                <?php
-                                                if(count($stylist_brands)!=$counter){
-                                                    ?>
-                                                    <hr>
-                                                    <?php
-                                                }
-                                                ?>
-                                                
-                                                <?php
-                                                $counter++;
                                             }    
                                             ?>
-                                             
+                                            </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     
@@ -336,8 +313,18 @@
 </div>
 </div>
 @include('admin.includes.footer')
- @stop
-
-
+<script>
+    $(function(){
+        $('#stylist_favroute_brand_table, #stylist_client_list_table').DataTable({
+        "bLengthChange": false,
+        "pageLength":5,
+        "searching": false,
+        "columnDefs": [
+            { orderable: false, targets: 1 }
+        ],
+     });        
+    })
+</script>
+@stop
 
 

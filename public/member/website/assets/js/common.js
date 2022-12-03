@@ -413,7 +413,7 @@ function setpOneValidation(){
             response = JSON.parse(ajaxresponse);
             if (!response['status']) {
               $('#email').css('border', '2px solid #cc0000');
-              $('#email_error').html('Email Address already exists!');
+              $('#email_error').html(response['message']);
               status = false; 
             }
         }
@@ -438,7 +438,7 @@ function setpOneValidation(){
           response = JSON.parse(ajaxresponse);
           if (!response['status']) {
             $('#phone').css('border', '2px solid #cc0000');
-            $('#phone_error').html('Phone Number already exists!');
+            $('#phone_error').html(response['message']);
             status = false; 
           }
       }

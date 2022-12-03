@@ -9,15 +9,28 @@
             <!-- Revenue, Hit Rate & Deals -->
             <div class=" mt-lg-3 row">
                 <div class="col-lg-8">
-                    <h1>StyleGrid Member: Max Melia</h1>
-                    <h3>View Max’s platform history.</h3>
+                    <h1>StyleGrid Member: {{$member_details->full_name}}</h1>
+                    <h3>View <?php echo explode(" ",$member_details->full_name)[0];?>’s platform history.</h3>
                     <!-- <a href=""><button class="grid-btn">Create Grid</button></a> -->
                 </div>
                 <div class="col-lg-4">
                     <div class="d-flex">
                         <div class="m-1"> <a href=""><button class="billing-btn">Billing History</button></a></div>
-                        <div class="m-1"><button class="cancel-btn" type="submit" data-toggle="modal"
-                                    data-target="#cancel">Cancel Membership</button></div>
+                        <div class="m-1">
+                            <?php
+                            if($member_details->membership_cancelled){
+                                ?>
+                                Membership Cancelled on <?php echo $member_details->cancellation_datetime;?><br>
+                                <b>Reason:</b><?php echo $member_details->reason_of_cancellation;?>
+                                <?php
+                            }else{
+                                ?>
+                                <button class="cancel-btn" type="submit" data-toggle="modal" data-target="#cancel">Cancel Membership</button>
+                                <?php
+                            }
+                            ?>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,7 +40,7 @@
                         <div class="col-md-5">
                             <div class="member-detail py-3">
                                 <div class="text-center"><a href=""><img
-                                            src="<?php echo asset('/admin-section/app-assets/images/gallery/member-profile-photo.png');?>" alt=""></a>
+                                            src="<?php echo asset('/admin-section/app-assets/images/gallery/member-profile.png');?>" alt=""></a>
                                 </div>
                                 <div class="mem-name mt-2"><?php echo $member_details->full_name;?></div>
                                 <div class="mem-add my-1">StyleGrid Member since <?php echo date('Y',strtotime($member_details->added_date));?></div>
@@ -36,7 +49,7 @@
                             <div class="member-detail py-2 mt-3">
                                 <div class="d-flex justify-content-around mb-2">
                                     <div class="mem-name">Assigned Stylist</div>
-                                    <div><a href=""><button class="assign-new-sty-btn">Assign New
+                                    <div><a href="#"><button class="assign-new-sty-btn">Assign New
                                                 Stylist</button></a></div>
                                 </div>
                                 <?php
@@ -67,7 +80,7 @@
                         </div>
                         <div class="col-md-7">
                             <div class="member-detail pt-2 pb-3">
-                                <div class="mem-name text-left ml-2 pl-1"><?php echo $member_details->full_name;?> Data</div>
+                                <div class="mem-name text-left ml-2 pl-1"><?php echo explode(" ",$member_details->full_name)[0];?>’s Data</div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4 ">Full name</div>
                                     <div class="max-info col-8"><?php echo $member_details->full_name;?></div>
@@ -90,7 +103,7 @@
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Date joined</div>
-                                    <div class="max-info col-8"><?php echo $member_details->added_date;?></div>
+                                    <div class="max-info col-8"><?php echo date('m-d-Y',strtotime($member_details->added_date));?></div>
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Status</div>
@@ -106,28 +119,28 @@
                                 <div class="row">
                                     <div class="col-12 pr-0 mt-1">
                                         <div class="outer-border">
-                                            <?php
-                                            $counter=1;
-                                            foreach($member_brands as $brand){
-                                                ?>
-                                                <div class="d-flex  ml-1">
-                                                    <div class="max-data col-6 ">{{$brand->name;}}</div>
-                                                    <div class=" col-6"><img class="img-fluid max-img"
-                                                            src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt="">
-                                                    </div>
-                                                </div>
-                                                <?php
-                                                if(count($member_brands)!=$counter){
-                                                    ?>
-                                                    <hr>
+                                            <table class="table  w-100 table-responsive" id="member_favroute_brand_table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" class="text-left pl-4">Name</th>
+                                                        <th scope="col">Logo</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     <?php
-                                                }
-                                                ?>
-                                                
-                                                <?php
-                                                $counter++;
-                                            }    
+                                                     foreach($member_brands as $brand){
+                                                        ?> 
+                                                    <tr>
+                                                        <td class="d-flex">{{$brand->name}}</td>
+                                                        <td><img class="img-fluid max-img"
+                                                            src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt=""></td>
+                                                    </tr>
+                                                    <?php
+                                             }    
                                             ?>
+                                                </tbody>
+                                            </table>
+                                           
                                              
                                         </div>
                                     </div>
@@ -293,22 +306,23 @@
                 </button>
             </div>
             <div class="modal-body py-2">
-                <h1>Are you sure you&apos;d like to cancel Max’s membership?</h1>
+                <div class="message" id="message_box"></div>
+                <h1>Are you sure you&apos;d like to cancel <?php echo explode(" ",$member_details->full_name)[0];?>’s membership?</h1>
                 <p class="px-3">Once you confirm cancellation of their membership, their plan will expire at the next monthly billing date without charge. They will receive an email notifying them of this action.</p>
                 <div>
                     <div class="form-group my-3 mx-5">
-                      <select class="form-control" id="exampleFormControlSelect1">
-                          <option>Define reason for cancellation</option>
-                          <option>Fraudulent Behaviour</option>
-                          <option>Platform Misuse</option>
-                          <option>Abusive Behaviour</option>
-                          <option>Prefer not to say</option>
+                      <select class="form-control" id="reason_for_cancellation">
+                          <option value="">Define reason for cancellation</option>
+                          <option value="Fraudulent Behaviour">Fraudulent Behaviour</option>
+                          <option value="Platform Misuse">Platform Misuse</option>
+                          <option value="Abusive Behaviour">Abusive Behaviour</option>
+                          <option value="Prefer not to say">Prefer not to say</option>
                         </select>
                       </div>
                 </div>
                 <h6>Cancel membership?</h6>
                 <div class="row justify-content-center mt-2">
-                    <div><a href="client-offer-accepted.html"><button class="cancel-btn px-3">Cancel</button></a></div>
+                    <div><a href="javascript:void(0)"><button class="cancel-btn px-3" type="button" id="cancel_membership">Cancel</button></a></div>
                     <div><a href=""><button class="back-btn ml-2" type="button" class="close" data-dismiss="modal"
                                 aria-label="Close">Go Back</button></a></div>
                 </div>
@@ -319,6 +333,51 @@
 </div>
 </div>
 @include('admin.includes.footer')
+<script>
+    $(function(){
+        $('#reason_for_cancellation').change(function(){
+            $('#message_box').html('');
+        })
+        $('#cancel_membership').click(function(){
+            var reason_for_cancellation=$('#reason_for_cancellation').val();
+            if(reason_for_cancellation!=''){
+                $.ajax({
+                    url : '/admin-cancel-membership',
+                    method : "POST",
+                    async: false,
+                    data : {
+                        'member_id':'<?php echo $member_details->id;?>',
+                        'reason_for_cancellation':reason_for_cancellation,
+                        '_token': constants.csrf_token
+                    },
+                    success : function (ajaxresponse){
+                        response = JSON.parse(ajaxresponse);
+                        if (response['status']) {
+                            $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+                            setTimeout(function(){
+                                location.reload();
+                            }, 500);
+                        }else{
+                            $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                        }
+                    }
+                })
+            }else{
+                $('#message_box').html('<div class="alert alert-danger">Please select reason of cancellation!</div>');
+            }
+            
+           // alert(reason_for_cancellation);
+        })
+        $('#member_favroute_brand_table').DataTable({
+        "bLengthChange": false,
+        "pageLength":5,
+        "searching": false,
+        "columnDefs": [
+            { orderable: false, targets: 1 }
+        ],
+     });        
+    })
+</script>
 @stop
 
 

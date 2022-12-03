@@ -33,7 +33,9 @@ class Member extends Model
 				"m.email",
             	"m.phone",
             	"m.token",
-				"m.verified"
+            	"m.token",
+				"m.verified",
+				"m.membership_cancelled"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();
@@ -77,7 +79,7 @@ class Member extends Model
    
 	function sourceApplicable($where){
 		if(count($where)){
-			$this->db = DB::table('sg_member_subscription as ms');
+			$this->db = DB::table('sg_member_stylist_subscription as ms');
 			$this->db->select([
 				"ms.id",
 				"ms.start_date",

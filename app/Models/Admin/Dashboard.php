@@ -10,6 +10,15 @@ date:26-11-2022
 class Dashboard extends Model
 {
     public $db;
+	function adminLogin($where){
+		if(count($where)){
+			$this->db = DB::table('sg_member AS m');
+			$this->select(["a.id","a.name","a.email","a.phone"]);
+			$this->db->where($where);
+			$result=$this->db->get();
+			return $result;	
+		}
+	}
 	function adminMemberListAjax($data,$count=false){
  		$this->db = DB::table('sg_member AS m');
 		$this->db->select([
@@ -18,6 +27,7 @@ class Dashboard extends Model
 			"m.gender",
 			"c.country_name",
 			"m.email",
+			"m.membership_cancelled",
 			"m.phone",
 			"m.id as spend",
 			\DB::raw("DATE_FORMAT(m.added_date, '%m/%d/%Y %H:%i') as added_date"),
@@ -227,6 +237,9 @@ class Dashboard extends Model
 				\DB::raw("DATE_FORMAT(m.added_date, '%m/%d/%Y %H:%i') as added_date"),
 				"m.subscription",
 				"m.slug",
+				"m.membership_cancelled",
+				"m.reason_of_cancellation",
+				\DB::raw("DATE_FORMAT(m.cancellation_datetime, '%m/%d/%Y %H:%i') as cancellation_datetime"),
 				"s.full_name as stylist_name",
 				"s.profile_image as stylist_profile_image",
 			]);

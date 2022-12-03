@@ -17,7 +17,7 @@
                     <div class="col-lg-6">
                         <div class="search-container-member">
                             <form action="/action_page.php">
-                                <input type="text" placeholder="Search by name..." name="search "
+                                <input type="text" placeholder="Search by name..." name="search" id="search-box"
                                     class="px-2 search-top">
                                 <button type="submit"><img src="<?php echo asset('admin-section/app-assets/images/icons/Search-right.png');?>"
                                         alt=""></button>
@@ -71,12 +71,10 @@
 <script>
     $(function(){
         var member_list_table_html='';
-        $('#search_box').keyup(function(){
-            member_list_table_html.search(this.value).draw();
-            })
-            manage_group_list_table = $('#member_list_table').DataTable({
+            member_list_table_html = $('#member_list_table').DataTable({
             "bLengthChange": false,
              "processing": true,
+             "searching": false,
              "pageLength":20,
              "serverSide": true,
              "sortable": true,
@@ -95,7 +93,8 @@
                 type: "post", 
                 data: function (d) {    
                     d._token = "{{ csrf_token() }}";
-                    d.search = $( "input[type*='search']" ).val();
+                    //d.search = $( "input[type*='search']" ).val();
+                    d.search = $('#search-box').val();
                  } 
              } ,
              "columns": [ 
@@ -155,7 +154,21 @@
               },
               {
                 "render": function ( data, type, row ) {
-                    return data;
+                    if(row['membership_cancelled']){
+                        return "<span class='red-color'>Cancelled</span>";
+                    }else{
+                        if(row['subscription']=='Trail'){
+                            return "<span class='orange-color'>"+row['subscription']+"</span>";
+                        }
+                        else if(row['subscription']=='Gold Tier'){
+                            return "<span class='gold-color'>"+row['subscription']+"</span>";
+                        }
+                        else{
+                            return data;
+                        }
+                        
+                    }
+                    
                     
                 },
                "targets": 7
@@ -175,6 +188,9 @@
           "footerCallback": function ( row, data, start, end, display ) {
           }
         });
+        $('#search-box').keyup(function(){
+            member_list_table_html.search(this.value).draw();
+            })
     })
 </script>
  @stop

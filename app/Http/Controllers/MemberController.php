@@ -40,7 +40,7 @@ class MemberController extends Controller
     public function memberSourcing()
     {
         $member=new Member();
-        $source_applicable=$member->sourceApplicable(['ms.member_id'=>Session::get("member_id")]);
+        $source_applicable=$member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
         if($source_applicable){
             $day_left=$source_applicable->day_left;
         }else{
@@ -76,7 +76,7 @@ class MemberController extends Controller
 
     public function memberSubmitRequest(Request $request){
         $member=new Member();
-        $source_applicable=$member->sourceApplicable(['ms.member_id'=>Session::get("member_id")]);
+        $source_applicable=$member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
         if($source_applicable){
             $day_left=$source_applicable->day_left;
             if($day_left<0){

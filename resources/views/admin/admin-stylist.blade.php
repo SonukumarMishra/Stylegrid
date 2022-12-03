@@ -17,7 +17,7 @@
                     <div class="col-lg-6">
                         <div class="search-container-member">
                             <form action="/action_page.php">
-                                <input type="text" placeholder="Search by name..." name="search "
+                                <input type="text" placeholder="Search by name..." name="search" id="search-box"
                                     class="px-2 search-top">
                                 <button type="submit"><img src="app-assets/images/icons/Search-right.png"
                                         alt=""></button>
@@ -58,20 +58,7 @@
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td class="d-flex"><span class="dot"></span>Max Melia</td>
-                                <td>Male</td>
-                                <td>London</td>
-                                <td>max@apexmarketing.info</td>
-                                <td>+447376419460</td>
-                                <td>31/09/22</td>
-                                <td>£12,659</td>
-                                <td class="orange-color">Free trial</td>
-                                <td><a href="client-sourcing-offer-received.html"><button class="">View
-                                            Order</button></a></td>
-                            </tr>
-                            
+                        <tbody>                            
                         </tbody>
                     </table>
                 </div>
@@ -89,8 +76,10 @@
             })
             stylist_list_table_html = $('#stylist_list_table').DataTable({
              "processing": true,
+             "bLengthChange": false,
              "pageLength":20,
              "serverSide": true,
+             "searching": false,
              "sortable": true,
              "lengthMenu": [[10,20, 30, 50,100], [10,20, 30, 50,100]],
              "language": {

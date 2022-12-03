@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Dashboard;
+use App\Models\Member;
 use Session;
 use Config;
 /*
@@ -50,6 +51,20 @@ class DashboardController extends Controller
             }
         }
         return redirect("/admin-member-list");
+    }
+    public function adminCancelMembership(Request $request){
+        if($request->ajax()){
+            $member=new Member();
+            $response=$member->addUpdateData(['id'=>$request->member_id,'membership_cancelled'=>1,'reason_of_cancellation'=>$request->reason_for_cancellation,'cancellation_datetime'=>now()],'sg_member');
+            if($response['reference_id']>0){
+                $response['status']=1;
+                $response['message']="Membership cancelled successfully";
+            }else{
+                $response['status']=0;
+                $response['message']="something went wrong!";
+            }
+            return json_encode($response);
+        }
     }
 
     public function adminStylist(Request $request){
