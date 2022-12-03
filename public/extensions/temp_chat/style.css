@@ -1,0 +1,344 @@
+/* Chat module */
+
+.client-search-container {
+  
+}
+.client-search-container input[type=text] {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15.9045px;
+  line-height: 31px;
+   color: #B8BECC;
+   border: 0;
+   opacity: 0.4;
+  height: 36px;
+  padding: 15px 0px;
+}
+.client-hr{
+  border-bottom: 1px solid #F5F7FA;
+}
+.client-search-container button {
+  float: left;
+  transform: rotate(270deg);
+  padding: 0px 2px;
+  margin-top: 4px;
+  margin-right: 7px;
+  background-color: transparent;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.your-stylist{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 104.1%;
+text-align: center;
+color: #2B2B2B;
+}
+
+.stylist-img{
+  border-radius: 50%;
+}
+
+.stylist-name{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #000000;
+}
+
+.client-hr1{
+  border-bottom: 1px solid #CCCCCC;
+  margin-bottom: 1px !important;
+  margin-top: 1px !important;
+}
+.client-p{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  color: #000000;
+}
+
+.pinned-item{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  text-decoration-line: underline;
+  text-underline-offset: 2px;
+  color: #000000;
+}
+
+.item-name,.item-descrip{
+  font-family: 'Silk Serif Medium';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 9.2043px;
+  line-height: 14px;
+  text-align: center;
+  color: #000000;
+}
+
+.badge:empty {
+  display: block !important; 
+}
+
+.item-descrip{
+  font-family: 'Silk Serif';
+  margin-top: 1px;
+}
+#chat-section{
+  background: #FFFDF7;
+border-radius: 0px;
+}
+.client-name{
+  font-family: 'Avenir';
+font-style: normal;
+font-weight: 800;
+font-size: 15.9045px;
+line-height: 31px;
+text-align: center;
+color: #7A8599;
+}
+.dot {
+  font-size: 20px;
+  display: list-item;
+  /* This has to be "list-item"                                          */
+  margin-left: 1em;
+  color: #00A82F;
+  height: 7px;
+  width: 7px;
+}
+#client-inbox-msg {
+  background: #FFFDF7;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+  /* height: 639px; */
+  height: calc(100vh - 200px);
+}
+#chat3 .form-control {
+  border-color: transparent;
+  }
+  
+  #chat3 .form-control:focus {
+  border-color: transparent;
+  box-shadow: inset 0px 0px 0px 1px transparent;
+  }
+  .status{
+    font-family: 'Avenir-Book';
+font-style: normal;
+font-weight: 500;
+font-size: 14.6811px;
+line-height: 24px;
+color: #B8BECC;
+  }
+  .list-name{
+    font-family: 'Avenir-Book';
+font-style: normal;
+font-weight: 500;
+font-size: 14.6811px;
+line-height: 24px;
+color: #666F80;
+  }
+  .list-msg{
+    font-family: 'Avenir-Book';
+font-style: normal;
+font-weight: 500;
+font-size: 14.6811px;
+line-height: 24px;
+color: #828282;
+  }
+  .list-time{
+    font-family: 'Avenir-Book';
+font-style: normal;
+font-weight: 500;
+font-size: 12.2342px;
+line-height: 24px;
+color: #B8BECC;
+  }
+  .img-collapse{
+    position: relative;
+    top: -33px;
+  }
+  .img-collapse-1{
+    position: relative;
+    top: -55px;
+  }
+  #client-chat .bg-warning{
+    top: 39%;
+    left: 4%;
+  }
+  #client-chat .bg-danger{
+    top: 46%;
+  }
+  .badge-dot {
+    position: absolute;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  margin-left: 2.9rem;
+  margin-top: -.75rem;
+  }
+#client-inbox-msg h1 {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 10px;
+  line-height: 25px;
+  color: #000000;
+}
+
+#client-inbox-msg h3 {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 104.1%;
+  text-align: center;
+  color: #2B2B2B;
+}
+
+#client-inbox-msg h6 {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #000000;
+}
+
+#client-inbox-msg .container {
+  background: #6184FF;
+  border-radius: 10px;
+}
+
+#client-inbox-msg .darker {
+  background: #A9A9A9;
+  border-radius: 10px;
+}
+
+.zoom-image{
+  height: 48px;
+  position: relative;
+    bottom: -146px;
+    right: 67px;
+}
+
+#client-inbox-msg .container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#client-inbox-msg .container p {
+  font-family: 'Avenir Next';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+}
+
+#client-inbox-msg .border {
+  border: 1px solid #D8D8D8 !important;
+}
+
+.chat-pic{
+  width: 48.88px;
+  height: 52px;
+border-radius: 50%;
+}
+.chat-client-name{
+  font-family: 'Avenir';
+font-style: normal;
+font-weight: 800;
+font-size: 15.9045px;
+line-height: 31px;
+color: #666F80;
+}
+.chat-client-time{
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 14.6811px;
+  line-height: 24px;
+  color: #B8BECC;
+}
+
+#chat-footer img{
+  height: 15px;
+}
+#chat-footer input, #chat-footer textarea{
+  border: 0;
+  background: aliceblue;
+}
+
+.chat-image-preview{
+  cursor: pointer;
+  width: 160px;
+  height: 80px;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.attachment-preview > svg:first-child {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.33);
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 100%;
+  font-size: 16px;
+  margin: 0px;
+  color: rgb(255, 255, 255);
+}
+
+.chat-media{
+  height: 150px;
+  width: 200px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+/********************end  client-dashboard***************8/
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .table-responsive {
+   display: block !important;
+ }
+
+ .content-body h1,#client-inbox-msg h3,#style-news h1,#footer h1,
+  #browse-soursing h1,#notice-board h1,#refer-client h1,#create-grid-1 h1{
+    font-size: 25px;
+    line-height: 30px;
+  }
+  .content-body h3,#browse-soursing h2,#footer p{
+    font-size: 16px;
+    line-height: 26px;
+  }
+  #client-chat .bg-warning {
+    top: 40%;
+    left: 3%;
+  }
+  #client-chat .bg-danger {
+  top: 47%;
+  left: 2%;
+  }
+}
+

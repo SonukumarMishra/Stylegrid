@@ -78,7 +78,7 @@
                 <li class=" nav-item mt-5"><a href="/stylist-dashboard"><i class="ft-home"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('stylist.messanger.index') }}"><i class="ft-layers"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
                 <li class=" nav-item"><a href="{{ route('stylist.grid.index') }}" class="active"><i class="ft-monitor active"></i><span
