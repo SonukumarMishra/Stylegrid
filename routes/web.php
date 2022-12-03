@@ -6,7 +6,8 @@ use App\Http\Controllers\StylistController as Stylist;
 use App\Http\Controllers\MemberWebsiteController as Website;
 use App\Http\Controllers\StylistWebsiteController as StylistWebsite;
 use App\Http\Controllers\CreateGridController as CreateGridController;
-
+use App\Http\Controllers\Admin\LoginController as AdminLogin;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,6 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
  Route::get('/', [StylistWebsite::class, 'index']);
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
- 
  Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
@@ -45,8 +45,15 @@ use App\Http\Controllers\CreateGridController as CreateGridController;
   });
 
  });
+ 
+  Route::get('/stylist-messanger', 'Stylist\ChatController@index')->name('stylist.messanger.index');
+  Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
+  Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
+  Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
+  Route::post('/stylist-messanger-room-messages', 'Stylist\ChatController@getChatRoomMessage')->name('stylist.messanger.room.messages');
 
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
+ Route::get('/stylist-testing', [Login::class, 'index']);
  Route::post('/check-stylist-existance', [StylistWebsite::class, 'checkStylistExistance']);
  Route::post('/add-stylist', [StylistWebsite::class, 'addStylist']);
  Route::get('/stylist-account-confirmation/{title}', [StylistWebsite::class, 'stylistAccountConfirmation']);
@@ -103,7 +110,32 @@ Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest']);
 Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);
 
+// Memeber panel chat
+Route::get('/member-messanger', 'Member\ChatController@index')->name('member.messanger.index');
+Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name('member.messanger.pusher.auth');
+Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts')->name('member.messanger.contacts');
+Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');
+Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoomMessage')->name('member.messanger.room.messages');
+
 //member section End
+
+//Admin Section Start
+Route::get('/admin', [AdminLogin::class, 'adminLogin']);
+Route::get('/admin-logout', [AdminLogin::class, 'adminLogout']);
+Route::get('/admin-dashboard', [AdminDashboard::class, 'adminDashboard']);
+Route::get('/admin-member-list', [AdminDashboard::class, 'adminMemberList']);
+Route::post('/admin-member-list-ajax', [AdminDashboard::class, 'adminMemberListAjax']);
+Route::get('/admin-member-details/{title}', [AdminDashboard::class, 'adminMemberDetails']);
+Route::get('/admin-stylist', [AdminDashboard::class, 'adminStylist']);
+Route::post('/admin-stylist-list-ajax', [AdminDashboard::class, 'adminStylistListAjax']);
+Route::get('/admin-stylist-details/{title}', [AdminDashboard::class, 'adminStylistDetails']);
+Route::post('/admin-cancel-membership', [AdminDashboard::class, 'adminCancelMembership']);
+Route::post('/admin-cancel-stylist-membership', [AdminDashboard::class, 'adminCancelStylistMembership']);
+Route::get('/admin-member-order-details/{title}', [AdminDashboard::class, 'adminMemberOrderDetails']);
+Route::get('/admin-stylist-order-details/{title}', [AdminDashboard::class, 'adminStylistOrderDetails']);
+
+
+//admin section end
 
 // Route::get('/loadgridview', function () {
 	// error_log("ROOT ROUTE");

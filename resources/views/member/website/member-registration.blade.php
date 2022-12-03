@@ -22,13 +22,13 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="full_name" id="full_name" placeholder="Full Name..." onkeypress="return lettersOnly(event)" maxlength="50">
+                                <input type="text" name="full_name" id="full_name" placeholder="Full Name..." maxlength="50">
                                 <!-- <span>Full Name</span> -->
                             </div>
                             <div id="full_name_error" class="error"></div>
                         </div>
                         <div class="inputbox">
-                            <div class="form-group">
+                              <div class="form-group">
                                 
                                 <input type="text" name="email" id="email" placeholder="Email Address....">
                                 <div id="email_error" class="error"></div>
@@ -37,7 +37,7 @@
                         </div>
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" id="phone" name="phone" placeholder="Phone Number..." onkeypress="return isNumberKey(event)" maxlength="10">
+                                <input type="text" id="phone" name="phone" placeholder="Phone Number..." onkeypress="return isNumberKey(event)" maxlength="15">
                                 <div id="phone_error" class="error"></div>
                                 <!-- <span>Phone Number</span> -->
                             </div>

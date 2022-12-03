@@ -9,7 +9,11 @@ date:10-11-2022
 */
 class Stylist extends Model
 {
-    public $db;	
+    public $db;
+	
+	protected $table='sg_stylist';
+    protected $primaryKey = 'id';
+
 	function getOfferData($where){
 		if(count($where)){
         	$this->db = DB::table('sg_sourcing_offer as so');

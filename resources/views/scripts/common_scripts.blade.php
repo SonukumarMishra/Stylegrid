@@ -175,7 +175,7 @@
                 'YYYY-MM-DD HH:mm:ss');
         }
 
-        window.convertUtcDateTimeToLocalDateTime = function(time, format = 'DD MMM, YYYY , hh:mm A') {
+        window.convertUtcDateTimeToLocalDateTime = function(time, format = 'MM/DD/YYYY HH:mm') {
             return moment.utc(time, 'YYYY-MM-DD HH:mm:ss').local().format(format);
         }
 

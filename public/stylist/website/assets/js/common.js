@@ -283,7 +283,11 @@ function showTab(n) {
           if(currentTab==3){
             valid = false
             return  setpFourValidation();
-          }      
+          }
+          if(currentTab==4){
+            valid = false
+            return  setpFiveValidation();
+          }     
           if (valid) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
@@ -482,7 +486,7 @@ function setpOneValidation(){
             response = JSON.parse(ajaxresponse);
             if (!response['status']) {
               $('#email').css('border', '2px solid #cc0000');
-              $('#email_error').html('Email Address already exists!');
+              $('#email_error').html(response['message']);
               status = false; 
             }
         }
@@ -507,7 +511,7 @@ function setpOneValidation(){
             response = JSON.parse(ajaxresponse);
             if (!response['status']) {
               $('#phone').css('border', '2px solid #cc0000');
-              $('#phone_error').html('Phone Number already exists!');
+              $('#phone_error').html(response['message']);
               status = false; 
             }
         }
@@ -530,6 +534,17 @@ function setpFourValidation(){
   }
   return status;
 }
+
+function setpFiveValidation(){
+  $('.message').html('');
+  var status=true;
+  if($("input[name='gender']:checked").val()==undefined){
+    status=false;
+    $('#fifth_step_message_box').html('<div class="alert alert-danger">Please select your gender!</div>');
+  }
+  return status;
+}
+
 function setpThreeValidation(){
   var status=true;
   var styling_experience=makeTrim($('#styling_experience').val());
@@ -567,6 +582,7 @@ function setpTwoValidation(){
   return status;
 }
 
+/*
 function setpFiveValidation(){
   var status=true;
   var total_selected_brand=$('.brand_list_check').filter(':checked').length;
@@ -576,6 +592,7 @@ function setpFiveValidation(){
   }
   return status;
 }
+*/
 
 function makeTrim(x) {
   if (x) {
