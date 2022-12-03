@@ -50,7 +50,11 @@ class StylistWebsiteController extends Controller
                     return json_encode(['status'=>1,'message'=>'Success']);
                 }
             }else{
-                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                if($status->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }
         }  
     }
@@ -65,8 +69,13 @@ class StylistWebsiteController extends Controller
                     return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
                 }
             }
-            if($member->checkStylistExistance(['s.email'=>$request->email])){
-                return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+            $stylist_existance=$member->checkStylistExistance(['s.email'=>$request->email]);
+            if($stylist_existance){
+                if($stylist_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+                }
             }
             $member_phone_existance=$member->checkMemberExistance(['m.phone'=>$request->phone]);
             if($member_phone_existance){
@@ -76,8 +85,13 @@ class StylistWebsiteController extends Controller
                     return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
                 }
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone Oalready exists!','url'=>'']);
+            $stylist_phone_existance=$member->checkStylistExistance(['s.phone'=>$request->phone]);
+            if($stylist_phone_existance){
+                if($stylist_phone_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
+                }
             }
             $save_data=array(
                 'id'=>0,
@@ -201,18 +215,28 @@ class StylistWebsiteController extends Controller
             $password=sha1($request->password);
             $login_data=$member->checkStylistExistance(['s.email'=>$email,'s.password'=>$password]);
             if($login_data){
-                if($login_data->verified){
-                    Session::put('stylist_data', $login_data);
-                    Session::put('stylist_id', $login_data->id);
-                    Session::put('Stylistloggedin',TRUE);
-                    return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                if(!$login_data->membership_cancelled){
+                    if($login_data->verified){
+                        Session::put('stylist_data', $login_data);
+                        Session::put('stylist_id', $login_data->id);
+                        Session::put('Stylistloggedin',TRUE);
+                        return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                    }
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'message'=>'Account not verified',
+                        //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
+                    ]);
+                }else{
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'verification_url'=>'',
+                        'message'=>'Your membership has been cancelled',
+                    ]);
                 }
-                return json_encode(
-                    [
-                    'status'=>0,
-                    'message'=>'Account not verified',
-                    //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-                ]);
+                
             }else{
                 return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!']);
             }

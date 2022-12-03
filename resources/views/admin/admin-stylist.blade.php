@@ -156,7 +156,10 @@
               },
               {
                 "render": function ( data, type, row ) {
-                    if(row['subscription']=='Trail'){
+                    if(row['membership_cancelled']){
+                        return "<span class='red-color'>Cancelled</span>";
+                    }else{
+                        if(row['subscription']=='Trail'){
                             return "<span class='orange-color'>"+row['subscription']+"</span>";
                         }
                         else if(row['subscription']=='Gold Tier'){
@@ -165,7 +168,8 @@
                         else{
                             return data;
                         }
-                    
+                        
+                    }
                 },
                "targets": 7
               },

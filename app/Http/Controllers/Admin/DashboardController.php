@@ -67,6 +67,22 @@ class DashboardController extends Controller
         }
     }
 
+    public function adminCancelStylistMembership(Request $request){
+        if($request->ajax()){
+            $member=new Member();
+            $response=$member->addUpdateData(['id'=>$request->stylist_id,'membership_cancelled'=>1,'reason_of_cancellation'=>$request->reason_for_cancellation,'cancellation_datetime'=>now()],'sg_stylist');
+            if($response['reference_id']>0){
+                $response['status']=1;
+                $response['message']="Stylist Membership cancelled successfully";
+            }else{
+                $response['status']=0;
+                $response['message']="something went wrong!";
+            }
+            return json_encode($response);
+        }
+    }
+    
+
     public function adminStylist(Request $request){
         return view('admin.admin-stylist');
     }
@@ -97,4 +113,19 @@ class DashboardController extends Controller
         }
         return redirect("/admin-stylist");
     }
+
+    public function adminMemberOrderDetails($id){
+        if(!empty($id)){
+            return view('admin.admin-member-order-details');
+        }
+        return redirect("/admin-member-list");  
+    }
+
+    public function adminStylistOrderDetails($id){
+        if(!empty($id)){
+            return view('admin.admin-stylist-order-details');
+        }
+        return redirect("/admin-stylist");  
+    }
+    
 }

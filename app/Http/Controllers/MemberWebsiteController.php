@@ -40,9 +40,16 @@ class MemberWebsiteController extends Controller
                     return json_encode(['status'=>0,'message'=>'Email already exists!']);
                 }
             }
-            if($member->checkStylistExistance(['s.email'=>$request->email])){
-                return json_encode(['status'=>0,'message'=>'Email already exists!']);
+            $stylist_existance=$member->checkStylistExistance(['s.email'=>$request->email]);
+            if($stylist_existance){
+                if($stylist_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
+
             }
+            
             $member_phone_existance=$member->checkMemberExistance(['m.phone'=>$request->phone]);
             if($member_phone_existance){
                 if($member_existance->membership_cancelled){
@@ -51,9 +58,15 @@ class MemberWebsiteController extends Controller
                     return json_encode(['status'=>0,'message'=>'Email already exists!']);
                 }
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone already exists!']);
+            $stylist_phone_existance=$member->checkStylistExistance(['s.phone'=>$request->phone]);
+            if($stylist_phone_existance){
+                if($stylist_phone_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
             }
+
             $save_data=array(
                 'id'=>0,
                 'full_name'=>$request->full_name,
@@ -100,7 +113,11 @@ class MemberWebsiteController extends Controller
                 if(!$status){
                     return json_encode(['status'=>1,'message'=>'Success']);
                 }else{
-                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                    if($status->membership_cancelled){
+                        return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                    }else{
+                        return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                    }
                 }
             }else{
                 if($status->membership_cancelled){

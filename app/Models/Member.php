@@ -53,7 +53,8 @@ class Member extends Model
             	"s.phone",
 				"s.verified",
 				"s.short_bio",
-				"s.profile_image"
+				"s.profile_image",
+				"s.membership_cancelled"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();

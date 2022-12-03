@@ -172,7 +172,7 @@
                     <div class="member-detail pt-2 px-1">
                         <div class="mem-name text-left ml-3">Order History</div>
                         <div class="text-center add-table-border mt-3 px-1" id="order-history-table">
-                            <table class="table  w-100 table-responsive">
+                            <table class="table  w-100 table-responsive" id="member-order-list">
                                 <thead>
                                     <tr>
                                         <th scope="col" class="">ORDER #</th>
@@ -188,7 +188,7 @@
                                         <td>22/02/23</td>
                                         <td>£12,659</td>
                                         <td class="orange-color">Processing</td>
-                                        <td><a href="member-dashboard-home.html"><button class="">View </button></a>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View </button></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -196,7 +196,7 @@
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="orange-color">Processing</td>
-                                        <td><a href="member-dashboard-home.html"><button class="">View </button></a>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View </button></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -204,63 +204,63 @@
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="">Dispatched</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr class="">
                                         <td>#0061</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="">Dispatched</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
                                     <tr>
                                         <td>#0011</td>
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">View</button></a></td>
                                     </tr>
 
                                     <tr class="border-bottom-zero">
@@ -268,44 +268,13 @@
                                         <td>22/02/23</td>
                                         <td>£1,449</td>
                                         <td class="green-color">Delivered</td>
-                                        <td><a href=""><button class="">View</button></a></td>
+                                        <td><a href="{{url('admin-member-order-details/test')}}"><button class="">Views</button></a></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-------------pagination---------->
-                        <nav aria-label="Page navigation d-flex " id="pagination">
-                            <ul class="pagination justify-content-end pb-2">
-                                <h6 class="px-2 pt-1">12 Orders</h6>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <img src="../Admin/app-assets/images/gallery/prev1.png" class="img-fluid"
-                                            alt="">
-                                        <!-- <span aria-hidden="true">&laquo;</span>
-                          <span class="sr-only">Previous</span> -->
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                        <img src="../Admin/app-assets/images/gallery/prev.png" class="img-fluid"
-                                            alt="">
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link">of</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <img src="../Admin/app-assets/images/gallery/next.png" alt="">
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                        <img src="../Admin/app-assets/images/gallery/next.png" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                        
                         <!--------------end of pagination--->
                     </div>
                 </div>
@@ -382,8 +351,6 @@
             }else{
                 $('#message_box').html('<div class="alert alert-danger">Please select reason of cancellation!</div>');
             }
-            
-           // alert(reason_for_cancellation);
         })
         $('#member_favroute_brand_table').DataTable({
         "bLengthChange": false,
@@ -392,7 +359,15 @@
         "columnDefs": [
             { orderable: false, targets: 1 }
         ],
-     });        
+     });
+     $('#member-order-list').DataTable({
+        "bLengthChange": false,
+        "pageLength":10,
+        "searching": false,
+        "columnDefs": [
+            { orderable: false, targets: 1 }
+        ],
+     });          
     })
 </script>
 @stop

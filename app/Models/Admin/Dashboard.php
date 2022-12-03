@@ -129,6 +129,7 @@ class Dashboard extends Model
 		   "s.full_name",
 		   "s.gender",
 		   "c.country_name",
+		   "s.membership_cancelled",
 		   "s.email",
 		   "s.phone",
 		   "s.id as spend",
@@ -265,6 +266,9 @@ class Dashboard extends Model
 				"s.subscription",
 				"s.id as spend",
 				\DB::raw("DATE_FORMAT(s.added_date, '%m/%d/%Y %H:%i') as added_date"),
+				"s.membership_cancelled",
+				"s.reason_of_cancellation",
+				\DB::raw("DATE_FORMAT(s.cancellation_datetime, '%m/%d/%Y %H:%i') as cancellation_datetime"),
 				"s.slug",
 			]);
 			$this->db->join('sg_country as c', 'c.id', '=', 's.country_id');
