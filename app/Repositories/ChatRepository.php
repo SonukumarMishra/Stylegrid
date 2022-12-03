@@ -308,9 +308,9 @@ class ChatRepository {
 						);
 			
 						$pusher_ref->trigger('private-chatify', 'messaging', [
-									'chat_room_id' => $request->chat_room_id,
-									'message_obj' => $chat_message
-								]);
+												'chat_room_id' => $request->chat_room_id,
+												'message_obj' => $chat_message
+											]);
 						
 						$response_array = array('status' => 1, 'data' => $chat_message );
 	
@@ -448,7 +448,22 @@ class ChatRepository {
 					$chat_room->receiver_user = $value['receiver_user'];
 					$chat_room->module = $value['module'];
 					$chat_room->save();
+
+					if($chat_room){
+
+						$pusher_ref = new Pusher(
+							config('chat.pusher.key'),
+							config('chat.pusher.secret'),
+							config('chat.pusher.app_id'),
+							config('chat.pusher.options'),
+						);
 			
+						$pusher_ref->trigger('private-chatify', 'messaging', [
+												'chat_room_id' => $chat_room->chat_room_id,
+												'message_obj' => ''
+											]);
+	
+					}
 				}
 			}
 

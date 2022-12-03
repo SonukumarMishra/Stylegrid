@@ -48,7 +48,7 @@
     // Listen to messages, and append if data received
     channel.bind("messaging", function (data) {
 
-        if (data.chat_room_id == selectedRoomId && data.message_obj.receiver_user == auth_user_type && data.message_obj.receiver_id == auth_id) {
+        if(data.chat_room_id == selectedRoomId && data.message_obj != undefined && data.message_obj != '' && data.message_obj.receiver_user == auth_user_type && data.message_obj.receiver_id == auth_id) {
         
             $(".messages").find(".message-hint").remove();
         
@@ -58,23 +58,27 @@
 
              // update contact item
              updateContactItem(data.chat_room_id, data.message_obj);
-            // makeSeen(true);
+             getChatContacts(selectedRoomId);
+             // makeSeen(true);
             // // remove unseen counter for the user from the contacts list
             // $(".messenger-list-item[data-contact=" + selectedRoomId + "]")
             // .find("tr>td>b")
             // .remove();
+        }else if(data.chat_room_id != selectedRoomId){
+            getChatContacts(selectedRoomId);
         }
+
     });
 
     
     // listen to contact item updates event
-    // channel.bind("client-contactItem", function (data) {
-    //     if (data.update_for == auth_id) {
-    //         data.updating == true
-    //         ? updateContactItem(data.update_to)
-    //         : console.error("[Contact Item updates] Updating failed!");
-    //     }
-    // });
+    channel.bind("client-contactItem", function (data) {
+        if (data.update_for == auth_id) {
+            data.updating == true
+            ? updateContactItem(data.update_to)
+            : console.error("[Contact Item updates] Updating failed!");
+        }
+    });
 
         
     /**
@@ -83,11 +87,11 @@
     *-------------------------------------------------------------
     */
     function sendContactItemUpdates(status) {
-        // return channel.trigger("client-contactItem", {
-        //     update_for: selectedRoomId, // Messenger
-        //     update_to: auth_id, // Me
-        //     updating: status,
-        // });
+        return channel.trigger("client-contactItem", {
+            update_for: selectedRoomId, // Messenger
+            update_to: auth_id, // Me
+            updating: status,
+        });
     }
 
 
@@ -183,8 +187,8 @@
         contactsLoading = loading;
     }
 
-    function getChatContacts() {
-        if (!contactsLoading && !noMoreContacts) {
+    function getChatContacts(selected_chatroom_id='') {
+        // if (!contactsLoading && !noMoreContacts) {
             setContactsLoading(true);
             $.ajax({
                 url: chat_baseurl + "member-messanger-contacts",
@@ -192,6 +196,7 @@
                 data: { _token: access_token, page: contactsPage },
                 dataType: "JSON",
                 success: (response) => {
+
                     console.log(response);
 
                     setContactsLoading(false);
@@ -206,7 +211,15 @@
 
                             // render first contact chat
                             if(allContactsList.length > 0){
-                                $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
+
+                                if(selected_chatroom_id != ''){
+
+                                    // $('.messenger-list-item[data-room-id="'+selected_chatroom_id+'"]').click();
+
+                                }else{
+                                    $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
+                                }
+
                                 $('#chat-section').show();
                             }else{
                                 $('#chat-section').hide();
@@ -228,7 +241,7 @@
                     console.error(error);
                 },
             });
-        }
+        // }
     }
 
     function getContactsUIHtml(contacts) {
@@ -412,7 +425,7 @@
 
         html += '<div class="row justify-content-end mx-2 mt-2 message-card" data-room-id="'+id+'">';
         html += '   <div class="d-flex">';
-        html += '       <div class="card ml-1" style="background: #e9f4ff;width: 40rem;">';
+        html += '       <div class="card ml-1" style="background: #e9f4ff;width: 50rem;">';
         html += '           <div class="card-header d-flex justify-content-between p-1" style="border-bottom: 1px solid;">';
         html += '               <p class="fw-bold mb-0 chat-client-name">'+auth_name+'</p>';
         html += '               <p class="small mb-0 chat-client-time"><i class="far fa-clock"></i>'+convertUtcDateTimeToLocalDateTime(new Date())+'</p>';
