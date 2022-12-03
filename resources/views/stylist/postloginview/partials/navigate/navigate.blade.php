@@ -58,9 +58,8 @@
                         <?php
                         if(is_file('stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image)){
                             $image='stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image;
-                        }else{
-                            $image='stylist/app-assets/images/gallery/stylist.png';
                         }
+                        $image='stylist/app-assets/images/gallery/stylist.png';
                         ?>
                         <img src="{{ asset($image) }}" class="img-fluid" alt="">
                     </div>

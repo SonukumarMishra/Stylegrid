@@ -25,7 +25,7 @@ class LoginController extends Controller
             if($response['status']){
                 Session::put('admin_data',$response);
                 Session::put('adminLoggedin',TRUE);
-                echo json_encode(['status'=>1,'message'=>'Sussess']);
+                echo json_encode(['status'=>1,'message'=>'Success']);
             }else{
                 echo json_encode(['status'=>0,'message'=>'Failure']);
             }

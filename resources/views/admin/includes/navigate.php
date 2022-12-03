@@ -59,10 +59,10 @@
                     </a>
                 </li>
                 <li class="nav-item text-center">
-                    <div class="stylish-img"><img src="<?php echo  asset('admin-section/app-assets/images/gallery/Profile Picture (1).png')?>"
+                    <div class="stylish-img"><img src="<?php echo  asset('admin-section/app-assets/images/gallery/admin-profile-photo.png')?>"
                             class="img-fluid" alt="">
                     </div>
-
+                </li>    
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
                             <h2 class="stylish-name">Georgia Fox</h2><br>
@@ -71,9 +71,6 @@
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
                             data-i18n="">Admin</span></a> </li>
 
-                <!-- <li class="nav-item"><a href="" class="py-1 pl-5 text-center"><span class="menu-title profession"
-                            data-i18n=""><img src="app-assets/images/gallery/check-mark.png" alt=""></span></a> </li>
-                </li> -->
                 <li class=" nav-item mt-5"><a href="Admin-dashboard.html"class="active"><i class="ft-home active"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
@@ -113,7 +110,6 @@
                 <li class="nav-item"><a href="<?php echo url('/admin-logout');?>"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
                             Out</span></a>
                 </li>
-
             </ul>
             <div class="row mx-1 py-1 social-media-border my-4">
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/Instagram.png')?>" alt=""></a></div>

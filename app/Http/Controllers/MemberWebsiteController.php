@@ -34,12 +34,41 @@ class MemberWebsiteController extends Controller
     public function addMember(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkMemberExistance(['m.email'=>$request->email]) || $member->checkStylistExistance(['s.email'=>$request->email])){
-                return json_encode(['status'=>0,'message'=>'Email already exists!']);
+            $member_existance=$member->checkMemberExistance(['m.email'=>$request->email]);
+            if($member_existance){
+                if($member_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
             }
-            if($member->checkMemberExistance(['m.phone'=>$request->phone]) || $member->checkStylistExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone already exists!']);
+            $stylist_existance=$member->checkStylistExistance(['s.email'=>$request->email]);
+            if($stylist_existance){
+                if($stylist_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
+
             }
+            
+            $member_phone_existance=$member->checkMemberExistance(['m.phone'=>$request->phone]);
+            if($member_phone_existance){
+                if($member_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
+            }
+            $stylist_phone_existance=$member->checkStylistExistance(['s.phone'=>$request->phone]);
+            if($stylist_phone_existance){
+                if($stylist_phone_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!']);
+                }
+            }
+
             $save_data=array(
                 'id'=>0,
                 'full_name'=>$request->full_name,
@@ -67,7 +96,7 @@ class MemberWebsiteController extends Controller
                         }
                     }
                 }
-                $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_subscription');   
+                $member->addUpdateData(['id'=>0,'type_s_m'=>0,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_stylist_subscription');   
                 $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
                 //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
                 $member->addUpdateData(['id'=>$response['reference_id'],'assigned_stylist'=> $stylist_data ? $stylist_data->id : 0 ],'sg_member');   
@@ -91,10 +120,18 @@ class MemberWebsiteController extends Controller
                 if(!$status){
                     return json_encode(['status'=>1,'message'=>'Success']);
                 }else{
-                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                    if($status->membership_cancelled){
+                        return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                    }else{
+                        return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                    }
                 }
             }else{
-                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                if($status->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }
         }  
     }
@@ -137,18 +174,29 @@ class MemberWebsiteController extends Controller
             $password=sha1($request->password);
             $login_data=$member->checkMemberExistance(['m.email'=>$email,'m.password'=>$password]);
             if($login_data){
-                if($login_data->verified){
-                    Session::put('member_data', $login_data);
-                    Session::put('member_id', $login_data->id);
-                    Session::put('Memberloggedin',TRUE);
-                    return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                if(!$login_data->membership_cancelled){
+                    if($login_data->verified){
+                        Session::put('member_data', $login_data);
+                        Session::put('member_id', $login_data->id);
+                        Session::put('Memberloggedin',TRUE);
+                        return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                    }
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'case'=>0,
+                        'message'=>'Account not verified',
+                        'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
+                    ]);
+                }else{
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'verification_url'=>'',
+                        'message'=>'Your membership has been cancelled',
+                    ]);   
                 }
-                return json_encode(
-                    [
-                    'status'=>0,
-                    'message'=>'Account not verified',
-                    'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-                ]);
+                
             }else{
                 return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!','verification_url'=>'']);
             }
@@ -182,8 +230,12 @@ class MemberWebsiteController extends Controller
             $email=$request->email;
             $member_data=$member->checkMemberExistance(['m.email'=>$email]);
             if($member_data){
-                $member->addUpdateData(['id'=>$member_data->id,'token'=>sha1(time())],'sg_member');
-                return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
+                if($member_data->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Your membership has been cancelled!']);
+                }else{
+                    $member->addUpdateData(['id'=>$member_data->id,'token'=>sha1(time())],'sg_member');
+                    return json_encode(['status'=>1,'message'=>'Link Successfully sent to your email!']);
+                }
             }else{
                 return json_encode(['status'=>0,'message'=>'Email Id not correct!']);
             }

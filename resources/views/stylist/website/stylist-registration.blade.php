@@ -47,7 +47,7 @@
                     </div>
                     <div class="inputbox">
                         <div class="form-group">
-                            <input type="text" id="phone" name="phone" maxlength="10" placeholder="Phone Number..." onkeypress="return isNumberKey(event)">
+                            <input type="text" id="phone" name="phone" maxlength="15" placeholder="Phone Number..." onkeypress="return isNumberKey(event)">
                             <div id="phone_error" class="error"></div>
                             <!-- <span>Phone Number</span> -->
                         </div>
