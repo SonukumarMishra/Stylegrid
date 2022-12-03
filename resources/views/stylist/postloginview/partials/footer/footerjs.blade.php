@@ -98,6 +98,7 @@
 <script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
+<script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
 <script>
     var constants = {
         base_url:"{{URL::to('/')}}",
@@ -118,6 +119,7 @@
     <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
 
     <script >
+        
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
         
@@ -132,16 +134,20 @@
             }
         });
 
-        var auth_id = {{ Session::get("stylist_id") }},
+        var auth_id = {{ @Session::get("stylist_id") }},
+            auth_name = '{{ @Session::get("stylist_data")->name }}',
+            auth_profile = '{{ @Session::get("stylist_data")->profile_image }}',
             chat_baseurl = constants.base_url+'/',
             auth_user_type = 'stylist';
 
         console.log("pusher obj ", pusher);
+
         // Bellow are all the methods/variables that using php to assign globally.
         const allowedImages = {!! json_encode(config('chat.attachments.allowed_images')) !!} || [];
         const allowedFiles = {!! json_encode(config('chat.attachments.allowed_files')) !!} || [];
         const getAllowedExtensions = [...allowedImages, ...allowedFiles];
         const getMaxUploadSize = {{ config('chat.attachments.max_upload_size') * 1048576 }};
+
     </script>
       
     @include('scripts.stylist.messanger.index')

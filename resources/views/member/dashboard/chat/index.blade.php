@@ -3,11 +3,27 @@
 
 <!-- BEGIN: Content-->
 <style>
-    .messenger-listView .m-body{
-        margin-top: 53px !important;
+    .messenger-messagingView .m-body {
+        padding-top: 15px;
+        height: calc(100%);
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    hr{
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+    }
+    .m-list-active{
+        background-color: #000000 !important;
+        padding: 1.5rem !important;
+        border-radius: 0.25rem !important;
+        color: #ffffff !important;
+    }
+    .m-list-active .list-name, .m-list-active .list-msg, .m-list-active .list-time{
+        color: #fff !important;
     }
     .messenger-list-item{
-        box-shadow: 0px 0px 10px rgb(0 0 0 / 12%) !important;
+        border-bottom: 1px solid #F5F7FA;
     }
 </style>
 
@@ -37,135 +53,105 @@
             </div>
 
             {{-- Chat Container  --}}
-            <div class="messenger">
-                {{-- ----------------------Users/Groups lists side---------------------- --}}
-                <div class="messenger-listView">
-                    {{-- Header and search bar --}}
-                    <div class="m-header">
-                        {{-- <nav> --}}
-                            {{-- <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a> --}}
-                            {{-- header buttons --}}
-                            {{-- <nav class="m-header-right">
-                                <a href="#"><i class="fas fa-cog settings-btn"></i></a>
-                                <a href="#" class="listView-x"><i class="fas fa-times"></i></a>
-                            </nav> --}}
-                        {{-- </nav> --}}
-                        {{-- Search input --}}
-                        {{-- <input type="text" class="messenger-search" placeholder="Search" /> --}}
-                        {{-- Tabs --}}
-                        <div class="messenger-listView-tabs">
-                            <a href="#" class="active-tab" data-view="users">
-                                <span class="far fa-user"></span> People</a>
-                        </div>
-                    </div>
-                    {{-- tabs and lists --}}
-                    <div class="m-body contacts-container">
-                       {{-- Lists [Users/Group] --}}
-                       {{-- ---------------- [ User Tab ] ---------------- --}}
-                       <div class="show messenger-tab users-tab app-scroll" data-view="users">
-            
-                           {{-- Favorites --}}
-                           {{-- <div class="favorites-section">
-                            <p class="messenger-title">Favorites</p>
-                            <div class="messenger-favorites app-scroll-thin"></div>
-                           </div> --}}
-            
-                           {{-- Contact --}}
-                           <div class="listOfContacts" style="width: 100%;height: calc(100% - 200px);position: relative;"></div>
-            
-                       </div>
-            
-                         {{-- ---------------- [ Search Tab ] ---------------- --}}
-                       <div class="messenger-tab search-tab app-scroll" data-view="search">
-                            {{-- items --}}
-                            <p class="messenger-title">Search</p>
-                            <div class="search-records">
-                                <p class="message-hint center-el"><span>Type to search..</span></p>
-                            </div>
-                         </div>
-                    </div>
-                </div>
-            
-                {{-- ----------------------Messaging side---------------------- --}}
-                <div class="messenger-messagingView" style="border: 1px solid;">
-                    {{-- header title [conversation name] amd buttons --}}
-                    <div class="m-header m-header-messaging">
-                        <nav class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
-                            {{-- header back button, avatar and user name --}}
-                            <div class="chatify-d-flex chatify-justify-content-between chatify-align-items-center">
-                                <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
-                                <div class="avatar av-s header-avatar" style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
+            <div id="client-chat" class="mt-3">
+                
+                <div class="row">
+                
+                    <div class="col-lg-3 px-0">
+                        <div class="client-search-container">
+                            {{-- <form action="#" method="post">
+                                <input type="text" placeholder="Search in Messages" name="search "
+                                    class="px-2 search-top">
+                                <button type="submit"><img src="{{asset('stylist/app-assets/images/icons/Search-right.png')}}"
+                                        alt=""></button>
+                            </form>
+                            <hr class="client-hr my-1"> --}}
+                            <div class="">
+                    
+                                <div data-mdb-perfect-scrollbar="true" style="">
+                                    
+                                    <ul class="list-unstyled mb-0 listOfContacts"  style="width: 100%;height: calc(100% - 200px);position: relative;">
+                                    </ul>
                                 </div>
-                                <a href="#" class="user-name">StyleGrid</a>
                             </div>
-                        </nav>
-                    </div>
-                    {{-- Internet connection --}}
-                    <div class="internet-connection">
-                        <span class="ic-connected">Connected</span>
-                        <span class="ic-connecting">Connecting...</span>
-                        <span class="ic-noInternet">No internet access</span>
-                    </div>
-                    {{-- Messaging area --}}
-                    <div class="m-body messages-container app-scroll">
-                        <div class="messages">
-                            <p class="message-hint center-el"><span>Please select a chat to start messaging</span></p>
                         </div>
-                        {{-- Typing indicator --}}
-                        <div class="typing-indicator">
-                            <div class="message-card typing">
-                                <p>
-                                    <span class="typing-dots">
-                                        <span class="dot dot-1"></span>
-                                        <span class="dot dot-2"></span>
-                                        <span class="dot dot-3"></span>
-                                    </span>
-                                </p>
+                    </div>
+
+                    <div class="col-lg-9 mt-lg-0 mt-3" id="chat-section" style="display: none;">
+                    
+                        <div class="row">
+                        
+                            <div class="col-md-12 col-12">
+                                <div class="d-flex justify-content-center m-header-messaging">
+                                    <span class="dot"></span>
+                                    <div class="client-name user-name"></div>
+                                </div>
                             </div>
+
+                        </div>
+                        <hr class="client-hr my-2">
+
+                        <div id="client-inbox-msg" class="messenger-messagingView py-2">
+
+                            <div class="m-body">
+                                
+                                <div class="messages">
+
+                                </div>
+                             
+                            </div>
+
+                        </div>
+
+                        {{-- preview selected files before upload --}}
+                        
+                        <div class="row col-12">
+
+                            <div id="attachment_container" class="d-flex">
+
+                            </div>
+    
                         </div>
                         {{-- Send Message Form --}}
 
-                        <div class="messenger-sendCard" style="border: 1px solid; padding: 5px;">
+                        <div class="messenger-sendCard mt-1">
+
                             <form id="message-form" method="POST" action="{{ route('member.messanger.send.message') }}" enctype="multipart/form-data">
                                 @csrf
-                                <label>
-                                    <span class="fas fa-paperclip">
-                                        <img src="{{asset('member/dashboard/app-assets/images/icons/File Invoice.svg')}}"alt="">
-                                    </span>
-                                    <input disabled='disabled' type="file" class="upload-attachment" name="file" accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
-                                </label>
-                                <textarea readonly='readonly' name="message" class="m-send app-scroll" placeholder="Type a message.."></textarea>
+
+                                <!-- BEGINING OF INPUT BOTTOM -->
+                                <div class="text-muted d-flex justify-content-start align-items-center pe-3" id="chat-footer">
+                                    
+                                    <label for="file-input">
+                                        <img src="{{asset('stylist/app-assets/images/gallery/paperclip-solid.svg')}}" alt="">
+                                        <input disabled='disabled' type="file" class="upload-attachment hidden" name="file" id="file-input" multiple accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
+                                    </label>
+
+                                    {{-- <a class="px-1" href="#">
+                                        <img src="{{asset('stylist/app-assets/images/gallery/face-smile-solid.svg')}}" alt="">
+                                    </a> --}}
+                                    
+                                    <textarea readonly='readonly' rows="4" name="message" class="form-control m-send app-scroll" placeholder="Type message..."> </textarea>
+                                    
+                                    <a class="pl-1 send-msg-btn" href="#">
+                                        <img src="{{asset('stylist/app-assets/images/gallery/paper-plane-solid.svg')}}" alt="">
+                                    </a>
+
+                                </div>
+
+                                <!-- END OF INPUT BOTTOM-->
                                 <input type="hidden" name="type" value="text" />
                                 <input type="hidden" name="receiver_id" value="" />
                                 <input type="hidden" name="receiver_user" value="" />
-                                <button class="btn btn-success" disabled='disabled'><span class="ft-zap text-primary" style="font-size:24px;" ></span></button>
+
                             </form>
                         </div>
                         
                     </div>
-                </div>
-                {{-- ---------------------- Info side ---------------------- --}}
-                <div class="messenger-infoView app-scroll">
-                    {{-- nav actions --}}
-                    <nav>
-                        <a href="#"><i class="fas fa-times"></i></a>
-                    </nav>
-                    {{-- user info and avatar --}}
-                    <div class="avatar av-l chatify-d-flex"></div>
-                    <p class="info-name">StyleGrid User</p>
-                    <div class="messenger-infoView-btns">
-                        {{-- <a href="#" class="default"><i class="fas fa-camera"></i> default</a> --}}
-                        <a href="#" class="danger delete-conversation"><i class="fas fa-trash-alt"></i> Delete Conversation</a>
-                    </div>
-                    {{-- shared photos --}}
-                    <div class="messenger-infoView-shared">
-                        <p class="messenger-title">shared photos</p>
-                        <div class="shared-photos-list"></div>
-                    </div>
 
                 </div>
+
             </div>
-
 
        </div>
    </div>

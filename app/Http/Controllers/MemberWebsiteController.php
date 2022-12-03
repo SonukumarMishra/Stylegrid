@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Str;
+use App\Repositories\ChatRepository as ChatRepo;
 use Session;
+use Log;
 
 /*
 @author-Sunil Kumar Mishra
@@ -68,7 +70,11 @@ class MemberWebsiteController extends Controller
                 $member->addUpdateData(['id'=>0,'member_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_subscription');   
                 $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
                 //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
-                $member->addUpdateData(['id'=>$response['reference_id'],'assigned_stylist'=>$stylist_data],'sg_member');   
+                $member->addUpdateData(['id'=>$response['reference_id'],'assigned_stylist'=> $stylist_data ? $stylist_data->id : 0 ],'sg_member');   
+
+                // Create member's chat room
+                ChatRepo::createMemberAssignedStylistChatRoom($response['reference_id']);
+
                 return json_encode(['status'=>1,'message'=>'Member Added Successfully!','stylist_data'=>$stylist_data]);
             }
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);

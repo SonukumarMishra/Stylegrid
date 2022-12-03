@@ -78,7 +78,8 @@ class ChatRepository {
 						})
 						->where('room.is_active', 1)
 						->groupBy('room.chat_room_id')
-						->orderBy('room.created_at');
+						->orderBy('last_message_on', 'desc')
+						->orderBy('room.created_at', 'desc');
 
 			if(isset($request->module) && !empty(isset($request->module))){
 				$users = $users->where('module', $request->module);
@@ -234,16 +235,31 @@ class ChatRepository {
                             ->first();
                 if($room){
 
-                    $chat_message = new ChatRoomMessage;
+					$chat_message = new ChatRoomMessage;
 
                     if($request->type == 'file'){
 
-                        $doc_title = isset($request->media_name) ? $request->media_name : time();
+						$media_files = json_decode($request->media_files);
+						
+						if(count($media_files)){
 
-                        $doc_url = \Helper::upload_document($request->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title);
+							foreach ($media_files as $key => $value) {
 
-                        $chat_message->file_url = $doc_url;
-                        $chat_message->file_formate = $request->file_formate;
+								$doc_title = isset($value->media_name) ? time().'_'.strtok($value->media_name, '.') : time();
+
+								$doc_url = \Helper::upload_document($value->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title);
+								
+								if(!empty($doc_url)){
+
+									$media_files[$key]->media_path = $doc_url;
+								}
+
+								unset($media_files[$key]->media_source);
+	
+							}
+						}
+
+                        $chat_message->files = json_encode($media_files);
 
                     }
 
@@ -390,6 +406,57 @@ class ChatRepository {
 
 	}
 
+	public static function createMemberAssignedStylistChatRoom($member_id) {
+
+		try {
 	
+			$member = Member::find($member_id);
+			
+			if($member && $member->assigned_stylist > 0){
+
+				$chat_room = [
+					'sender_id' => $member->id,
+					'sender_user' => config('custom.user_type.member'),
+					'receiver_id' => $member->assigned_stylist,
+					'receiver_user' => config('custom.user_type.stylist'),
+					'module' => config('custom.chat_module.private')
+				];
+
+				self::save_chat_room_details([$chat_room]);
+			}
+
+		}catch(\Exception $e) {
+
+            Log::info("error createMemberAssignedStylistChatRoom ". print_r($e->getMessage(), true));
+
+        }
+
+	}
 	
+	public static function save_chat_room_details($chat_room_array) {
+
+		try{
+			
+			if(count($chat_room_array)){
+
+				foreach ($chat_room_array as $key => $value) {
+					
+					$chat_room = new ChatRoom;
+					$chat_room->sender_id = $value['sender_id'];
+					$chat_room->sender_user = $value['sender_user'];
+					$chat_room->receiver_id = $value['receiver_id'];
+					$chat_room->receiver_user = $value['receiver_user'];
+					$chat_room->module = $value['module'];
+					$chat_room->save();
+			
+				}
+			}
+
+		}catch(\Exception $e) {
+
+            Log::info("error save_chat_room_details ". print_r($e->getMessage(), true));
+
+        }
+
+	}
 }

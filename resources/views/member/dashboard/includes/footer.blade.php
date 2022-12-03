@@ -103,6 +103,7 @@
 <script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
+<script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
 
 <!-- END: Theme JS-->
 <script>
@@ -141,6 +142,8 @@
         });
 
         var auth_id = {{ Session::get("member_id") }},
+            auth_name = '{{ @Session::get("member_data")->name }}',
+            auth_profile = '{{ @Session::get("member_data")->profile_image }}',
             chat_baseurl = constants.base_url+'/',
             auth_user_type = 'member';
 
