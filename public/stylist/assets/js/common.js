@@ -219,10 +219,9 @@ $('#decline-offer-btn').click(function(){
                     var total_decline_class=$('.decline').length;
                     if(total_class==total_decline_class){
                       setTimeout(function(){
-                        window.location = "/stylist-sourcing";
-                    }, 500);
+                            window.location = "/stylist-sourcing";
+                        }, 500);
                     }
-                    
                 }
             }
         })

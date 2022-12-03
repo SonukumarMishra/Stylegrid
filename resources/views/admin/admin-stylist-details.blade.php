@@ -27,11 +27,27 @@
                         <div class="col-md-5">
                             <div class="member-detail py-3">
                                 <div class="text-center">
-                                <a href=""><img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" style="height: 100px;width:100px;"></a>
+                                <a href="">
+                                    <?php
+                                    if($stylist_details->subscription=='Gold Tier'){
+                                       ?>
+                                    <img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" >
+                                    <?php 
+                                    }else if($stylist_details->subscription=='Black Tier'){
+                                        ?>
+                                        <img src="{{asset('/admin-section/app-assets/images/gallery/member-profile.png')}}" alt="" >
+                                        <?php
+                                    }else{
+                                        ?>
+                                    <img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" >
+                                        <?php
+                                    }
+                                    ?>                                
+                                </a>
                                 </div>
                                 <div class="mem-name mt-2">{{$stylist_details->full_name}}</div>
                                 <div class="mem-add my-1">StyleGrid Stylist since <?php echo date('Y',strtotime($stylist_details->added_date));?></div>
-                                <div class="mem-add">Gold Tier</div>
+                                <div class="mem-add">{{$stylist_details->subscription}}</div>
                             </div>
                             <div class="member-detail pt-2 mt-3">
                                 <div class=" mb-2">

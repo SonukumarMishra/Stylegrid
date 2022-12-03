@@ -57,7 +57,7 @@ class StylistWebsiteController extends Controller
     public function addStylist(Request $request){
         if($request->ajax()){
             $member=new Member();
-            $member_existance=$member->checkMemberExistance(['s.email'=>$request->email]);
+            $member_existance=$member->checkMemberExistance(['m.email'=>$request->email]);
             if($member_existance){
                 if($member_existance->membership_cancelled){
                     return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
@@ -280,8 +280,4 @@ class StylistWebsiteController extends Controller
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);
         }  
     }
-
-
-
-
-    }
+}

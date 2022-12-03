@@ -39,8 +39,25 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="member-detail py-3">
-                                <div class="text-center"><a href=""><img
-                                            src="<?php echo asset('/admin-section/app-assets/images/gallery/member-profile.png');?>" alt=""></a>
+                                <div class="text-center">
+                                    <a href="">
+                                            <?php
+                                            if($member_details->subscription=='Gold Tier'){
+                                              ?>
+                                            <img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" >
+                                            <?php 
+                                            }else if($member_details->subscription=='Black Tier'){
+                                                ?>
+                                                <img src="{{asset('/admin-section/app-assets/images/gallery/member-profile.png')}}" alt="" >
+                                                <?php
+                                            }else{
+                                                ?>
+                                            <img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" >
+                                                <?php
+                                            }
+                                            ?>                                
+                                        </a>                                
+                               
                                 </div>
                                 <div class="mem-name mt-2"><?php echo $member_details->full_name;?></div>
                                 <div class="mem-add my-1">StyleGrid Member since <?php echo date('Y',strtotime($member_details->added_date));?></div>

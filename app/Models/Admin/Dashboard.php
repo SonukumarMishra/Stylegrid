@@ -133,7 +133,7 @@ class Dashboard extends Model
 		   "s.phone",
 		   "s.id as spend",
 		   \DB::raw("DATE_FORMAT(s.added_date, '%m/%d/%Y %H:%i') as added_date"),
-		   "s.id as subscription",
+		   "s.subscription",
 		   "s.slug",
 	   ]);
 	   $this->db->join('sg_country as c', 'c.id', '=', 's.country_id');
@@ -179,7 +179,7 @@ class Dashboard extends Model
 				   break;
 				   
 				   case 7:
-				   $order_by = 's.id';
+				   $order_by = 's.subscription';
 				   break;
 				   
 				   default:
@@ -262,6 +262,7 @@ class Dashboard extends Model
 				"s.gender",
 				"s.phone",
 				"s.profile_image",
+				"s.subscription",
 				"s.id as spend",
 				\DB::raw("DATE_FORMAT(s.added_date, '%m/%d/%Y %H:%i') as added_date"),
 				"s.slug",

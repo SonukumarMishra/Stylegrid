@@ -156,7 +156,15 @@
               },
               {
                 "render": function ( data, type, row ) {
-                    return data;
+                    if(row['subscription']=='Trail'){
+                            return "<span class='orange-color'>"+row['subscription']+"</span>";
+                        }
+                        else if(row['subscription']=='Gold Tier'){
+                            return "<span class='gold-color'>"+row['subscription']+"</span>";
+                        }
+                        else{
+                            return data;
+                        }
                     
                 },
                "targets": 7
