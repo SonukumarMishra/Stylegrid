@@ -96,7 +96,7 @@
                 type: "post", 
                 data: function (d) {    
                     d._token = "{{ csrf_token() }}";
-                    d.search = $( "input[type*='search']" ).val();
+                    d.search = $('#search-box').val();
                  } 
              } ,
              "columns": [ 
