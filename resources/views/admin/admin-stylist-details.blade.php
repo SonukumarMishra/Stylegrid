@@ -53,7 +53,7 @@
                                     }else{
                                         ?>
                                     <img src="{{asset('/admin-section/app-assets/images/gallery/stylist-profile.png')}}" alt="" >
-                                        <?php
+                                    <?php
                                     }
                                     ?>                                
                                 </a>

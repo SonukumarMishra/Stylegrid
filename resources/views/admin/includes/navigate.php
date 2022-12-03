@@ -110,7 +110,6 @@
                 <li class="nav-item"><a href="<?php echo url('/admin-logout');?>"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
                             Out</span></a>
                 </li>
-
             </ul>
             <div class="row mx-1 py-1 social-media-border my-4">
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/Instagram.png')?>" alt=""></a></div>

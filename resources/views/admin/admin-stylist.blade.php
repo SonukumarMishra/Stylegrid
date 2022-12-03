@@ -71,7 +71,7 @@
 <script>
     $(function(){
         var stylist_list_table_html='';
-        $('#search_box').keyup(function(){
+        $('#search-box').keyup(function(){
             stylist_list_table_html.search(this.value).draw();
             })
             stylist_list_table_html = $('#stylist_list_table').DataTable({
