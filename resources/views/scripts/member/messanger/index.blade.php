@@ -48,24 +48,34 @@
     // Listen to messages, and append if data received
     channel.bind("messaging", function (data) {
 
-        if(data.chat_room_id == selectedRoomId && data.message_obj != undefined && data.message_obj != '' && data.message_obj.receiver_user == auth_user_type && data.message_obj.receiver_id == auth_id) {
-        
-            $(".messages").find(".message-hint").remove();
-        
-            messagesContainer.find(".messages").append(getChatMessagesUI([data.message_obj]));
-        
-            scrollToBottom(messagesContainer);
+        if(data.chat_room_dtls != undefined && data.chat_room_dtls != ''){
 
-             // update contact item
-             updateContactItem(data.chat_room_id, data.message_obj);
-             getChatContacts(selectedRoomId);
-             // makeSeen(true);
-            // // remove unseen counter for the user from the contacts list
-            // $(".messenger-list-item[data-contact=" + selectedRoomId + "]")
-            // .find("tr>td>b")
-            // .remove();
-        }else if(data.chat_room_id != selectedRoomId){
-            getChatContacts(selectedRoomId);
+            if(data.chat_room_id == selectedRoomId && data.message_obj != undefined && data.message_obj != '' && data.message_obj.receiver_user == auth_user_type && data.message_obj.receiver_id == auth_id) {
+            
+                $(".messages").find(".message-hint").remove();
+            
+                messagesContainer.find(".messages").append(getChatMessagesUI([data.message_obj]));
+            
+                scrollToBottom(messagesContainer);
+
+                // update contact item
+                updateContactItem(data.chat_room_id, data.message_obj);
+                getChatContacts(selectedRoomId);
+                // makeSeen(true);
+                // // remove unseen counter for the user from the contacts list
+                // $(".messenger-list-item[data-contact=" + selectedRoomId + "]")
+                // .find("tr>td>b")
+                // .remove();
+            }else{
+
+                if((data.chat_room_dtls.sender_user == auth_user_type && data.chat_room_dtls.sender_id == auth_id) || (data.chat_room_dtls.receiver_user == auth_user_type && data.chat_room_dtls.receiver_id == auth_id)){
+
+                    console.log('Refrrsh contacts');
+
+                    getChatContacts(selectedRoomId);
+
+                }
+            }
         }
 
     });

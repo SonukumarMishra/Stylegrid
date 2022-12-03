@@ -309,7 +309,8 @@ class ChatRepository {
 			
 						$pusher_ref->trigger('private-chatify', 'messaging', [
 												'chat_room_id' => $request->chat_room_id,
-												'message_obj' => $chat_message
+												'message_obj' => $chat_message,
+												'chat_room_dtls' => $room
 											]);
 						
 						$response_array = array('status' => 1, 'data' => $chat_message );
@@ -460,7 +461,8 @@ class ChatRepository {
 			
 						$pusher_ref->trigger('private-chatify', 'messaging', [
 												'chat_room_id' => $chat_room->chat_room_id,
-												'message_obj' => ''
+												'message_obj' => '',
+												'chat_room_dtls' => $chat_room
 											]);
 	
 					}
