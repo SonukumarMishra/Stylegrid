@@ -193,7 +193,7 @@ class MemberWebsiteController extends Controller
                         [
                         'status'=>0,
                         'verification_url'=>'',
-                        'message'=>'Your membership has been cancelled',
+                        'message'=>'Your Membership has been cancelled!',
                     ]);   
                 }
                 
