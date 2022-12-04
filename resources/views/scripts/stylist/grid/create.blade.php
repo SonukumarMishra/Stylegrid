@@ -325,7 +325,7 @@
                 var is_valid_file = fileValidate(this, options);
                 
                 if(is_valid_file.is_valid == false){
-
+                    $($(this).data('img-preview-selector')).attr('src', "{{ asset('stylist/app-assets/images/icons/plus.png')}}");
                     showErrorMessage(is_valid_file.error);
                     $('#modal_product_img_error').html(is_valid_file.error);
                     return false;
@@ -408,7 +408,8 @@
             html+= '                        </div>';
             html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
             html+= '                 </div>';
-            html+= '                  </div>';
+            html+= '               </div>';
+            html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
             html+= '               </div>';
             html+= '            </div>';
             html+= '         </div>';
