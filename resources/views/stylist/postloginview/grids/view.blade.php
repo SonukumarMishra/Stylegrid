@@ -98,7 +98,7 @@
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                          <a class="dropdown-item border-bottom-1" href="#">Export as PDF</a>
-                         <a class="dropdown-item" href="#">Copy Link</a>
+                         <a class="dropdown-item" href="#" id="copy_link_btn" data-copy-content="{{ Request::url() }}">Copy Link</a>
                       </div>
                    </div>
                 </div>
@@ -140,6 +140,10 @@
                                 <h5>Product Type:</h5>
                                 <label id="product_type"></label>
                             </div>
+                            <div class="form-group">
+                              <h5>Product Price:</h5>
+                              <label>$<span id="product_price"></span></label>
+                          </div>
                             <div class="form-group">
                                 <h5>Product Size:</h5>
                                 <label id="product_size"></label>

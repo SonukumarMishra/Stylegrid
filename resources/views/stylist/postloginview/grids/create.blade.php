@@ -142,15 +142,18 @@
                         <div class="row align-items-center">
                             <div class="col-lg-6 ">
                                 <div class="Neon Neon-theme-dragdropbox">
-                                    <input name="product_image" class="style-grid-block-input-file" type="file" data-img-preview-selector=".item-modal-image-src" required>
-                                    <div class="Neon-input-dragDrop d-flex align-items-center height_300">
+                                    <input name="product_image" class="style-grid-block-input-file" type="file" accept="image/png,image/jpg,image/jpeg"  data-img-preview-selector=".item-modal-image-src" data-width="400"  data-height="400">
+                                    <div class="Neon-input-dragDrop d-flex align-items-center height_300" id="modal_product_img_block">
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-text ">
                                                 <h3>Upload an image of the product here</h3>
                                             </div>
-                                            <a class="Neon-input-choose-btn blue"><img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="item-modal-image-src img_preview" id="product_image_preview" alt=""></a>
+                                            <a class="Neon-input-choose-btn blue"><img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="item-modal-image-src img_preview" data-image-selected="0" id="product_image_preview" alt=""></a>
                                         </div>
                                     </div>
+                                    <span class="text-danger" id="modal_product_img_error">
+
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -171,6 +174,12 @@
                                         <label for="">What is the product type? (Bag, Dress, Heels etc)</label>
                                         <input type="text"  name="product_type" class="form-control submit-input"
                                              placeholder="Enter product type..."  required>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Enter the price of product here:</label>
+                                        <input type="number" name="product_price" class="form-control submit-input"
+                                             placeholder="Enter product price..." required>
 
                                     </div>
                                     <div class="form-group">
