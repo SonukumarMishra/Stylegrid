@@ -179,7 +179,7 @@ class MemberWebsiteController extends Controller
                         Session::put('member_data', $login_data);
                         Session::put('member_id', $login_data->id);
                         Session::put('Memberloggedin',TRUE);
-                        return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                        return json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
                     }
                     return json_encode(
                         [
@@ -193,12 +193,12 @@ class MemberWebsiteController extends Controller
                         [
                         'status'=>0,
                         'verification_url'=>'',
-                        'message'=>'Your membership has been cancelled',
+                        'message'=>'Your Membership has been cancelled!',
                     ]);   
                 }
                 
             }else{
-                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!','verification_url'=>'']);
+                return json_encode(['status'=>0,'message'=>'Invalid Email Id or Password!','verification_url'=>'']);
             }
         }  
     }
