@@ -90,7 +90,8 @@
                 $('#modal_stylegrid_item_index').val(inner_index);
 
                 CreateGridRef.bindGridItemDetailsModal(parent_index, inner_index);
-
+                $('#modal_product_img_block').removeClass('border-2 border-danger');
+                $('#modal_product_img_error').html('');
                 $('#grid_item_details_modal').modal('show');
 
             });
@@ -139,7 +140,27 @@
                 
                 e.preventDefault();
                 
-                if($("#stylegrid_item_frm").valid())
+                $('#modal_product_img_block').removeClass('border-2 border-danger');
+                $('#modal_product_img_error').html('');
+
+                var is_valid_image = true;
+                
+                var modal_image_preview_src = $('#stylegrid_item_frm [id="product_image_preview"]').attr('src');
+
+                var base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
+                modal_image_preview_src = modal_image_preview_src.substr(modal_image_preview_src.indexOf(',') + 1);
+
+                if(base64regex.test(modal_image_preview_src) == false){ // is base64 or not
+
+                    // check main grid feature image 
+                    is_valid_image = false;
+
+                    $('#modal_product_img_block').addClass('border-2 border-danger');
+
+                }
+                
+                if($("#stylegrid_item_frm").valid() && is_valid_image)
                 {
                     // Save inner block item details to main json 
 
@@ -149,6 +170,7 @@
                         'product_name' :  $('#stylegrid_item_frm input[name="product_name"]').val(),
                         'product_brand' : $('#stylegrid_item_frm input[name="product_brand"]').val(),
                         'product_type' :  $('#stylegrid_item_frm input[name="product_type"]').val(),
+                        'product_price' :  $('#stylegrid_item_frm input[name="product_price"]').val(),
                         'product_size' :  $('#stylegrid_item_frm input[name="product_size"]').val(),
                         'product_image' : $('#stylegrid_item_frm [id="product_image_preview"]').attr('src'),                        
                     };
@@ -167,10 +189,6 @@
             $('body').on('click', '#stylegrid_main_frm_btn', function(e) {
 
                 e.preventDefault();
-
-                var options = {
-                    focusInvalid : false
-                };
 
                 $('.grid-item-inner-input-block').removeClass('border-2 border-danger');
                 
@@ -297,8 +315,50 @@
             });
 
             $('body').on('change', "#stylegrid_item_frm input[name=product_image]", function(e) {
+
+                // validate file should be max 3 mb            
+                var options = {
+                    'check_by_size' : true,
+                    'max_upload_size' : 3,
+                }
+
+                var is_valid_file = fileValidate(this, options);
                 
-                fileChangePreviewImage(this, $(this).data('img-preview-selector'));
+                if(is_valid_file.is_valid == false){
+                    $($(this).data('img-preview-selector')).attr('src', "{{ asset('stylist/app-assets/images/icons/plus.png')}}");
+                    showErrorMessage(is_valid_file.error);
+                    $('#modal_product_img_error').html(is_valid_file.error);
+                    return false;
+
+                }else{
+
+                    // var input = this.files[0];
+
+                    // if (input) {
+                        
+                    //     var reader = new FileReader();
+                    //     reader.onload = function (e) {
+                    
+                    //         var height = this.height;
+                    //         var width = this.width;
+                    //         if (height > input.data('height') || width > input.data('width')) {
+                    //             showErrorMessage("Please check file dimensions.");
+                    //             $('#modal_product_img_error').html("Please check file dimensions.");
+                    //             return false;
+
+                    //         }else{
+                    //             $(input.data('img-preview-selector')).attr('src', e.target.result);
+                    //             $('#modal_product_img_block').removeClass('border-2 border-danger');
+                    //             $('#modal_product_img_error').html('');
+                    //         }
+                    //     }
+                    //     reader.readAsDataURL(input);
+                    // }
+                    
+                    fileChangePreviewImage(this, $(this).data('img-preview-selector'));
+                    $('#modal_product_img_block').removeClass('border-2 border-danger');
+                    $('#modal_product_img_error').html('');
+                }
 
             });
         }
@@ -348,7 +408,8 @@
             html+= '                        </div>';
             html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
             html+= '                 </div>';
-            html+= '                  </div>';
+            html+= '               </div>';
+            html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
             html+= '               </div>';
             html+= '            </div>';
             html+= '         </div>';
@@ -428,6 +489,7 @@
                     $('#stylegrid_item_frm input[name="product_name"]').val(item_details.product_name);
                     $('#stylegrid_item_frm input[name="product_brand"]').val(item_details.product_brand);
                     $('#stylegrid_item_frm input[name="product_type"]').val(item_details.product_type);
+                    $('#stylegrid_item_frm input[name="product_price"]').val(item_details.product_price);
                     $('#stylegrid_item_frm input[name="product_size"]').val(item_details.product_size);
                     $('#stylegrid_item_frm [id="product_image_preview"]').attr('src', item_details.product_image);
 

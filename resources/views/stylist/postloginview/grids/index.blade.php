@@ -34,7 +34,8 @@
            <div id="create-grid-1" class="mt-2">
 
             <div class="row">
-               @if (count($style_grids))
+         
+                @if (count($style_grids))
 
                   @foreach ($style_grids as $g_key => $grid)
 
@@ -53,6 +54,12 @@
                            </div>
                         </div>
                   @endforeach
+                @else 
+                        <div class="col-12">
+                            <h3 class="text-center">
+                                No grid created yet!
+                            </h3>
+                        </div>
                @endif
             </div>
    

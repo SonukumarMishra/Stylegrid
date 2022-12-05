@@ -23,8 +23,6 @@
         
         ViewGridRef.styleGridJson = @json($style_grid_dtls);
         
-        console.log(ViewGridRef.styleGridJson);
-
         ViewGridRef.initEvents = function() {
 
             $('body').on('click', '.grid-item-inner-input-block', function(e) {
@@ -40,6 +38,13 @@
 
             });
 
+            $('body').on('click', '#copy_link_btn', function(e) {
+            
+                e.preventDefault();
+                copyToClipboard($(this).attr('data-copy-content'));
+                // $(this).html("Copied");
+            });
+            
         }
 
         
@@ -58,6 +63,7 @@
                     $('#product_name').html(item_details.product_name);
                     $('#product_brand').html(item_details.product_brand);
                     $('#product_type').html(item_details.product_type);
+                    $('#product_price').html(item_details.product_price.toFixed(2));
                     $('#product_size').html(item_details.product_size);
                     $('#product_image_preview').attr('src', asset_url+item_details.product_image);
 
