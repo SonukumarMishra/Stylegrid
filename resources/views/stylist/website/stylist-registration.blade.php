@@ -32,7 +32,7 @@
                      
                     <div class="inputbox">
                         <div class="form-group mb-0">
-                            <input type="text" name="full_name" id="full_name" placeholder="Full Name..." onkeypress="return lettersOnly(event)" maxlength="40">
+                            <input type="text" name="full_name" id="full_name" placeholder="Full Name..."  maxlength="60">
                             <!-- <span>Full Name</span> -->
                         </div>
                         <div id="full_name_error" class="error"></div>

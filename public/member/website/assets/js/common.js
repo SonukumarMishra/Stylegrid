@@ -358,11 +358,11 @@ function addMember(){
             if(response['stylist_data']['profile_image']!=''){
               image=response['stylist_data']['profile_image'];
             }
-            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/'+image+'" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/'+image+'" alt="" style="width:50%;">');
             $('#stylist_sort_bio').html(response['stylist_data']['short_bio']);
           }else{
             $('#stylist_name').html('Need to set Default Name');
-            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/default_image.png" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/default_image.png" alt="" style="width:50%;">');
             $('#stylist_sort_bio').html('need to set default update Sort bio');
           }
         }else{

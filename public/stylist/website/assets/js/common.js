@@ -74,7 +74,7 @@ $(function(){
                     var reader = new FileReader();
                     reader.onload = function (e) {
                         var img = $("<img />");
-                        img.attr("style", "width: 150px; height:100px; padding: 10px");
+                        img.attr("style", "width: 50%; height:auto; padding: 10px");
                         img.attr("src", e.target.result);
                         dvPreview.append(img);
                     }
@@ -643,7 +643,7 @@ function addPreferredStyle(add_preferred_style){
   if($(".preferred_style_type:checkbox").filter(":checked").length>3){
     var data_id=$(add_preferred_style).attr('data_id');
     $('#add-preferred_style'+data_id).prop('checked', false);
-    $('#preferred_style_error').html('You can not add more than 3 preferred style type!')
+    $('#preferred_style_error').html('You can not select more than 3 preferred style type!')
   }
 }
 
