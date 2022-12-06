@@ -18,7 +18,7 @@
     <!-- BEGIN: Custom CSS-->
     
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('admin-section/assets/css/style.css');?>">
+    <link rel="stylesheet" href="{{ asset('member/website/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 </head>
 <body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu"
