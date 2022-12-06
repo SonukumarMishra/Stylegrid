@@ -144,7 +144,7 @@ color: #2B2B2B;
 border-radius: 0px;
 }
 .client-name{
-  font-family: 'Avenir-Book';
+  font-family: 'Genos';
 font-style: normal;
 font-weight: 800;
 font-size: 15.9045px;
@@ -176,7 +176,7 @@ color: #7A8599;
   box-shadow: inset 0px 0px 0px 1px transparent;
   }
   .status{
-    font-family: 'Avenir-Book';
+    font-family: 'Genos';
 font-style: normal;
 font-weight: 500;
 font-size: 14.6811px;
@@ -184,7 +184,7 @@ line-height: 24px;
 color: #B8BECC;
   }
   .list-name{
-    font-family: 'Avenir-Book';
+    font-family: 'Genos';
 font-style: normal;
 font-weight: 500;
 font-size: 14.6811px;
@@ -192,7 +192,7 @@ line-height: 24px;
 color: #666F80;
   }
   .list-msg{
-    font-family: 'Avenir-Book';
+    font-family: 'Genos';
 font-style: normal;
 font-weight: 500;
 font-size: 14.6811px;
@@ -200,7 +200,7 @@ line-height: 24px;
 color: #828282;
   }
   .list-time{
-    font-family: 'Avenir-Book';
+    font-family: 'Genos';
 font-style: normal;
 font-weight: 500;
 font-size: 12.2342px;
@@ -302,7 +302,8 @@ color: #B8BECC;
 border-radius: 50%;
 }
 .chat-client-name{
-  font-family: 'Avenir-Book';
+ /*font-family: 'Avenir-Book';*/
+     font-family: 'Genos';
 font-style: normal;
 font-weight: 800;
 font-size: 15.9045px;
@@ -310,7 +311,8 @@ line-height: 31px;
 color: #666F80;
 }
 .chat-client-time{
-  font-family: 'Avenir-Book';
+  /*font-family: 'Avenir-Book';*/
+      font-family: 'Genos';
   font-style: normal;
   font-weight: 800;
   font-size: 14.6811px;
