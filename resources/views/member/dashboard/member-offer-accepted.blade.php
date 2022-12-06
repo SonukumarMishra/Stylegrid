@@ -19,7 +19,7 @@
                     <!-- <a href="" class="mx-1"><img src="app-assets/images/icons/File Invoice.svg" alt=""></a> -->
                     <a href="" class="mx-lg-1"><img src="member/website/app-assets/images/icons/Gear.svg" alt=""></a>
                 </div>
-k9
+
             </div>
         </div>
         <!-------------------- fulfil souring request--------->
