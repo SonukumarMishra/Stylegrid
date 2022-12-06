@@ -123,9 +123,13 @@
 </div>
 @include('admin.includes.footer')
 <script>
+      $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+        $('#admin-login-btn').trigger('click');
+    }
+  });
     $(function(){
-        $('#admin-login-btn').click(function(){
-            
+    $('#admin-login-btn').click(function(){
     $('#admin-login-form input').css('border', '1px solid #ccc');
     $('.error').html('');
     $('.message').html('');
