@@ -168,7 +168,6 @@
                         else{
                             return data;
                         }
-                        
                     }
                 },
                "targets": 7

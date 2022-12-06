@@ -147,6 +147,7 @@ class GridController extends BaseController
                                     $product_dtls->product_name = $product_value->product_name;
                                     $product_dtls->product_brand = $product_value->product_brand;
                                     $product_dtls->product_type = $product_value->product_type;
+                                    $product_dtls->product_price = $product_value->product_price;
                                     $product_dtls->product_size = $product_value->product_size;
                                     $product_dtls->created_by = $stylist_id;
                                     $product_dtls->updated_by = $stylist_id;

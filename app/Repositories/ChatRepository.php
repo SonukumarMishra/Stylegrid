@@ -30,7 +30,7 @@ class ChatRepository {
 	public function pusherAuth($request, $auth_user) {
 
 		try{
-		Log::info("data ". print_r($auth_user, true));
+		
 			// Auth data
 			$authData = json_encode([
 				'auth_id' => $auth_user['auth_id'],
@@ -62,7 +62,7 @@ class ChatRepository {
 
 		try{
 			
-			DB::connection()->enableQueryLog();
+			// DB::connection()->enableQueryLog();
 
 			$users = DB::table('sg_chat_room as room')
 						->select("room.*")
@@ -247,7 +247,7 @@ class ChatRepository {
 
 								$doc_title = isset($value->media_name) ? time().'_'.strtok($value->media_name, '.') : time();
 
-								$doc_url = \Helper::upload_document($value->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title);
+								$doc_url = \Helper::upload_document($value->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title, false, true);
 								
 								if(!empty($doc_url)){
 
