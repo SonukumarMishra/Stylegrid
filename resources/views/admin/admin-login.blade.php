@@ -23,6 +23,26 @@
 </head>
 <body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu"
     data-color="bg-gradient-x-purple-blue" data-col="2-columns">
+    <nav class="navbar navbar-expand-lg">
+        <div class="collapse navbar-collapse ml-lg-5  justify-content-lg-center" id="navbarSupporthbvbedContent">
+            <ul class="navbar-nav">
+                <li class="active nav-item px-3 py-2"><a href="#" class="nav-link">About <span
+                            class="sr-only">(current)</span></a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">GRIDS</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">SHOP</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">STYLE</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">SOURCE</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">MEMBERSHIP</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">EDITORIAL</a></li>
+                <!-- <li class="px-3 nav-item py-2"><a href="#" class="nav-link">BRANDS</a></li>
+                <li class="px-3 nav-item py-2"><a href="#" class="nav-link"></a></li> -->
+                <li class="px-3 nav-item py-2"><a href="{{url('/member-login')}}" class="nav-link">SIGN IN</a></li>
+                <li class="px-3 nav-item py-2"><a href="{{url('/sign-up')}}" class="nav-link"><button class="signup-btn ">Sign
+                            Up</button></a></li>
+            </ul>
+        </div>
+    </nav>
+
 <div class="container-fluid">
     <div id="signup">
         <div class="row justify-content-center flex-lg-row flex-column-reverse">
