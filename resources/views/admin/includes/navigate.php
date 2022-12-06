@@ -71,7 +71,7 @@
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
                             data-i18n="">Admin</span></a> </li>
 
-                <li class=" nav-item mt-5"><a href="Admin-dashboard.html"class="active"><i class="ft-home active"></i><span class="menu-title"
+                <li class=" nav-item mt-5"><a href="{{url('/admin-dashboard')}}"class="active"><i class="ft-home active"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-layers"></i><span class="menu-title"
@@ -84,11 +84,11 @@
                             class="menu-title" data-i18n="">Stylists</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="client-sourcing.html"><i class="ft-zap"></i><span class="menu-title"
+                <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title"
                             data-i18n="">Orders</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="orders.html"><i class="ft-aperture"></i><span class="menu-title"
+                <li class=" nav-item"><a href="#"><i class="ft-aperture"></i><span class="menu-title"
                             data-i18n="">Chats</span></a>
 
                 </li>
