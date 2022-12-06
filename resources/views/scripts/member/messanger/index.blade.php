@@ -267,7 +267,7 @@
                 html += '       <div class="d-flex flex-row">';
                 html += '           <div>';
                 
-                var receiver_profile = val.receiver_profile != null ? asset_url+ ( val.receiver_user == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+val.receiver_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';
+                var receiver_profile = val.receiver_profile != null ?  ( val.receiver_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.receiver_profile : '{{asset('common/images/default_user.jpeg')}}';
                    
                 html += '               <img src="'+receiver_profile+'" alt="avatar" class="d-flex align-self-center me-3 chat-pic" width="60">';
                 html += '               <span class="badge bg-success badge-dot"></span>';
@@ -444,7 +444,7 @@
         html += '               <p class="mb-0">'+message+'</p>';
         html +='            </div>';
         html +='        </div>';
-        html += '   <img src="'+(auth_profile != '' ? asset_url+'{{ config('custom.media_path_prefix.stylist_porfile') }}'+auth_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
+        html += '   <img src="'+(auth_profile != '' ? auth_profile : asset_url+'{{asset('common/images/default_user.jpeg')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
         html +='    </div>';
         html +='</div>';
 
@@ -492,7 +492,7 @@
                 html += '   <div class="d-flex">';
 
                 if(val.sender_user != auth_user_type){
-                    var receiver_profile = val.sender_profile != null ? asset_url+ ( val.sender_user == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';
+                    var receiver_profile = val.sender_profile != null ?  ( val.sender_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
                     html += '   <img src="'+receiver_profile+'" class="chat-pic mr-1" alt="Avatar">';                    
                 }
 
@@ -531,7 +531,7 @@
                 
                 if(val.sender_user == auth_user_type){
 
-                    var sender_profile = auth_profile != '' ? asset_url+ ( auth_user_type == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';                    
+                    var sender_profile = auth_profile != '' ? ( auth_user_type == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('common/images/default_user.jpeg')}}';                    
                     html += '   <img src="'+sender_profile+'" class="chat-pic ml-1" alt="Avatar">';                    
 
                 }
