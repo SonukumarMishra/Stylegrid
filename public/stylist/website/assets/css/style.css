@@ -922,6 +922,7 @@ color: #7A7A7A;
   textarea.form-control {
     max-width: 400px !important;
     border-radius: 0px;
+	font-family: 'Silk Serif';
   }
   #signup-1 h1 {
     font-family: 'Silk Serif';

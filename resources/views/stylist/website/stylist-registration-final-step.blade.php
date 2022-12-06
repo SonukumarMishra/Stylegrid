@@ -98,7 +98,7 @@
                             </div>
                             <div class="inputbox-1 mt-5">
                                 <div class="tags-input" id="myTags">
-                                    <span class="data">
+                                    <span class="data" style="width:90%;float:left;">
                                     </span>
                                     <span class="autocomplete">
                                         <input type="text" id="favourite_brands"  onkeypress="return lettersOnly(event)" maxlength="10" class="form-control" placeholder="Add your favourite brands here">

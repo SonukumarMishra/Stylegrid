@@ -26,7 +26,7 @@
             
             <!-------------------- fulfil souring request--------->
             <div id="browse-soursing" class="mt-5">
-                <div class="row">
+                <!--div class="row">
                 <div class="col-lg-8">
                             <div class="row  text-aligns-center">
                                 <h1 class="col-lg-6 text-lg-left text-center">Hermes Mini Kelly 20</h1>
@@ -35,7 +35,7 @@
                                         Request</button></a>
                             </div>
                         </div>
-                    <!-- Pills navs -->
+              
                     <div class="col-lg-4 d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-2">
                             <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
                                 <li class="nav-item ">
@@ -61,7 +61,7 @@
 
                             </ul>
                         </div>
-                </div>
+                </div-->
                 <div id="message-box"></div>
                 <form id="submit-request-form" action="" class=" ">
                     @csrf

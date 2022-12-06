@@ -10,7 +10,7 @@
                 <!-- Revenue, Hit Rate & Deals -->
                 <div class="row mt-3">
                     <div class="col-lg-8 col-md-12 mt-3">
-                        <h1>Good morning Max.</h1>
+                        <h1>Good morning {{Session::get('stylist_data')->name}}.</h1>
                         <h3>Check out your stylist summary dashboard.</h3>
                     </div>
                     <div class="col-lg-4 col-md-12 quick-link text-right mt-3">
@@ -72,7 +72,7 @@
                                                             </p>
                                                         </div>
                                                         <div class="text-right col-5">
-                                                         <a href="caro-create-grid.html">
+                                                         <a href="{{url('stylist/grid/index')}}">
                                                                <button class="px-2 grey-bg">Go to Grid</button>
                                                             </a>
                                                         </div>

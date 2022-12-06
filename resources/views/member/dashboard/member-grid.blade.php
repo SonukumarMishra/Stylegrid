@@ -15,12 +15,12 @@
                     </div>
                     <div class="col-4 quick-link text-right">
                         <span class="mr-md-5"><a hrf="">Quick Link</a></span>
-                        <div class="d-flex justify-content-end my-2">
-                            <a href="" class="mx-md-1"><img src="{{ asset('member/app-assets/images/icons/Chat.svg') }}" alt=""></a>
-                            <a href="" class="mx-1"><img src="{{ asset('member/app-assets/images/icons/File Invoice.svg') }}" alt=""></a>
-                            <a href="" class="mx-md-1"><img src="{{ asset('member/app-assets/images/icons/Gear.svg') }}" alt=""></a>
+    						<div class="d-flex justify-content-end my-2">
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Chat.svg') }}" alt=""></a>
+                    <a href="" class="mx-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/File Invoice.svg') }}" alt=""></a>
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Gear.svg') }}" alt=""></a>
 
-                        </div>
+                </div>
 
                     </div>
                 </div>
@@ -34,7 +34,9 @@
                                             <h1 class="px-2 py-2">Georgia&apos;s Ibiza Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right pr-2">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to
+                                            <!--a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to
+                                                    Grid</button></a-->
+													<a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to
                                                     Grid</button></a>
                                         </div>
                                     </div>
@@ -49,7 +51,7 @@
                                             <h1 class="px-2 py-2">Georgia&apos;s London Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right pr-2">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to
+                                            <a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to
                                                     Grid</button></a>
                                         </div>
                                     </div>
@@ -64,7 +66,7 @@
                                             <h1 class="pl-2 py-2">Carla&apos;s Paris Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right pr-2">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
+                                            <a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -78,7 +80,7 @@
                                             <h1 class="pl-2 py-2">Georgia&apos;s Evening Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right pr-2">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
+                                            <a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -92,7 +94,7 @@
                                             <h1 class="pl-2 py-2">Georgia&apos;s Mykonos Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right pr-2">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
+                                            <a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +108,7 @@
                                             <h1 class="pl-2 py-2">Georgia&apos;s Skiing Grid</h1>
                                         </div>
                                         <div class="col-md-4 text-center text-md-right">
-                                            <a href="{{ url('/member-grid-details') }}"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
+                                            <a href="#"><button class="go-to-grid-btn my-2 my-lg-4">Go to Grid</button></a>
                                         </div>
                                     </div>
                                 </div>

@@ -12,10 +12,10 @@
             </div>
             <div class="col-4 quick-link text-right">
                 <span class="mr-md-5"><a hrf="">Quick Link</a></span>
-                <div class="d-flex justify-content-end my-2 mr-lg-2">
-                    <a href="" class="mx-1"><img src="member/app-assets/images/icons/Chat.svg" alt=""></a>
-                    <!-- <a href="" class="mx-1"><img src="app-assets/images/icons/File Invoice.svg" alt=""></a> -->
-                    <a href="" class="mx-lg-1"><img src="member/app-assets/images/icons/Gear.svg" alt=""></a>
+                <div class="d-flex justify-content-end my-2">
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Chat.svg') }}" alt=""></a>
+                    <a href="" class="mx-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/File Invoice.svg') }}" alt=""></a>
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Gear.svg') }}" alt=""></a>
 
                 </div>
 
