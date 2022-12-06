@@ -1172,3 +1172,8 @@ select{
 .admin-beg{
   margin-top: 34px !important;
 }
+
+#admin-login-form input{
+  border: 1px solid white !important;
+
+}
