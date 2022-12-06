@@ -25,9 +25,9 @@
     data-color="bg-gradient-x-purple-blue" data-col="2-columns">
 <div class="container-fluid">
     <div id="signup">
-        <div class="row justify-content-center flex-lg-row flex-column-reverse">
-            <div class="col-lg-12 dis-flex mt-lg-5">
-                <div class="signin mt-lg-5 mt-3">
+        <div class="row">
+            <div class="col-lg-12 text-center mt-lg-5">
+               
                 <h1>Sign in to your<br> Admin account</h1>
                 <div class="dis-flex ">
                     <div id="message_box" class="message"></div>
@@ -55,7 +55,7 @@
             </div>
         </div>
             
-        </div>
+      
 
     </div>
 </div>
