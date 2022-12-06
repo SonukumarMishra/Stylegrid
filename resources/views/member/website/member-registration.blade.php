@@ -251,7 +251,7 @@
 
                 </div>
                 <div class="row my-4">
-                    <div class="col-   md-5 text-lg-left text-center" id="stylist_image">
+                    <div class="col-md-5 text-lg-left text-center" id="stylist_image">
                         <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" alt="">
                     </div>
                     <div class="col-md-7 text-lg-left text-center">

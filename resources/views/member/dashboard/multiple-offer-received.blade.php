@@ -55,7 +55,7 @@
                         </li>
 
                     </ul>
-                </div>
+                </div->
             </div>
             <div class="row" id="fulfill-request">
                 <div id="demo" class="carousel slide"  data-touch="false" data-interval="false" >
@@ -79,12 +79,12 @@
                             ?>
                             <div class="carousel-item {{$class;}}">
                                 <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
                                     <div class="border-right my-3">
-                                        <img src="{{ asset('attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
+                                        <img src="{{ asset('member/dashboard/attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-md-6">
                                     <div class="p-3">
                                         <div class="offer-slider">Offer #<?php echo $counter;?> of <?php echo count($offer_list);?></div>
                                         <h1><?php echo $offer->p_name;?></h1>
@@ -139,22 +139,75 @@
                             $counter++;
                         }
                         ?>
+                        
+                       <!-- <div class="carousel-item">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="border-right my-3">
+                                        <img src="app-assets/images/gallery/nike.png" class="img-fluid" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <div class="offer-slider">Offer #1 of 3</div>
+                                        <h1>3Off-White Jordan 4&apos;s</h1>
+                                        <h6>Off White / Nike</h6>
+                                        <h4 class="mt-3">Price offer: £1,200</h4>
+                                        <h4>Shipping date: Immediate</h4>
+                                        <h4>Condition: New</h4>
+
+                                        <div class="mt-3">
+                                            <label for="">Please select if you are happy to accept or decline the
+                                                quoted
+                                                price.</label>
+                                        </div>
+                                        <div class="w-100">
+
+                                            <div class="my-2 row">
+                                                <div class="ml-2">
+
+                                                    <button type="submit" class="accept-btn px-3"
+                                                        data-toggle="modal" data-target="#accept">Accept
+                                                        Offer</button>
+
+                                                </div>
+
+                                                <div class="ml-2 mt-lg-0 mt-2">
+
+                                                    <button type="submit" class="decline-btn px-3"
+                                                        data-toggle="modal" data-target="#decline">Decline
+                                                        Offe41r</button>
+                                                </div>
+                                            </div>
+
+                                            <p class="mt-2">Please note, if you decline the submitted stylist offer
+                                                then your
+                                                ticket
+                                                will return to pending and be open for other stylists in our network
+                                                to submit
+                                                an
+                                                offer. All offers expire after 48 hours.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>-->
+                     
                     </div>
 
                     <!-- Left and right controls -->
                     <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                        <!-- <span class="carousel-control-prev-icon"><i class="bi bi-chevron-left"></i></span> -->
-                        <svg width="14.6" height="27" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class=""><path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="FXox6K"></path></svg>
-            
+                        <span class="carousel-control-prev-icon"><i class="bi bi-chevron-left"></i></span>
                     </a>
                     <a class="carousel-control-next" href="#demo" data-slide="next">
-                        <!-- <span class="carousel-control-next-icon"><i class="bi bi-chevron-right"></i></span> -->
-                        <svg width="14.6" height="27" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="_2-wzdc"><path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#fff" class="FXox6K"></path></svg>
-
+                        <span class="carousel-control-next-icon"><i class="bi bi-chevron-right"></i></span>
                     </a>
                 </div>
              </div>
         </div>
     </div>
 </div>
+<!-- <script>
+    $('#sourceConfirmationPopUp').modal('show');
+</script> -->
 @stop
