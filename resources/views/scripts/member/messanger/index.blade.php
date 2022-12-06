@@ -514,7 +514,7 @@
     
                                 if(m_val.media_path != ''){
 
-                                    html += '   <img src="'+asset_url+m_val.media_path+'" class="chat-media m-1">';                    
+                                    html += '   <img src="'+m_val.media_path+'" class="chat-media m-1">';                    
 
                                 }
 
