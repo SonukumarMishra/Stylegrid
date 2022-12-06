@@ -17,9 +17,10 @@ class LoginController extends Controller
 
     public function adminLoginPost(Request $request){
         if($request->ajax()){
+            
             $dashboard=new Dashboard();
             $where['a.email']=$request->email;
-            $where['a.password']=$request->password;
+            $where['a.password']=sha1($request->password);
             $response=$dashboard->adminLogin($where);
             if($response){
                 Session::put('admin_data',$response);

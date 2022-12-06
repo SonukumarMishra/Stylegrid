@@ -15,7 +15,7 @@ class Dashboard extends Model
 			$this->db = DB::table('sg_admin AS a');
 			$this->select(["a.id","a.name","a.email","a.phone"]);
 			$this->db->where($where);
-			$result=$this->db->get();
+			$result=$this->db->get()->first();
 			return $result;	
 		}
 	}
