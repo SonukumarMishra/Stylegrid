@@ -106,7 +106,7 @@ class StylistWebsiteController extends Controller
                 'source'=>$request->source?$request->source:'',
                 'gender'=>$request->gender,
                 'verified'=>1,
-                'subscription'=>'Trail',
+                'subscription'=>'Trial',
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 
             if($response['reference_id']){
@@ -144,7 +144,7 @@ class StylistWebsiteController extends Controller
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){
-                           $member->addUpdateData(['id'=>0,'type_s_m'=>1,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_stylist_subscription');   
+                           $member->addUpdateData(['id'=>0,'type_s_m'=>1,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trial'],'sg_member_stylist_subscription');   
                             $favourite_brand_list=explode(',',$request->favourite_brand_list);
                             if(count($favourite_brand_list)>0){
                                 $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_brand');
