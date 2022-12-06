@@ -21,34 +21,76 @@
     <link rel="stylesheet" href="{{ asset('member/website/assets/css/style.css') }}">
     <!-- END: Custom CSS-->
 </head>
-<body class="vertical-layout vertical-menu 2-columns   fixed-navbar" data-open="click" data-menu="vertical-menu"
+<body class="vertical-layout vertical-menu 2-columns   fixed-navbar mt-0 pt-0" data-open="click" data-menu="vertical-menu"
     data-color="bg-gradient-x-purple-blue" data-col="2-columns">
+    <div class="container-fluid px-0">
+<nav class="navbar navbar-expand-lg navbar-dark d-flex">
+   
+   <div class="col-3 d-lg-flex   d-none justify-content-start">
+      <!-- <div><img src="{{ asset('member/website/assets/images/user.png')}}" alt="" class="pr-4"></div> -->
+      <div><img src="{{ asset('member/website/assets/images/english-flag.svg')}}" alt="" style="height:17px;"></div>
+      <!-- <div><img src="{{ asset('member/website/assets/images/polygon.png')}}" alt="" class="px-2"></div> -->
+          <select class="browser-default  d-lg-block d-none pl-1" >
+          
+              <option selected class="px-2" style="padding:20px">English</option>
+              <option value="1">Spanish</option>
+          </select>
+      
+      </div>
+      <div class="col-6 text-center">
+          <a class="navbar-brand " href="{{url('/')}}">
+            <img src="{{ asset('member/website/assets/images/logo2.png')}}" style="height:25px" alt="" class="mr-3">
+          <img src="{{ asset('member/website/assets/images/STYLEGRID-LOGO.png')}}" alt="">
+        </a>
+      </div>      
+      <div class="d-lg-flex d-none col-3 justify-content-end">
+          <div class="form-group has-search col-5" id="admin-img">
+              <img src="{{ asset('member/website/assets/images/search.png')}}" alt="" class="admin-search-img">
+              <input type="text" class="form-control mt-2" placeholder="Search">
+          </div>
+          <div>
+              <img src="{{ asset('member/website/assets/images/beg.png')}}" alt="" class="h-25 mx-2 admin-beg">
+          </div>
+          <div>
+              <img src="{{ asset('member/website/assets/images/star.png')}}" alt="" class="h-25  admin-beg">
+          </div>
+      </div>
+      <a class="d-lg-none d-block collapsed" data-toggle="collapse" href="#navbarSupporthbvbedContent">
+          <span class="if-collapsed"><span>&#9776;</span></span>
+          <span class="if-not-collapsed">
+              <span>&#9747;</span>
+          </span>
+      </a>
+</nav>
+</div>
+    <!--Second navbar-->
     <nav class="navbar navbar-expand-lg">
         <div class="collapse navbar-collapse ml-lg-5  justify-content-lg-center" id="navbarSupporthbvbedContent">
             <ul class="navbar-nav">
                 <li class="active nav-item px-3 py-2"><a href="#" class="nav-link">About <span
                             class="sr-only">(current)</span></a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">GRIDS</a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">SHOP</a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">STYLE</a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">SOURCE</a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">MEMBERSHIP</a></li>
-                <li class="px-3 nav-item py-2"><a href="#" class="nav-link">EDITORIAL</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">GRIDS</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">SHOP</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">STYLE</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">SOURCE</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">MEMBERSHIP</a></li>
+                <li class="px-2 nav-item py-2"><a href="#" class="nav-link">EDITORIAL</a></li>
                 <!-- <li class="px-3 nav-item py-2"><a href="#" class="nav-link">BRANDS</a></li>
                 <li class="px-3 nav-item py-2"><a href="#" class="nav-link"></a></li> -->
-                <li class="px-3 nav-item py-2"><a href="{{url('/member-login')}}" class="nav-link">SIGN IN</a></li>
-                <li class="px-3 nav-item py-2"><a href="{{url('/sign-up')}}" class="nav-link"><button class="signup-btn ">Sign
+                <li class="px-2 nav-item py-2"><a href="{{url('/member-login')}}" class="nav-link">SIGN IN</a></li>
+                <li class="px-2 nav-item py-2"><a href="{{url('/sign-up')}}" class="nav-link"><button class="signup-btn ">Sign
                             Up</button></a></li>
             </ul>
         </div>
     </nav>
 
-<div class="container-fluid">
+<div class="container-fluid bg-black pb-5 pt-3">
     <div id="signup">
         <div class="row">
-            <div class="col-lg-12 text-center mt-lg-5">
+            <div class="col-lg-12 text-center mt-5">
                
-                <h1>Sign in to your<br> Admin account</h1>
+                <h1 class="text-white">StyleGrid Admin Login</h1>
+                <p class="grey-color">Please enter your email and password to<br> log in to your StyleGrid admin Account</p>
                 <div class="dis-flex ">
                     <div id="message_box" class="message"></div>
                     <form id="admin-login-form">
@@ -66,9 +108,9 @@
                             </div>
                         </div>
                         <div><a href="#" class="forgot-pass">
-                            <h3 class=" mt-2">Forgot password?</h3>
+                            <h3 class=" mt-2 text-white">Forgot password?</h3>
                         </a></div>
-                        <div class="text-center mt-4"><a href="javascript:void(0);"><button type="button" class="sign-in px-3" id="admin-login-btn">Sign In</button></a>
+                        <div class="text-center my-2"><a href="javascript:void(0);"><button type="button" class="sign-in grey-color-bg" id="admin-login-btn">Sign In</button></a>
                         </div>
                     </form>
                 </div>
