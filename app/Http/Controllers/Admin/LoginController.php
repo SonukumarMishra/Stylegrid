@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\admin\Dashboard;
+use App\Models\Admin\Dashboard;
 use Session;
 use Config;
 class LoginController extends Controller
