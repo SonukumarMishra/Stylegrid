@@ -17,4 +17,6 @@
       csrf_token: '{{ csrf_token() }}',
   };
 </script>
+<script src="{{asset('admin-section/assets/js/common.js')}}" type="text/javascript"></script>
+
 </html>

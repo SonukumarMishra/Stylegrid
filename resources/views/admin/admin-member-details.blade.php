@@ -153,12 +153,10 @@
                                                             src="{{asset('member/website/assets/images/'.$brand->logo)}}" alt=""></td>
                                                     </tr>
                                                     <?php
-                                             }    
-                                            ?>
+                                                }    
+                                                ?>
                                                 </tbody>
                                             </table>
-                                           
-                                             
                                         </div>
                                     </div>
                                      

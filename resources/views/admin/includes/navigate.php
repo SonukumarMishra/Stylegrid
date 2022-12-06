@@ -22,8 +22,8 @@
                     </ul>
                     <ul class="style-logo mx-auto list-unstyled d-flex">
                         <li><a href=""><img src="<?php echo   asset('admin-section/app-assets/images/icons/logo.png')?>" alt="" class="logo1"></a></li>
-                        <li><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/logo.png')?>" alt=""
-                                    class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
+                        <!-- <li><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/logo.png')?>" alt=""
+                                    class="logo2 pl-1 d-lg-block d-none my-1"></a></li> -->
                     </ul>
                     <ul class="nav navbar-nav float-right">
                         <li>

@@ -1,4 +1,4 @@
-@extends('member.dashboard.layouts.default')
+@extends('member.dashboard.layouts.default')uB GS
 @section('content')
 <div class="content-wrapper">
     <div class="content-header row">
