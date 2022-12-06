@@ -6,7 +6,7 @@
             <div class="col-lg-6 dis-flex mt-lg-5">
                 <div class="signin mt-lg-5 mt-3">
                 <h1>Sign in to your<br> StyleGrid account</h1>
-                <p class="text-center">Please enter your email and password to<br> log in to your StyleGrid                    account.</p><br>
+                <p class="text-center">Please enter your email and password to<br> log in to your StyleGrid account.</p><br>
 
 
                 <div class="dis-flex ">

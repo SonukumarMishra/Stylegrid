@@ -26,6 +26,8 @@ class StylistWebsiteController extends Controller
         return redirect('/stylist-dashboard');
         
     }  
+
+ 
     public function checkStylistExistance(Request $request){
         if($request->ajax()){
             $member=new Member();
@@ -33,20 +35,63 @@ class StylistWebsiteController extends Controller
             $value=$request->value;
             $status=$member->checkStylistExistance(['s.'.$key=>$value]);
             if(!$status){
-                return json_encode(['status'=>1,'message'=>'Success']);
+                if($key!='user_name'){
+                    $status=$member->checkMemberExistance(['m.'.$key=>$value]);
+                    if(!$status){
+                        return json_encode(['status'=>1,'message'=>'Success']);
+                    }else{
+                        if($status->membership_cancelled){
+                            return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                        }else{
+                            return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                        }
+                    }
+                }else{
+                    return json_encode(['status'=>1,'message'=>'Success']);
+                }
             }else{
-                return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                if($status->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>$key .' already exists!']);
+                }
             }
         }  
     }
     public function addStylist(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if($member->checkStylistExistance(['s.email'=>$request->email])){
-                return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+            $member_existance=$member->checkMemberExistance(['m.email'=>$request->email]);
+            if($member_existance){
+                if($member_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+                }
             }
-            if($member->checkStylistExistance(['s.phone'=>$request->phone])){
-                return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
+            $stylist_existance=$member->checkStylistExistance(['s.email'=>$request->email]);
+            if($stylist_existance){
+                if($stylist_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+                }
+            }
+            $member_phone_existance=$member->checkMemberExistance(['m.phone'=>$request->phone]);
+            if($member_phone_existance){
+                if($member_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Email already exists!','url'=>'']);
+                }
+            }
+            $stylist_phone_existance=$member->checkStylistExistance(['s.phone'=>$request->phone]);
+            if($stylist_phone_existance){
+                if($stylist_phone_existance->membership_cancelled){
+                    return json_encode(['status'=>0,'message'=>'Membership cancelled!','url'=>'']);
+                }else{
+                    return json_encode(['status'=>0,'message'=>'Phone already exists!','url'=>'']);
+                }
             }
             $save_data=array(
                 'id'=>0,
@@ -59,7 +104,9 @@ class StylistWebsiteController extends Controller
                 'shop'=>$request->shop?$request->shop:'',
                 'style'=>$request->style?$request->style:'',
                 'source'=>$request->source?$request->source:'',
-                'verified'=>1
+                'gender'=>$request->gender,
+                'verified'=>1,
+                'subscription'=>'Trail',
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 
             if($response['reference_id']){
@@ -75,7 +122,9 @@ class StylistWebsiteController extends Controller
                 $member=new Member();
                 $member_data=$member->checkStylistExistance(['s.id'=>Session::get('processed_stylist_id')]);
                 if($member_data){
+                 
                     if($member_data->verified){
+                      
                         $profile_image_name='';
                         $profile_image= $request->file('profile_image');
                         if(!empty($profile_image)){
@@ -89,14 +138,16 @@ class StylistWebsiteController extends Controller
                             'profile_image'=>$profile_image_name,
                             'password'=>sha1($request->password),
                             'short_bio'=>$request->short_bio,
-                            'preferred_style'=>$request->preferred_style,
+                           // 'preferred_style'=>$request->preferred_style,
                             'token'=>'',
                             'registration_completed'=>1,
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){
+                           $member->addUpdateData(['id'=>0,'type_s_m'=>1,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_stylist_subscription');   
                             $favourite_brand_list=explode(',',$request->favourite_brand_list);
                             if(count($favourite_brand_list)>0){
+                                $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_brand');
                                 foreach($favourite_brand_list as $favourite_brand){
                                     $member->addUpdateData([
                                         'id'=>0,
@@ -105,6 +156,18 @@ class StylistWebsiteController extends Controller
                                     ],'sg_stylist_brand'); 
                                 }
                             }
+                            if(count($request->preferred_style)>0){
+                                $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_preferred_style_type');
+                                foreach($request->preferred_style as $preferred_style){
+                                    $member->addUpdateData([
+                                        'id'=>0,
+                                        'stylist_id'=>$response['reference_id'],
+                                        'preferred_style_id'=>$preferred_style,
+                                        'added_date'=>now(),
+                                    ],'sg_stylist_preferred_style_type'); 
+                                }
+                            }
+                            
                             return json_encode(['status'=>1,'message'=>'Stylist Added Successfully!']);
                         }
                     }
@@ -152,20 +215,30 @@ class StylistWebsiteController extends Controller
             $password=sha1($request->password);
             $login_data=$member->checkStylistExistance(['s.email'=>$email,'s.password'=>$password]);
             if($login_data){
-                if($login_data->verified){
-                    Session::put('stylist_data', $login_data);
-                    Session::put('stylist_id', $login_data->id);
-                    Session::put('Stylistloggedin',TRUE);
-                    return json_encode(['status'=>1,'message'=>'you have successfully loggedin']);
+                if(!$login_data->membership_cancelled){
+                    if($login_data->verified){
+                        Session::put('stylist_data', $login_data);
+                        Session::put('stylist_id', $login_data->id);
+                        Session::put('Stylistloggedin',TRUE);
+                        return json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
+                    }
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'message'=>'Account not verified',
+                        //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
+                    ]);
+                }else{
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'verification_url'=>'',
+                        'message'=>'Your Membership has been cancelled!',
+                    ]);
                 }
-                return json_encode(
-                    [
-                    'status'=>0,
-                    'message'=>'Account not verified',
-                    //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-                ]);
+                
             }else{
-                return json_encode(['status'=>0,'message'=>'Email Id or Password not correct!']);
+                return json_encode(['status'=>0,'message'=>'Invalid Email Id or Password!']);
             }
         }  
     }
@@ -231,8 +304,4 @@ class StylistWebsiteController extends Controller
             return json_encode(['status'=>0,'message'=>'Something went wrong!']);
         }  
     }
-
-
-
-
-    }
+}

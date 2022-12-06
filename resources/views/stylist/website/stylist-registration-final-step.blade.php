@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" placeholder="Create username..." onkeypress="return lettersOnly(event)" maxlength="25">
+                                <input type="text" name="user_name" id="user_name" placeholder="Create username..."  maxlength="25">
                                 <div id="user_name_error" class="error"></div>
                             </div>
                             
@@ -75,7 +75,7 @@
                             <div class="Neon-input-dragDrop py-5 px-4">
                                 <div class="Neon-input-inner py-4">
                                     <div class="Neon-input-text ">
-                                        <h3>Upload an image of the product here</h3>
+                                        <h3>Upload your profile</br> picture here</h3>
                                     </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('/stylist/website/assets/images/plus.png') }}" alt="" id="image_preview"></a>
                                     <div id="image_error" class="error"></div>
                                     <div id="divImageMediaPreview"></div>
@@ -116,34 +116,41 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="add-items py-2 px-3 mt-5">
+							Select your preferred style type's here
+                            <div class="add-items py-2 px-3 mt-1">
                                 <div class="row" id="preferred_style_list_section">
-                                    <?php
+                                    <!--<div class="text-right">
+                                        <input type="checkbox" name="source" id="source" value="source">
+                                        <label for="source"></label>
+                                    </div>
+                                    <label for="source">
+                                        <div class="text-center">
+                                        <h2 class="mt-2">Source</h2>
+                                        </div>
+                        </label>-->
+
+                        <?php
                                     if(count($preferred_style)){
                                         foreach($preferred_style as $preferred){
-                                            ?>
-                                            <div class="col-4 my-2"><button class="add-item-btn px-2 py-2 add-preferred_style" id="add-preferred_style{{$preferred->id}}" onClick="addPreferredStyle(this)" id="{{$preferred->id}}" data_id="{{$preferred->id}}" data_value="{{$preferred->name}}" type="button">{{$preferred->name}} +</button></div>
-                                            <?php
+                                        ?>
+                                        <div class="col-4" id="add-preferred">
+                                            <div class="d-flex">
+                                        <div class="text-center">
+                                        <input type="checkbox" name="preferred_style[]" id="add-preferred_style{{$preferred->id}}" class="preferred_style_type"  onClick="addPreferredStyle(this)" data_id="{{$preferred->id}}" value="{{$preferred->id}}">
+                                        <label for="add-preferred_style{{$preferred->id}}"></label>
+                                        </div>
+                                    <label for="add-preferred_style{{$preferred->id}}">
+                                        <div class="text-center">
+                                            <h2 class="mt-2 tag-h2">{{$preferred->name}}</h2>
+                                        </div>
+                                    </label>
+                                    </div>
+                                    </div>
+                                    <?php
                                         }
                                     }
                                     ?>
-                                    
-                                </div>
-                                <!--<div class="row">
-                                    <div class="col-4"><button class="add-item-btn px-2">Streetstyle +</button></div>
-                                    <div class="col-4"><button class="add-item-btn px-3">Smart +</button></div>
-                                    <div class="col-4"><button class="add-item-btn px-2">Minimalist +</button></div>
-                                </div>
-                                <div class="row my-3">
-                                    <div class="col-4"><button class="add-item-btn px-3">Designer +</button></div>
-                                    <div class="col-6"><button class="add-item-btn px-3">Business Casual +</button></div>
-                                    <div class="col-4"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4"><button class="add-item-btn px-3">Athletic +</button></div>
-                                    <div class="col-4"></div>
-                                    <div class="col-4"></div>
-                                </div>-->
+                         </div>
                             </div>
                        
                     </div>

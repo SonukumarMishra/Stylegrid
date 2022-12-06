@@ -11,7 +11,7 @@ function checkArray(key,array){
 }
 
 $(function(){
-  $('#search_brand_list').blur(function(){
+  $('#search_brand_list').keyup(function(){
     $('.message').html('');
     var selected_brand=[];
     $(".selected_brand").each(function(){
@@ -358,11 +358,11 @@ function addMember(){
             if(response['stylist_data']['profile_image']!=''){
               image=response['stylist_data']['profile_image'];
             }
-            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/'+image+'" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/'+image+'" alt="" style="width:50%;">');
             $('#stylist_sort_bio').html(response['stylist_data']['short_bio']);
           }else{
             $('#stylist_name').html('Need to set Default Name');
-            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/default_image.png" alt="" style="width: 144px;height: 129px;">');
+            $('#stylist_image').html('<img src="'+constants['base_url']+'/stylist/attachments/profileImage/default_image.png" alt="" style="width:50%;">');
             $('#stylist_sort_bio').html('need to set default update Sort bio');
           }
         }else{
@@ -413,7 +413,7 @@ function setpOneValidation(){
             response = JSON.parse(ajaxresponse);
             if (!response['status']) {
               $('#email').css('border', '2px solid #cc0000');
-              $('#email_error').html('Email Address already exists!');
+              $('#email_error').html(response['message']);
               status = false; 
             }
         }
@@ -438,7 +438,7 @@ function setpOneValidation(){
           response = JSON.parse(ajaxresponse);
           if (!response['status']) {
             $('#phone').css('border', '2px solid #cc0000');
-            $('#phone_error').html('Phone Number already exists!');
+            $('#phone_error').html(response['message']);
             status = false; 
           }
       }

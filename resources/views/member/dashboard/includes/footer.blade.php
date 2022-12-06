@@ -90,17 +90,71 @@
 <!-- BEGIN: Theme JS-->
 <script src="{{ asset('member/dashboard/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script>
 <script src="{{ asset('member/dashboard/app-assets/js/core/app.js') }}" type="text/javascript"></script>
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
+{{-- <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> --}}
+
+<script src="{{ asset('member/dashboard/app-assets/js/core/libraries/jquery_3_6.min.js') }}"></script>
+<script src="{{ asset('member/dashboard/app-assets/js/core/libraries/jquery_ui_1_13.min.js') }}"></script>
+<script src="{{ asset('member/dashboard/app-assets/js/core/libraries/bootstrap_3.4.min.js') }}"></script>
+<script src="{{ asset('member/dashboard/app-assets/js/core/libraries/jquery_validate_1_19_5.min.js') }}" ></script>
+<script src="{{ asset('extensions/toastr/js/toastr.min.js') }}"></script>
+<script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
+<script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
+<script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
+<script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
+
 <!-- END: Theme JS-->
 <script>
+
     var constants = {
         csrf_token: '{{ csrf_token() }}',
         base_url: '{{ URL::to("/") }}',
         current_url:'{{str_replace(URL::to("/"),'',URL::current())}}',
     };
-    
+
+    var asset_url = "{{URL::to('/')}}"+'/';
+
   </script>
   <script src="{{ asset('member/dashboard/assets/js/common.js') }}" type="text/javascript"></script>
+
+  @include('scripts.common_scripts')
+
+  
+    {{-- Pusher code for realtime chat --}}
+
+    <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
+
+    <script >
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+        
+        var pusher = new Pusher("{{ config('chat.pusher.key') }}", {
+            encrypted: true,
+            cluster: "{{ config('chat.pusher.options.cluster') }}",
+            authEndpoint: '{{route("member.messanger.pusher.auth")}}',
+            auth: {
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            }
+        });
+
+        var auth_id = {{ Session::get("member_id") }},
+            auth_name = '{{ @Session::get("member_data")->name }}',
+            auth_profile = '{{ @Session::get("member_data")->profile_image }}',
+            chat_baseurl = constants.base_url+'/',
+            auth_user_type = 'member';
+
+        console.log("pusher obj ", pusher);
+        // Bellow are all the methods/variables that using php to assign globally.
+        const allowedImages = {!! json_encode(config('chat.attachments.allowed_images')) !!} || [];
+        const allowedFiles = {!! json_encode(config('chat.attachments.allowed_files')) !!} || [];
+        const getAllowedExtensions = [...allowedImages, ...allowedFiles];
+        const getMaxUploadSize = {{ config('chat.attachments.max_upload_size') * 1048576 }};
+    </script>
+      
+    @include('scripts.member.messanger.index')
+
 </html>

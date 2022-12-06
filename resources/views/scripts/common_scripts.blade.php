@@ -175,7 +175,7 @@
                 'YYYY-MM-DD HH:mm:ss');
         }
 
-        window.convertUtcDateTimeToLocalDateTime = function(time, format = 'DD MMM, YYYY , hh:mm A') {
+        window.convertUtcDateTimeToLocalDateTime = function(time, format = 'MM/DD/YYYY HH:mm') {
             return moment.utc(time, 'YYYY-MM-DD HH:mm:ss').local().format(format);
         }
 
@@ -224,6 +224,47 @@
                 }
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        window.fileValidate = function(input, options) {
+            
+            var tempFile = input.files[0];
+            var tempFileName = tempFile.name; // get file name
+            var tempFileSize = tempFile.size; // get file size 
+            var tempFileType = tempFile.type; // get file type
+            var tempFileExtension = tempFileName.split(".").pop();
+            var result = {
+                'is_valid' : true,
+                'error' : ''
+            };
+
+            if(options.check_by_ext){
+
+                if ($.isArray(options.ext_array) && !options.ext_array.includes(tempFileExtension.toString().toLowerCase())) {
+                    result['is_valid'] = false;
+                    result['error'] = 'File type not allowed. Please select '+options.ext_array.join(", ")+' file only.';
+                }
+            }
+            
+            if(options.check_by_size){
+
+                var max_upload_size_bytes = options.max_upload_size  * 1048576;       // MB to bytes convert
+                // Validate file size.
+                if (tempFileSize > max_upload_size_bytes) {
+                    result['is_valid'] = false;
+                    result['error'] = 'File is too large. Maximum size of file uploads is '+options.max_upload_size+' MB.';
+                }
+            }
+
+            return result;
+        }
+
+        window.copyToClipboard = function(content) {
+            var $temp = $("<input>");
+            $("body").append($temp);
+            $temp.val(content).select();
+            document.execCommand("copy");
+            $temp.remove();
         }
 
     }(window));

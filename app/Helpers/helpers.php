@@ -8,12 +8,13 @@ use File;
 use Storage;
 use Hash;
 use DB;
+use URL;
 use Log;
 
 class Helper
 {
 
-  public static function upload_document($input_file, $directory, $name = '', $is_pdf = false){
+  public static function upload_document($input_file, $directory, $name = '', $is_pdf = false, $save_url_path = false){
 
     $result = '';
 
@@ -86,7 +87,11 @@ class Helper
 
             if($cloudResponse){
 
-                $result = $storage_folder_path;
+                if($save_url_path){
+                    $result = URL::asset($storage_folder_path);
+                }else{
+                    $result = $storage_folder_path;
+                }
 
                 if($default_storage != 'public'){
 
@@ -123,8 +128,12 @@ class Helper
 
             if($cloudResponse){
 
-                $result = $storage_folder_path;
-
+                if($save_url_path){
+                    $result = URL::asset($storage_folder_path);
+                }else{
+                    $result = $storage_folder_path;
+                }
+                
                 if($default_storage != 'public'){
 
                     $fileUrl = Storage::url($directory . '/' . $filename);

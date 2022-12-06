@@ -10,6 +10,10 @@ date:19-10-2022
 class Member extends Model
 {
     public $db;
+	
+	protected $table='sg_member';
+    protected $primaryKey = 'id';
+
 	function getCountryList($where=[]){
 		$this->db = DB::table('sg_country AS c');
 		$this->db->select([
@@ -33,7 +37,9 @@ class Member extends Model
 				"m.email",
             	"m.phone",
             	"m.token",
-				"m.verified"
+				"m.profile_image",
+				"m.verified",
+				"m.membership_cancelled"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();
@@ -51,30 +57,34 @@ class Member extends Model
             	"s.phone",
 				"s.verified",
 				"s.short_bio",
-				"s.profile_image"
+				"s.profile_image",
+				"s.membership_cancelled"
 			]);
 			$this->db->where($where);
 			$response_data=$this->db->get()->first();
 			return $response_data;
 		}
 	}
-
+	
+	function deleteExistingdata($where,$table){
+		return DB::table($table)->where($where)->delete();
+   }
 	function getPreferredStyleList($where){
 		$this->db = DB::table('sg_preferred_style as ps');
-	   $this->db->select([
+	    $this->db->select([
 		   "ps.id",
 		   "ps.name",
-	   ]);
-	   if(count($where)){
+	    ]);
+	    if(count($where)){
 		   $this->db->where($where);
-	   }
-	   $response_data=$this->db->get();
-	   return $response_data;
+	    }
+	    $response_data=$this->db->get();
+	    return $response_data;
    }
    
 	function sourceApplicable($where){
 		if(count($where)){
-			$this->db = DB::table('sg_member_subscription as ms');
+			$this->db = DB::table('sg_member_stylist_subscription as ms');
 			$this->db->select([
 				"ms.id",
 				"ms.start_date",
