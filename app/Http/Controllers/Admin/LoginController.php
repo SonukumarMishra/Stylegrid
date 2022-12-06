@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\admin\Dashboard;
 use Session;
 use Config;
-
-
 class LoginController extends Controller
 {
     public function adminLogin(){
-        Session::put('admin_data',['a'=>1,'b'=>2]);
-        Session::put('adminLoggedin',TRUE);
-        return redirect("/admin-dashboard");
+        if(!Session::get("adminLoggedin")) {
+            return view('admin.admin-login'); 
+        }
+       return redirect("/admin-dashboard");
     }
 
     public function adminLoginPost(Request $request){
@@ -22,12 +21,12 @@ class LoginController extends Controller
             $where['a.email']=$request->email;
             $where['a.password']=$request->password;
             $response=$dashboard->adminLogin($where);
-            if($response['status']){
+            if($response){
                 Session::put('admin_data',$response);
                 Session::put('adminLoggedin',TRUE);
-                echo json_encode(['status'=>1,'message'=>'Success']);
+                echo json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
             }else{
-                echo json_encode(['status'=>0,'message'=>'Failure']);
+                echo json_encode(['status'=>0,'message'=>'Invalid Email Id or Password!']);
             }
         }
     }
