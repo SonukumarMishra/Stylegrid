@@ -89,7 +89,7 @@
                                                         <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
                                                 </div>
                                             </div>
-                                            <p>Image size recommendation is 1170px X 570px(Min) </p>
+                                            <p style="    font-family: 'Genos';">Image size recommendadtion is 1170px X 570px(min) </p>
                                         </div>
 
                                     </div>

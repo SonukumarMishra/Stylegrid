@@ -9,7 +9,7 @@
         <!-- Revenue, Hit Rate & Deals -->
         <div class="row mt-md-3">
             <div class="col-8 mt-md-3">
-                <h1>Good morning Georgia.</h1>
+                <h1>Good morning {{Session::get('member_data')->name}}.</h1>
                 <h3>Check out your StyleGrid dashboard.</h3>
             </div>
             <div class="col-4 quick-link text-right mt-md-3">
@@ -40,7 +40,7 @@
                                             <p class="">Request product and style advice.</p>
                                         </div>
                                         <div class="text-right col-4 mt-5">
-                                            <a href="client-grid.html"> <button class=" px-1 grey-bg">Chat
+                                            <a href="{{url('member-messanger')}}"> <button class=" px-1 grey-bg">Chat
                                                     Now</button></a>
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                             <p class="">Check out this weeks drops in fashion and home.</p>
                                         </div>
                                         <div class="text-lg-left text-right pl-0 col-4 mt-5">
-                                            <a href="client-grid.html"> <button
+                                            <a href="#"> <button
                                                     class=" px-2 grey-bg">Browse</button></a>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="carousel-caption d-block text-left">
 
-                                    <a href="client-grid.html">
+                                    <a href="{{url('member-grid')}}">
                                         <h5 class="mt-1">View your StyleGrids</h5>
                                     </a>
                                     <div class="row">
@@ -93,7 +93,7 @@
                                             <h1>Make a sourcing request</h1>
                                             <p>Looking for your dream product?</p>
 
-                                            <a href="client-sourcing.html"><button class="btn">Explore</button></a>
+                                            <a href="{{url('member-sourcing')}}"><button class="btn">Explore</button></a>
                                         </div>
                                     </div>
                                 </div>

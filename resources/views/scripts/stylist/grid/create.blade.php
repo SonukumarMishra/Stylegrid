@@ -410,7 +410,7 @@
             html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
             html+= '                 </div>';
             html+= '               </div>';
-            html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
+            //html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
             html+= '               </div>';
             html+= '            </div>';
             html+= '         </div>';

@@ -75,7 +75,7 @@ class MemberWebsiteController extends Controller
                 'slug'=>Str::slug($request->full_name, '-'),
                 'email'=>$request->email,
                 'phone'=>$request->phone,
-                'subscription'=>'Trail',
+                'subscription'=>'Trial',
                 'gender'=>$request->gender,
                 'country_id'=>$request->country_id,
                 'password'=>sha1($request->password),
@@ -96,7 +96,7 @@ class MemberWebsiteController extends Controller
                         }
                     }
                 }
-                $member->addUpdateData(['id'=>0,'type_s_m'=>0,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trail'],'sg_member_stylist_subscription');   
+                $member->addUpdateData(['id'=>0,'type_s_m'=>0,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trial'],'sg_member_stylist_subscription');   
                 $stylist_data=$member->checkStylistExistance(['s.country_id'=>$request->country_id,'s.verified'=>1,'s.registration_completed'=>1]);
                 //$verification_url=URL::to("/").'/member-account-verification/'.$save_data['token'];
                 $member->addUpdateData(['id'=>$response['reference_id'],'assigned_stylist'=> $stylist_data ? $stylist_data->id : 0 ],'sg_member');   

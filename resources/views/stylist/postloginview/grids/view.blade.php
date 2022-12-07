@@ -33,7 +33,7 @@
           <div id="create-grid" class="mt-5">
              <div class="row">
                 <div class="col-lg-12">
-                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 mb-2 px-lg-4 px-2 py-2 height_400" style="background: url({{asset($style_grid_dtls->feature_image)}})">
+                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}})">
                       <h1>STYLEGRID</h1>
                       <div class="row">
                          <div class="col-lg-6 d-flex align-items-center">
@@ -48,7 +48,7 @@
 
                 @foreach ($style_grid_dtls->grids as $g_key => $grid)
                      
-                    <div class="row mt-2">
+                    <div class="row">
                         <div class="col-lg-12">
                         <div class="new-grid-bg mx-lg-4 mx-2 px-lg-3 mx-2 py-2">
                             <div class="row">

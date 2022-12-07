@@ -11,7 +11,7 @@
                                 href="#"><i class="ft-menu"></i></a></li>
     
                         <li class="dropdown nav-item mega-dropdown d-lg-block d-none"><a
-                                class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Hi Max! Welcome to
+                                class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Hi {{Session::get('stylist_data')->name}}! Welcome to
                                 your StyleGrid Dashboard.</a>
     
                         </li>
@@ -91,7 +91,7 @@
                             data-i18n="">Payments</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="client-page.html"><i class="ft-zap"></i><span class="menu-title"
+                <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title"
                             data-i18n="">Clients</span></a>
 
                 </li>
@@ -106,7 +106,7 @@
                             News</span></a>
 
                 </li>
-                <li class=" nav-item mt-5"><a href="#"><i class="ft-grid"></i><span class="menu-title"
+                <li class=" nav-item"><a href="#"><i class="ft-grid"></i><span class="menu-title"
                             data-i18n="">Refer</span></a>
 
                 </li>

@@ -31,7 +31,7 @@
                 <div class="col-lg-8">
                             <div class="row  text-aligns-center justify-content-center justify-content-lg-start">
                                 <h1 class="col-lg-4 text-lg-left text-center">Live Tickets</h1>
-                                <h2 class="px-2 mt-1 col-lg-5 col-6 text-lg-left text-center">1,092 requests this week</h2>
+                                <h2 class="px-2 mt-1 col-lg-5 col-6 text-lg-left text-center"> </h2>
                                 <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-3 col-6 mt-2 text-lg-left text-center"><button class="request-btn px-2">Make Request</button></a>
                             </div>
                         </div>

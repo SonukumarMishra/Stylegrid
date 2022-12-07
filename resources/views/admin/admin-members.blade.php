@@ -157,7 +157,7 @@
                     if(row['membership_cancelled']){
                         return "<span class='red-color'>Cancelled</span>";
                     }else{
-                        if(row['subscription']=='Trail'){
+                        if(row['subscription']=='Trial'){
                             return "<span class='orange-color'>"+row['subscription']+"</span>";
                         }
                         else if(row['subscription']=='Gold Tier'){
