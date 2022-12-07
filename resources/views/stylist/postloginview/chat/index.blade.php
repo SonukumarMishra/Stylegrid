@@ -1,6 +1,6 @@
 @include('stylist.postloginview.partials.header.header')
 @include('stylist.postloginview.partials.navigate.navigate')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <!-- BEGIN: Content-->
 <style>
     .messenger-messagingView .m-body {
@@ -16,7 +16,7 @@
     }
     .m-list-active{
         background-color: #000000 !important;
-        padding: 1.5rem !important;
+        padding: 1rem !important;
         border-radius: 0.25rem !important;
         color: #ffffff !important;
     }
@@ -25,7 +25,7 @@
         color: #fff !important;
     }
     .messenger-list-item{
-        border-bottom: 1px solid #F5F7FA;
+        border-bottom: 1px solid #dfe3e9;
     }
     
 </style>
@@ -159,6 +159,14 @@
 
        </div>
    </div>
+   
+    {{-- page scripts --}}
+    @section('page-scripts')
+
+        @include('scripts.stylist.messanger.index')
+
+    @endsection
+
 </div>
 
 @include('stylist.postloginview.partials.footer.footerjs')

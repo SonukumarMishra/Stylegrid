@@ -2864,3 +2864,8 @@ transform: rotate(180deg);
   left: 1%;
   font-family: "Genos";
 }
+
+.spinner-border-lg{
+  width: 3rem;
+  height: 3rem;
+}

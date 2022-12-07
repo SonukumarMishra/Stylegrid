@@ -105,65 +105,78 @@
                     <!-------------------inbox------------>
                     <div class="col-lg-4">
                         <div id="inbox-msg" class="py-2 px-3">
-                            <h3 class="text-center">Your Stylist</h3>
-                            <div class="text-center stylish-img">
-                                <img src="{{ asset('member/dashboard/app-assets/images/gallery/stylist.png') }}" class="img-fluid" alt="">
-                                <h6 style="font-size:16px" class="mt-1">Max</h6>
-                                <h6>Stylist</h6>
-                            </div>
+                            @if($assigned_stylist)
+                                
+                                <div>
 
-                            <h1>Monday 31st January 2023</h1>
-                            <div class="row">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Hi Georgia! Hope you had a good weekend.</p>
+                                    <h3 class="text-center">Your Stylist</h3>
+                                    <div class="text-center stylish-img">
+                                        <img src="{{ $assigned_stylist->profile_image != '' ? $assigned_stylist->profile_image : asset('common/images/default_user.jpeg') }}" class="img-fluid img_preview img_120" alt="">
+                                        <h6 style="font-size:16px" class="mt-1">{{ $assigned_stylist->full_name }}</h6>
+                                        <h6>Stylist</h6>
                                     </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
-                            <div class="row mt-1">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Bottega have just released their SS/23 collection and there’s
-                                            some bits that I think you’d love 😍 I have attached a Grid for you below.
-                                        </p>
-                                    </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
-                            <div class="row mt-1">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Georgia (Bottega StyleGrid)</p>
-                                    </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
 
-                            <div class="row mt-1">
-
-                                <div class=" col-10 pr-0 pl-md-5">
-                                    <div class="container darker">
-                                        <p class="pt-1">Write a reply...</p>
+                                    <h1>Monday 31st January 2023</h1>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-1">
+                                            <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
+                                        </div>
+                                        <div class=" col-10 pr-1 pl-md-0">
+                                            <div class="container">
+                                                <p class="pt-1">Hi Georgia! Hope you had a good weekend.</p>
+                                            </div>
+                                            <!-- <span class="time-right">11:00</span> -->
+                                        </div>
                                     </div>
-                                    <!-- <span class="time-right">11:00</span> -->
+                                    <div class="row mt-1">
+                                        <div class="col-lg-2 col-1">
+                                            <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
+                                        </div>
+                                        <div class=" col-10 pr-1 pl-md-0">
+                                            <div class="container">
+                                                <p class="pt-1">Bottega have just released their SS/23 collection and there’s
+                                                    some bits that I think you’d love 😍 I have attached a Grid for you below.
+                                                </p>
+                                            </div>
+                                            <!-- <span class="time-right">11:00</span> -->
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-lg-2 col-1">
+                                            <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
+                                        </div>
+                                        <div class=" col-10 pr-1 pl-md-0">
+                                            <div class="container">
+                                                <p class="pt-1">Georgia (Bottega StyleGrid)</p>
+                                            </div>
+                                            <!-- <span class="time-right">11:00</span> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-1">
+
+                                        <div class=" col-10 pr-0 pl-md-5">
+                                            <div class="container darker">
+                                                <p class="pt-1">Write a reply...</p>
+                                            </div>
+                                            <!-- <span class="time-right">11:00</span> -->
+                                        </div>
+                                        <div class="col-2">
+                                            <img src="{{ asset('member/dashboard/app-assets/images/gallery/Profile Picture.png') }}" alt="Avatar">
+                                        </div>
+                                    </div>
+                                    <div class="border mt-2"></div>
+                                    
                                 </div>
-                                <div class="col-2">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/Profile Picture.png') }}" alt="Avatar">
-                                </div>
-                            </div>
-                            <div class="border mt-2"></div>
+
+                            @else 
+                             
+                                <h3 class="text-center text-muted">Stylist not assigned!</h3>
+
+                            @endif
+
                             <div class="text-center mt-2">
-                                <a href=""><button class="go-to-msg">Go To Messenger</button></a>
+                                <a href="{{ route('member.messanger.index') }}"><button class="go-to-msg">Go To Messenger</button></a>
                             </div>
 
                         </div>
@@ -596,4 +609,13 @@
 
     </div>
 </div>
+
+{{-- page scripts --}}
+@section('page-scripts')
+
+    @include('scripts.member.dashboard_js')
+
+@endsection
+
+
 @stop

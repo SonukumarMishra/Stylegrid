@@ -67,14 +67,15 @@ class ChatRepository {
 			$users = DB::table('sg_chat_room as room')
 						->select("room.*")
 						->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
-						->addSelect(DB::raw("( SELECT cr1.created_at FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))
+						->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
+						->addSelect(DB::raw("( SELECT count(cr3.chat_message_id) FROM sg_chat_room_messages AS cr3 WHERE cr3.chat_room_id = room.chat_room_id AND cr3.receiver_id='".$auth_user['auth_id']."' AND cr3.receiver_user='".$auth_user['user_type']."' AND is_read=0 ) as unread_count"))
 						->where(function ($q) use($auth_user) {
 							$q->where('room.sender_id', $auth_user['auth_id'])
-							->where('room.sender_user', $auth_user['user_type']);
+								->where('room.sender_user', $auth_user['user_type']);
 						})
 						->orwhere(function ($q) use($auth_user) {
 							$q->where('room.receiver_id', $auth_user['auth_id'])
-							->where('room.receiver_user', $auth_user['user_type']);
+								->where('room.receiver_user', $auth_user['user_type']);
 						})
 						->where('room.is_active', 1)
 						->groupBy('room.chat_room_id')
@@ -472,6 +473,38 @@ class ChatRepository {
 		}catch(\Exception $e) {
 
             Log::info("error save_chat_room_details ". print_r($e->getMessage(), true));
+
+        }
+	}
+
+	public static function updateChatMessageReadStatus($request, $auth_user) {
+
+		try {
+
+			ChatRoomMessage::from('sg_chat_room_messages as msg')
+							->where([
+								'msg.chat_room_id' => $request->chat_room_id,
+								'msg.receiver_id' => $auth_user['auth_id'],
+								'msg.receiver_user' => $auth_user['user_type'],
+								'msg.is_read' => 0,
+								'msg.is_active' => 1
+							])
+							->update([
+								'is_read' => 1,
+								'read_at' => date('Y-m-d H:i:s')
+							]);
+						  
+			$response_array = array('status' => 1,  'message' => trans('pages.action_success') );
+
+			return $response_array;
+					
+		}catch(\Exception $e) {
+
+            Log::info("error updateChatMessageReadStatus ". print_r($e->getMessage(), true));
+
+			$response_array = array('status' => 0,  'message' => $e->getMessage() );
+
+			return $response_array;
 
         }
 

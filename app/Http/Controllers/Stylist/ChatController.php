@@ -43,8 +43,6 @@ class ChatController extends BaseController
     {
         $result = ChatRepo::pusherAuth($request, $this->auth_user);
         
-        Log::info("result ". print_r($result, true));
-
         return $result;
     }
     
@@ -71,4 +69,11 @@ class ChatController extends BaseController
 
     }
     
+    public function updateChatMessageReadStatus(Request $request){
+
+        $result = ChatRepo::updateChatMessageReadStatus($request, $this->auth_user);     
+        return response()->json($result, 200);
+
+    }
+
 }
