@@ -51,20 +51,20 @@
                             <div class="form-group">
                                 <label for="">Enter the name of the product here:</label>
                                 <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                    placeholder="Enter product name..."  id="product_name" name="product_name" onkeypress="return lettersOnly(event)" maxlength="40">
+                                    placeholder="Enter product name..."  id="product_name" name="product_name" maxlength="40">
                                 <div id="product_name_error" class="error"></div>
                             </div>
                             <div class="form-group">
                                 <label for="">Tell us the brand of the product:</label>
                                 <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                    placeholder="Enter brand name..." id="brand" name="brand" onkeypress="return lettersOnly(event)" maxlength="10">
+                                    placeholder="Enter brand name..." id="brand" name="brand" maxlength="10">
                                 <div id="autsuggestion_section"></div>
                                 <div id="brand_error" class="error"></div>
                             </div>
                             <div class="form-group">
                                 <label for="">What is the product type? (Bag, Dress, Heels etc)</label>
                                 <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                    placeholder="Enter product type..." id="product_type" name="product_type" onkeypress="return lettersOnly(event)" maxlength="10">
+                                    placeholder="Enter product type..." id="product_type" name="product_type"  maxlength="50">
                                     <div id="product_type_error" class="error"></div>
                             </div>
                             <div class="form-group">
