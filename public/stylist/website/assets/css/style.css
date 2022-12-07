@@ -589,8 +589,27 @@ color: #7A7A7A;
     color: #E5E5E5;
     padding: 7px;
   }
-  
+  /******************radio*************/
+/* HIDE RADIO */
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+[type=radio]:checked+img {
+  /* height: 36px; */
+  background: url(../images/checkbox.png);
+  background-repeat: no-repeat;
+  margin-left: 109%;
+}
+
+[type=radio]+img {
+  cursor: pointer;
+}
   /****************checkbox********************/
+  
  .tag-h2{
   font-size:16px;
   font-family:'Genos';
