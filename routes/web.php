@@ -123,6 +123,7 @@ Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageRe
 
 //Admin Section Start
 Route::get('/admin', [AdminLogin::class, 'adminLogin']);
+Route::post('/admin-login-post', [AdminLogin::class, 'adminLoginPost']);
 Route::get('/admin-logout', [AdminLogin::class, 'adminLogout']);
 Route::get('/admin-dashboard', [AdminDashboard::class, 'adminDashboard']);
 Route::get('/admin-member-list', [AdminDashboard::class, 'adminMemberList']);

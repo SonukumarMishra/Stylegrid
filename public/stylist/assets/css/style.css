@@ -22,7 +22,10 @@
 @font-face {
   font-family: 'Avenir';
   src: url(../font/Avenir/AvenirLTStd-Black.otf);
-
+}
+@font-face {
+  font-family: 'Avenir-Book';
+  src: url(../font/Avenir/AvenirLTStd-Book.otf);
 }
 
 @font-face {
@@ -2857,6 +2860,7 @@ transform: rotate(180deg);
   outline: 0;
   border: 0;
 }
+
 .error {
   color: red;
   top: 103%;
@@ -2868,4 +2872,8 @@ transform: rotate(180deg);
 .spinner-border-lg{
   width: 3rem;
   height: 3rem;
+}
+
+#grid_item_details_modal h5{
+  font-family: "Silk Serif Medium";
 }

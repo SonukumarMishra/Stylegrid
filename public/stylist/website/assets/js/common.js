@@ -1,4 +1,11 @@
 $(function(){
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      if(constants.current_url=='/stylist-login'){
+          $('#stylist-login-btn').trigger('click');
+      }
+    }
+  });
   $('#stylist-login-btn').click(function(){
     $('#stylist-login-form input').css('border', '1px solid #ccc');
     $('.error').html('');

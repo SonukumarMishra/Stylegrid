@@ -376,10 +376,11 @@
             html+= '            </div>';
             html+= '            <div class="col-4 text-right "><img src="{{ asset('stylist/app-assets/images/icons/Empty-Trash.png')}}" class="img-fluid delete-grid-btn" data-index="'+index+'" alt=""/></div>';
             html+= '         </div>';
+           
             html+= '         <div class="row add-item">';
             html+= '            <div class="col-lg-6 d-flex align-items-center">';
             html+= '               <div class="row">';
-            html+= '                  <div class="style-grid-item-left-row d-flex flex-wrap "  data-index="'+index+'">';
+            html+= '                  <div class="style-grid-item-left-row d-flex flex-wrap w-100"  data-index="'+index+'">';
             html+= '                    <div class="item-block-inner-row col-6" data-inner-index="1" data-parent-index="'+index+'">';
             html+= '                        <div class="Neon Neon-theme-dragdropbox">';
             html+= '                            <div class="Neon-input-dragDrop grid-item-inner-input-block d-flex align-items-center height_200" data-inner-index="1" data-parent-index="'+index+'">';

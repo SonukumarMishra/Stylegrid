@@ -70,7 +70,7 @@
                                                                 class="">
                                                                 <img src="member/app-assets/images/gallery/Plus-1.png"
                                                                     class="img-fluid child" alt="">
-                                                            </button>
+                                                            </button>A  
                                                         </div>
 
                                                     </div>
@@ -89,7 +89,9 @@
                                                         <div class="col pl-0">
                                                             <button data-toggle="modal" data-target="#exampleModal"
                                                                 class="">
-                                                                <img src="member/app-assets/images/gallery/Plus-1.png"
+                                                                
+                                                                9++
+                                                                ]6/6img src="member/app-assets/images/gallery/Plus-1.png"
                                                                     class="img-fluid child" alt="">
                                                             </button>
                                                         </div>
@@ -117,8 +119,7 @@
                                                             </button>
                                                         </div>
 
-                                                    </div>
-                                                </div>
+                                                    </div>/\/                                                </div>
                                                 <div class="parent mt-2">
                                                     <img src="member/app-assets/images/gallery/client-ful-4.png"
                                                         class="img-fluid parent-1" alt="">
@@ -291,5 +292,4 @@
                     </div>
                 </div>
     </div>
-</div>
 @stop

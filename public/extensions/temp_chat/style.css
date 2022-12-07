@@ -1,4 +1,44 @@
 /* Chat module */
+@font-face {
+  font-family: 'Genos';
+  font-weight: 400;
+  src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Genos-Light';
+  src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url(../font/silk-serif/Silk\ Serif\ Light.otf);
+}
+
+@font-face {
+  font-family: 'Silk Serif Medium';
+  src: url(../font/silk-serif/Silk\ Serif\ Medium.otf);
+}
+
+@font-face {
+  font-family: 'Avenir';
+  src: url(../font/Avenir/AvenirLTStd-Black.otf);
+
+}
+
+
+@font-face {
+  font-family: 'Roboto';
+  src: url(../font/Roboto/Roboto-Black.ttf);
+
+}
+
+@font-face {
+  font-family: 'Roboto-Light';
+  src: url(../font/Roboto/Roboto-Light.ttf);
+
+}
+
 
 .client-search-container {
   
@@ -104,7 +144,7 @@ color: #2B2B2B;
 border-radius: 0px;
 }
 .client-name{
-  font-family: 'Avenir';
+  font-family: 'Avenir-Book';
 font-style: normal;
 font-weight: 800;
 font-size: 15.9045px;
@@ -262,7 +302,7 @@ color: #7A8599;
 border-radius: 50%;
 }
 .chat-client-name{
-  font-family: 'Avenir';
+  font-family: 'Avenir-Book';
 font-style: normal;
 font-weight: 800;
 font-size: 15.9045px;
@@ -270,7 +310,7 @@ line-height: 31px;
 color: #666F80;
 }
 .chat-client-time{
-  font-family: 'Avenir';
+  font-family: 'Avenir-Book';
   font-style: normal;
   font-weight: 800;
   font-size: 14.6811px;
