@@ -57,29 +57,6 @@ class MemberController extends Controller
                                             })
                                             ->select('stylist.*', 'room.chat_room_id')
                                             ->first();
-
-                if($assigned_stylist && isset($assigned_stylist->chat_room_id) && !empty($assigned_stylist->chat_room_id)){
-
-                    // $chat_room_dtls = ChatRoom::from('sg_chat_room as room')
-                    //                             ->where('room.chat_room_id', $assigned_stylist->chat_room_id)
-                    //                             ->where(function ($q) use($auth_user) {
-                    //                                 $q->where('room.sender_id', $auth_user['auth_id'])
-                    //                                 ->where('room.sender_user', $auth_user['user_type']);
-                    //                             })
-                    //                             ->orwhere(function ($q) use($auth_user) {
-                    //                                 $q->where('room.receiver_id', $auth_user['auth_id'])
-                    //                                 ->where('room.receiver_user', $auth_user['user_type']);
-                    //                             })
-                    //                             ->select("room.*")
-                    //                             ->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
-                    //                             ->addSelect(DB::raw("( SELECT cr1.created_at FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))                                                                      
-                    //                             ->first();
-
-                }
-
-                Log::info("assigned ". print_r($assigned_stylist, true));
-
-
             }
         }
 

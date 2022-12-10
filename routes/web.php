@@ -52,6 +52,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
   Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
   Route::post('/stylist-messanger-room-messages', 'Stylist\ChatController@getChatRoomMessage')->name('stylist.messanger.room.messages');
   Route::post('/stylist-messanger-read', 'Stylist\ChatController@updateChatMessageReadStatus')->name('stylist.messanger.read.message');
+  Route::post('/stylist-online-status-save', 'Stylist\ChatController@updateOnlineStatus')->name('stylist.messanger.online.status');
   
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
  Route::get('/stylist-testing', [Login::class, 'index']);
@@ -118,6 +119,7 @@ Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts
 Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');
 Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoomMessage')->name('member.messanger.room.messages');
 Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
+Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineStatus')->name('member.messanger.online.status');
   
 //member section End
 

@@ -34,6 +34,7 @@ class ChatRepository {
 			// Auth data
 			$authData = json_encode([
 				'auth_id' => $auth_user['auth_id'],
+				'user_id' => $auth_user['auth_user'].'_'.$auth_user['auth_id'],
 				'auth_user' => $auth_user['auth_user'],
 				'user_info' => $auth_user,
 			]);
@@ -143,36 +144,36 @@ class ChatRepository {
 					
 					$users[$key]->sender_name = "";
 					$users[$key]->sender_profile = "";
-					$users[$key]->sender_is_online = "";
+					$users[$key]->sender_online = "";
 					$users[$key]->receiver_name = "";
 					$users[$key]->receiver_profile = "";
-					$users[$key]->receiver_is_online = "";
+					$users[$key]->receiver_online = "";
 
 					$sender_info = $receiver_info = false;
 
 					if($users[$key]->sender_user == 'stylist'){
 						
 						$sender_info = Stylist::where('id', $users[$key]->sender_id)
-											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_is_online')
+											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
 											->first();
 						
 					}else if($users[$key]->sender_user == 'member'){
 
 						$sender_info = Member::where('id', $users[$key]->sender_id)
-											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_is_online')
+											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
 											->first();						
 					}
 
 					if($users[$key]->receiver_user == 'stylist'){
 						
 						$receiver_info = Stylist::where('id', $users[$key]->receiver_id)
-											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_is_online')
+											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
 											->first();
 						
 					}else if($users[$key]->receiver_user == 'member'){
 
 						$receiver_info = Member::where('id', $users[$key]->receiver_id)
-											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_is_online')
+											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
 											->first();						
 					}
 
@@ -180,7 +181,7 @@ class ChatRepository {
 
 						$users[$key]->sender_name = $sender_info->sender_name;
 						$users[$key]->sender_profile = $sender_info->sender_profile;
-						$users[$key]->sender_is_online = $sender_info->sender_is_online;
+						$users[$key]->sender_online = $sender_info->sender_online;
 
 					}
 
@@ -188,7 +189,7 @@ class ChatRepository {
 
 						$users[$key]->receiver_name = $receiver_info->receiver_name;
 						$users[$key]->receiver_profile = $receiver_info->receiver_profile;
-						$users[$key]->receiver_is_online = $receiver_info->receiver_is_online;
+						$users[$key]->receiver_online = $receiver_info->receiver_online;
 
 					}
 
@@ -292,10 +293,10 @@ class ChatRepository {
 	
 						// $chat_message['sender_name'] = $sender_user ? $sender_user->full_name : '';
 						// $chat_message['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
-						// $chat_message['sender_is_online'] = $sender_user ? $sender_user->is_online : 0;
+						// $chat_message['sender_online'] = $sender_user ? $sender_user->is_online : 0;
 						// $chat_message['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
 						// $chat_message['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
-						// $chat_message['receiver_is_online'] = $receiver_user ? $receiver_user->is_online : 0;
+						// $chat_message['receiver_online'] = $receiver_user ? $receiver_user->is_online : 0;
 						// $chat_message['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
 						// $chat_message['last_message'] = $chat_message->message;
 						// $chat_message['last_message_on'] = $chat_message->created_at;
@@ -390,10 +391,10 @@ class ChatRepository {
 
 				$json['sender_name'] = $sender_user ? $sender_user->full_name : '';
 				$json['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
-				$json['sender_is_online'] = $sender_user ? $sender_user->is_online : 0;
+				$json['sender_online'] = $sender_user ? $sender_user->is_online : 0;
 				$json['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
 				$json['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
-				$json['receiver_is_online'] = $receiver_user ? $receiver_user->is_online : 0;
+				$json['receiver_online'] = $receiver_user ? $receiver_user->is_online : 0;
 				$json['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
 				$json['last_message'] = $chat_message->message;
 				$json['last_message_on'] = $chat_message->created_at;
@@ -574,6 +575,55 @@ class ChatRepository {
 		}catch(\Exception $e) {
 
             Log::info("error updateChatMessageReadStatus ". print_r($e->getMessage(), true));
+
+			$response_array = array('status' => 0,  'message' => $e->getMessage() );
+
+			return $response_array;
+
+        }
+
+	}
+
+	public static function updateOnlineStatus($request) {
+
+		try {
+
+			Log::info("online / offline ". print_r($request->all(), true));
+
+			$user_dtls = json_decode($request->user_data, true);
+
+			Log::info("dtks ". print_r($user_dtls, true));
+
+			if(isset($user_dtls) && !empty($user_dtls) && is_array($user_dtls)){
+
+				if($user_dtls['user_type'] == 'stylist'){
+				
+					Stylist::where([
+						'id' => $user_dtls['user_id']
+					])->update([
+						'is_online' => isset($request->status) ? $request->status : 0
+					]);
+				
+				}else if($user_dtls['user_type'] == 'member'){
+				
+					Member::where([
+						'id' => $user_dtls['user_id']
+					])->update([
+						'is_online' => isset($request->status) ? $request->status : 0
+					]);
+				
+				}
+	
+			}
+
+			$response_array = array('status' => 1, 'message' => trans('pages.action_success') );
+
+			return $response_array;
+
+					
+		}catch(\Exception $e) {
+
+            Log::info("error updateOnlineStatus ". print_r($e->getMessage(), true));
 
 			$response_array = array('status' => 0,  'message' => $e->getMessage() );
 

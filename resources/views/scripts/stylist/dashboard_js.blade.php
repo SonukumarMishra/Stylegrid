@@ -64,7 +64,7 @@
 
                 $.each(contacts, function (i, val) { 
                     
-                    html += '<div class="row my-1" data-room-id="'+val.chat_room_id+'">';
+                    html += '<div class="row my-1 dashboard-messenger-list-item" data-receiver-id="'+val.receiver_id+'" data-receiver-user="'+val.receiver_user+'"  data-room-id="'+val.chat_room_id+'">';
                     html += '   <div class="col-6">';
                     html += '       <div class="row">';
                     html += '           <div>';
@@ -81,7 +81,7 @@
                     html += '   </div>';
                     html += '   <div class="col-6 text-right">';
                     html += '       <div class="row justify-content-end mx-1 pt-1">';
-                    html += '           <h4 class="mx-2">Online</h4>';
+                    html += '           <h4 class="mx-2 online-status-text '+(val.receiver_online == 1 ? 'text-success' : 'text-danger')+'">'+(val.receiver_online == 1 ? 'Online' : 'Offline')+'</h4>';
                     html += '       </div>';
                     html += '   </div>';
                     html += '</div>';

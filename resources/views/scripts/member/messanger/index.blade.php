@@ -266,7 +266,7 @@
 
             $.each(contacts, function (i, val) { 
                 
-                html += '<li class="messenger-list-item my-1" data-contact="" data-room-id="'+val.chat_room_id+'">';
+                html += '<li class="messenger-list-item my-1" data-receiver-id="'+val.receiver_id+'" data-receiver-user="'+val.receiver_user+'"  data-room-id="'+val.chat_room_id+'">';
                 html += '   <span class="d-flex justify-content-between m-1">';
                 html += '       <div class="d-flex flex-row">';
                 html += '           <div class="">';
@@ -274,10 +274,9 @@
                 var receiver_profile = val.receiver_profile != null ?  ( val.receiver_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.receiver_profile : '{{asset('common/images/default_user.jpeg')}}';
                    
                 html += '               <img src="'+receiver_profile+'" alt="avatar" class="d-flex align-self-center me-3 chat-pic" width="60">';
-                html += '               <span class="badge bg-success badge-dot"></span>';
+                html += '               <span class="badge '+(val.receiver_online == 1 ? 'bg-success' : 'bg-danger')+' badge-dot online-status" data-online="'+val.receiver_online+'"></span>';
                 html += '           </div>';
                 html += '           <div class=" pl-1">';
-                // html += '               <div class="status">Online</div>';
                 html += '                   <span class="list-name">'+(val.receiver_name)+'</span>';
                 html += '                   <p class="list-msg">'+(val.last_message != null ? val.last_message : '')+'</p>';
                 html += '               </div>';
@@ -421,7 +420,14 @@
             messageInput.focus();
             // update info in view
             // $(".messenger-infoView .info-name").html(room_dtls.receiver_name);
-            $(".m-header-messaging .user-name").html(room_dtls.receiver_name);
+            $(".active-chat-box-user-name").html(room_dtls.receiver_name);
+            $('.active-chat-box-online-status').data('receiver-id', room_dtls.receiver_id);
+            $('.active-chat-box-online-status').data('receiver-user', room_dtls.receiver_user);
+            $('.active-chat-box-online-status').removeClass('dot-online');
+            $('.active-chat-box-online-status').removeClass('dot-offline');
+            var is_online = $('.messenger-list-item[data-receiver-id="'+room_dtls.receiver_id+'"][data-receiver-user="'+room_dtls.receiver_user+'"]').find('.online-status').data('online');
+            $('.active-chat-box-online-status').addClass( is_online == 1 ? 'dot-online' : 'dot-offline');
+            
             // Star status
 
             // form reset and focus

@@ -87,8 +87,8 @@
                         
                             <div class="col-md-12 col-12">
                                 <div class="d-flex justify-content-center m-header-messaging">
-                                    <span class="dot"></span>
-                                    <div class="client-name user-name"></div>
+                                    <span class="active-chat-box-online-status" data-receiver-id="" data-receiver-user="" ></span>
+                                    <div class="client-name active-chat-box-user-name"></div>
                                 </div>
                             </div>
 

@@ -76,4 +76,10 @@ class ChatController extends BaseController
 
     }
 
+    public function updateOnlineStatus(Request $request)
+    {
+        $result = ChatRepo::updateOnlineStatus($request);        
+        return $result;
+    }
+    
 }
