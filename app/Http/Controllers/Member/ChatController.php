@@ -34,9 +34,9 @@ class ChatController extends BaseController
         });
     }
 
-    public function index()
+    public function index($chat_room_id='')
     {
-        return view('member.dashboard.chat.index');
+        return view('member.dashboard.chat.index', compact('chat_room_id'));
     }
 
     public function pusherAuth(Request $request)

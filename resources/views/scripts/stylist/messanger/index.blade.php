@@ -182,20 +182,6 @@
         }
         return template;
     }
-
-    /**
-     *-------------------------------------------------------------
-    * Slide to bottom on [action] - e.g. [message received, sent, loaded]
-    *-------------------------------------------------------------
-    */
-    function scrollToBottom(container) {
-        $(container)
-            .stop()
-            .animate({
-            scrollTop: $(container)[0].scrollHeight,
-            });
-    }
-
     
     /**
      *-------------------------------------------------------------
@@ -249,7 +235,13 @@
                             if(selected_chatroom_id != ''){
                                 // $('.messenger-list-item[data-room-id="'+selected_chatroom_id+'"]').click();
                             }else{
-                                $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
+
+                                if($('#default_chat_room_id').val() != ''){
+                                    $('.messenger-list-item[data-room-id="'+$('#default_chat_room_id').val()+'"]').click();
+                                }else{
+                                    $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
+                                }
+
                             }
 
                             $('#chat-section').show();

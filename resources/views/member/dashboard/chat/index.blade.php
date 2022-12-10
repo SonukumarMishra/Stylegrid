@@ -28,8 +28,8 @@
 </style>
 
     <div class="content-wrapper">
-
-       <div class="content-body">
+        <input type="hidden" id="default_chat_room_id" value="{{ @$chat_room_id }}">
+        <div class="content-body">
 
             <div class="flex-column-reverse flex-md-row mt-lg-3 row">
                 <div class="col-md-8">
@@ -93,7 +93,7 @@
 
                         <div id="client-inbox-msg" class="messenger-messagingView py-2">
 
-                            <div class="m-body">
+                            <div class="m-body scrollstyle">
                                 
                                 <div class="messages">
 
@@ -112,6 +112,7 @@
                             </div>
     
                         </div>
+
                         {{-- Send Message Form --}}
 
                         <div class="messenger-sendCard mt-1">

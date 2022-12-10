@@ -276,31 +276,41 @@ class ChatRepository {
 
 					if($chat_message){
 
-						$sender_user = $receiver_user = false;
+						// $sender_user = $receiver_user = false;
 
-						if($chat_message->sender_user == 'stylist'){
-							$sender_user = Stylist::find($chat_message->sender_id);
-						}else if($chat_message->sender_user == 'member'){
-							$sender_user = Member::find($chat_message->sender_id);
-						}
+						// if($chat_message->sender_user == 'stylist'){
+						// 	$sender_user = Stylist::find($chat_message->sender_id);
+						// }else if($chat_message->sender_user == 'member'){
+						// 	$sender_user = Member::find($chat_message->sender_id);
+						// }
 	
-						if($chat_message->receiver_user == 'stylist'){
-							$receiver_user = Stylist::find($chat_message->receiver_id);
-						}else if($chat_message->receiver_user == 'member'){
-							$receiver_user = Member::find($chat_message->receiver_id);
-						}
+						// if($chat_message->receiver_user == 'stylist'){
+						// 	$receiver_user = Stylist::find($chat_message->receiver_id);
+						// }else if($chat_message->receiver_user == 'member'){
+						// 	$receiver_user = Member::find($chat_message->receiver_id);
+						// }
 	
-						$chat_message['sender_name'] = $sender_user ? $sender_user->full_name : '';
-						$chat_message['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
-						$chat_message['sender_is_online'] = $sender_user ? $sender_user->is_online : 0;
-						$chat_message['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
-						$chat_message['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
-						$chat_message['receiver_is_online'] = $receiver_user ? $receiver_user->is_online : 0;
-						$chat_message['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
-						$chat_message['last_message'] = $chat_message->message;
-						$chat_message['last_message_on'] = $chat_message->created_at;
-						$chat_message['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
+						// $chat_message['sender_name'] = $sender_user ? $sender_user->full_name : '';
+						// $chat_message['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
+						// $chat_message['sender_is_online'] = $sender_user ? $sender_user->is_online : 0;
+						// $chat_message['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
+						// $chat_message['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
+						// $chat_message['receiver_is_online'] = $receiver_user ? $receiver_user->is_online : 0;
+						// $chat_message['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
+						// $chat_message['last_message'] = $chat_message->message;
+						// $chat_message['last_message_on'] = $chat_message->created_at;
+						// $chat_message['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
 						
+						$message_obj = self::getChatMessageJson($chat_message->chat_message_id, $auth_user);
+
+						if(!empty($message_obj)){
+
+							$message_obj['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
+
+						}
+
+						Log::info("message obj ". print_r($message_obj, true));
+
 						$pusher_ref = new Pusher(
 							config('chat.pusher.key'),
 							config('chat.pusher.secret'),
@@ -310,11 +320,11 @@ class ChatRepository {
 			
 						$pusher_ref->trigger('private-chatify', 'messaging', [
 												'chat_room_id' => $request->chat_room_id,
-												'message_obj' => $chat_message,
+												'message_obj' => $message_obj,
 												'chat_room_dtls' => $room
 											]);
 						
-						$response_array = array('status' => 1, 'data' => $chat_message );
+						$response_array = array('status' => 1, 'data' => $message_obj );
 	
 					}else{
 						
@@ -342,6 +352,63 @@ class ChatRepository {
 
         }
 
+	}
+
+	public static function getChatMessageJson($messange_id, $auth_user) {
+			
+		$json = '';
+
+		try{
+
+			$chat_message = ChatRoomMessage::find($messange_id);
+
+			if($chat_message){
+
+				$json = $chat_message;
+
+				$sender_user = $receiver_user = false;
+
+				if($chat_message->sender_user == 'stylist'){
+				
+					$sender_user = Stylist::find($chat_message->sender_id);
+				
+				}else if($chat_message->sender_user == 'member'){
+				
+					$sender_user = Member::find($chat_message->sender_id);
+				
+				}
+
+				if($chat_message->receiver_user == 'stylist'){
+				
+					$receiver_user = Stylist::find($chat_message->receiver_id);
+				
+				}else if($chat_message->receiver_user == 'member'){
+				
+					$receiver_user = Member::find($chat_message->receiver_id);
+				
+				}
+
+				$json['sender_name'] = $sender_user ? $sender_user->full_name : '';
+				$json['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
+				$json['sender_is_online'] = $sender_user ? $sender_user->is_online : 0;
+				$json['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
+				$json['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
+				$json['receiver_is_online'] = $receiver_user ? $receiver_user->is_online : 0;
+				$json['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
+				$json['last_message'] = $chat_message->message;
+				$json['last_message_on'] = $chat_message->created_at;
+				
+			}
+
+			return $json;
+
+		}catch(\Exception $e) {
+
+            Log::info("error getChatMessageJson ". print_r($e->getMessage(), true));
+
+			return $json;
+		
+        }
 	}
 
 	public static function getChatMessages($request, $auth_user) {
@@ -384,6 +451,12 @@ class ChatRepository {
 																ELSE "" END) AS receiver_profile'))
 											->where('msg.chat_room_id', $request->chat_room_id)
                                             ->orderBy('msg.created_at', 'DESC');
+
+				if(isset($request->type) && !empty(isset($request->type))){
+					
+					$main_query = $main_query->where('msg.type', $request->type);
+
+				}
 
                 $list = $main_query->paginate($limit, ['*'], 'page', $page_index);
 

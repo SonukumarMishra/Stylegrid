@@ -46,7 +46,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 
  });
  
-  Route::get('/stylist-messanger', 'Stylist\ChatController@index')->name('stylist.messanger.index');
+  Route::get('/stylist-messanger/{chat_room_id?}', 'Stylist\ChatController@index')->name('stylist.messanger.index');
   Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
   Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
@@ -112,7 +112,7 @@ Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);
 
 // Memeber panel chat
-Route::get('/member-messanger', 'Member\ChatController@index')->name('member.messanger.index');
+Route::get('/member-messanger/{chat_room_id?}', 'Member\ChatController@index')->name('member.messanger.index');
 Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name('member.messanger.pusher.auth');
 Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts')->name('member.messanger.contacts');
 Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');

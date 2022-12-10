@@ -2883,3 +2883,26 @@ transform: rotate(180deg);
 #grid_item_details_modal h5{
   font-family: "Silk Serif Medium";
 }
+
+.scrollstyle::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.scrollstyle::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+.scrollstyle::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #cccccc;
+}
+
+.dashboard_chat_box{
+  height: 500px;
+  padding: 5px;
+  overflow-x: hidden;
+}

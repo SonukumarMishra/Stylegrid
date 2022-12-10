@@ -199,6 +199,11 @@ color: #7A8599;
     font-size: 14.6811px;
     line-height: 24px;
     color: #828282;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   .list-time{
     

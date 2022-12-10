@@ -174,20 +174,6 @@
         }
         return template;
     }
-
-    /**
-     *-------------------------------------------------------------
-    * Slide to bottom on [action] - e.g. [message received, sent, loaded]
-    *-------------------------------------------------------------
-    */
-    function scrollToBottom(container) {
-        $(container)
-            .stop()
-            .animate({
-            scrollTop: $(container)[0].scrollHeight,
-            });
-    }
-
     
     /**
      *-------------------------------------------------------------

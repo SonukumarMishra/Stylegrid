@@ -32,7 +32,7 @@
 
 <div class="app-content content bg-white">
    <div class="content-wrapper">
-
+        <input type="hidden" id="default_chat_room_id" value="{{ @$chat_room_id }}">
        <div class="content-body">
 
             <div class="flex-column-reverse flex-md-row mt-lg-3 row">
@@ -97,7 +97,7 @@
 
                         <div id="client-inbox-msg" class="messenger-messagingView py-2">
 
-                            <div class="m-body">
+                            <div class="m-body scrollstyle">
                                 
                                 <div class="messages">
 

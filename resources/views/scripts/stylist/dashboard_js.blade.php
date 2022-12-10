@@ -76,7 +76,7 @@
                         html += '           <div class="navigate"><span>'+val.unread_count+'</span></div>';
                     }
                     html += '           </div>';
-                    html += '           <h6 class="pt-1">'+(val.receiver_name)+'</h6>';
+                    html += '           <a href="'+chat_baseurl+'stylist-messanger/'+val.chat_room_id+'" class="d-flex align-items-center h4 text-primary">'+(val.receiver_name)+'</a>';
                     html += '       </div>';
                     html += '   </div>';
                     html += '   <div class="col-6 text-right">';

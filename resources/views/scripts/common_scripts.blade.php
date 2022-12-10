@@ -267,5 +267,13 @@
             $temp.remove();
         }
 
+        window.scrollToBottom = function(container) {
+            $(container)
+                .stop()
+                .animate({
+                    scrollTop: $(container)[0].scrollHeight,
+                });
+        }
+
     }(window));
 </script>
