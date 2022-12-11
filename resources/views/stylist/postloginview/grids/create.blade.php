@@ -83,7 +83,7 @@
                                             <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-main-feature-image-block">
                                                 <div class="Neon-input-inner">
                                                     <div class="Neon-input-text">
-                                                        <h3>Add your feature image here...</h3>
+                                                        <h3 class="style-grid-main-feature-image-title">Add your feature image here...</h3>
                                                     </div>
                                                     <a class="Neon-input-choose-btn blue">
                                                         <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
@@ -147,7 +147,7 @@
                                     <div class="Neon-input-dragDrop d-flex align-items-center height_300" id="modal_product_img_block">
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-text ">
-                                                <h3>Upload an image of the product here</h3>
+                                                <h3 id="item-modal-image-title">Upload an image of the product here</h3>
                                             </div>
                                             <a class="Neon-input-choose-btn blue"><img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="item-modal-image-src img_preview" data-image-selected="0" id="product_image_preview" alt=""></a>
                                         </div>
