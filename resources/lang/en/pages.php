@@ -24,6 +24,7 @@ return [
    'mail_not_found' => 'Mail ID not Found' ,
    'password_not_match' => 'Password doesn\'t match',
    'failed_to_upload'=>'Failed To Upload, Your File length is different from original File Length',
+   'failed_to_export_pdf'=>'Unable to export pdf!',
    'unknown_error' => 'Unknown error occurred.',
    'action_success' => 'Done Successfully',
    'saved_success' => 'Saved Successfully',

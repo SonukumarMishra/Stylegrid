@@ -441,4 +441,11 @@ h1,h2,h3,h4,h5,h6{
 tfoot{
     display: table-row-group;
 }
+
+.d-flex {
+    display: flex !important;
+}
+.align-items-center{
+    align-items: center !important;
+}
 </style>
