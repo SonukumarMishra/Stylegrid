@@ -123,14 +123,14 @@
                                     
                                     {{-- preview selected files before upload --}}
                         
-                                    {{-- <div class="row col-12">
+                                    <div class="row col-12">
 
-                                        <div id="attachment_container" class="d-flex">
+                                        <div id="dashboard_attachment_container" class="d-flex">
 
                                         </div>
                 
                                     </div>
-                                     --}}
+                                    
                                     {{-- Send Message Form --}}
 
                                     <div class="dashboard-messenger-sendCard mt-1">
@@ -141,21 +141,27 @@
                                             <!-- BEGINING OF INPUT BOTTOM -->
                                             <div class="text-muted d-flex justify-content-start align-items-center pe-3" id="chat-footer">
                                                 
-                                                {{-- <label for="file-input">
+
+                                                <label for="dashboard-chat-file-input" class="mr-1">
                                                     <img src="{{asset('stylist/app-assets/images/gallery/paperclip-solid.svg')}}" alt="">
-                                                    <input disabled='disabled' type="file" class="upload-attachment hidden" name="file" id="file-input" multiple accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
-                                                </label> --}}
+                                                    <input disabled='disabled' type="file" class="chat-upload-attachment hidden" name="file" id="dashboard-chat-file-input" multiple accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
+                                                </label>
 
                                                 {{-- <a class="px-1" href="#">
                                                     <img src="{{asset('stylist/app-assets/images/gallery/face-smile-solid.svg')}}" alt="">
                                                 </a> --}}
                                                 
                                                 <textarea readonly='readonly' rows="2" name="message" class="form-control m-send app-scroll" placeholder="Type message..."> </textarea>
-                                                
-                                                <a class="pl-1 dashboard-send-msg-btn" href="#">
-                                                    <img src="{{asset('stylist/app-assets/images/gallery/paper-plane-solid.svg')}}" alt="">
-                                                </a>
 
+                                                <div class="d-flex align-items-center">
+
+                                                    <a class="pl-1 dashboard-send-msg-btn" href="#">
+                                                        <img src="{{asset('stylist/app-assets/images/gallery/paper-plane-solid.svg')}}" alt="">
+                                                    </a>
+
+    
+                                                </div>
+                                                
                                             </div>
 
                                             <!-- END OF INPUT BOTTOM-->

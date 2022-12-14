@@ -514,6 +514,7 @@
                 html += '               <p class="small mb-0 chat-client-time"><i class="far fa-clock"></i>&nbsp;'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</p>';
                 html += '           </div>';
                 html += '           <div class="card-body">';
+
                 if(val.type == "file"){
 
                     var files_array = JSON.parse(val.files);
@@ -523,13 +524,9 @@
                         html += '      <div class="row">';
 
                             $.each(files_array, function (m_key, m_val) { 
-    
                                 if(m_val.media_path != ''){
-
                                     html += '   <img src="'+m_val.media_path+'" class="chat-media m-1">';                    
-
                                 }
-
                             });
 
                         html += '      </div>';
@@ -538,6 +535,7 @@
                 }else{
                     html += '           <p class="mb-0">'+val.message+'</p>';
                 }
+                
                 html +='            </div>';
                 html +='        </div>';
                 

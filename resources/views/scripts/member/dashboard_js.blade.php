@@ -36,11 +36,9 @@
 
                 // form reset and focus
                 $("#dashboard-message-form").trigger("reset");
+                DashboardRef.cancelAttachment();
                 DashboardRef.messageInput.focus();
-                
-
             }
-
         }
     
         DashboardRef.fetchChatRoomMessages = function(room_id, newFetch = false) {
@@ -55,8 +53,7 @@
                 method: "POST",
                 data: {
                     _token: $('meta[name="csrf-token"]').attr("content"),
-                    chat_room_id: room_id,
-                    type : 'text'
+                    chat_room_id: room_id
                 },
                 dataType: "JSON",
                 success: (response) => {
@@ -134,7 +131,32 @@
                     html += '       <div class=" col-10 '+(val.sender_user == auth_user_type ? "pr-0 pl-md-5" : "pr-5 pl-md-0")+'">';
                     html += '           <div class="'+(val.sender_user == auth_user_type ? "text-left" : "text-right")+'"><small class="text-dark">'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</small></div>';
                     html += '           <div class="container '+(val.sender_user == auth_user_type ? "darker" : "")+'">';
-                    html += '               <p class="pt-1">'+val.message+'</p>';
+                    
+                    if(val.type == "file"){
+
+                        var files_array = JSON.parse(val.files);
+
+                        if(files_array.length > 0){
+
+                            html += '      <div class="row">';
+
+                                $.each(files_array, function (m_key, m_val) { 
+
+                                    if(m_val.media_path != ''){
+
+                                        html += '   <img src="'+m_val.media_path+'" class="dashboard-chat-media">';                    
+
+                                    }
+
+                                });
+
+                            html += '      </div>';
+                        }
+
+                    }else{
+                        html += '           <p class="pt-1">'+val.message+'</p>';
+                    }
+
                     html += '           </div>';
                     html += '       </div>';
  
@@ -164,7 +186,7 @@
                 // disable message form fields
                 DashboardRef.messageInput.attr("readonly", "readonly");
                 $("#dashboard-message-form a").attr("disabled", "disabled");
-                // $(".upload-attachment").attr("disabled", "disabled");
+                $(".chat-upload-attachment").attr("disabled", "disabled");
 
             } else {
 
@@ -176,10 +198,26 @@
                 DashboardRef.messageInput.removeAttr("readonly");
 
                 $("#dashboard-message-form a").removeAttr("disabled");
-                // $(".upload-attachment").removeAttr("disabled");
+                $(".chat-upload-attachment").removeAttr("disabled");
             }
         }
         
+        
+        // Loading svg
+        DashboardRef.loadingSVG = function(size = "25px", className = "", style = "") {
+            return `
+                <svg style="${style}" class="loadingSVG ${className}" xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 40 40" stroke="#ffffff">
+                <g fill="none" fill-rule="evenodd">
+                <g transform="translate(2 2)" stroke-width="3">
+                <circle stroke-opacity=".1" cx="18" cy="18" r="18"></circle>
+                <path d="M36 18c0-9.94-8.06-18-18-18" transform="rotate(349.311 18 18)">
+                <animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur=".8s" repeatCount="indefinite"></animateTransform>
+                </path>
+                </g>
+                </g>
+                </svg>
+            `;
+        }
         
         /**
          *-------------------------------------------------------------
@@ -216,12 +254,12 @@
 
                         // append a temporary message card
                         if (hasFile) {
-                            // DashboardRef.messagesContainer
-                            //     .append(
-                            //         DashboardRef.sendTempMessageCard(
-                            //         inputValue + "\n" + loadingSVG("28px"),
-                            //         temp_id
-                            //     ));
+                            DashboardRef.messagesContainer
+                                .append(
+                                    DashboardRef.sendTempMessageCard(
+                                    inputValue + "\n" + DashboardRef.loadingSVG("28px"),
+                                    temp_id
+                                ));
                         } else {
                             DashboardRef.messagesContainer
                                 .append(DashboardRef.sendTempMessageCard(inputValue, temp_id));
@@ -230,6 +268,7 @@
                         scrollToBottom(DashboardRef.messagesContainer);
                         // form reset and focus
                         $("#dashboard-message-form").trigger("reset");
+                        DashboardRef.cancelAttachment();
                         DashboardRef.messageInput.focus();
                     },
                     success: (response) => {
@@ -277,7 +316,82 @@
             
             return html;
         }
+    
+        DashboardRef.attachmentValidate = function(file) {
+            
+            const { name: fileName, size: fileSize } = file;
+            const fileExtension = fileName.split(".").pop();
+            if (
+                !getAllowedExtensions.includes(fileExtension.toString().toLowerCase())
+            ) {
+                showErrorMessage('file type not allowed');
+                return false;
+            }
+            // Validate file size.
+            if (fileSize > getMaxUploadSize) {
+                showErrorMessage("File is too large. Maximum size for each file uploads is {{ config('chat.attachments.max_upload_size') }} MB.");
+                return false;
+            }
+            return true;
+        }
+           
+        DashboardRef.getAttachmentMaxIndexCount = function() {
+            
+            var items_index_array = [];
+        
+            $(".dashboard-chat-attachment-preview").each(function (key, val) {
+                items_index_array.push($(this).data('index'));
+            });
+        
+            var max_item_count = 0;
+        
+            if(items_index_array.length > 0){
+                max_item_count = Math.max.apply(Math,items_index_array); 
+            }
+            return max_item_count;
+        };
 
+        // upload image preview card.
+        DashboardRef.attachmentTemplate = function(fileType, fileName, imgURL = null, index='') {
+            
+            var html = '';
+
+            if (fileType != "image") {
+                
+                html += '<div class="dashboard-chat-attachment-preview mr-1" data-index="'+index+'">';
+                html += '   <span class="fas fa-times remove-attachment" data-index="'+index+'"></span>';
+                // html += '   <p style="padding:0px 30px;">';
+                // html += '       <span class="fas fa-file"></span>';
+                // html +=         escapeHtml(fileName) +'</p>';
+                html += '</div>';
+
+            } else {
+
+                html += '<div class="dashboard-chat-attachment-preview mr-1" data-index="'+index+'">';
+                html += '   <span class="fas fa-times remove-attachment" data-index="'+index+'"></span>';
+                html += '   <div class="image-file dashboard-chat-image-preview" style="background-image: url(' +imgURL +');"></div>';
+                // html += '   <p><span class="fas fa-file"></span>'+escapeHtml(fileName) +'</p>';
+                html += '</div>';
+
+            }
+            
+            return html;
+
+        }
+
+         
+        /**
+         *-------------------------------------------------------------
+        * Cancel file attached in the message.
+        *-------------------------------------------------------------
+        */
+        DashboardRef.cancelAttachment = function() {
+
+            DashboardRef.attachmentFiles = [];
+            $('#dashboard_attachment_container').html('');
+        }
+
+        
         DashboardRef.initEvents = function() {
 
             channel.bind("messaging", function (data) {
@@ -319,6 +433,82 @@
                 }
             });
 
+            $('body').on('click','.remove-attachment',function(e){
+           
+                e.preventDefault();
+
+                var index = $(this).data('index');
+
+                if(index != undefined && index != ''){
+
+                    var obj_item_index = DashboardRef.attachmentFiles.findIndex(x => x.id == index);
+        
+                    if(obj_item_index != -1){
+
+                        DashboardRef.attachmentFiles.splice(obj_item_index, 1);
+
+                    }
+
+                    $('.dashboard-chat-attachment-preview[data-index="'+index+'"]').remove();
+
+                }
+
+            });
+
+            // On [upload attachment] input change, show a preview of the image/file.
+            
+            $("body").on("change", "#dashboard-chat-file-input", (e) => {
+
+                if (e.target.files) {
+
+                    let total_selected_files = e.target.files.length;
+
+                    if(DashboardRef.attachmentFiles.length >= 5){
+                        showErrorMessage("You can only upload a maximum of 5 files");
+                        return false;
+                    }
+
+                    if(total_selected_files > 5){
+                        showErrorMessage("You can only upload a maximum of 5 files");
+                    }
+
+                    if(DashboardRef.attachmentFiles.length > 5){
+                        total_selected_files = 0;
+                    }else{
+                        total_selected_files = DashboardRef.attachmentFiles.length > 0 ? (5 - DashboardRef.attachmentFiles.length) : (total_selected_files >= 5 ? 5 : total_selected_files); 
+                    }
+
+                    for (var i = 0; i < total_selected_files; i++) {
+
+                        let file = e.target.files[i];
+
+                        if (!DashboardRef.attachmentValidate(file)){
+                            return false;
+                        }
+
+                        var reader = new FileReader();
+
+                        reader.onload = function(event) {
+
+                            var index = (DashboardRef.getAttachmentMaxIndexCount()+1);
+                            
+                            DashboardRef.attachmentFiles.push({
+                                'id' : index,
+                                'media_source' : event.target.result,
+                                'media_name' : file.name,
+                                'file_formate' : file.name.split(".").pop().toString().toLowerCase()
+                            });
+
+                            $('#dashboard_attachment_container').append(DashboardRef.attachmentTemplate("image", file.name, event.target.result, index));
+
+                        }
+
+                        reader.readAsDataURL(file);
+    
+                    }
+                    
+                }
+            });
         }
         
         DashboardRef.initEvents();
