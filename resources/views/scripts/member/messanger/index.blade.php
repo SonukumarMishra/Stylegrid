@@ -16,6 +16,12 @@
         allContactsList=[]
         attachmentFiles=[];
 
+    var imgExtArray = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+    var pdfExtArray = ['pdf'];
+    var docExtArray = ['docx','doc'];
+    var pdfImage = "{{asset('common/images/pdf.png')}}";
+    var docImage = "{{asset('common/images/doc.png')}}";
+    
     const messagesContainer = $(".messenger-messagingView .m-body"),
         messengerTitleDefault = $(".messenger-headTitle").text(),
         messageInput = $("#message-form .m-send"),
@@ -66,8 +72,6 @@
             }else{
 
                 if((data.chat_room_dtls.sender_user == auth_user_type && data.chat_room_dtls.sender_id == auth_id) || (data.chat_room_dtls.receiver_user == auth_user_type && data.chat_room_dtls.receiver_id == auth_id)){
-
-                    console.log('Refrrsh contacts');
 
                     getChatContacts(selectedRoomId);
 
@@ -278,7 +282,19 @@
                 html += '           </div>';
                 html += '           <div class=" pl-1">';
                 html += '                   <span class="list-name">'+(val.receiver_name)+'</span>';
-                html += '                   <p class="list-msg">'+(val.last_message != null ? val.last_message : '')+'</p>';
+                if(val.room_last_message != '' && val.room_last_message != null){
+
+                    var msg_obj = val.room_last_message;
+                    
+                    if(msg_obj.type == "file"){
+
+                        var files_array = JSON.parse(msg_obj.files);
+                        html +=             '<p class="list-msg"><i class="fa fa-file" aria-hidden="true"></i></p>';
+                        
+                    }else{
+                        html += '           <p class="list-msg">'+(msg_obj.message != null ? msg_obj.message : '')+'</p>';
+                    }
+                }
                 html += '               </div>';
                 html += '           </div>';
                 html += '       </div>';
@@ -481,7 +497,15 @@
 
             html += '<div class="attachment-preview mr-1" data-index="'+index+'">';
             html += '   <span class="fas fa-times remove-attachment" data-index="'+index+'"></span>';
-            html += '   <div class="image-file chat-image-preview" style="background-image: url(' +imgURL +');"></div>';
+
+            if ($.inArray(fileName.substr( (fileName.lastIndexOf('.') +1) ), imgExtArray) != -1) {
+                html += '   <img class="image-file chat-image-preview" src="' +imgURL +'">';
+            }else if ($.inArray(fileName.substr( (fileName.lastIndexOf('.') +1) ), pdfExtArray) != -1) {
+                html += '   <img class="image-file chat-doc-preview" src="' +pdfImage +'">';
+            }else{
+                html += '   <img class="image-file chat-doc-preview" src="' +docImage +'">';
+            }
+
             // html += '   <p><span class="fas fa-file"></span>'+escapeHtml(fileName) +'</p>';
             html += '</div>';
 
@@ -518,14 +542,41 @@
                 if(val.type == "file"){
 
                     var files_array = JSON.parse(val.files);
-                    
+            
+                    if(files_array.length > 1){
+                        html += "<div class='text-right'><a href='#' class='download-all-btn' data-files='"+val.files+"'><i class='fas fa-download'></i>&nbsp;Download All</a></div>";
+                    }
+                        
                     if(files_array.length > 0){
 
                         html += '      <div class="row">';
 
                             $.each(files_array, function (m_key, m_val) { 
+
                                 if(m_val.media_path != ''){
-                                    html += '   <img src="'+m_val.media_path+'" class="chat-media m-1">';                    
+                                
+                                    html += '<div class="chat-media-box m-1">';
+                                    html += '   <div style="position:relative;">';    
+                                    if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), imgExtArray) != -1) {
+                                    
+                                        html += '   <img src="'+m_val.media_path+'" data-path="'+m_val.media_path+'" class="chat-media" />'; 
+                                        html += '   <span class="fas fa-download download-attachment" data-index="'+m_key+'" data-path="'+m_val.media_path+'" data-file-name="'+m_val.media_name+'"></span>';
+                                    
+                                    }else if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), pdfExtArray) != -1) {
+                                        
+                                        html += '   <img src="'+pdfImage+'" data-path="'+m_val.media_path+'" class="chat-media-doc" / >'; 
+                                        html += '   <span class="fas fa-download download-attachment-doc" data-index="'+m_key+'" data-path="'+m_val.media_path+'"  data-file-name="'+m_val.media_name+'"></span>';
+                                    
+                                    }else{
+                                    
+                                        html += '   <img src="'+docImage+'" data-path="'+m_val.media_path+'" class="chat-media-doc" />';
+                                        html += '   <span class="fas fa-download download-attachment-doc" data-index="'+m_key+'" data-path="'+m_val.media_path+'"  data-file-name="'+m_val.media_name+'"></span>';
+                                    
+                                    }
+                                    
+                                    html += '   </div>';
+
+                                    html += '</div>';
                                 }
                             });
 
@@ -535,7 +586,7 @@
                 }else{
                     html += '           <p class="mb-0">'+val.message+'</p>';
                 }
-                
+
                 html +='            </div>';
                 html +='        </div>';
                 
@@ -629,8 +680,6 @@
                     messageInput.focus();
                 },
                 success: (response) => {
-                    console.log(response);
-                    // return;
                     if (response.status == 0) {
                         // message card error status
                         errorMessageCard(temp_id);
@@ -777,6 +826,22 @@
                 $('.attachment-preview[data-index="'+index+'"]').remove();
 
             }
+
+        });
+
+        $('body').on('click', '.download-attachment, .download-attachment-doc',function(e){
+            e.preventDefault();
+            var url = $(this).data('path');
+            downloadFromUrl(url, $(this).data('file-name'));
+        });
+
+        $('body').on('click', '.download-all-btn',function(e){
+            e.preventDefault();
+
+            var files_json = $(this).data('files');
+            $.each(files_json, function (file_i, file_val) { 
+                downloadFromUrl(file_val.media_path, file_val.media_name);                 
+            });
 
         });
 

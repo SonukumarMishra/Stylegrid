@@ -275,5 +275,13 @@
                 });
         }
 
+        window.downloadFromUrl = function(url, name="") {
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = name;
+            link.click();
+            link.remove();
+        }
+
     }(window));
 </script>

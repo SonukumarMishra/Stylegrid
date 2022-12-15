@@ -2662,12 +2662,23 @@ margin-bottom: 23px; */
 
 .dashboard-chat-media{
   height: 50px;
-  width: 50px;
+  width: 50px !important;
   border-radius: 5px !important;
   object-fit: cover;
   margin: 0.5rem !important;
 }
 
+.dashboard-chat-doc-media{
+  height: 50px;
+  width: 38px !important;
+  border-radius: 5px !important;
+  object-fit: cover;
+  margin: 0.5rem !important;
+}
+
+.mt_10{
+  margin-top: 10px;
+}
 /********************end  client-dashboard***************8/
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

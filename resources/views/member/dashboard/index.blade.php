@@ -1,5 +1,11 @@
 @extends('member.dashboard.layouts.default')
 @section('content')
+<style>
+    
+    #inbox-msg img {
+        border-radius: 5px !important;
+    }
+</style>
 <!-- BEGIN: Content-->
 <div class="content-wrapper">
 
@@ -125,7 +131,7 @@
                         
                                     <div class="row col-12">
 
-                                        <div id="dashboard_attachment_container" class="d-flex">
+                                        <div id="dashboard_attachment_container" class="d-flex mt_10">
 
                                         </div>
                 

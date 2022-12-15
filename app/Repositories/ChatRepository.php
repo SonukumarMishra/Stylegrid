@@ -65,23 +65,24 @@ class ChatRepository {
 			
 			// DB::connection()->enableQueryLog();
 
-			$users = DB::table('sg_chat_room as room')
-						->select("room.*")
-						->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
-						->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
-						->addSelect(DB::raw("( SELECT count(cr3.chat_message_id) FROM sg_chat_room_messages AS cr3 WHERE cr3.chat_room_id = room.chat_room_id AND cr3.receiver_id='".$auth_user['auth_id']."' AND cr3.receiver_user='".$auth_user['user_type']."' AND is_read=0 ) as unread_count"))
-						->where(function ($q) use($auth_user) {
-							$q->where('room.sender_id', $auth_user['auth_id'])
-								->where('room.sender_user', $auth_user['user_type']);
-						})
-						->orwhere(function ($q) use($auth_user) {
-							$q->where('room.receiver_id', $auth_user['auth_id'])
-								->where('room.receiver_user', $auth_user['user_type']);
-						})
-						->where('room.is_active', 1)
-						->groupBy('room.chat_room_id')
-						->orderBy('last_message_on', 'desc')
-						->orderBy('room.created_at', 'desc');
+			$users = ChatRoom::from('sg_chat_room as room')
+								->select("room.*")
+								// ->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
+								->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
+								->addSelect(DB::raw("( SELECT count(cr3.chat_message_id) FROM sg_chat_room_messages AS cr3 WHERE cr3.chat_room_id = room.chat_room_id AND cr3.receiver_id='".$auth_user['auth_id']."' AND cr3.receiver_user='".$auth_user['user_type']."' AND is_read=0 ) as unread_count"))
+								->with('room_last_message')
+								->where(function ($q) use($auth_user) {
+									$q->where('room.sender_id', $auth_user['auth_id'])
+										->where('room.sender_user', $auth_user['user_type']);
+								})
+								->orwhere(function ($q) use($auth_user) {
+									$q->where('room.receiver_id', $auth_user['auth_id'])
+										->where('room.receiver_user', $auth_user['user_type']);
+								})
+								->where('room.is_active', 1)
+								->groupBy('room.chat_room_id')
+								->orderBy('last_message_on', 'desc')
+								->orderBy('room.created_at', 'desc');
 
 			if(isset($request->module) && !empty(isset($request->module))){
 				$users = $users->where('module', $request->module);
@@ -198,8 +199,6 @@ class ChatRepository {
 
 			// $queries = DB::getQueryLog();
 			
-			// Log::info(print_r($users, true)); 
-			
 			$result['list'] = $users;
 
 			return $result;
@@ -276,31 +275,6 @@ class ChatRepository {
                     $chat_message->save();
 
 					if($chat_message){
-
-						// $sender_user = $receiver_user = false;
-
-						// if($chat_message->sender_user == 'stylist'){
-						// 	$sender_user = Stylist::find($chat_message->sender_id);
-						// }else if($chat_message->sender_user == 'member'){
-						// 	$sender_user = Member::find($chat_message->sender_id);
-						// }
-	
-						// if($chat_message->receiver_user == 'stylist'){
-						// 	$receiver_user = Stylist::find($chat_message->receiver_id);
-						// }else if($chat_message->receiver_user == 'member'){
-						// 	$receiver_user = Member::find($chat_message->receiver_id);
-						// }
-	
-						// $chat_message['sender_name'] = $sender_user ? $sender_user->full_name : '';
-						// $chat_message['sender_profile'] = $sender_user ? $sender_user->profile_image : '';
-						// $chat_message['sender_online'] = $sender_user ? $sender_user->is_online : 0;
-						// $chat_message['receiver_name'] = $receiver_user ? $receiver_user->full_name : '';
-						// $chat_message['receiver_profile'] = $receiver_user ? $receiver_user->profile_image : '';
-						// $chat_message['receiver_online'] = $receiver_user ? $receiver_user->is_online : 0;
-						// $chat_message['is_my_message'] = ($auth_user['user_type'] == $chat_message->sender_user ? 1 : 0);
-						// $chat_message['last_message'] = $chat_message->message;
-						// $chat_message['last_message_on'] = $chat_message->created_at;
-						// $chat_message['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
 						
 						$message_obj = self::getChatMessageJson($chat_message->chat_message_id, $auth_user);
 
@@ -309,8 +283,6 @@ class ChatRepository {
 							$message_obj['temp_id'] = isset($request->temp_id) ? $request->temp_id : '';
 
 						}
-
-						Log::info("message obj ". print_r($message_obj, true));
 
 						$pusher_ref = new Pusher(
 							config('chat.pusher.key'),
@@ -588,11 +560,7 @@ class ChatRepository {
 
 		try {
 
-			Log::info("online / offline ". print_r($request->all(), true));
-
 			$user_dtls = json_decode($request->user_data, true);
-
-			Log::info("dtks ". print_r($user_dtls, true));
 
 			if(isset($user_dtls) && !empty($user_dtls) && is_array($user_dtls)){
 

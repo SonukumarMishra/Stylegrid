@@ -26,7 +26,12 @@
         DashboardRef.messageInput = $("#dashboard-message-form .m-send"),
         DashboardRef.attachmentFiles=[];
         DashboardRef.temporaryMsgId = 0;
-
+        DashboardRef.imgExtArray = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        DashboardRef.pdfExtArray = ['pdf'];
+        DashboardRef.docExtArray = ['docx','doc'];
+        DashboardRef.pdfImage = "{{asset('common/images/pdf.png')}}";
+        DashboardRef.docImage = "{{asset('common/images/doc.png')}}";
+        
         DashboardRef.loadActiveContactChat = function(room_id) {
 
             if(room_id != undefined && room_id != null && room_id != ''){
@@ -144,8 +149,26 @@
 
                                     if(m_val.media_path != ''){
 
-                                        html += '   <img src="'+m_val.media_path+'" class="dashboard-chat-media">';                    
+                                        // html += '   <img src="'+m_val.media_path+'" class="dashboard-chat-media">';                    
+                                        html += '<div class="chat-media-box m-0">';
+                                        html += '   <div style="position:relative;">';    
+                                        if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), DashboardRef.imgExtArray) != -1) {
+                                        
+                                            html += '   <img src="'+m_val.media_path+'" data-path="'+m_val.media_path+'" class="dashboard-chat-media" />'; 
+                                           
+                                        }else if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), DashboardRef.pdfExtArray) != -1) {
+                                            
+                                            html += '   <img src="'+DashboardRef.pdfImage+'" data-path="'+m_val.media_path+'" class="dashboard-chat-doc-media" / >'; 
+                                           
+                                        }else{
+                                        
+                                            html += '   <img src="'+DashboardRef.docImage+'" data-path="'+m_val.media_path+'" class="dashboard-chat-doc-media" />';
+                                           
+                                        }
+                                        
+                                        html += '   </div>';
 
+                                        html += '</div>';
                                     }
 
                                 });
@@ -369,7 +392,15 @@
 
                 html += '<div class="dashboard-chat-attachment-preview mr-1" data-index="'+index+'">';
                 html += '   <span class="fas fa-times remove-attachment" data-index="'+index+'"></span>';
-                html += '   <div class="image-file dashboard-chat-image-preview" style="background-image: url(' +imgURL +');"></div>';
+                // html += '   <div class="image-file dashboard-chat-image-preview" style="background-image: url(' +imgURL +');"></div>';
+                
+                if ($.inArray(fileName.substr( (fileName.lastIndexOf('.') +1) ), DashboardRef.imgExtArray) != -1) {
+                    html += '   <img class="image-file dashboard-chat-image-preview" src="' +imgURL +'">';
+                }else if ($.inArray(fileName.substr( (fileName.lastIndexOf('.') +1) ), DashboardRef.pdfExtArray) != -1) {
+                    html += '   <img class="image-file dashboard-chat-image-preview" src="' +DashboardRef.pdfImage +'">';
+                }else{
+                    html += '   <img class="image-file dashboard-chat-image-preview" src="' +DashboardRef.docImage +'">';
+                }
                 // html += '   <p><span class="fas fa-file"></span>'+escapeHtml(fileName) +'</p>';
                 html += '</div>';
 
