@@ -152,6 +152,7 @@ class ChatRepository {
 
 					$sender_info = $receiver_info = false;
 
+					
 					if($users[$key]->sender_user == 'stylist'){
 						
 						$sender_info = Stylist::where('id', $users[$key]->sender_id)
@@ -168,14 +169,38 @@ class ChatRepository {
 					if($users[$key]->receiver_user == 'stylist'){
 						
 						$receiver_info = Stylist::where('id', $users[$key]->receiver_id)
-											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
+											->select('full_name', 'dummy_name', 'profile_image', 'is_online as receiver_online')
 											->first();
+
+						if($receiver_info){
+
+							if($value->module == config('custom.chat_module.sourcing')){
+
+								$users[$key]->receiver_name = $receiver_info->dummy_name;
+								$users[$key]->receiver_profile = NULL;		
+
+							}else{
+
+								$users[$key]->receiver_name = $receiver_info->full_name;
+								$users[$key]->receiver_profile = $receiver_info->profile_image;	
+
+							}
+							
+							$users[$key]->receiver_online = $receiver_info->receiver_online;
+						}
+						
 						
 					}else if($users[$key]->receiver_user == 'member'){
 
 						$receiver_info = Member::where('id', $users[$key]->receiver_id)
 											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
 											->first();						
+											
+						if($receiver_info){
+							$users[$key]->receiver_name = $receiver_info->receiver_name;
+							$users[$key]->receiver_profile = $receiver_info->receiver_profile;
+							$users[$key]->receiver_online = $receiver_info->receiver_online;
+						}
 					}
 
 					if($sender_info){
@@ -183,14 +208,6 @@ class ChatRepository {
 						$users[$key]->sender_name = $sender_info->sender_name;
 						$users[$key]->sender_profile = $sender_info->sender_profile;
 						$users[$key]->sender_online = $sender_info->sender_online;
-
-					}
-
-					if($receiver_info){
-
-						$users[$key]->receiver_name = $receiver_info->receiver_name;
-						$users[$key]->receiver_profile = $receiver_info->receiver_profile;
-						$users[$key]->receiver_online = $receiver_info->receiver_online;
 
 					}
 
