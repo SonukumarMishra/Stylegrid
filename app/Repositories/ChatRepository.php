@@ -499,19 +499,32 @@ class ChatRepository {
 
 					if($chat_room){
 
-						$pusher_ref = new Pusher(
-							config('chat.pusher.key'),
-							config('chat.pusher.secret'),
-							config('chat.pusher.app_id'),
-							config('chat.pusher.options'),
-						);
-			
-						$pusher_ref->trigger('private-chatify', 'messaging', [
-												'chat_room_id' => $chat_room->chat_room_id,
-												'message_obj' => '',
-												'chat_room_dtls' => $chat_room
-											]);
+						if(isset($value['message_obj']) && isset($value['auth_user'])){
+							
+							// save chat message. By this method pusher will be trigger, no need to do puhser code here
+
+							$value['message_obj']['chat_room_id'] = $chat_room->chat_room_id;
+
+							$message_request = new Request($value['message_obj']);
+
+							self::saveChatMessage($message_request, $value['auth_user']);
+
+						}else{
+
+							$pusher_ref = new Pusher(
+								config('chat.pusher.key'),
+								config('chat.pusher.secret'),
+								config('chat.pusher.app_id'),
+								config('chat.pusher.options'),
+							);
+				
+							$pusher_ref->trigger('private-chatify', 'messaging', [
+													'chat_room_id' => $chat_room->chat_room_id,
+													'message_obj' => '',
+													'chat_room_dtls' => $chat_room
+												]);
 	
+						}	
 					}
 				}
 			}

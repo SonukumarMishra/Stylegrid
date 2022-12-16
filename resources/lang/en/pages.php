@@ -30,8 +30,7 @@ return [
    'saved_success' => 'Saved Successfully',
    'signup_success' => 'Congratulations! Your account has been successfully created.',
    'logged_out' => 'Logged out',
-
-
+   'sourcing_chat_default_message' => 'Say hello to :name! :gender is sourcing your :sourcing_title',
 
 ];
 ?>

@@ -34,7 +34,7 @@
                                             <p class="mt-1 ml-2">Say hello ahead of finalising your order.</p>
                                         </div>
                                         <div class="col-md-4 text-center mt-lg-2 mb-lg-0 mb-2">
-                                            <a href="#"><button class="go-to-grid-btn mt-4 px-2">Chat Now</button></a>
+                                            <a href="{{ route('member.messanger.index') }}"><button class="go-to-grid-btn mt-4 px-2">Chat Now</button></a>
                                         </div>
                                     </div>
                                 </div>
