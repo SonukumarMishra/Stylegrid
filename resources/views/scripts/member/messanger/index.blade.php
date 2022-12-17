@@ -299,7 +299,12 @@
                 html += '           </div>';
                 html += '       </div>';
                 html += '       <div class="">';
-                html += '           <p class="small text-muted mb-1 list-time">'+(val.last_message_on != null ? convertUtcDateTimeToLocalDateTime(val.last_message_on) : '')+'</p>';
+                if(val.room_last_message != '' && val.room_last_message != null){
+
+                    var msg_obj = val.room_last_message;
+                    html += '           <p class="small text-muted mb-1 list-time">'+(msg_obj.created_at != null ? convertUtcDateTimeToLocalDateTime(msg_obj.created_at) : '')+'</p>';
+
+                }
                 if(val.unread_count > 0){
                     html += '           <span class="chat-badge">'+val.unread_count+'</span>';
                 }
@@ -365,8 +370,9 @@
                     // setMessagesLoading(false);
                     if (messagesPage == 1) {
                         
+                        var parent_room_dtls = getDetailsFromObjectByKey(allContactsList, room_id, 'chat_room_id');
                         // render messages data
-                        var chat_container_html = getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list);
+                        var chat_container_html = getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
                         messagesElement.html(chat_container_html);
                         scrollToBottom(messagesContainer);
 
@@ -472,7 +478,7 @@
         html += '               <p class="mb-0">'+message+'</p>';
         html +='            </div>';
         html +='        </div>';
-        html += '   <img src="'+(auth_profile != '' ? auth_profile : asset_url+'{{asset('common/images/default_user.jpeg')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
+        html += '       <img src="'+(auth_profile != '' ? auth_profile : asset_url+'{{asset('common/images/default_user.jpeg')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
         html +='    </div>';
         html +='</div>';
 
@@ -516,7 +522,7 @@
     }
 
     // Chat messages UI.
-    function getChatMessagesUI(list) {
+    function getChatMessagesUI(list, room_dtls) {
 
         var html = '';
 
@@ -524,15 +530,16 @@
 
             $.each(list, function (i, val) { 
                 
-                html += '<div class="row justify-content-'+(val.sender_user == auth_user_type ? "end" : "start")+' mx-2 mt-2 message-card"  data-room-id="'+val.chat_room_id+'" data-message-id="'+val.chat_message_id+'">';
+                html += '<div class="row justify-content-'+(val.sender_id == auth_id && val.sender_user == auth_user_type ? "end" : "start")+' mx-2 mt-2 message-card"  data-room-id="'+val.chat_room_id+'" data-message-id="'+val.chat_message_id+'">';
                 html += '   <div class="d-flex">';
 
-                if(val.sender_user != auth_user_type){
-                    var receiver_profile = val.sender_profile != null ?  ( val.sender_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
+                if((val.sender_id == auth_id && val.sender_user == auth_user_type) == false){
+                    // message from receiver
+                    var receiver_profile = val.sender_profile != null ? ( val.sender_user == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
                     html += '   <img src="'+receiver_profile+'" class="chat-pic mr-1" alt="Avatar">';                    
                 }
 
-                html += '       <div class="card'+(val.sender_user == auth_user_type ? "  ml-1" : "")+'" style="background: #e9f4ff;width: 50rem;">';
+                html += '       <div class="card'+(val.sender_id == auth_id && val.sender_user == auth_user_type ? "  ml-1" : "")+'" style="background: #e9f4ff;width: 50rem;">';
                 html += '           <div class="card-header d-flex justify-content-between p-1" style="border-bottom: 1px solid;">';
                 html += '               <p class="fw-bold mb-0 chat-client-name">'+val.sender_name+'</p>';
                 html += '               <p class="small mb-0 chat-client-time"><i class="far fa-clock"></i>&nbsp;'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</p>';
@@ -590,9 +597,11 @@
                 html +='            </div>';
                 html +='        </div>';
                 
-                if(val.sender_user == auth_user_type){
+                if(val.sender_id == auth_id && val.sender_user == auth_user_type){
+                    
+                    // Sender user
 
-                    var sender_profile = auth_profile != '' ? ( auth_user_type == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('common/images/default_user.jpeg')}}';                    
+                    var sender_profile = val.sender_profile != null ? ( val.sender_user == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';              
                     html += '   <img src="'+sender_profile+'" class="chat-pic ml-1" alt="Avatar">';                    
 
                 }

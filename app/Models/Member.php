@@ -243,6 +243,7 @@ class Member extends Model
 			$this->db->where(array('id'=>$offer_id));
 			$this->db->update(['status'=>1]);
 
+			// Create sourcing chat contact
 			$sourcing_dtls = Sourcing::find($sourcing_id);
 
 			$sourcing_offer_dtls = SourcingOffer::find($sourcing_id);
@@ -255,14 +256,30 @@ class Member extends Model
 											->select('gender', 'dummy_name')							
 											->first();
 
-				$auth_user = [
-								'auth_id' => Session::get("member_id"),
-								'user_id' => Session::get("member_id"),
-								'auth_name' => Session::get('member_data')->name,
-								'auth_profile' => Session::get('member_data')->profile_image,
-								'auth_user' => 'member',
-								'user_type' => 'member'
-							];
+				if($sourcing_dtls->member_stylist_type == 0 ){
+					// 0 means memeber user 
+
+					$auth_user = [
+						'auth_id' => Session::get("member_id"),
+						'user_id' => Session::get("member_id"),
+						'auth_name' => Session::get('member_data')->name,
+						'auth_profile' => Session::get('member_data')->profile_image,
+						'auth_user' => 'member',
+						'user_type' => 'member'
+					];
+
+				}else{
+					// 1 means stylist user 
+
+					$auth_user = [
+					    'auth_id' => Session::get("stylist_id"),
+						'user_id' => Session::get("stylist_id"),
+						'auth_name' => Session::get('stylist_data')->name,
+						'auth_profile' => Session::get('stylist_data')->profile_image,
+						'auth_user' => 'stylist',
+						'user_type' => 'stylist'
+					];
+				}
 
 				$message_obj = [
 					'message' => trans('pages.sourcing_chat_default_message', [
