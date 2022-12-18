@@ -5,6 +5,7 @@ use App\Models\Member;
 use App\Models\Stylist;
 use Illuminate\Support\Str;
 use App\Repositories\SourcingRepository as SourcingRepo;
+use App\Repositories\CommonRepository as CommonRepo;
 use Session;
 use Log;
 
@@ -76,7 +77,6 @@ class StylistController extends Controller
         }
         return view('stylist.postloginview.stylist-sourcing',compact('source_data','my_source_data'));
     }
-
     
     public function stylistSourcing()
     {
@@ -163,7 +163,7 @@ class StylistController extends Controller
                         'sourcing_offer_id' => $response['reference_id']
                     ];
 
-                    SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_send'), $ref_data);
+                    SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_received'), $ref_data);
 
                     $response['status']=1;
                     $response['message']="Source request sent Successfully!";
@@ -231,7 +231,7 @@ class StylistController extends Controller
                     'member_stylist_id'=>Session::get("stylist_id"),
                 );
                 $response=$member->addUpdateData($add_update_data,'sg_sourcing');   
-                
+
                 if($response['reference_id']>0){
 
                     // trigger pusher event to notify all stylist
@@ -295,31 +295,6 @@ class StylistController extends Controller
         }  
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function memberSubmitRequest(Request $request){
         $member=new Member();
         $source_applicable=$member->sourceApplicable(['ms.member_id'=>Session::get("member_id")]);
@@ -332,9 +307,7 @@ class StylistController extends Controller
             $brand_list=$member->getBrandList();
             return view('member.dashboard.member-submit-request',compact('country_list','brand_list'));
         }
-    }
-
-    
+    }    
 
     public function memberSubmitRequestComplete(Request $request){       
         return view('member.dashboard.member-submit-request-complete');
@@ -377,6 +350,49 @@ class StylistController extends Controller
         }  
     }
     
+    public function stylistNotificationsIndex()
+    {
+        try {
+
+            return view('stylist.postloginview.notifications.index');
+            
+        }catch(\Exception $e){
+
+            Log::info("stylistNotificationsIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }    
     
-    
+    public function stylistNotificationsList(Request $request) {
+       
+        try{
+
+            $result = CommonRepo::get_all_notifications($request);
+
+            $view = '';
+
+            if(isset($result['list'])){
+
+                $list = $result['list'];
+                $view = view("stylist.postloginview.notifications.list-ui", compact('list'))->render();
+
+            }
+
+            // response.data.data.links
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                'data' => [
+                                    'view' => $view,
+                                    'total' => $result['total']
+                                ]  
+                            ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
+
 }

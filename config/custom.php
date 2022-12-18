@@ -19,7 +19,6 @@ return [
 
     'sourcing_pusher_action_type' => [
         'new_request' => 'new_request',
-        'offer_send' => 'offer_send',
         'offer_received' => 'offer_received',
         'offer_accepted' => 'offer_accepted',
         'offer_decline' => 'offer_decline',
@@ -31,5 +30,12 @@ return [
             'stylist' => 1,
             'member' => 0
         ]
+    ],
+
+    'notification_types' => [
+        'sourcing_new_request' => 'sourcing_new_request',
+        'sourcing_offer_accepted' => 'sourcing_offer_accepted',
+        'sourcing_offer_decline' => 'sourcing_offer_decline',
+        'sourcing_offer_received' => 'sourcing_offer_received',
     ]
 ];

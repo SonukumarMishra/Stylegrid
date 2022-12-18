@@ -81,6 +81,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
+ Route::get('/stylist-notifications', [Stylist::class, 'stylistNotificationsIndex'])->name('stylist.notifications.index');
+ Route::post('/stylist-notifications-list', [Stylist::class, 'stylistNotificationsList'])->name('stylist.notifications.list');
  
  
  //stylist section End

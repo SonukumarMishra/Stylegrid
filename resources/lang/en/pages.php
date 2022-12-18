@@ -32,5 +32,21 @@ return [
    'logged_out' => 'Logged out',
    'sourcing_chat_default_message' => 'Say hello to :name! :gender is sourcing your :sourcing_title',
 
+   // notificaions description
+
+   'notifications' => [
+
+      'sourcing_new_request_title' => 'New request received!',
+      'sourcing_new_request_des' => 'New request received for :product_title',
+
+      'sourcing_offer_received_title' => 'New offer received!',
+      'sourcing_offer_received_des' => 'New offer received for :product_title',
+
+      'sourcing_offer_accepted_title' => 'Offer accepted!',
+      'sourcing_offer_accepted_des' => 'Offer accepted for :product_title',
+
+      'sourcing_offer_decline_title' => 'Offer decline!',
+      'sourcing_offer_decline_des' => 'Offer decline for :product_title',
+   ]
 ];
 ?>
