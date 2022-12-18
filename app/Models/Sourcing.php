@@ -11,4 +11,9 @@ class Sourcing extends Model
     protected $table='sg_sourcing';
     protected $primaryKey = 'id';
 
+    public function sourcing_offers() 
+    {
+        return $this->hasMany(SourcingOffer::class, 'sourcing_id', 'id');
+    }
+
 }

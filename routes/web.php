@@ -69,6 +69,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard'])->name('stylist.dashboard');;
  Route::get('/stylist-logout', [StylistWebsite::class, 'stylistLogout']);
  Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing']);
+ Route::post('/stylist-sourcing-requests-json', [Stylist::class, 'getStylistSourcingRequests'])->name('stylist.sourcing.requests');
  Route::get('/stylist-fulfill-source-request/{title}', [Stylist::class, 'stylistFulfillSourceRequest']);
  Route::post('/stylist-fulfill-source-request-post', [Stylist::class, 'stylistFulfillSourceRequestPost']);
  Route::get('/stylist-source-request-submit', [Stylist::class, 'stylistSourceRequestSubmit']);
@@ -100,6 +101,7 @@ Route::get('/member-account-verification/{title}', [Website::class, 'memberAccou
 
 Route::get('/member-dashboard', [Member::class, 'memberDashboard']);
 Route::get('/member-sourcing', [Member::class, 'memberSourcing']);
+Route::post('/member-sourcing-live-requests-json', [Member::class, 'getMemberSourcingLiveRequests'])->name('member.sourcing.live.requests');
 Route::get('/offer-received/{title}', [Member::class, 'memberOfferReceived']);
 Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccessful']);
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);

@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Repositories\ChatRepository as ChatRepo;
 use App\Models\Sourcing;
 use App\Models\SourcingOffer;
+use App\Repositories\SourcingRepository as SourcingRepo;
 use Session;
 use DB;
 /*
@@ -243,6 +244,13 @@ class Member extends Model
 			$this->db->where(array('id'=>$offer_id));
 			$this->db->update(['status'=>1]);
 
+			// pusher trigger notify stylist for accepted thier offer			
+			$ref_data = [
+				'sourcing_offer_id' => $offer_id
+			];
+
+			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_accepted'), $ref_data);
+
 			// Create sourcing chat contact
 			$sourcing_dtls = Sourcing::find($sourcing_id);
 
@@ -321,6 +329,12 @@ class Member extends Model
 			$this->db = DB::table('sg_sourcing_offer');
 			$this->db->where(array('id'=>$offer_id));
 			$this->db->update(['status'=>2]);
+
+			// pusher trigger notify stylist for accepted thier offer			
+			$ref_data = [
+				'sourcing_offer_id' => $offer_id
+			];
+			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_decline'), $ref_data);
 			return true;
 		}
 		return false;

@@ -4,7 +4,10 @@ use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Stylist;
 use Illuminate\Support\Str;
+use App\Repositories\SourcingRepository as SourcingRepo;
 use Session;
+use Log;
+
 /*
 @author-Sunil Kumar Mishra
 date:09-11-2022
@@ -25,7 +28,7 @@ class StylistController extends Controller
         return view('stylist.postloginview.dashboard');
     }
 
-    public function stylistSourcing()
+    public function stylistSourcingOld()
     {
         $stylist=new Stylist();
         $member=new Member();
@@ -74,6 +77,56 @@ class StylistController extends Controller
         return view('stylist.postloginview.stylist-sourcing',compact('source_data','my_source_data'));
     }
 
+    
+    public function stylistSourcing()
+    {
+        try {
+
+            return view('stylist.postloginview.sourcing.index');
+            
+        }catch(\Exception $e){
+
+            Log::info("stylistSourcing error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function getStylistSourcingRequests(Request $request)
+    {
+        if($request->type == 'my_sources'){
+
+            $result = SourcingRepo::getStylistSourcingOwnRequests($request);
+
+        }else{
+
+            $result = SourcingRepo::getStylistSourcingLiveRequests($request);
+
+        }
+        $view = '';
+
+        if(isset($result['list'])){
+
+            $list = $result['list'];
+            
+            if($request->type == 'my_sources'){
+                $view = view("stylist.postloginview.sourcing.my-requests-ui", compact('list'))->render();
+            }else{
+                $view = view("stylist.postloginview.sourcing.live-requests-ui", compact('list'))->render();
+            }
+
+        }
+        
+        // response.data.data.links
+        $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                            'data' => [
+                                'view' => $view,
+                                'json' => $result
+                            ]  
+                          ];
+
+        return response()->json($response_array, 200);
+    }
+
     public function stylistFulfillSourceRequest($id){
         $stylist=new Stylist();
         $source=$stylist->getSourceList(['s.p_slug'=>$id]);
@@ -103,6 +156,15 @@ class StylistController extends Controller
                     'offer_date'=>now()
                 ),'sg_sourcing_offer');
                 if($response['reference_id']>0){
+
+                    // trigger pusher event to notify memebr/stylist for thier sourcing
+
+                    $ref_data = [
+                        'sourcing_offer_id' => $response['reference_id']
+                    ];
+
+                    SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_send'), $ref_data);
+
                     $response['status']=1;
                     $response['message']="Source request sent Successfully!";
                 }else{
@@ -169,7 +231,16 @@ class StylistController extends Controller
                     'member_stylist_id'=>Session::get("stylist_id"),
                 );
                 $response=$member->addUpdateData($add_update_data,'sg_sourcing');   
+                
                 if($response['reference_id']>0){
+
+                    // trigger pusher event to notify all stylist
+                    $ref_data = [
+                        'sourcing_id' => $response['reference_id']
+                    ];
+
+                    SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.new_request'), $ref_data);
+
                     $member->addUpdateData(['id'=>$response['reference_id'],'p_slug'=>$add_update_data['p_slug'].'-'.$response['reference_id']],'sg_sourcing');   
                 }
             }else{
