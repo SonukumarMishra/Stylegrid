@@ -159,14 +159,19 @@ class Helper
 
   public static function unlink_document($doc_path){
 
-      try{
+        try{
 
-          File::delete(public_path($doc_path));
+            File::delete(public_path($doc_path));
 
-      }catch(\Exception $e) {
-          Log::info("unlink_document error ". $e->getMessage());
-      }
+        }catch(\Exception $e) {
+            Log::info("unlink_document error ". $e->getMessage());
+        }
 
-  }
+    }
+
+    public static function generateRandomString($title, $length = 10) {
+        
+        return substr(str_shuffle(str_repeat($title, 10)), 0, 10);
+    }
 
 }

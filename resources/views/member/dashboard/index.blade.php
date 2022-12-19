@@ -1,5 +1,11 @@
 @extends('member.dashboard.layouts.default')
 @section('content')
+<style>
+    
+    #inbox-msg img {
+        border-radius: 5px !important;
+    }
+</style>
 <!-- BEGIN: Content-->
 <div class="content-wrapper">
 
@@ -104,66 +110,84 @@
                     </div>
                     <!-------------------inbox------------>
                     <div class="col-lg-4">
-                        <div id="inbox-msg" class="py-2 px-3">
-                            <h3 class="text-center">Your Stylist</h3>
-                            <div class="text-center stylish-img">
-                                <img src="{{ asset('member/dashboard/app-assets/images/gallery/stylist.png') }}" class="img-fluid" alt="">
-                                <h6 style="font-size:16px" class="mt-1">Max</h6>
-                                <h6>Stylist</h6>
-                            </div>
+                        <div id="inbox-msg" class="py-2 px-2">
+                            @if($assigned_stylist)
+                                
+                                <div>
 
-                            <h1>Monday 31st January 2023</h1>
-                            <div class="row">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Hi Georgia! Hope you had a good weekend.</p>
+                                    <h3 class="text-center">Your Stylist</h3>
+                                    <div class="text-center stylish-img">
+                                        <img src="{{ $assigned_stylist->profile_image != '' ? $assigned_stylist->profile_image : asset('common/images/default_user.jpeg') }}" class="img-fluid img_preview img_120" alt="">
+                                        <h6 style="font-size:16px">{{ $assigned_stylist->full_name }}</h6>
                                     </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
-                            <div class="row mt-1">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Bottega have just released their SS/23 collection and there’s
-                                            some bits that I think you’d love 😍 I have attached a Grid for you below.
-                                        </p>
-                                    </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
-                            <div class="row mt-1">
-                                <div class="col-lg-2 col-1">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/progil2.png') }}" alt="Avatar">
-                                </div>
-                                <div class=" col-10 pr-1 pl-md-0">
-                                    <div class="container">
-                                        <p class="pt-1">Georgia (Bottega StyleGrid)</p>
-                                    </div>
-                                    <!-- <span class="time-right">11:00</span> -->
-                                </div>
-                            </div>
 
-                            <div class="row mt-1">
+                                    <div id="dashboard_chat_box" class="scrollstyle dashboard_chat_box">
 
-                                <div class=" col-10 pr-0 pl-md-5">
-                                    <div class="container darker">
-                                        <p class="pt-1">Write a reply...</p>
                                     </div>
-                                    <!-- <span class="time-right">11:00</span> -->
+
+                                    <div class="border mt-2"></div>
+                                    
+                                    {{-- preview selected files before upload --}}
+                        
+                                    <div class="row col-12">
+
+                                        <div id="dashboard_attachment_container" class="d-flex mt_10">
+
+                                        </div>
+                
+                                    </div>
+                                    
+                                    {{-- Send Message Form --}}
+
+                                    <div class="dashboard-messenger-sendCard mt-1">
+
+                                        <form id="dashboard-message-form" method="POST" action="{{ route('member.messanger.send.message') }}" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <!-- BEGINING OF INPUT BOTTOM -->
+                                            <div class="text-muted d-flex justify-content-start align-items-center pe-3" id="chat-footer">
+                                                
+
+                                                <label for="dashboard-chat-file-input" class="mr-1">
+                                                    <img src="{{asset('stylist/app-assets/images/gallery/paperclip-solid.svg')}}" alt="">
+                                                    <input disabled='disabled' type="file" class="chat-upload-attachment hidden" name="file" id="dashboard-chat-file-input" multiple accept=".{{implode(', .',config('chat.attachments.allowed_images'))}}, .{{implode(', .',config('chat.attachments.allowed_files'))}}" />
+                                                </label>
+
+                                                {{-- <a class="px-1" href="#">
+                                                    <img src="{{asset('stylist/app-assets/images/gallery/face-smile-solid.svg')}}" alt="">
+                                                </a> --}}
+                                                
+                                                <textarea readonly='readonly' rows="2" name="message" class="form-control m-send app-scroll" placeholder="Type message..."> </textarea>
+
+                                                <div class="d-flex align-items-center">
+
+                                                    <a class="pl-1 dashboard-send-msg-btn" href="#">
+                                                        <img src="{{asset('stylist/app-assets/images/gallery/paper-plane-solid.svg')}}" alt="">
+                                                    </a>
+
+    
+                                                </div>
+                                                
+                                            </div>
+
+                                            <!-- END OF INPUT BOTTOM-->
+                                            <input type="hidden" name="type" value="text" />
+                                            <input type="hidden" name="receiver_id" value="{{ @$assigned_stylist->id }}" />
+                                            <input type="hidden" name="receiver_user" value="stylist" />
+
+                                        </form>
+                                    </div>
+                                    
                                 </div>
-                                <div class="col-2">
-                                    <img src="{{ asset('member/dashboard/app-assets/images/gallery/Profile Picture.png') }}" alt="Avatar">
-                                </div>
-                            </div>
-                            <div class="border mt-2"></div>
+
+                            @else 
+                             
+                                <h3 class="text-center text-muted">Stylist not assigned!</h3>
+
+                            @endif
+
                             <div class="text-center mt-2">
-                                <a href="#"><button class="go-to-msg">Go To Messenger</button></a>
+                                <a href="{{ route('member.messanger.index') }}"><button class="go-to-msg">Go To Messenger</button></a>
                             </div>
 
                         </div>
@@ -596,4 +620,13 @@
 
     </div>
 </div>
+
+{{-- page scripts --}}
+@section('page-scripts')
+
+    @include('scripts.member.dashboard_js')
+
+@endsection
+
+
 @stop

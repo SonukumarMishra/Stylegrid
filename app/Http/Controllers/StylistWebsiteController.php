@@ -5,7 +5,8 @@ use App\Models\Member;
 use Illuminate\Support\Str;
 use Session;
 use Illuminate\Support\Facades\Mail;
-
+use URL;
+use Log;
 
 /*
 @author-Sunil Kumar Mishra
@@ -107,6 +108,7 @@ class StylistWebsiteController extends Controller
                 'gender'=>$request->gender,
                 'verified'=>1,
                 'subscription'=>'Trial',
+                'dummy_name' => \Helper::generateRandomString(trim($request->full_name). ( $request->phone != '' ? substr(trim($request->phone), -2) : ''), 10)
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 
             if($response['reference_id']){
@@ -131,6 +133,11 @@ class StylistWebsiteController extends Controller
                             $new_name = rand() . '.' . $profile_image->getClientOriginalExtension();
                             $profile_image->move(public_path('stylist/attachments/profileImage'), $new_name);
                             $profile_image_name=$new_name;
+
+                            $profile_image_name = URL::asset('stylist/attachments/profileImage/'.$new_name);
+
+                            Log::info("data ". print_r($profile_image_name, true));
+
                         }
                         $save_data=array(
                             'id'=>Session::get('processed_stylist_id'),

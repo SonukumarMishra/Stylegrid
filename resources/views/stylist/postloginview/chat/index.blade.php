@@ -1,6 +1,6 @@
 @include('stylist.postloginview.partials.header.header')
 @include('stylist.postloginview.partials.navigate.navigate')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <!-- BEGIN: Content-->
 <style>
     .messenger-messagingView .m-body {
@@ -16,7 +16,7 @@
     }
     .m-list-active{
         background-color: #000000 !important;
-        padding: 1.5rem !important;
+        padding: 1rem !important;
         border-radius: 0.25rem !important;
         color: #ffffff !important;
     }
@@ -25,14 +25,14 @@
         color: #fff !important;
     }
     .messenger-list-item{
-        border-bottom: 1px solid #F5F7FA;
+        border-bottom: 1px solid #dfe3e9;
     }
     
 </style>
 
 <div class="app-content content bg-white">
    <div class="content-wrapper">
-
+        <input type="hidden" id="default_chat_room_id" value="{{ @$chat_room_id }}">
        <div class="content-body">
 
             <div class="flex-column-reverse flex-md-row mt-lg-3 row">
@@ -87,8 +87,8 @@
                         
                             <div class="col-md-12 col-12">
                                 <div class="d-flex justify-content-center m-header-messaging">
-                                    <span class="dot"></span>
-                                    <div class="client-name user-name"></div>
+                                    <span class="active-chat-box-online-status" data-receiver-id="" data-receiver-user="" ></span>
+                                    <div class="client-name active-chat-box-user-name"></div>
                                 </div>
                             </div>
 
@@ -97,7 +97,7 @@
 
                         <div id="client-inbox-msg" class="messenger-messagingView py-2">
 
-                            <div class="m-body">
+                            <div class="m-body scrollstyle">
                                 
                                 <div class="messages">
 
@@ -159,6 +159,14 @@
 
        </div>
    </div>
+   
+    {{-- page scripts --}}
+    @section('page-scripts')
+
+        @include('scripts.stylist.messanger.index')
+
+    @endsection
+
 </div>
 
 @include('stylist.postloginview.partials.footer.footerjs')

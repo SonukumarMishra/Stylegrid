@@ -24,6 +24,7 @@ class ChatController extends BaseController
 
             $this->auth_user = [
                 'auth_id' => Session::get("member_id"),
+                'user_id' => Session::get("member_id"),
                 'auth_name' => Session::get('member_data')->name,
                 'auth_profile' => Session::get('member_data')->profile_image,
                 'auth_user' => 'member',
@@ -34,17 +35,14 @@ class ChatController extends BaseController
         });
     }
 
-    public function index()
+    public function index($chat_room_id='')
     {
-        return view('member.dashboard.chat.index');
+        return view('member.dashboard.chat.index', compact('chat_room_id'));
     }
 
     public function pusherAuth(Request $request)
     {
         $result = ChatRepo::pusherAuth($request, $this->auth_user);
-        
-        Log::info("result ". print_r($result, true));
-
         return $result;
     }
     
@@ -69,6 +67,19 @@ class ChatController extends BaseController
         $result = ChatRepo::getChatMessages($request, $this->auth_user);     
         return response()->json($result, 200);
 
+    }
+            
+    public function updateChatMessageReadStatus(Request $request){
+
+        $result = ChatRepo::updateChatMessageReadStatus($request, $this->auth_user);     
+        return response()->json($result, 200);
+
+    }
+
+    public function updateOnlineStatus(Request $request)
+    {
+        $result = ChatRepo::updateOnlineStatus($request);        
+        return $result;
     }
     
 }

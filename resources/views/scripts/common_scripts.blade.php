@@ -267,5 +267,25 @@
             $temp.remove();
         }
 
+        window.scrollToBottom = function(container) {
+            $(container)
+                .stop()
+                .animate({
+                    scrollTop: $(container)[0].scrollHeight,
+                });
+        }
+
+        window.downloadFromUrl = function(url, name="") {
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = name;
+            link.click();
+            link.remove();
+        }
+
+        window.processExceptions = function(e) {
+            showErrorMessage(e);
+        };
+
     }(window));
 </script>
