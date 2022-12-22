@@ -8,6 +8,8 @@ use App\Models\SourcingOffer;
 use App\Repositories\SourcingRepository as SourcingRepo;
 use Session;
 use DB;
+use Log;
+
 /*
 @author-Sunil Kumar Mishra
 date:19-10-2022
@@ -249,12 +251,16 @@ class Member extends Model
 				'sourcing_offer_id' => $offer_id
 			];
 
+			Log::info("ref ". print_r($ref_data, true));
+
 			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_accepted'), $ref_data);
 
 			// Create sourcing chat contact
 			$sourcing_dtls = Sourcing::find($sourcing_id);
+			Log::info("sourcing_dtls ". print_r($sourcing_dtls, true));
 
-			$sourcing_offer_dtls = SourcingOffer::find($sourcing_id);
+			$sourcing_offer_dtls = SourcingOffer::find($offer_id);
+			Log::info("sourcing_offer_dtls ". print_r($sourcing_offer_dtls, true));
 
 			if($sourcing_dtls && $sourcing_offer_dtls){
 				

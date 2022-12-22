@@ -208,10 +208,16 @@ class SourcingRepository {
 						$payload_data['association_id'] = $sourcing_dtls->association_id;
 						$payload_data['association_type_user'] = $sourcing_dtls->association_type_user;
 
-						$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
-												'action' => config('custom.sourcing_pusher_action_type.new_request'),
-												'data' => $payload_data
-											]);
+						try {
+
+							$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
+								'action' => config('custom.sourcing_pusher_action_type.new_request'),
+								'data' => $payload_data
+							]);
+
+						}catch(\Exception $e) {
+							Log::info("error pusher sourcing_updates ". print_r($e->getMessage(), true));
+						}
 
 						// Notify to all stylists for new request
 
@@ -271,10 +277,16 @@ class SourcingRepository {
 							$payload_data['notify_user_type'] = config('custom.user_type.stylist');
 						}
 
-						$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
-												'action' => config('custom.sourcing_pusher_action_type.offer_received'),
-												'data' => $payload_data
-											]);
+						try{
+						
+							$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
+													'action' => config('custom.sourcing_pusher_action_type.offer_received'),
+													'data' => $payload_data
+												]);
+
+						}catch(\Exception $e) {
+							Log::info("error pusher sourcing_updates ". print_r($e->getMessage(), true));
+						}
 
 						$notify_users = [
 							[
@@ -311,18 +323,26 @@ class SourcingRepository {
 					$offer_dtls = SourcingOffer::from('sg_sourcing_offer as offer')
 												->join('sg_sourcing AS source', 'source.id', '=', 'offer.sourcing_id')
 												->where('offer.id', $data['sourcing_offer_id'])
-												->first('offer.*', 'source.p_name');
+												->select('offer.*', 'source.p_name')
+												->first();
 												
-					
+					Log::info("offer detls ". print_r($offer_dtls, true));
+
 					if($offer_dtls){
 
 						$payload_data['notify_user_id'] = $offer_dtls->stylist_id;
 						$payload_data['notify_user_type'] = config('custom.user_type.stylist');
 						
-						$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
-												'action' => $action_type,
-												'data' => $payload_data
-											]);
+						try{
+						
+							$pusher_ref->trigger('private-chatify', 'sourcing_updates', [
+													'action' => $action_type,
+													'data' => $payload_data
+												]);
+											
+						}catch(\Exception $e) {
+							Log::info("error pusher sourcing_updates ". print_r($e->getMessage(), true));
+						}
 
 						$notify_users = [
 							[
@@ -360,6 +380,8 @@ class SourcingRepository {
 								'users' => $notify_users
 							];
 		
+							Log::info("data obj ". print_r($notification_obj, true));
+
 							CommonRepo::save_notification($notification_obj);
 	
 						}
