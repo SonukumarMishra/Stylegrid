@@ -282,7 +282,7 @@
             link.click();
             link.remove();
         }
-
+            
         window.processExceptions = function(e) {
             showErrorMessage(e);
         };

@@ -163,6 +163,10 @@
     {{-- page scripts --}}
     @section('page-scripts')
 
+        <script src="{{ asset('extensions/jszip/js/jszip-utils.min.js') }}"></script>
+        <script src="{{ asset('extensions/jszip/js/jszip.min.js') }}"></script>
+        <script src="{{ asset('extensions/jszip/js/FileSaver.min.js') }}"></script>
+        
         @include('scripts.stylist.messanger.index')
 
     @endsection

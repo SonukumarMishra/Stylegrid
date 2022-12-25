@@ -779,6 +779,34 @@
         return max_item_count;
     };
     
+    function generateZIP(links) {
+           
+        var zip = new JSZip();
+        var count = 0;
+
+        var zip_title = new Date().toISOString().replace(/\D/g,"").substr(0,14);
+
+        var zipFilename = '{{ env("APP_NAME") }}'+'_'+ zip_title+ ".zip";
+
+        links.forEach(function (obj, i) {
+
+            var filename = obj.media_name;
+            // loading a file and add it in a zip file
+            JSZipUtils.getBinaryContent(obj.media_path, function (err, data) {
+                if (err) {
+                    throw err; // or handle the error
+                }
+                zip.file(filename, data, { binary: true });
+                count++;
+                if (count == links.length) {
+                    zip.generateAsync({ type: 'blob' }).then(function (content) {
+                        saveAs(content, zipFilename);
+                    });
+                }
+            });
+        });
+    };
+        
     $(document).ready(function () {
     
         // set item active on click
@@ -848,9 +876,7 @@
             e.preventDefault();
 
             var files_json = $(this).data('files');
-            $.each(files_json, function (file_i, file_val) { 
-                downloadFromUrl(file_val.media_path, file_val.media_name);                 
-            });
+            generateZIP(files_json);
 
         });
 
