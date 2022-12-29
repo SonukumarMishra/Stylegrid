@@ -122,25 +122,25 @@
 
                 $.each(list, function (i, val) { 
                     
-                    html += '<div class="row mt-1 message-card"  data-room-id="'+val.chat_room_id+'" data-message-id="'+val.chat_message_id+'">';
+                    html += '<div class="row mt-1 dashboard-message-card"  data-room-id="'+val.chat_room_id+'" data-message-id="'+val.chat_message_id+'">';
                    
                     if(val.sender_user != auth_user_type){
 
                         var receiver_profile = val.sender_profile != null ?  ( val.sender_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
                     
                         html += '   <div class="col-lg-2 col-1 d-flex align-items-center">';
-                        html += '       <img src="'+receiver_profile+'" class="avtar_35" alt="Avatar">';                    
+                        html += '       <img src="'+receiver_profile+'" class="dashboard-chat-avtar mt-1" alt="Avatar">';                    
                         html += '   </div>';
                     }
 
-                    html += '       <div class=" col-10 '+(val.sender_user == auth_user_type ? "pr-0 pl-md-5" : "pr-5 pl-md-0")+'">';
+                    html += '       <div class=" col-10 '+(val.sender_user == auth_user_type ? "pr-0" : "pl-0")+'">';
                     html += '           <div class="'+(val.sender_user == auth_user_type ? "text-left" : "text-right")+'"><small class="text-dark">'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</small></div>';
                     html += '           <div class="container '+(val.sender_user == auth_user_type ? "darker" : "")+'">';
                     
                     if(val.type == "file"){
 
                         var files_array = JSON.parse(val.files);
-
+                            
                         if(files_array.length > 0){
 
                             html += '      <div class="row">';
@@ -148,22 +148,23 @@
                                 $.each(files_array, function (m_key, m_val) { 
 
                                     if(m_val.media_path != ''){
-
-                                        // html += '   <img src="'+m_val.media_path+'" class="dashboard-chat-media">';                    
+               
                                         html += '<div class="chat-media-box m-0">';
                                         html += '   <div style="position:relative;">';    
                                         if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), DashboardRef.imgExtArray) != -1) {
                                         
                                             html += '   <img src="'+m_val.media_path+'" data-path="'+m_val.media_path+'" class="dashboard-chat-media" />'; 
-                                           
+                                            html += '   <span class="fas fa-download dashboard-download-attachment" data-index="'+m_key+'" data-path="'+m_val.media_path+'" data-file-name="'+m_val.media_name+'"></span>';
+                                    
                                         }else if ($.inArray(m_val.media_name.substr( (m_val.media_name.lastIndexOf('.') +1) ), DashboardRef.pdfExtArray) != -1) {
                                             
                                             html += '   <img src="'+DashboardRef.pdfImage+'" data-path="'+m_val.media_path+'" class="dashboard-chat-doc-media" / >'; 
+                                            html += '   <span class="fas fa-download dashboard-download-attachment-doc" data-index="'+m_key+'" data-path="'+m_val.media_path+'"  data-file-name="'+m_val.media_name+'"></span>';
                                            
                                         }else{
                                         
                                             html += '   <img src="'+DashboardRef.docImage+'" data-path="'+m_val.media_path+'" class="dashboard-chat-doc-media" />';
-                                           
+                                            html += '   <span class="fas fa-download dashboard-download-attachment-doc" data-index="'+m_key+'" data-path="'+m_val.media_path+'"  data-file-name="'+m_val.media_name+'"></span>';
                                         }
                                         
                                         html += '   </div>';
@@ -176,6 +177,11 @@
                             html += '      </div>';
                         }
 
+                        if(files_array.length > 1){
+                            html += "<div class='row d-flex justify-content-end'><a href='#' class='dashboard-download-all-btn' data-files='"+val.files+"'><i class='fas fa-download'></i>&nbsp; All</a></div>";
+                        }
+
+
                     }else{
                         html += '           <p class="pt-1">'+val.message+'</p>';
                     }
@@ -187,7 +193,7 @@
 
                         var sender_profile = auth_profile != '' ? ( auth_user_type == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('common/images/default_user.jpeg')}}';                    
                         html += '   <div class="col-lg-2 col-1 d-flex align-items-center">';
-                        html += '       <img src="'+sender_profile+'" class="avtar_35" alt="Avatar">';                    
+                        html += '       <img src="'+sender_profile+'" class="dashboard-chat-avtar mt-1" alt="Avatar">';                    
                         html += '   </div>';
                     }
                     html +='</div>';
@@ -297,7 +303,7 @@
                     success: (response) => {
                             
                         // temporary message card
-                        const tempMsgCardElement = DashboardRef.messagesContainer.find(".message-card[data-room-id='"+response.data.temp_id+"']");
+                        const tempMsgCardElement = DashboardRef.messagesContainer.find(".dashboard-message-card[data-room-id='"+response.data.temp_id+"']");
 
                         // add the message card coming from the server before the temp-card
                         // tempMsgCardElement.before(DashboardRef.getChatMessagesUI([response.data]));
@@ -325,15 +331,15 @@
 
             var html = '';
 
-            html += '<div class="row mt-1 message-card" data-room-id="'+id+'" >';
-            html += '       <div class="col-10 pr-0 pl-md-5">';
+            html += '<div class="row mt-1 dashboard-message-card" data-room-id="'+id+'" >';
+            html += '       <div class="col-10 pr-0">';
             html += '           <div class="text-left"><small class="text-dark">'+convertUtcDateTimeToLocalDateTime(new Date())+'</small></div>';
             html += '           <div class="container darker">';
             html += '               <p class="pt-1">'+message+'</p>';
             html += '           </div>';
             html += '       </div>';            
             html += '   <div class="col-lg-2 col-1 d-flex align-items-center">';
-            html += '       <img src="'+(auth_profile != '' ? auth_profile : '{{asset('common/images/default_user.jpeg')}}')+'" class="avtar_35" alt="Avatar">';                    
+            html += '       <img src="'+(auth_profile != '' ? auth_profile : '{{asset('common/images/default_user.jpeg')}}')+'" class="dashboard-chat-avtar mt-1" alt="Avatar">';                    
             html += '   </div>';
             html +='</div>';
             
@@ -540,9 +546,54 @@
                     
                 }
             });
+
+            $('body').on('click', '.dashboard-download-attachment, .dashboard-download-attachment-doc',function(e){
+                e.preventDefault();
+                var url = $(this).data('path');
+                downloadFromUrl(url, $(this).data('file-name'));
+            });
+            
+            $('body').on('click', '.dashboard-download-all-btn',function(e){
+                
+                e.preventDefault();
+
+                var files_json = $(this).data('files');
+                DashboardRef.generateZIP(files_json);
+
+            });
+            
         }
         
+        DashboardRef.generateZIP = function(links) {
+  
+            var zip = new JSZip();
+            var count = 0;
+
+            var zip_title = new Date().toISOString().replace(/\D/g,"").substr(0,14);
+
+            var zipFilename = '{{ env("APP_NAME") }}'+'_'+ zip_title+ ".zip";
+
+            links.forEach(function (obj, i) {
+
+                var filename = obj.media_name;
+                // loading a file and add it in a zip file
+                JSZipUtils.getBinaryContent(obj.media_path, function (err, data) {
+                    if (err) {
+                        throw err; // or handle the error
+                    }
+                    zip.file(filename, data, { binary: true });
+                    count++;
+                    if (count == links.length) {
+                        zip.generateAsync({ type: 'blob' }).then(function (content) {
+                            saveAs(content, zipFilename);
+                        });
+                    }
+                });
+            });
+        };
+
         DashboardRef.initEvents();
+
     };
 
 </script>
