@@ -1,7 +1,5 @@
-@include("stylist.postloginview.partials.header.header")
-@include("stylist.postloginview.partials.navigate.navigate")
- <!-- BEGIN: Content-->
- <div class="app-content content bg-white">
+@extends('member.dashboard.layouts.default')
+@section('content')
     <div class="content-wrapper">
 
         <div class="content-header row">
@@ -10,7 +8,7 @@
             <!-- Revenue, Hit Rate & Deals -->
             <div class="mt-lg-3 row">
                 <div class="col-8">
-                    <h1>Hi, {{Session::get('stylist_data')->name}}</h1>
+                    <h1>Hi, {{Session::get('member_data')->name}}</h1>
                     <h3>Get updates from notifications!</h3>
                 </div>
                 <div class="col-4 quick-link text-right">
@@ -38,9 +36,9 @@
     {{-- page scripts --}}
     @section('page-scripts')
 
-        @include('scripts.stylist.notifications_js')
+        @include('scripts.member.notifications_js')
 
     @endsection
 
-</div>
-@include("stylist.postloginview.partials.footer.footerjs")
+    
+    @stop

@@ -53,7 +53,7 @@
             
             showSpinner('#notifications_container');
 
-            window.getResponseInJsonFromURL('{{ route("stylist.notifications.list") }}', formData, (response) => {
+            window.getResponseInJsonFromURL('{{ route("member.notifications.list") }}', formData, (response) => {
 
                 hideSpinner('#notifications_container');
    
