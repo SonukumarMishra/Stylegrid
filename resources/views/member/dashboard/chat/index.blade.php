@@ -154,5 +154,15 @@
             </div>
 
        </div>
+
    </div>
+
+   {{-- page scripts --}}
+    @section('page-scripts')
+
+        @include('scripts.member.messanger.index')
+
+    @endsection
+
 @stop
+

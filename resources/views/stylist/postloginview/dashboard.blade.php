@@ -165,8 +165,8 @@
                     <!-------------------inbox------------>
                     <div class="col-lg-4">
                         <div id="inbox" class="py-2 px-2">
-                            <h3>Inbox</h3>
-                            <form action="">
+                            <h3 class="mb-2">Inbox</h3>
+                            {{-- <form action="">
                                 <div class="row my-1">
                                     <div class="col-auto py-1">
                                         <img src="stylist/app-assets/images/icons/search.svg" class="img-fluid" alt="">
@@ -182,15 +182,20 @@
                                     </div>
                                 </div>
                                 <!--end of col-->
-                            </form>
-                            <div class="row">
+                            </form> --}}
+                            {{-- <div class="row">
                                 <div class="col-6">
                                     <h2 class="">Direct Messages</h2>
                                 </div>
                                 <div class="col-6 text-right pr-3"><img src="stylist/app-assets/images/icons/add-content.svg"
                                         class="" alt=""></div>
+                            </div> --}}
+
+                            <div id="dashboard_chat_contacts" style="width: 100%;height: calc(100% - 200px);position: relative;">
+
                             </div>
-                            <div class="row my-1">
+
+                            {{-- <div class="row my-1">
                                 <div class="col-6">
                                     <div class="row">
                                         <div>
@@ -297,12 +302,14 @@
                                         <h5>12:45</h5>
                                     </div>
                                 </div>
+                            </div> --}}
+                            <div class="col-12 text-center"><a href="{{ route('stylist.messanger.index') }}"><button class="show-more px-2">Show More Channels</button></a>
                             </div>
-                            <div><a href=""><button class="show-more px-2">Show More Channels</button></a>
-                            </div>
-                            <div class=" mx-2 my-1"><a href="">
+                            {{-- <div class=" mx-2 my-1">
+                                <a href="">
                                     <h6 class="support">Contact Support</h6>
-                                </a></div>
+                                </a>
+                            </div> --}}
                         </div>
                     </div>
                     <!-------------------end of inbox------------>
@@ -990,6 +997,14 @@
             </div>
         </div>
         <!---------------end of footer----------->
+
+        {{-- page scripts --}}
+        @section('page-scripts')
+
+            @include('scripts.stylist.dashboard_js')
+
+        @endsection
+
     </div>
 	   @include("stylist.postloginview.partials.footer.footerjs")
  

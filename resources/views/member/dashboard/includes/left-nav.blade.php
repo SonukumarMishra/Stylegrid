@@ -14,7 +14,7 @@
                 </li>
 
                 <li class="nav-item text-center">
-                    <div class="stylish-img"><img src="{{ asset('/member/dashboard/app-assets/images/gallery/Profile Picture (1).png') }}"
+                    <div class="stylish-img"><img src="{{ asset('/member/dashboard/app-assets/images/gallery/Headshot.JPG') }}"
                             class="img-fluid" alt="">
                     </div>
 
@@ -30,7 +30,7 @@
                         class="menu-title profession" data-i18n=""><img
                             src="app-assets/images/gallery/check-mark.png" alt=""></span></a> </li> -->
                 </li>
-                <li class=" nav-item mt-5"><a href="{{ url('/member-dashboard') }}"><i class="ft-home"></i><span class="menu-title"
+                <li class=" nav-item mt-2"><a href="{{ url('/member-dashboard') }}"><i class="ft-home"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
                 <li class=" nav-item"><a href="{{ route('member.messanger.index') }}"><i class="ft-layers"></i><span class="menu-title"

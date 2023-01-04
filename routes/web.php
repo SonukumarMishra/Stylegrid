@@ -51,7 +51,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
   Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
   Route::post('/stylist-messanger-room-messages', 'Stylist\ChatController@getChatRoomMessage')->name('stylist.messanger.room.messages');
-
+  Route::post('/stylist-messanger-read', 'Stylist\ChatController@updateChatMessageReadStatus')->name('stylist.messanger.read.message');
+  
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
  Route::get('/stylist-testing', [Login::class, 'index']);
  Route::post('/check-stylist-existance', [StylistWebsite::class, 'checkStylistExistance']);
@@ -116,7 +117,8 @@ Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name(
 Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts')->name('member.messanger.contacts');
 Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');
 Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoomMessage')->name('member.messanger.room.messages');
-
+Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
+  
 //member section End
 
 //Admin Section Start

@@ -43,7 +43,7 @@
     */
 
     // subscribe to the channel
-    var channel = pusher.subscribe("private-chatify");
+    // var channel = pusher.subscribe("private-chatify");
 
     // Listen to messages, and append if data received
     channel.bind("messaging", function (data) {
@@ -61,11 +61,8 @@
                 // update contact item
                 updateContactItem(data.chat_room_id, data.message_obj);
                 getChatContacts(selectedRoomId);
-                // makeSeen(true);
-                // // remove unseen counter for the user from the contacts list
-                // $(".messenger-list-item[data-contact=" + selectedRoomId + "]")
-                // .find("tr>td>b")
-                // .remove();
+                makeSeen(selectedRoomId);
+
             }else{
 
                 if((data.chat_room_dtls.sender_user == auth_user_type && data.chat_room_dtls.sender_id == auth_id) || (data.chat_room_dtls.receiver_user == auth_user_type && data.chat_room_dtls.receiver_id == auth_id)){
@@ -104,6 +101,28 @@
         });
     }
 
+    
+    /**
+     *-------------------------------------------------------------
+    * Trigger seen event
+    *-------------------------------------------------------------
+    */
+    function makeSeen(chat_room_id) {
+        
+        // seen
+        $.ajax({
+            url: chat_baseurl + "member-messanger-read",
+            method: "POST",
+            data: { _token: access_token, chat_room_id: chat_room_id },
+            dataType: "JSON",
+            success: (response) => {
+                if(response.status){
+                    // remove unseen counter for the user from the contacts list
+                    $(".messenger-list-item[data-room-id=" + chat_room_id + "]").find(".chat-badge").remove();
+                }
+            }
+        });
+    }
 
     function disableOnLoad(action = true) {
 
@@ -198,60 +217,59 @@
     }
 
     function getChatContacts(selected_chatroom_id='') {
-        // if (!contactsLoading && !noMoreContacts) {
-            setContactsLoading(true);
-            $.ajax({
-                url: chat_baseurl + "member-messanger-contacts",
-                method: "POST",
-                data: { _token: access_token, page: contactsPage },
-                dataType: "JSON",
-                success: (response) => {
 
-                    console.log(response);
+        setContactsLoading(true);
+        
+        $.ajax({
+            url: chat_baseurl + "member-messanger-contacts",
+            method: "POST",
+            data: { _token: access_token, page: contactsPage },
+            dataType: "JSON",
+            success: (response) => {
 
-                    setContactsLoading(false);
+                setContactsLoading(false);
 
-                    if(response.status = 1){
+                if(response.status = 1){
 
-                        if(response.data.list.length > 0){
-             
-                            var list_html = getContactsUIHtml(response.data.list);
-                            allContactsList = response.data.list;
-                            $(".listOfContacts").html(list_html);
+                    if(response.data.list.length > 0){
+            
+                        var list_html = getContactsUIHtml(response.data.list);
+                        allContactsList = response.data.list;
+                        $(".listOfContacts").html(list_html);
 
-                            // render first contact chat
-                            if(allContactsList.length > 0){
+                        // render first contact chat
+                        if(allContactsList.length > 0){
 
-                                if(selected_chatroom_id != ''){
+                            if(selected_chatroom_id != ''){
 
-                                    // $('.messenger-list-item[data-room-id="'+selected_chatroom_id+'"]').click();
+                                // $('.messenger-list-item[data-room-id="'+selected_chatroom_id+'"]').click();
 
-                                }else{
-                                    $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
-                                }
-
-                                $('#chat-section').show();
                             }else{
-                                $('#chat-section').hide();
+                                $('.messenger-list-item[data-room-id="'+allContactsList[0].chat_room_id+'"]').click();
                             }
 
+                            $('#chat-section').show();
                         }else{
-                            $(".listOfContacts").html('<p class="message-hint center-el text-center"><span>Your contact list is empty</span></p>');
+                            $('#chat-section').hide();
                         }
-                    }
 
-                    updateSelectedContact();
-                    // Pagination lock & messages page
-                    noMoreContacts = true;
-                    // noMoreContacts = contactsPage >= data?.last_page;
-                    // if (!noMoreContacts) contactsPage += 1;
-                },
-                error: (error) => {
-                    setContactsLoading(false);
-                    console.error(error);
-                },
-            });
-        // }
+                    }else{
+                        $(".listOfContacts").html('<p class="message-hint center-el text-center"><span>Your contact list is empty</span></p>');
+                    }
+                }
+
+                updateSelectedContact();
+                // Pagination lock & messages page
+                noMoreContacts = true;
+                // noMoreContacts = contactsPage >= data?.last_page;
+                // if (!noMoreContacts) contactsPage += 1;
+            },
+            error: (error) => {
+                setContactsLoading(false);
+                console.error(error);
+            },
+        });
+
     }
 
     function getContactsUIHtml(contacts) {
@@ -263,24 +281,27 @@
             $.each(contacts, function (i, val) { 
                 
                 html += '<li class="messenger-list-item my-1" data-contact="" data-room-id="'+val.chat_room_id+'">';
-                html += '   <span class="d-flex justify-content-between">';
+                html += '   <span class="d-flex justify-content-between m-1">';
                 html += '       <div class="d-flex flex-row">';
-                html += '           <div>';
+                html += '           <div class="">';
                 
-                var receiver_profile = val.receiver_profile != null ? asset_url+ ( val.receiver_user == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+val.receiver_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';
+                var receiver_profile = val.receiver_profile != null ?  ( val.receiver_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.receiver_profile : '{{asset('common/images/default_user.jpeg')}}';
                    
                 html += '               <img src="'+receiver_profile+'" alt="avatar" class="d-flex align-self-center me-3 chat-pic" width="60">';
                 html += '               <span class="badge bg-success badge-dot"></span>';
                 html += '           </div>';
-                html += '           <div class="pt-1 pl-1">';
-                html += '               <div class="status">Online</div>';
-                html += '                   <p class="list-name">'+(val.receiver_name)+'</p>';
+                html += '           <div class=" pl-1">';
+                // html += '               <div class="status">Online</div>';
+                html += '                   <span class="list-name">'+(val.receiver_name)+'</span>';
                 html += '                   <p class="list-msg">'+(val.last_message != null ? val.last_message : '')+'</p>';
                 html += '               </div>';
                 html += '           </div>';
                 html += '       </div>';
-                html += '       <div class="pt-1">';
+                html += '       <div class="">';
                 html += '           <p class="small text-muted mb-1 list-time">'+(val.last_message_on != null ? convertUtcDateTimeToLocalDateTime(val.last_message_on) : '')+'</p>';
+                if(val.unread_count > 0){
+                    html += '           <span class="chat-badge">'+val.unread_count+'</span>';
+                }
                 html += '       </div>';
                 html += '   </span>';
                 html += '</li>';
@@ -349,16 +370,16 @@
                         scrollToBottom(messagesContainer);
 
                     } else {
-                        const lastMsg = messagesElement.find(
-                        messagesElement.find(".message-card")[0]
-                    );
-                    const curOffset =
-                        lastMsg.offset().top - messagesContainer.scrollTop();
-                        messagesElement.prepend(response.messages);
-                        messagesContainer.scrollTop(lastMsg.offset().top - curOffset);
+                        const lastMsg = messagesElement.find(messagesElement.find(".message-card")[0]);
+                        const curOffset =
+                            lastMsg.offset().top - messagesContainer.scrollTop();
+                            messagesElement.prepend(response.messages);
+                            messagesContainer.scrollTop(lastMsg.offset().top - curOffset);
                     }
+                    
                     // trigger seen event
-                    // makeSeen(true);
+                    makeSeen(room_id);
+
                     // Pagination lock & messages page
                     noMoreMessages = messagesPage >= response.data.total;
                     if (!noMoreMessages) messagesPage += 1;
@@ -387,8 +408,7 @@
         disableOnLoad();
 
         var room_dtls = getDetailsFromObjectByKey(allContactsList, room_id, 'chat_room_id');
-        console.log("room details - ", room_dtls);
-
+        
         if(room_dtls != undefined){
 
             $("#message-form input[name='receiver_id']").val(room_dtls.receiver_id);
@@ -444,7 +464,7 @@
         html += '               <p class="mb-0">'+message+'</p>';
         html +='            </div>';
         html +='        </div>';
-        html += '   <img src="'+(auth_profile != '' ? asset_url+'{{ config('custom.media_path_prefix.stylist_porfile') }}'+auth_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
+        html += '   <img src="'+(auth_profile != '' ? auth_profile : asset_url+'{{asset('common/images/default_user.jpeg')}}')+'" class="chat-pic ml-1" alt="Avatar">';                    
         html +='    </div>';
         html +='</div>';
 
@@ -492,7 +512,7 @@
                 html += '   <div class="d-flex">';
 
                 if(val.sender_user != auth_user_type){
-                    var receiver_profile = val.sender_profile != null ? asset_url+ ( val.sender_user == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';
+                    var receiver_profile = val.sender_profile != null ?  ( val.sender_user == "stylist" ? '' : asset_url+'{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
                     html += '   <img src="'+receiver_profile+'" class="chat-pic mr-1" alt="Avatar">';                    
                 }
 
@@ -531,7 +551,7 @@
                 
                 if(val.sender_user == auth_user_type){
 
-                    var sender_profile = auth_profile != '' ? asset_url+ ( auth_user_type == "stylist" ? '{{ config('custom.media_path_prefix.stylist_porfile') }}' : '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('stylist/app-assets/images/gallery/chat-list1.png')}}';                    
+                    var sender_profile = auth_profile != '' ? ( auth_user_type == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+auth_profile : '{{asset('common/images/default_user.jpeg')}}';                    
                     html += '   <img src="'+sender_profile+'" class="chat-pic ml-1" alt="Avatar">';                    
 
                 }

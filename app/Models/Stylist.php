@@ -59,6 +59,7 @@ class Stylist extends Model
         }
 		if($stylist_id>0){
 			$this->db->where('s.member_stylist_id', '<>', $stylist_id);
+			$this->db->orWhere(['s.member_stylist_type'=>0]);
 		}
 
 		//if(count($where_date['whereDate'])){

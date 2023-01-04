@@ -2854,8 +2854,8 @@ transform: rotate(180deg);
 }
 
 .stylegrid-bg-img{
-  /*background-size: cover !important;*/
-  background-size: 100% 100% !important;
+  background-size: cover !important;
+  /*background-size: 100% 100% !important;*/
   background-repeat: no-repeat !important;
 }
 .addblock{
@@ -2866,6 +2866,7 @@ transform: rotate(180deg);
   outline: 0;
   border: 0;
 }
+
 .error {
   color: red;
   top: 103%;
@@ -2873,6 +2874,12 @@ transform: rotate(180deg);
   left: 1%;
   font-family: "Genos";
 }
+
+.spinner-border-lg{
+  width: 3rem;
+  height: 3rem;
+}
+
 #grid_item_details_modal h5{
   font-family: "Silk Serif Medium";
 }

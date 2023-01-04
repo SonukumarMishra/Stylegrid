@@ -2,7 +2,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Models\ChatRoom;
+use App\Models\Stylist;
 use Illuminate\Support\Str;
+use DB;
+use Log;
 use Session;
 /*
 @author-Sunil Kumar Mishra
@@ -21,7 +25,66 @@ class MemberController extends Controller
     }
     
     public function memberDashboard(Request $request){
-        return view('member.dashboard.index');
+
+        $auth_id = Session::get("member_id");
+        
+        $assigned_stylist = $chat_room_dtls = false;
+
+        if($auth_id){
+
+            $member_dtls = Member::find($auth_id);
+
+            if($member_dtls && !empty($member_dtls->assigned_stylist) && $member_dtls->assigned_stylist > 0){
+
+                $assigned_stylist = Stylist::from('sg_stylist as stylist')
+                                            ->where([
+                                                'stylist.id' => $member_dtls->assigned_stylist
+                                            ])
+                                            ->leftjoin('sg_chat_room as room', function($leftJoin)use($auth_id){
+                                                
+                                                    $leftJoin->where(function ($q) use($auth_id) {
+                                                            $q->where('room.sender_id', $auth_id)
+                                                            ->where('room.sender_user', 'member');
+                                                        })
+                                                        ->orwhere(function ($q) use($auth_id) {
+                                                            $q->where('room.receiver_id', $auth_id)
+                                                            ->where('room.receiver_user', 'member');
+                                                        })
+                                                        ->where([
+                                                            'module' => config('custom.chat_module.private'),
+                                                            'is_active' => 1
+                                                        ]);
+                                            })
+                                            ->select('stylist.*', 'room.chat_room_id')
+                                            ->first();
+
+                if($assigned_stylist && isset($assigned_stylist->chat_room_id) && !empty($assigned_stylist->chat_room_id)){
+
+                    // $chat_room_dtls = ChatRoom::from('sg_chat_room as room')
+                    //                             ->where('room.chat_room_id', $assigned_stylist->chat_room_id)
+                    //                             ->where(function ($q) use($auth_user) {
+                    //                                 $q->where('room.sender_id', $auth_user['auth_id'])
+                    //                                 ->where('room.sender_user', $auth_user['user_type']);
+                    //                             })
+                    //                             ->orwhere(function ($q) use($auth_user) {
+                    //                                 $q->where('room.receiver_id', $auth_user['auth_id'])
+                    //                                 ->where('room.receiver_user', $auth_user['user_type']);
+                    //                             })
+                    //                             ->select("room.*")
+                    //                             ->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
+                    //                             ->addSelect(DB::raw("( SELECT cr1.created_at FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))                                                                      
+                    //                             ->first();
+
+                }
+
+                Log::info("assigned ". print_r($assigned_stylist, true));
+
+
+            }
+        }
+
+        return view('member.dashboard.index', compact('assigned_stylist', 'chat_room_dtls'));
+    
     }
 
     public function memberGrid()
