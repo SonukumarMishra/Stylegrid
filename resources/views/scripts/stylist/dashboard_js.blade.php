@@ -64,7 +64,7 @@
 
                 $.each(contacts, function (i, val) { 
                     
-                    html += '<div class="row my-1" data-room-id="'+val.chat_room_id+'">';
+                    html += '<div class="row my-1 dashboard-messenger-list-item" data-receiver-id="'+val.receiver_id+'" data-receiver-user="'+val.receiver_user+'"  data-room-id="'+val.chat_room_id+'">';
                     html += '   <div class="col-6">';
                     html += '       <div class="row">';
                     html += '           <div>';
@@ -76,12 +76,12 @@
                         html += '           <div class="navigate"><span>'+val.unread_count+'</span></div>';
                     }
                     html += '           </div>';
-                    html += '           <h6 class="pt-1">'+(val.receiver_name)+'</h6>';
+                    html += '           <a href="'+chat_baseurl+'stylist-messanger/'+val.chat_room_id+'" class="d-flex align-items-center h4 text-primary">'+(val.receiver_name)+'</a>';
                     html += '       </div>';
                     html += '   </div>';
                     html += '   <div class="col-6 text-right">';
                     html += '       <div class="row justify-content-end mx-1 pt-1">';
-                    html += '           <h4 class="mx-2">Online</h4>';
+                    html += '           <h4 class="mx-2 online-status-text '+(val.receiver_online == 1 ? 'text-success' : 'text-danger')+'">'+(val.receiver_online == 1 ? 'Online' : 'Offline')+'</h4>';
                     html += '       </div>';
                     html += '   </div>';
                     html += '</div>';

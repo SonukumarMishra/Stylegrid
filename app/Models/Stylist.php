@@ -3,6 +3,8 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Log;
+
 /*
 @author-Sunil Kumar Mishra
 date:10-11-2022
@@ -34,7 +36,8 @@ class Stylist extends Model
 		}
 	}
 	function getSourceList($where=[],$stylist_id=0,$where_date=[]){
-        $this->db = DB::table('sg_sourcing AS s');
+		// DB::connection()->enableQueryLog();
+		$this->db = DB::table('sg_sourcing AS s');
 		$this->db->select([
 			"s.id",
 			"s.member_stylist_id",
@@ -68,6 +71,9 @@ class Stylist extends Model
 		$this->db->groupBy("s.id");
 		$this->db->orderBy("s.id","DESC");
 		$response_data=$this->db->get();
+		// $queries = DB::getQueryLog();
+		// Log::info(print_r($queries, true)); 
+	  
 		return $response_data;
     }
 

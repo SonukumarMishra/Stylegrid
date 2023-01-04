@@ -115,7 +115,7 @@
                     html+= '                            <div class="Neon-input-dragDrop grid-item-inner-input-block d-flex align-items-center height_200" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
                     html+= '                                <div class="Neon-input-inner">';
                     html+= '                                    <div class="Neon-input-text">';
-                    html+= '                                      <h3>Add an item here</h3>';
+                    html+= '                                      <h3  class="grid-item-image-title" data-inner-index="'+temp_count+'" data-parent-index="'+index+'">Add an item here</h3>';
                     html+= '                                    </div>';
                     html+= '                                    <a class="Neon-input-choose-btn blue"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'"></a>';
                     html+= '                                </div>';
@@ -176,6 +176,8 @@
                     };
 
                     $('.grid-item-image-src[data-parent-index="'+temp_obj.stylegrid_index+'"][data-inner-index="'+temp_obj.stylegrid_item_index+'"]').attr('src', temp_obj.product_image);
+                    $('.grid-item-image-title[data-parent-index="'+temp_obj.stylegrid_index+'"][data-inner-index="'+temp_obj.stylegrid_item_index+'"]').html('');
+                    
 
                     CreateGridRef.saveStyleGridItemObj(temp_obj.stylegrid_index, temp_obj.stylegrid_item_index, temp_obj);
 
@@ -299,11 +301,13 @@
                                 if(obj_index != -1){
                                     CreateGridRef.styleGridJson.grids[obj_index]['feature_image'] = img_blob;
                                     $('.style-grid-feature-image-block[data-index="'+parent_index+'"]').removeClass('border-2 border-danger');
+                                    $('.feature-image-title[data-index="'+parent_index+'"]').html('');
                                 }
 
                             }else{
-                                // This is first block's feature image 
+                                // This is first block's feature image  - main block
                                 CreateGridRef.styleGridJson['main_grid']['feature_image'] = img_blob;
+                                $('.style-grid-main-feature-image-title').html('');
                                 $('.style-grid-main-feature-image-block').removeClass('border-2 border-danger');
                             }
 
@@ -358,6 +362,7 @@
                     fileChangePreviewImage(this, $(this).data('img-preview-selector'));
                     $('#modal_product_img_block').removeClass('border-2 border-danger');
                     $('#modal_product_img_error').html('');
+                    $('#item-modal-image-title').html('');
                 }
 
             });
@@ -386,7 +391,7 @@
             html+= '                            <div class="Neon-input-dragDrop grid-item-inner-input-block d-flex align-items-center height_200" data-inner-index="1" data-parent-index="'+index+'">';
             html+= '                                <div class="Neon-input-inner">';
             html+= '                                    <div class="Neon-input-text">';
-            html+= '                                      <h3>Add an item here</h3>';
+            html+= '                                      <h3 class="grid-item-image-title" data-inner-index="1" data-parent-index="'+index+'">Add an item here</h3>';
             html+= '                                    </div>';
             html+= '                                    <a class="Neon-input-choose-btn blue"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="1" data-parent-index="'+index+'"></a>';
             html+= '                                </div>';
@@ -405,7 +410,7 @@
             html+= '                  <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-feature-image-block"  data-index="'+index+'">';
             html+= '                     <div class="Neon-input-inner">';
             html+= '                        <div class="Neon-input-text">';
-            html+= '                           <h3>Add your feature image here...</h3>';
+            html+= '                           <h3 class="feature-image-title" data-index="'+index+'">Add your feature image here...</h3>';
             html+= '                        </div>';
             html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
             html+= '                 </div>';

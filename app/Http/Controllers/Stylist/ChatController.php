@@ -24,6 +24,7 @@ class ChatController extends BaseController
 
             $this->auth_user = [
                 'auth_id' => Session::get("stylist_id"),
+                'user_id' => Session::get("stylist_id"),
                 'auth_name' => Session::get('stylist_data')->name,
                 'auth_profile' => Session::get('stylist_data')->profile_image,
                 'auth_user' => 'stylist',
@@ -34,9 +35,9 @@ class ChatController extends BaseController
         });
     }
 
-    public function index()
+    public function index($chat_room_id='')
     {
-        return view('stylist.postloginview.chat.index');
+        return view('stylist.postloginview.chat.index', compact('chat_room_id'));
     }
 
     public function pusherAuth(Request $request)
@@ -76,4 +77,10 @@ class ChatController extends BaseController
 
     }
 
+    public function updateOnlineStatus(Request $request)
+    {
+        $result = ChatRepo::updateOnlineStatus($request);        
+        return $result;
+    }
+    
 }

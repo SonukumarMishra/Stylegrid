@@ -108,6 +108,7 @@ class StylistWebsiteController extends Controller
                 'gender'=>$request->gender,
                 'verified'=>1,
                 'subscription'=>'Trial',
+                'dummy_name' => \Helper::generateRandomString(trim($request->full_name). ( $request->phone != '' ? substr(trim($request->phone), -2) : ''), 10)
             );
             $response=$member->addUpdateData($save_data,'sg_stylist'); 
             if($response['reference_id']){

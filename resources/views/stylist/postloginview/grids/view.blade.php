@@ -94,7 +94,7 @@
                          aria-expanded="false">Export Grid
                       </button>
                       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                         <a class="dropdown-item border-bottom-1" href="#">Export as PDF</a>
+                         <a class="dropdown-item border-bottom-1" id="export_pdf_btn" href="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}" data-action="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}">Export as PDF</a>
                          <a class="dropdown-item" href="#" id="copy_link_btn" data-copy-content="{{ Request::url() }}">Copy Link</a>
                       </div>
                    </div>

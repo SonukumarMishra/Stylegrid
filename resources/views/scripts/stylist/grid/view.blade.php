@@ -44,6 +44,22 @@
                 copyToClipboard($(this).attr('data-copy-content'));
                 // $(this).html("Copied");
             });
+
+            // $('body').on('click', '#export_pdf_btn', function(e) {
+                
+            //     e.preventDefault();
+
+            //     getResponseInJsonFromURL($(this).data('action'), '', (response) => { 
+            //         console.log(response);
+                    
+            //         if(response.status != undefined && response.status == 0){
+
+            //             showErrorMessage(response.message);
+            //         }
+
+            //     }, (error) => { console.log(error) } );
+
+            // });
             
         }
 

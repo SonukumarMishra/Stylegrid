@@ -46,12 +46,13 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 
  });
  
-  Route::get('/stylist-messanger', 'Stylist\ChatController@index')->name('stylist.messanger.index');
+  Route::get('/stylist-messanger/{chat_room_id?}', 'Stylist\ChatController@index')->name('stylist.messanger.index');
   Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
   Route::post('/stylist-messanger-save', 'Stylist\ChatController@saveChatMessage')->name('stylist.messanger.send.message');
   Route::post('/stylist-messanger-room-messages', 'Stylist\ChatController@getChatRoomMessage')->name('stylist.messanger.room.messages');
   Route::post('/stylist-messanger-read', 'Stylist\ChatController@updateChatMessageReadStatus')->name('stylist.messanger.read.message');
+  Route::post('/stylist-online-status-save', 'Stylist\ChatController@updateOnlineStatus')->name('stylist.messanger.online.status');
   
  Route::get('/stylist-registration', [StylistWebsite::class, 'stylistRegistration']);
  Route::get('/stylist-testing', [Login::class, 'index']);
@@ -68,6 +69,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard'])->name('stylist.dashboard');;
  Route::get('/stylist-logout', [StylistWebsite::class, 'stylistLogout']);
  Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing']);
+ Route::post('/stylist-sourcing-requests-json', [Stylist::class, 'getStylistSourcingRequests'])->name('stylist.sourcing.requests');
  Route::get('/stylist-fulfill-source-request/{title}', [Stylist::class, 'stylistFulfillSourceRequest']);
  Route::post('/stylist-fulfill-source-request-post', [Stylist::class, 'stylistFulfillSourceRequestPost']);
  Route::get('/stylist-source-request-submit', [Stylist::class, 'stylistSourceRequestSubmit']);
@@ -79,6 +81,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
+ Route::get('/stylist-notifications', [Stylist::class, 'stylistNotificationsIndex'])->name('stylist.notifications.index');
+ Route::post('/stylist-notifications-list', [Stylist::class, 'stylistNotificationsList'])->name('stylist.notifications.list');
  
  
  //stylist section End
@@ -99,6 +103,7 @@ Route::get('/member-account-verification/{title}', [Website::class, 'memberAccou
 
 Route::get('/member-dashboard', [Member::class, 'memberDashboard']);
 Route::get('/member-sourcing', [Member::class, 'memberSourcing']);
+Route::post('/member-sourcing-live-requests-json', [Member::class, 'getMemberSourcingLiveRequests'])->name('member.sourcing.live.requests');
 Route::get('/offer-received/{title}', [Member::class, 'memberOfferReceived']);
 Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccessful']);
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);
@@ -112,12 +117,13 @@ Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);
 
 // Memeber panel chat
-Route::get('/member-messanger', 'Member\ChatController@index')->name('member.messanger.index');
+Route::get('/member-messanger/{chat_room_id?}', 'Member\ChatController@index')->name('member.messanger.index');
 Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name('member.messanger.pusher.auth');
 Route::POST('/member-messanger-contacts', 'Member\ChatController@getChatContacts')->name('member.messanger.contacts');
 Route::post('/member-messanger-save', 'Member\ChatController@saveChatMessage')->name('member.messanger.send.message');
 Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoomMessage')->name('member.messanger.room.messages');
 Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
+Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineStatus')->name('member.messanger.online.status');
   
 //member section End
 

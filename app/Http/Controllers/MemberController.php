@@ -5,6 +5,7 @@ use App\Models\Member;
 use App\Models\ChatRoom;
 use App\Models\Stylist;
 use Illuminate\Support\Str;
+use App\Repositories\SourcingRepository as SourcingRepo;
 use DB;
 use Log;
 use Session;
@@ -57,29 +58,6 @@ class MemberController extends Controller
                                             })
                                             ->select('stylist.*', 'room.chat_room_id')
                                             ->first();
-
-                if($assigned_stylist && isset($assigned_stylist->chat_room_id) && !empty($assigned_stylist->chat_room_id)){
-
-                    // $chat_room_dtls = ChatRoom::from('sg_chat_room as room')
-                    //                             ->where('room.chat_room_id', $assigned_stylist->chat_room_id)
-                    //                             ->where(function ($q) use($auth_user) {
-                    //                                 $q->where('room.sender_id', $auth_user['auth_id'])
-                    //                                 ->where('room.sender_user', $auth_user['user_type']);
-                    //                             })
-                    //                             ->orwhere(function ($q) use($auth_user) {
-                    //                                 $q->where('room.receiver_id', $auth_user['auth_id'])
-                    //                                 ->where('room.receiver_user', $auth_user['user_type']);
-                    //                             })
-                    //                             ->select("room.*")
-                    //                             ->addSelect(DB::raw("( SELECT cr1.message FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message"))
-                    //                             ->addSelect(DB::raw("( SELECT cr1.created_at FROM sg_chat_room_messages AS cr1 WHERE cr1.chat_room_id = room.chat_room_id ORDER BY cr1.created_at DESC LIMIT 1) as last_message_on"))                                                                      
-                    //                             ->first();
-
-                }
-
-                Log::info("assigned ". print_r($assigned_stylist, true));
-
-
             }
         }
 
@@ -100,7 +78,8 @@ class MemberController extends Controller
     {
         return view('member.dashboard.member-orders');
     }
-    public function memberSourcing()
+
+    public function memberSourcingOld()
     {
         $member=new Member();
         $source_applicable=$member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
@@ -135,6 +114,52 @@ class MemberController extends Controller
         }
         $previous_source_list=$member->getSourceList(['s.member_stylist_type'=>'0','s.member_stylist_id'=>Session::get("member_id")],['whereDate'=>['key'=>'s.p_deliver_date','condition'=>'<','value'=>date('Y-m-d')]]);
         return view('member.dashboard.source-list',compact('source_list_data','previous_source_list','day_left'));
+    }
+
+    public function memberSourcing()
+    {
+        try {
+
+            $member = new Member();
+
+            $source_applicable = $member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
+            
+            if($source_applicable){
+                $day_left=$source_applicable->day_left;
+            }else{
+                $day_left=-1; 
+            }
+           
+            return view('member.dashboard.sourcing.index', compact('day_left'));
+            
+        }catch(\Exception $e){
+
+            Log::info("memberSourcing error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }
+
+    public function getMemberSourcingLiveRequests(Request $request)
+    {
+        $result = SourcingRepo::getMemberSourcingLiveRequests($request);
+        $view = '';
+
+        if(isset($result['list'])){
+
+            $list = $result['list'];
+            $view = view("member.dashboard.sourcing.live-requests-ui", compact('list'))->render();
+
+        }
+        
+        // response.data.data.links
+        $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                            'data' => [
+                                'view' => $view,
+                                'json' => $result
+                            ]  
+                          ];
+
+        return response()->json($response_array, 200);
     }
 
     public function memberSubmitRequest(Request $request){
@@ -193,6 +218,14 @@ class MemberController extends Controller
                 
                 $response=$member->addUpdateData($add_update_data,'sg_sourcing');   
                 if($response['reference_id']>0){
+
+                    // trigger pusher event to notify all stylist
+                    $ref_data = [
+                        'sourcing_id' => $response['reference_id']
+                    ];
+
+                    SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.new_request'), $ref_data);
+
                     $member->addUpdateData(['id'=>$response['reference_id'],'p_slug'=>$add_update_data['p_slug'].'-'.$response['reference_id']],'sg_sourcing');   
                 }
             }else{

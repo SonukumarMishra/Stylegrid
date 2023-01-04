@@ -15,8 +15,8 @@ use Validator,Redirect;
 use Config;
 use Storage;
 use Helper;
-//use Dompdf\Dompdf;
-//use PDF;
+use Dompdf\Dompdf;
+use PDF;
 
 class GridController extends BaseController
 {
@@ -267,21 +267,22 @@ class GridController extends BaseController
                     }
                 }
 
-                return view('stylist.postloginview.grids.pdf_view', compact('style_grid_dtls'));
+                // return view('stylist.postloginview.grids.pdf_view', compact('style_grid_dtls'));
                 
                 $pdf = PDF::loadView('stylist.postloginview.grids.pdf_view', compact('style_grid_dtls'));
-                echo "Export PDF";
-                return $pdf->download(time().'.pdf');
-
+                
+                $pdf_name = str_replace(' ', '-', $style_grid_dtls->title).'-'.time().'.pdf';
+                
+                return $pdf->download($pdf_name);
 
             }else{
 
-                return response()->json(['status' => 0, 'message' => trans('pages.crud_messages.no_data', [ 'attr' => 'stylegrid' ]) ]);
+                return response()->json(['status' => 0, 'message' => trans('pages.failed_to_export_pdf') ]);
 
             }
 
         }catch(\Exception $e){
-            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+            return response()->json(['status' => 0, 'message' => trans('pages.failed_to_export_pdf'), 'error' => $e->getMessage()]);
         }
 	}
 	

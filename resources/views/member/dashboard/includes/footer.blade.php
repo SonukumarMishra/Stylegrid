@@ -128,6 +128,31 @@
     <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
 
     <script>
+
+        function setOnlineStatus(status, user_info) {
+       
+            $('.active-chat-box-online-status').removeClass('dot-online');
+            $('.active-chat-box-online-status').removeClass('dot-offline');
+            $('.active-chat-box-online-status').addClass( status == 1 ? 'dot-online' : 'dot-offline');
+
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status').removeClass('bg-danger');
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status').removeClass('bg-success');
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status').addClass( status == 1 ? 'bg-success' : 'bg-danger');
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status').data('online', status);
+
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status-text').removeClass('text-danger');
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status-text').removeClass('text-success');
+            $('.messenger-list-item[data-receiver-id="'+user_info.user_id+'"][data-receiver-user="'+user_info.user_type+'"]').find('.online-status-text').addClass( status == 1 ? 'text-success' : 'text-danger');
+
+            var temp_fd = new FormData();    
+            temp_fd.append( '_token', $('meta[name="csrf-token"]').attr("content") );
+            temp_fd.append( 'user_data', JSON.stringify(user_info) );
+            temp_fd.append( 'status', status );
+
+            getResponseInJsonFromURL("{{ route('member.messanger.online.status') }}", temp_fd, (response) => { console.log(response) }, (error) => { console.log(error) } );
+
+        }
+
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
         
@@ -162,27 +187,15 @@
         var activeStatusChannel = pusher.subscribe("presence-activeStatus");
 
         // Joined
-        activeStatusChannel.bind("pusher:member_added", function (member) {
-            
-            console.log('stylist member_added ', member);
+        activeStatusChannel.bind("pusher:member_added", function (user_dtls) {
+       
+            setOnlineStatus(1, user_dtls.info);
 
-            // setActiveStatus(1, member.id);
-            // $(".messenger-list-item[data-contact=" + member.id + "]")
-            //     .find(".activeStatus")
-            //     .remove();
-            // $(".messenger-list-item[data-contact=" + member.id + "]")
-            //     .find(".avatar")
-            //     .before(activeStatusCircle());
         });
 
         // Leaved
-        activeStatusChannel.bind("pusher:member_removed", function (member) {
-            console.log('stylist member_removed ', member);
-
-            // setActiveStatus(0, member.id);
-            // $(".messenger-list-item[data-contact=" + member.id + "]")
-            //     .find(".activeStatus")
-            //     .remove();
+        activeStatusChannel.bind("pusher:member_removed", function (user_dtls) {
+            setOnlineStatus(0, user_dtls.info);
         });
 
     </script>

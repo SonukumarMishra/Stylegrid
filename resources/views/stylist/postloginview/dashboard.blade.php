@@ -157,8 +157,13 @@
                         </div>
                     </div>
                     <!-------------------inbox------------>
+<<<<<<< HEAD
                     <div class="col-lg-4 mt-lg-0 mt-2">
                         <div id="inbox" class="py-2 px-lg-2 px-3">
+=======
+                    <div class="col-lg-4">
+                        <div id="inbox" class="py-2 px-2" style="height: 639px;">
+>>>>>>> 01f441b904c3bcd5fa7c3d632007f0679c117031
                             <h3 class="mb-2">Inbox</h3>
                             {{-- <form action="">
                                 <div class="row my-1">
@@ -185,10 +190,11 @@
                                         class="" alt=""></div>
                             </div> --}}
 
-                            <div id="dashboard_chat_contacts" style="width: 100%;height: calc(100% - 200px);position: relative;">
+                            <div id="dashboard_chat_contacts" class="scrollstyle dashboard_chat_box mb-1" >
 
                             </div>
 
+<<<<<<< HEAD
                             {{-- <div class="row my-1">
                                 <div class="col-6">
                                     <div class="row">
@@ -297,6 +303,8 @@
                                     </div>
                                 </div>
                             </div> --}}
+=======
+>>>>>>> 01f441b904c3bcd5fa7c3d632007f0679c117031
                             <div class="col-12 text-center"><a href="{{ route('stylist.messanger.index') }}"><button class="show-more px-2">Show More Channels</button></a>
                             </div>
                             {{-- <div class=" mx-2 my-1">

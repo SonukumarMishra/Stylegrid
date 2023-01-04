@@ -2,7 +2,14 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\ChatRepository as ChatRepo;
+use App\Models\Sourcing;
+use App\Models\SourcingOffer;
+use App\Repositories\SourcingRepository as SourcingRepo;
+use Session;
 use DB;
+use Log;
+
 /*
 @author-Sunil Kumar Mishra
 date:19-10-2022
@@ -238,6 +245,82 @@ class Member extends Model
 			$this->db = DB::table('sg_sourcing_offer');
 			$this->db->where(array('id'=>$offer_id));
 			$this->db->update(['status'=>1]);
+
+			// pusher trigger notify stylist for accepted thier offer			
+			$ref_data = [
+				'sourcing_offer_id' => $offer_id
+			];
+
+			Log::info("ref ". print_r($ref_data, true));
+
+			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_accepted'), $ref_data);
+
+			// Create sourcing chat contact
+			$sourcing_dtls = Sourcing::find($sourcing_id);
+			Log::info("sourcing_dtls ". print_r($sourcing_dtls, true));
+
+			$sourcing_offer_dtls = SourcingOffer::find($offer_id);
+			Log::info("sourcing_offer_dtls ". print_r($sourcing_offer_dtls, true));
+
+			if($sourcing_dtls && $sourcing_offer_dtls){
+				
+				$sourcing_stylist = Stylist::where([
+														'id' => $sourcing_offer_dtls->stylist_id
+													])
+											->select('gender', 'dummy_name')							
+											->first();
+
+				if($sourcing_dtls->member_stylist_type == 0 ){
+					// 0 means memeber user 
+
+					$auth_user = [
+						'auth_id' => Session::get("member_id"),
+						'user_id' => Session::get("member_id"),
+						'auth_name' => Session::get('member_data')->name,
+						'auth_profile' => Session::get('member_data')->profile_image,
+						'auth_user' => 'member',
+						'user_type' => 'member'
+					];
+
+				}else{
+					// 1 means stylist user 
+
+					$auth_user = [
+					    'auth_id' => Session::get("stylist_id"),
+						'user_id' => Session::get("stylist_id"),
+						'auth_name' => Session::get('stylist_data')->name,
+						'auth_profile' => Session::get('stylist_data')->profile_image,
+						'auth_user' => 'stylist',
+						'user_type' => 'stylist'
+					];
+				}
+
+				$message_obj = [
+					'message' => trans('pages.sourcing_chat_default_message', [
+						'name' => $sourcing_stylist && $sourcing_stylist->dummy_name != null ? $sourcing_stylist->dummy_name : '',
+						'gender' =>  $sourcing_stylist && $sourcing_stylist->gender == 'Female' ? 'She' : ($sourcing_stylist->gender == 'Male' ? 'He' : ''),
+						'sourcing_title' => $sourcing_stylist && $sourcing_dtls->p_name ? $sourcing_dtls->p_name : ''
+					]),
+					'type' => 'text',
+					'receiver_id' => $sourcing_offer_dtls->stylist_id,
+					'receiver_user' => config('custom.user_type.stylist'),
+				];
+				
+				// Create chat contact
+				$chat_room = [
+					'sender_id' => $sourcing_dtls->member_stylist_id,
+					'sender_user' => $sourcing_dtls->member_stylist_type == 0 ? config('custom.user_type.member') :  config('custom.user_type.stylist'),
+					'receiver_id' => $sourcing_offer_dtls->stylist_id,
+					'receiver_user' => config('custom.user_type.stylist'),
+					'module' => config('custom.chat_module.sourcing'),
+					'auth_user' => $auth_user,
+					'message_obj' => $message_obj
+				];
+				
+				ChatRepo::save_chat_room_details([$chat_room]);
+
+			}
+
 			return true;
 		}
 		return false;
@@ -252,6 +335,12 @@ class Member extends Model
 			$this->db = DB::table('sg_sourcing_offer');
 			$this->db->where(array('id'=>$offer_id));
 			$this->db->update(['status'=>2]);
+
+			// pusher trigger notify stylist for accepted thier offer			
+			$ref_data = [
+				'sourcing_offer_id' => $offer_id
+			];
+			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_decline'), $ref_data);
 			return true;
 		}
 		return false;
