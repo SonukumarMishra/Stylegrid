@@ -225,7 +225,7 @@
                
                 foreach($brand_list as $brand){
                     ?>
-                    <div class="col-md-3 text-center">
+                    <div class="col-md-6 col-lg-3 text-center">
                         <div class="text-right">
                             <input type="checkbox" class="brand_list_check" id="check-<?php  echo $brand->id;  ?>" onclick="selectBrand(this)" value="{{$brand->id}}">
                             <label for="check-<?php  echo $brand->id;  ?>"></label>

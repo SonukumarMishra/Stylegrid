@@ -369,7 +369,7 @@
 
             html+= '<div class="row mt-2 mjrowtrack style-grid-block-row" data-index="'+index+'">';
             html+= '   <div class="col-lg-11">';
-            html+= '    <div class="grid-bg mx-4 px-4 py-2 mb-4">';
+            html+= '    <div class="grid-bg mx-md-4 mx-2 mt-3 mb-2 p-md-4 p-2">';
             html+= '        <div class="row mb-2">';
             html+= '            <div class="col-8">';
             html+= '               <h1 class="style-grid-block-title" data-index="'+index+'">STYLEGRID #'+index+'</h1>';

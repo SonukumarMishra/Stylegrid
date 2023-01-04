@@ -34,27 +34,21 @@
         </div>
         <div class="content-body">
             <!-- Revenue, Hit Rate & Deals -->
-            <div class="flex-column-reverse flex-md-row mt-lg-3 row">
-                <div class="col-md-8">
-                    <div class="col-md-8">
-                        <h1>Let&apos;s get styling.</h1>
+                <div class=" mt-lg-3 row">
+                    <div class="col-8  mt-md-3 ">
+						<h1>Let&apos;s get styling.</h1>
                         <h3>Create a new StyleGrid and send to your clients via PDF or weblink.</h3>
                     </div>
-                </div>
-                <div class="col-md-4 quick-link text-right">
-                    <span class="mr-5"><a hrf="">Quick Link</a></span>
-                    <div class="row justify-content-end my-2">
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
-                                alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}"
-                                alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                    <div class="col-4  quick-link text-right mt-md-3">
+                        <span class="mr-lg-5"><a hrf="">Quick Link</a></span>
+                        <div class="d-flex justify-content-end my-2">
+                        <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
+                            <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                        </div>
 
                     </div>
-
                 </div>
-            </div>
-
             <!-------------------- fulfil souring request--------->
             <div id="create-grid" class="mt-5">
 
@@ -66,7 +60,7 @@
 
                         <div class="col-lg-11">
 
-                            <div class="grid-bg mx-4 mt-3 mb-2 p-4">
+                            <div class="grid-bg mx-md-4 mx-2 mt-3 mb-2 p-md-4 p-2">
                                 <a href="grid-design.html">
                                     <h1>STYLEGRID</h1>
                                 </a>

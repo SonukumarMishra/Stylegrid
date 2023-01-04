@@ -201,7 +201,7 @@
                         <label for="source">
                             <div class="text-center"><img src="{{asset('stylist/website/assets/images/source.png')}}" class="img-fluid" alt="">
                                 <h2 class="mt-2">Source</h2>
-                                <h5>Source any item from around the<br class="d-lg-block d-none"> globe using our expansive shopper<br class="d-lg-block d-none"> network.</h5>
+                                <h5>Source any item from around the<br class="d-md-block d-none"> globe using our expansive shopper<br class="d-lg-block d-none"> network.</h5>
                                 <a class="select-btn mt-2 " type="button">Select</a>
                             </div>
                         </label>

@@ -13,23 +13,22 @@
        </div>
        <div class="content-body">
            <!-- Revenue, Hit Rate & Deals -->
-           <div class="row mt-3">
-               <div class="col-md-8">
-                   <h1>Browse your recent StyleGrid’s.</h1>
-                   <h3>Look through all your grids in one place.</h3>
-                   <a href="{{ route('stylist.grid.create') }}"><button class="grid-btn">Create Grid</button></a>
-               </div>
-               <div class="col-md-4 quick-link text-right">
-                   <span class="mr-5"><a hrf="">Quick Link</a></span>
-                   <div class="row justify-content-end my-2">
-                       <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
-                       <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                       <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+           <div class=" mt-lg-3 row">
+                    <div class="col-8  mt-md-3 ">
+						<h1>Browse your recent StyleGrid&apos;s.</h1>
+                        <h3>Look through all your grids in one place.</h3>
+                        <a href="{{ route('stylist.grid.create') }}"><button class="grid-btn">Create Grid</button></a>
+                    </div>
+                    <div class="col-4  quick-link text-right mt-md-3">
+                        <span class="mr-lg-5"><a hrf="">Quick Link</a></span>
+                        <div class="d-flex justify-content-end my-2">
+                        <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
+                            <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                         </div>
 
-                   </div>
-
-               </div>
-           </div>
+                    </div>
+                </div>
            <!-------------------- fulfil souring request--------->
            <div id="create-grid-1" class="mt-2">
 

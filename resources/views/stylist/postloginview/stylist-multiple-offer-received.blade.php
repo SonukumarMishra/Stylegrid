@@ -7,22 +7,23 @@
         </div>
         <div class="content-body">
             <!-- Revenue, Hit Rate & Deals -->
-            <div class="row my-3">
-                <div class="col-md-8">
-                    <h1>A stylist can fufill your sourcing request</h1>
-                    <h3>A stylist has submitted an offer to fufill your item. If you accept, you’ll be able to chat
+                <div class=" mt-lg-3 row">
+                    <div class="col-8  mt-md-3 ">
+                        <h1>A stylist can fufill your sourcing request</h1>
+                        <h3>A stylist has submitted an offer to fufill your item. If you accept, you’ll be able to chat
                         with them and complete the order.</h3>
-                </div>
-                <div class="col-md-4 quick-link text-right">
-                    <span class="mr-5"><a hrf="">Quick Link</a></span>
-                    <div class="row justify-content-end mr-2 my-2">
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                        <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
                     </div>
+                    <div class="col-4  quick-link text-right mt-md-3">
+                        <span class="mr-lg-5"><a hrf="">Quick Link</a></span>
+                        <div class="d-flex justify-content-end my-2">
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
+                            <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/File Gear.svg')}}" alt=""></a>
 
+                        </div>
+
+                    </div>
                 </div>
-            </div>
             <!-------------------- fulfil souring request--------->
             <div id="browse-soursing" class="mt-5">
                 <div class="row">

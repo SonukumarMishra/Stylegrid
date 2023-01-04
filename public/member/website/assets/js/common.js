@@ -40,7 +40,7 @@ $(function(){
                       }
                      }
                      
-                      html +='<div class="col-md-3 text-center">';
+                      html +='<div class="col-md-6 col-lg-3 text-center">';
                       html +='<div class="text-right">';
 
                       html +='<input type="checkbox" class="brand_list_check" id="check-'+response['data'][i]['id']+'" '+checked+' onclick="selectBrand(this)" value="'+response['data'][i]['id']+'">';

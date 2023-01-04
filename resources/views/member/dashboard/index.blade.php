@@ -230,7 +230,7 @@
 
                                                 <div class="row pt-3 pb-1">
                                                     <div class="col-6">
-                                                        <h1>The best bedroom pieces<br> from Soho Home</h1>
+                                                        <h1>The best bedroom pieces<br class="d-lg-block d-none"> from Soho Home</h1>
                                                     </div>
                                                     <div class="text-right col-4 mt-5 pt-md-2">
                                                         <button class=" px-3 grey-bg browse-btn-1">Browse</button>
@@ -597,8 +597,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-lg-end justify-content-left pr-lg-2">
-                        <h2 class="pr-md-5 pl-md-0 pl-3 pb-2">Terms & Condtions apply.</h2>
+                    <div class="row justify-content-lg-end justify-content-left pl-lg-0 pl-3 pr-lg-2">
+                        <h2 class="pr-5 pb-2 pl-md-4">Terms & Condtions apply.</h2>
                     </div>
                 </div>
                 <!------------------end of refer-client------------->
