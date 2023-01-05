@@ -276,11 +276,23 @@
         }
 
         window.downloadFromUrl = function(url, name="") {
-            var link = document.createElement('a');
-            link.href = url;
-            link.download = name;
-            link.click();
-            link.remove();
+            // var link = document.createElement('a');
+            // link.href = url;
+            // link.download = name;
+            // link.click();
+            // link.remove();
+
+            fetch(url, { method: 'get', mode: 'no-cors', referrerPolicy: 'no-referrer' })
+                .then(res => res.blob())
+                    .then(res => {
+                        const aElement = document.createElement('a');
+                        aElement.setAttribute('download', name);
+                        const href = URL.createObjectURL(res);
+                        aElement.href = href;
+                        aElement.setAttribute('target', '_blank');
+                        aElement.click();
+                        URL.revokeObjectURL(href);
+                    });
         }
             
         window.processExceptions = function(e) {
