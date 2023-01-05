@@ -25,7 +25,7 @@
                         <div class="d-flex justify-content-end my-2">
                             <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
                             <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/File Gear.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
 
                         </div>
 

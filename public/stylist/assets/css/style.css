@@ -434,15 +434,15 @@ body{
   color: #2B2B2B;
 }
 
-#input h6 {
+#input h6,.inbox-h6 {
   font-family: 'Silk Serif';
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 12px !important;
   line-height: 24px;
   text-align: center;
 
-  color: #000000;
+  color: #000000 !important;
 }
 
 #input span {
@@ -2932,4 +2932,18 @@ transform: rotate(180deg);
   font-weight: 300;
   font-size: 14px;
   color: #282828;
+}
+/***********pagination**********/
+.page-item.disabled .page-link{
+  font-family: 'Silk Serif' !important;
+}
+.page-item.active .page-link {
+  background-color: #00A82F !important;
+  border-color: #00A82F !important;
+}
+.ui-widget-header,.ui-datepicker th, .ui-datepicker td span, .ui-datepicker td a{
+  font-family: 'Genos' !important;
+}
+#image_preview_remove{
+  color: red !important;
 }

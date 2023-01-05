@@ -3,7 +3,7 @@
 <style>
     
     #inbox-msg img {
-        border-radius: 5px !important;
+        /* border-radius: 5px !important; */
     }
 </style>
 <!-- BEGIN: Content-->
@@ -269,19 +269,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Beauty" role="tabpanel" aria-labelledby="Beauty-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="{{ asset('member/dashboard/app-assets/images/gallery/best-bedroom.svg') }}"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Beauty</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5 pt-md-2">
+                                                        <button class=" px-3 grey-bg browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -306,19 +307,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Fashion" role="tabpanel" aria-labelledby="Fashion-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="{{ asset('member/dashboard/app-assets/images/gallery/best-bedroom.svg') }}"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Fashion</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5 pt-md-2">
+                                                        <button class=" px-3 grey-bg browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -343,19 +345,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Travel" role="tabpanel" aria-labelledby="Travel-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="{{ asset('member/dashboard/app-assets/images/gallery/best-bedroom.svg') }}"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Travel</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5 pt-md-2">
+                                                        <button class=" px-3 grey-bg browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>

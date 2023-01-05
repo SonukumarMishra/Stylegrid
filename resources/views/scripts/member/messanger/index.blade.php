@@ -469,7 +469,8 @@
 
         html += '<div class="row justify-content-end mx-2 mt-2 message-card" data-room-id="'+id+'">';
         html += '   <div class="d-flex">';
-        html += '       <div class="card ml-1" style="background: #e9f4ff;width: 50rem;">';
+        // html += '       <div class="card ml-1" style="background: #e9f4ff;width: 50rem;">';
+        html += '       <div class="card ml-1" style="background: #e9f4ff;width: 50vw;">';
         html += '           <div class="card-header d-flex justify-content-between p-1" style="border-bottom: 1px solid;">';
         html += '               <p class="fw-bold mb-0 chat-client-name">'+auth_name+'</p>';
         html += '               <p class="small mb-0 chat-client-time"><i class="far fa-clock"></i>'+convertUtcDateTimeToLocalDateTime(new Date())+'</p>';
@@ -539,7 +540,8 @@
                     html += '   <img src="'+receiver_profile+'" class="chat-pic mr-1" alt="Avatar">';                    
                 }
 
-                html += '       <div class="card'+(val.sender_id == auth_id && val.sender_user == auth_user_type ? "  ml-1" : "")+'" style="background: #e9f4ff;width: 50rem;">';
+                // html += '       <div class="card'+(val.sender_id == auth_id && val.sender_user == auth_user_type ? "  ml-1" : "")+'" style="background: #e9f4ff;width: 50rem;">';
+                html += '       <div class="card'+(val.sender_id == auth_id && val.sender_user == auth_user_type ? "  ml-1" : "")+'" style="background: #e9f4ff;width: 50vw;">';
                 html += '           <div class="card-header d-flex justify-content-between p-1" style="border-bottom: 1px solid;">';
                 html += '               <p class="fw-bold mb-0 chat-client-name">'+val.sender_name+'</p>';
                 html += '               <p class="small mb-0 chat-client-time"><i class="far fa-clock"></i>&nbsp;'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</p>';

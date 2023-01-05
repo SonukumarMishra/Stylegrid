@@ -19,7 +19,7 @@
                         <div class="d-flex justify-content-end my-2">
                             <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
                             <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/File Gear.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
 
                         </div>
 
@@ -30,9 +30,9 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="row  text-aligns-center">
-                            <h1 class="col-9">{{$source_data->p_name}}</h1>
-                            <h2 class="px-2 mt-1 col-2">{{$source_data->name}}</h2>
-                            <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
+                            <h1 class="col-md-6 col-12">{{$source_data->p_name}}</h1>
+                            <h2 class="px-2 mt-md-1 col-md-2 col-6">{{$source_data->name}}</h2>
+                            <a href="{{url('/stylist-create-source-request')}}" class="col-md-4 col-12 text-md-right text-center mt-2"><button class="request-btn px-3">Make
                                     Request</button></a>
                         </div>
                     </div>

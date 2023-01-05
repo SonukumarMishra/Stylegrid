@@ -39,7 +39,7 @@
                                         <div class="col">
                                             <p class="">Style a new look for your clients.</p>
                                         </div>
-                                        <div class="text-right col">
+                                        <div class="text-right col mr-1">
                                            <a href="{{ route('stylist.grid.create') }}"> <button class=" px-2 grey-bg">Create Grid</button></a>
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                                                 <div class="caro1">
                                                     <div class="layer"></div>
                                                 </div>
-                                                <h2 class="px-2  py-2 ml-md-5 ml-lg-0 ml-2">Pablo&apos;s <br>Ibiza Grid</h2>
+                                                <h2 class="px-2  py-2 ml-md-3 ml-lg-0 ml-2">Pablo&apos;s <br>Ibiza Grid</h2>
                                                 <div class="carousel-caption  d-block text-left">
 
                                                     <h5 class="mt-1">Your Recent Grids</h5>
@@ -106,21 +106,21 @@
                                     <p class="pl-lg-0 pl-2">Create and send an invoice to your clients for their latest order.
                                     </p>
                                     
-                                    <div class="row">
-                                        <div class="col-7 pr-0 ">
-                                            <a href="" class="pl-lg-0 pl-2"><button class="btn">Raise Invoice</button></a>
-                                            <h2 class="pl-lg-0 pl-2">This month&apos;s sales</h2>
-                                            <h3 class="pl-lg-0 pl-2">£28,782.92</h3>
-                                            <h4 class="pl-lg-0 pl-2">+£6,288,12 (32.11%)</h4>
-                                        </div>
-                                        <div class="col-5 mt-1 text-lg-left text-right ">
-                                            <img src="stylist/app-assets/images/gallery/file-sheet.svg" class="img-fluid pr-lg-0 pr-3"
-                                                alt="">
+                                        <div class="row">
+                                            <div class="col-7 pr-0 ">
+                                                <a href="" class="pl-lg-0 pl-2"><button class="btn">Raise Invoice</button></a>
+                                                <h2 class="pl-lg-0 pl-2">This month&apos;s sales</h2>
+                                                <h3 class="pl-lg-0 pl-2">£28,782.92</h3>
+                                                <h4 class="pl-lg-0 pl-2">+£6,288,12 (32.11%)</h4>
+                                            
+                                                <div class="col-5 mt-1 text-lg-left text-right ">
+                                                    <img src="stylist/app-assets/images/gallery/file-sheet.svg" class="img-fluid pr-lg-0 pr-3"
+                                                        alt="">
+                                                </div>
                                         </div>
                                     </div>
-
+                                    </div>
                                 </div>
-                            </div>
                              <div class="col-lg-4 my-lg-0 my-2">
                                 <div class="raise-bg  px-1 py-1">
                                     <h1 class="pl-lg-0 pl-2">Clients</h1>
@@ -156,14 +156,10 @@
                             <!-----------end of make request-------->
                         </div>
                     </div>
+                
                     <!-------------------inbox------------>
-<<<<<<< HEAD
                     <div class="col-lg-4 mt-lg-0 mt-2">
                         <div id="inbox" class="py-2 px-lg-2 px-3">
-=======
-                    <div class="col-lg-4">
-                        <div id="inbox" class="py-2 px-2" style="height: 639px;">
->>>>>>> 01f441b904c3bcd5fa7c3d632007f0679c117031
                             <h3 class="mb-2">Inbox</h3>
                             {{-- <form action="">
                                 <div class="row my-1">
@@ -194,7 +190,6 @@
 
                             </div>
 
-<<<<<<< HEAD
                             {{-- <div class="row my-1">
                                 <div class="col-6">
                                     <div class="row">
@@ -303,8 +298,6 @@
                                     </div>
                                 </div>
                             </div> --}}
-=======
->>>>>>> 01f441b904c3bcd5fa7c3d632007f0679c117031
                             <div class="col-12 text-center"><a href="{{ route('stylist.messanger.index') }}"><button class="show-more px-2">Show More Channels</button></a>
                             </div>
                             {{-- <div class=" mx-2 my-1">
@@ -391,19 +384,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Beauty" role="tabpanel" aria-labelledby="Beauty-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="stylist/app-assets/images/gallery/best-bedroom.svg"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Beauty</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5">
+                                                        <button class=" px-3 browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -428,19 +422,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Fashion" role="tabpanel" aria-labelledby="Fashion-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="stylist/app-assets/images/gallery/best-bedroom.svg"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Fashion</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5">
+                                                        <button class=" px-3 browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -465,19 +460,20 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade " id="Travel" role="tabpanel" aria-labelledby="Travel-tab">
-                                <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
+                            <div id="onePagecarousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img class="d-block " src="stylist/app-assets/images/gallery/best-bedroom.svg"
-                                                alt="First slide">
-                                            <div class="carousel-caption d-none d-md-block text-left w-100">
+                                            <div class="one-caroImg">
+                                                <div class="layer"></div>
+                                            </div>
+                                            <div class="carousel-caption d-block text-left w-100">
 
-                                                <div class="row py-3">
+                                                <div class="row pt-3 pb-1">
                                                     <div class="col-6">
                                                         <h1>Travel</h1>
                                                     </div>
-                                                    <div class="text-right col-4 mt-3">
-                                                        <button class="py-1 px-3 grey-bg">Browse</button>
+                                                    <div class="text-right col-4 mt-5">
+                                                        <button class=" px-3 browse-btn-1">Browse</button>
                                                     </div>
                                                 </div>
                                             </div>

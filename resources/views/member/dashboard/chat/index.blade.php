@@ -41,16 +41,17 @@
                         <div class="d-flex justify-content-end my-2">
                             <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}" alt=""></a>
                             <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/File Invoice.svg')}}" alt=""></a>
-                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/File Gear.svg')}}" alt=""></a>
+                            <a href="" class="mx-lg-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
 
                         </div>
 
                     </div>
                 </div>
             {{-- Chat Container  --}}
+       
             <div id="client-chat" class="mt-3">
                 
-                <div class="row">
+                <div class="row ">
                 
                     <div class="col-lg-3 px-0">
                         <div class="client-search-container">
@@ -72,7 +73,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-9 mt-lg-0 mt-3" id="chat-section" style="display: none;">
+                    <div class="ssss col-lg-9 mt-lg-0 mt-3" id="chat-section" style="display: none;">
                     
                         <div class="row">
                         
@@ -143,7 +144,7 @@
                             </form>
                         </div>
                         
-                    </div>
+                    </div> 
 
                 </div>
 

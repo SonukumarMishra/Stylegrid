@@ -1,3 +1,44 @@
+@font-face {
+    font-family: 'Genos';
+    font-weight: 400;
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Genos-Light';
+    src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif';
+    src: url(../font/silk-serif/Silk\ Serif\ Light.otf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif Medium';
+    src: url(../font/silk-serif/Silk\ Serif\ Medium.otf);
+  }
+  
+  @font-face {
+    font-family: 'Avenir';
+    src: url(../font/Avenir/AvenirLTStd-Black.otf);
+  }
+  @font-face {
+    font-family: 'Avenir-Book';
+    src: url(../font/Avenir/AvenirLTStd-Book.otf);
+  }
+  
+  @font-face {
+    font-family: 'Roboto';
+    src: url(../font/Roboto/Roboto-Black.ttf);
+  
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Light';
+    src: url(../font/Roboto/Roboto-Light.ttf);
+  
+  }
 .client-search-container {
 }
 .client-search-container input[type="text"] {
@@ -263,6 +304,7 @@
     font-weight: 800;
     font-size: 15.9045px;
     line-height: 31px;
+    font-family: "Silk-Serif";
 }
 .chat-client-time {
     font-style: normal;

@@ -7,18 +7,18 @@
     </div>
     <div class="content-body">
         <!-- Revenue, Hit Rate & Deals -->
-        <div class="row my-3">
-            <div class="col-8">
-                <h1>A stylist can fufill your sourcing request</h1>
+         <div class="row mt-md-3">
+            <div class="col-8 mt-md-3">
+            <h1>A stylist can fufill your sourcing request</h1>
                 <h3>A stylist has submitted an offer to fufill your item. If you accept, you&apos;ll be able to chat
                     with them and complete the order.</h3>
             </div>
-            <div class="col-4 quick-link text-right">
-                <span class="mr-5"><a hrf="">Quick Link</a></span>
-                <div class="row justify-content-end mr-2 my-2">
-                    <a href="" class="mx-1"><img src="{{ asset('member/app-assets/images/icons/Chat.svg') }}" alt=""></a>
-                    <!-- <a href="" class="mx-1"><img src="app-assets/images/icons/File Invoice.svg" alt=""></a> -->
-                    <a href="" class="mx-1"><img src="{{ asset('member/app-assets/images/icons/Gear.svg') }}" alt=""></a>
+            <div class="col-4 quick-link text-right mt-md-3">
+                <span class="mr-md-5"><a hrf="">Quick Link</a></span>
+                <div class="d-flex justify-content-end my-2">
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Chat.svg') }}" alt=""></a>
+                    <a href="" class="mx-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/File Invoice.svg') }}" alt=""></a>
+                    <a href="" class="mx-lg-1"><img src="{{ asset('member/dashboard/app-assets/images/icons/Gear.svg') }}" alt=""></a>
 
                 </div>
 
@@ -31,7 +31,7 @@
                      
                 </div>
                 <!-- Pills navs -->
-                <div class="col-5 d-flex justify-content-end">
+                <div class="col-lg-5 d-flex justify-lg-content-end justify-content-center mt-lg-0 mt-2">
                     <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
                         <li class="nav-item ">
                             <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
@@ -79,12 +79,12 @@
                             ?>
                             <div class="carousel-item {{$class;}}">
                                 <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-lg-6 text-center">
                                     <div class="border-right my-3">
                                         <img src="{{ asset('member/dashboard/attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-6 text-lg-left text-center">
                                     <div class="p-3">
                                         <div class="offer-slider">Offer #<?php echo $counter;?> of <?php echo count($offer_list);?></div>
                                         <h1><?php echo $offer->p_name;?></h1>
@@ -99,7 +99,7 @@
                                                 price.</label>
                                         </div>
                                         <div class="w-100">
-                                            <div class="my-2 row offer_class <?php if($offer->status==2){ echo 'decline';}?>" id="declined_section<?php echo $offer->id;?>">
+                                            <div class="my-2 row justify-content-center justify-lg-content-start offer_class <?php if($offer->status==2){ echo 'decline';}?>" id="declined_section<?php echo $offer->id;?>">
                                             <?php
                                             if($offer->status!=2){
                                                 ?>
@@ -108,7 +108,7 @@
                                                         <button type="button" class="accept-btn px-3 accept-offer" data-id="<?php echo $offer->id;?>">Accept Offer</button> 
                                                     </div>
         
-                                                    <div class="ml-2 mt-lg-0 mt-2">
+                                                    <div class="ml-2 mt-md-0 mt-2">
                                                         <button type="button" class="decline-btn px-3 decline-offer" data-id="<?php echo $offer->id;?>">Decline Offer</button>
                                                     </div>
                                                 <?php

@@ -2713,7 +2713,7 @@ margin-bottom: 23px; */
 }
 
 .dashboard-chat-avtar{
-  width: 100%;
+  width: 40px;
   height: 40px;
   object-fit: cover;
 }
@@ -2945,4 +2945,15 @@ margin-bottom: 23px; */
   .table-responsive {
     display: inline-table !important;
   }
+}
+/***********pagination**********/
+.page-item.disabled .page-link{
+  font-family: 'Silk Serif' !important;
+}
+.page-item.active .page-link {
+  background-color: #00A82F !important;
+  border-color: #00A82F !important;
+}
+#image_preview_remove{
+  color: red !important;
 }
