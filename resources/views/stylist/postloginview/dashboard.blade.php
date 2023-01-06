@@ -112,15 +112,15 @@
                                                 <h2 class="pl-lg-0 pl-2">This month&apos;s sales</h2>
                                                 <h3 class="pl-lg-0 pl-2">£28,782.92</h3>
                                                 <h4 class="pl-lg-0 pl-2">+£6,288,12 (32.11%)</h4>
-                                            
+                                            </div>
                                                 <div class="col-5 mt-1 text-lg-left text-right ">
                                                     <img src="stylist/app-assets/images/gallery/file-sheet.svg" class="img-fluid pr-lg-0 pr-3"
                                                         alt="">
                                                 </div>
                                         </div>
-                                    </div>
-                                    </div>
                                 </div>
+                            </div>
+                                
                              <div class="col-lg-4 my-lg-0 my-2">
                                 <div class="raise-bg  px-1 py-1">
                                     <h1 class="pl-lg-0 pl-2">Clients</h1>

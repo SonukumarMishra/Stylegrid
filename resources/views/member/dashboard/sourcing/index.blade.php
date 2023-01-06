@@ -1,4 +1,4 @@
-@extends('member.dashboard.layouts.default')
+<!-- zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzznahy -->@extends('member.dashboard.layouts.default')
 @section('content')
 <!-- BEGIN: Content-->
 
@@ -38,7 +38,8 @@
                           <h1>Live Requests</h1>
                           </div>
                     <!-- Pills navs -->
-                    <div class="col-lg-6 d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-2">
+                    <div
+                    \/class="col-lg-6 d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-2">
                         <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
                             <li class="nav-item ">
                                 <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"

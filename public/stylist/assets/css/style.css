@@ -128,7 +128,9 @@ body{
   .content-body h3{
     font-size: 16px;
   }
-
+  .dashboard_chat_box{
+    height: auto !important;
+  }
   .topnav a,
   .topnav input[type=text],
   .topnav .search-container button {
@@ -2594,7 +2596,9 @@ margin-bottom: 23px; */
   .table-responsive {
     display: block !important;
   }
-
+  .dashboard_chat_box{
+    height: auto !important;
+  }
   #twoPagecarousel .carousel-caption p,
   .img-width p {
     font-size: 12px;
@@ -2645,7 +2649,9 @@ margin-bottom: 23px; */
   .one-caroImg {
     width: 97vw;
   }
-
+  .dashboard_chat_box{
+    height: auto !important;
+  }
   .table-responsive {
     display: block !important;
   }
@@ -2696,7 +2702,9 @@ margin-bottom: 23px; */
   .table-responsive {
     display: inline-table !important;
   }
-
+  .dashboard_chat_box{
+    height: 500px;
+  }
   .carousel-caption button {
     font-size: 14px;
     height: 19px;
@@ -2727,7 +2735,13 @@ margin-bottom: 23px; */
   .table-responsive {
     display: inline-table !important;
   }
+  .dashboard_chat_box{
+    height: 500px !important;
+  }
 }
+
+/******modal**********/
+
 .modal {
   top: 35% !important;
 }
