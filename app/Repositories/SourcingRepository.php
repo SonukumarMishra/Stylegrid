@@ -356,13 +356,13 @@ class SourcingRepository {
 						if($action_type == config('custom.sourcing_pusher_action_type.offer_accepted')){
 							
 							$notify_type = config('custom.notification_types.sourcing_offer_accepted'); 
-							$notify_title = config('custom.notifications.offer_accepted');
+							$notify_title = trans('pages.notifications.sourcing_offer_accepted_title');
 							$notify_desc = trans('pages.notifications.sourcing_offer_accepted_des', ['product_title' => $offer_dtls->p_name]);
 							
 						}else if($action_type == config('custom.sourcing_pusher_action_type.offer_decline')){
 
 							$notify_type = config('custom.notification_types.sourcing_offer_decline');
-							$notify_title = config('custom.notifications.offer_decline');
+							$notify_title = trans('pages.notifications.sourcing_offer_decline_title');
 							$notify_desc = trans('pages.notifications.sourcing_offer_decline_des', ['product_title' => $offer_dtls->p_name]);
 						}
 

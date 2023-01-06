@@ -350,7 +350,7 @@ class StylistController extends Controller
         }  
     }
     
-    public function stylistNotificationsIndex()
+    public function notificationsIndex()
     {
         try {
 
@@ -363,7 +363,7 @@ class StylistController extends Controller
         }
     }    
     
-    public function stylistNotificationsList(Request $request) {
+    public function notificationsList(Request $request) {
        
         try{
 
@@ -382,7 +382,7 @@ class StylistController extends Controller
             $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
                                 'data' => [
                                     'view' => $view,
-                                    'total' => $result['total']
+                                    'total_page' => $result['total_page']
                                 ]  
                             ];
 

@@ -2945,3 +2945,44 @@ margin-bottom: 23px; */
     display: inline-table !important;
   }
 }
+
+.notification-card{
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+.notification-row{
+  background-color: #fff;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.notification-div .time {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 12px;
+  color: #282828;
+  margin-bottom: 5px;
+}
+
+.notification-div h1 {
+  font-size: 15.9px;
+  line-height: 16px !important;
+}
+
+.notification-div p {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  color: #282828;
+}
+
+.notification-div .view-btn {
+  background: #00A82F;
+  border-radius: 2px;
+  text-align: center;
+  color: #FFFFFF;
+  border: transparent;
+  width: 80px;
+  height: 22px;
+}

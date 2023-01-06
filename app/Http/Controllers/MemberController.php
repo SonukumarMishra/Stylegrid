@@ -6,6 +6,7 @@ use App\Models\ChatRoom;
 use App\Models\Stylist;
 use Illuminate\Support\Str;
 use App\Repositories\SourcingRepository as SourcingRepo;
+use App\Repositories\CommonRepository as CommonRepo;
 use DB;
 use Log;
 use Session;
@@ -277,6 +278,51 @@ class MemberController extends Controller
         }  
     }
     
+     
+    public function notificationsIndex()
+    {
+        try {
+
+            return view('member.dashboard.notifications.index');
+            
+        }catch(\Exception $e){
+
+            Log::info("stylistNotificationsIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }    
+    
+    public function notificationsList(Request $request) {
+       
+        try{
+
+            $result = CommonRepo::get_all_notifications($request);
+
+            $view = '';
+
+            if(isset($result['list'])){
+
+                $list = $result['list'];
+                $view = view("member.dashboard.notifications.list-ui", compact('list'))->render();
+
+            }
+
+            // response.data.data.links
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                'data' => [
+                                    'view' => $view,
+                                    'total_page' => $result['total_page']
+                                ]  
+                            ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
     
     
 }

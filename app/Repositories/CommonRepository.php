@@ -48,28 +48,30 @@ class CommonRepository {
 		}
 	}
 
-	public static function get_all_notifications(Request $request) {
+	public static function get_all_notifications($request) {
 
 		$result = [
 			'list' => [],
-			'total' => 0
+			'total' => 0,
+			'total_page' => 0
 		];
 
 		try{
 
 			$list = Notifications::select('not.notification_id', 'not.notification_type', 'not.notification_title', 'not.notification_description', 'not.data', 'not.icon', 'not.created_at', 'nu.is_read', 'nu.notify_id')
 									->from('sg_notifications as not')
-									->leftJoin('sg_notification_users as nu', function($join) use($request) {
+									->join('sg_notification_users as nu', function($join) use($request) {
 											$join->on('nu.notification_id', '=', 'not.notification_id')
 												->where('nu.association_id',  $request->user_id)
 												->where('nu.association_type_term', $request->user_type);
 									})
 									->where('not.is_active', 1)
 									->orderBy('not.notification_id', 'desc')
-									->paginate(10, ['*'], 'page', $request->page);
-
+									->paginate(20, ['*'], 'page', $request->page);
+									
 			$result['list'] = $list->getCollection();
 			$result['total'] = $list->total();
+			$result['total_page'] = $list->lastPage();
 
 			return $result;
 
