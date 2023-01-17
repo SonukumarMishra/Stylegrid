@@ -242,7 +242,7 @@
 
                 if ($.isArray(options.ext_array) && !options.ext_array.includes(tempFileExtension.toString().toLowerCase())) {
                     result['is_valid'] = false;
-                    result['error'] = 'File type not allowed. Please select '+options.ext_array.join(", ")+' file only.';
+                    result['error'] = 'Invalid image format! Image must be '+options.ext_array.join(", ")+'.';
                 }
             }
             
@@ -252,7 +252,7 @@
                 // Validate file size.
                 if (tempFileSize > max_upload_size_bytes) {
                     result['is_valid'] = false;
-                    result['error'] = 'File is too large. Maximum size of file uploads is '+options.max_upload_size+' MB.';
+                    result['error'] = 'Maximum file size limit is '+options.max_upload_size+' MB.';
                 }
             }
 

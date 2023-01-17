@@ -78,13 +78,13 @@
                 <li class="nav-item"><a href="" class="py-1 pl-5 text-center"><span class="menu-title profession"
                             data-i18n=""><img src="{{ asset('stylist/app-assets/images/gallery/check-mark.png') }}" alt=""></span></a> </li>
                 </li>
-                <li class=" nav-item mt-5"><a href="/stylist-dashboard"><i class="ft-home"></i><span class="menu-title"
+                <li class=" nav-item mt-5"><a href="/stylist-dashboard" class="{{ request()->is('stylist-dashboard*') ? 'active' : '' }}"><i class="ft-home {{ request()->is('stylist-dashboard*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ route('stylist.messanger.index') }}"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('stylist.messanger.index') }}" class="{{ request()->is('stylist-messanger*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('stylist-messanger*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ route('stylist.grid.index') }}" class="active"><i class="ft-monitor active"></i><span
+                <li class=" nav-item"><a href="{{ route('stylist.grid.index') }}" class="{{ request()->is('stylist-grid*') ? 'active' : '' }}"><i class="ft-monitor {{ request()->is('stylist-grid*') ? 'active' : '' }}"></i><span
                             class="menu-title" data-i18n="">Grids</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title"
@@ -95,7 +95,7 @@
                             data-i18n="">Clients</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="{{url('/stylist-sourcing')}}"><i class="ft-aperture"></i><span class="menu-title" data-i18n="">Sourcing</span></a>
+                <li class=" nav-item"><a href="{{url('/stylist-sourcing')}}" class="{{ request()->is('stylist-sourcing*') ? 'active' : '' }}"><i class="ft-aperture {{ request()->is('stylist-sourcing*') ? 'active' : '' }}"></i><span class="menu-title" data-i18n="">Sourcing</span></a>
 
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-box"></i><span class="menu-title"
@@ -114,10 +114,11 @@
                             data-i18n="">Help Centre</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="{{ route('stylist.notifications.index') }}"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('stylist.notifications.index') }}" class="{{ request()->is('stylist-notifications*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('stylist-notifications*') ? 'active' : '' }}"></i><span class="menu-title"
                     data-i18n="">Notifications</span></a>
                     
-                <li class=" nav-item"><a href="{{url('stylist-logout')}}"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
+                <li class=" nav-item"><a href="{{url('stylist-logout')}}" class="{{ request()->is('stylist-logout*') ? 'active' : '' }}"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
+                    <li class=" nav-item"><a href="{{url('stylist-logout')}}" class="{{ request()->is('stylist-logout*') ? 'active' : '' }}"><i class="ft-sidebar "></i><span class="menu-title" data-i18n="">Sign
                             Out</span></a>
 
                 </li>
