@@ -30,24 +30,24 @@
                         class="menu-title profession" data-i18n=""><img
                             src="app-assets/images/gallery/check-mark.png" alt=""></span></a> </li> -->
                 </li>
-                <li class=" nav-item mt-2"><a href="{{ url('/member-dashboard') }}"><i class="ft-home"></i><span class="menu-title"
+                <li class=" nav-item mt-2"><a href="{{ url('/member-dashboard') }}" class="{{ request()->is('member-dashboard*') ? 'active' : '' }}"><i class="ft-home {{ request()->is('member-dashboard*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Home</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ route('member.messanger.index') }}"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('member.messanger.index') }}" class="{{ request()->is('member-messanger*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('member-messanger*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title"
                             data-i18n="">Shop</span></a>
                 </li>
-                <li class=" nav-item"><a href="{{ url('/member-grid') }}"><i class="ft-layout"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ url('/member-grid') }}" class="{{ request()->is('member-grid*') ? 'active' : '' }}"><i class="ft-layout {{ request()->is('member-grid*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Grids</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="{{ url('/member-sourcing') }}" class="active"><i class="ft-zap active"></i><span
+                <li class=" nav-item"><a href="{{ url('/member-sourcing') }}" class="{{ request()->is('member-sourcing*') ? 'active' : '' }}"><i class="ft-zap {{ request()->is('member-sourcing*') ? 'active' : '' }}"></i><span
                             class="menu-title" data-i18n="">Sourcing</span></a>
 
                 </li>
-                <li class=" nav-item "><a href="{{ url('/member-orders') }}" class=""><i class="ft-aperture "></i><span class="menu-title"
+                <li class=" nav-item "><a href="{{ url('/member-orders') }}" class="{{ request()->is('member-orders*') ? 'active' : '' }}"><i class="ft-aperture {{ request()->is('member-orders*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Orders</span></a>
 
                 </li>
@@ -68,11 +68,11 @@
 
                 </li>
 
-                <li class=" nav-item"><a href="{{ route('member.notifications.index') }}"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('member.notifications.index') }}" class="{{ request()->is('member-notifications*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('member-notifications*') ? 'active' : '' }}"></i><span class="menu-title"
                     data-i18n="">Notifications</span></a>
                    
 
-                <li class=" nav-item"><a href="{{url('/member-logout')}}"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
+                <li class=" nav-item"><a href="{{url('/member-logout')}}" class="{{ request()->is('member-logout*') ? 'active' : '' }}"><i class="ft-sidebar {{ request()->is('member-logout*') ? 'active' : '' }}"></i><span class="menu-title" data-i18n="">Sign
                             Out</span></a>
                 </li>
 
