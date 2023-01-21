@@ -651,7 +651,7 @@
 
                     'check_by_size' : true,
 
-                    'max_upload_size' : 3,
+                    'max_upload_size' : 5,
 
                     'check_by_ext' : true,
                     

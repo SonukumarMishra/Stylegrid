@@ -59,8 +59,8 @@
    
                 if (response.status == '1') {
 
-                    NotificationRef.notificationsTotalPage = response.data.total_page;
-                    $('#notifications_container').append(response.data.view);
+                    // NotificationRef.notificationsTotalPage = response.data.total_page;
+                    $('#notifications_container').append(NotificationRef.notificationsListUI(response.data));
 
                 } else {
                     showErrorMessage(response.error);
@@ -71,6 +71,35 @@
            
         };
 
+        
+        NotificationRef.notificationsListUI = function(data_list) {
+
+            var html = '';
+
+            if(data_list.length > 0){
+
+                $.each(data_list, function (i, val) { 
+                     
+                    html += '<div class="col-12 notification-card">';
+                    html += '   <div class="row notification-row">';
+                    html += '       <div class="col-12 notification-div mt-1">';
+                    html += '           <div class="d-flex justify-content-between">';
+                    html += '               <h1>'+val.notification_title+'</h1>';
+                    html += '               <p class="time">'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</p>';
+                    html += '           </div>';
+                    html += '           <div class="d-flex justify-content-between">';
+                    html += '               <h1>'+val.notification_description+'</h1>';
+                    // html += '               <button class="view-btn">View</button>';
+                    html += '           </div>';
+                    html += '       </div>';
+                    html += '   </div>';
+                    html += '</div>';
+
+                });
+            }
+            return html;
+
+        }
 
         NotificationRef.initEvents();
     };
