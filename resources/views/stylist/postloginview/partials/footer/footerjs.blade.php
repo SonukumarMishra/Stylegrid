@@ -118,6 +118,8 @@
 
 @include('scripts.common_scripts')
 
+@include('stylist.postloginview.partials.header-notifications')
+
 {{-- Pusher code for realtime chat --}}
 
 <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>

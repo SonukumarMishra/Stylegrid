@@ -2986,3 +2986,15 @@ margin-bottom: 23px; */
   width: 80px;
   height: 22px;
 }
+
+.header-notiifcation-container{
+  width: 30rem !important;
+  background: #fff !important;
+}
+
+.notify-badge{
+  top: 9px !important;
+  right: 6px !important;
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
+}

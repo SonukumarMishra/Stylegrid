@@ -324,5 +324,37 @@ class MemberController extends Controller
         }
     }
     
-    
+    public function unreadNotificationsList(Request $request) {
+       
+        try{
+
+            $result = CommonRepo::get_unread_notifications($request);
+
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'),  'data' => $result ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
+
+    public function readNotifications(Request $request) {
+       
+        try{
+
+            $result = CommonRepo::mark_as_read_notifications($request);
+
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'),  'data' => $result ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
 }

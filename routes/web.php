@@ -81,9 +81,11 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
+
  Route::get('/stylist-notifications', [Stylist::class, 'notificationsIndex'])->name('stylist.notifications.index');
- Route::post('/stylist-notifications-list', [Stylist::class, 'notificationsList'])->name('stylist.notifications.list');
- 
+ Route::post('/stylist-notifications', [Stylist::class, 'notificationsList'])->name('stylist.notifications.list');
+ Route::post('/stylist-notifications-unread', [Stylist::class, 'unreadNotificationsList'])->name('stylist.notifications.unread_list');
+ Route::post('/stylist-notifications-read-all', [Stylist::class, 'readNotifications'])->name('stylist.notifications.read_all');
  
  //stylist section End
  ///member Section Start
@@ -118,7 +120,9 @@ Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestP
 
 // member notifications 
 Route::get('/member-notifications', [Member::class, 'notificationsIndex'])->name('member.notifications.index');
-Route::post('/member-notifications-list', [Member::class, 'notificationsList'])->name('member.notifications.list');
+Route::post('/member-notifications', [Member::class, 'notificationsList'])->name('member.notifications.list');
+Route::post('/member-notifications-unread', [Member::class, 'unreadNotificationsList'])->name('member.notifications.unread_list');
+Route::post('/member-notifications-read-all', [Member::class, 'readNotifications'])->name('member.notifications.read_all');
 
 // Memeber panel chat
 Route::get('/member-messanger/{chat_room_id?}', 'Member\ChatController@index')->name('member.messanger.index');

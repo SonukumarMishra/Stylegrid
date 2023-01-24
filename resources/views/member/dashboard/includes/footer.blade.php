@@ -122,7 +122,9 @@
     <script src="{{ asset('member/dashboard/assets/js/common.js') }}" type="text/javascript"></script>
 
     @include('scripts.common_scripts')
-  
+    
+    @include('member.dashboard.includes.header-notifications')
+
     {{-- Pusher code for realtime chat --}}
 
     <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
