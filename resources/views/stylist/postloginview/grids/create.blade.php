@@ -447,7 +447,5 @@
 
 @include('stylist.postloginview.partials.footer.footerjs')
 
-
-
-@include('scripts.stylist.grid.create')
+@include('scripts.stylist.grid.create_js')
 

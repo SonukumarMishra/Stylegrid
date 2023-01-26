@@ -101,6 +101,7 @@
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
+<script src="{{ asset('extensions/select2/js/select2.min.js') }}"></script>
 
 <script>
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\StylistWebsiteController as StylistWebsite;
 use App\Http\Controllers\CreateGridController as CreateGridController;
 use App\Http\Controllers\Admin\LoginController as AdminLogin;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,20 +33,34 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::get('/', [StylistWebsite::class, 'index']);
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
- Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
+//  Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
-  Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
+//   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
-    Route::get('/index', 'GridController@index')->name('index');
-    Route::get('/create', 'GridController@createGridIndex')->name('create');
-    Route::get('/view/{grid_id}', 'GridController@view')->name('view');
-    Route::post('/save', 'GridController@saveGridDetails')->name('save');
-    Route::get('/export/pdf/{grid_id}', 'GridController@exportGridPdf')->name('download.pdf');
+//     Route::get('/index', 'GridController@index')->name('index');
+//     Route::get('/create', 'GridController@createGridIndex')->name('create');
+//     Route::get('/view/{grid_id}', 'GridController@view')->name('view');
+//     Route::post('/save', 'GridController@saveGridDetails')->name('save');
+//     Route::get('/export/pdf/{grid_id}', 'GridController@exportGridPdf')->name('download.pdf');
     
+//   });
+
+//  });
+ 
+  Route::group(['prefix' => 'options-', 'as' => 'options.'], function () {
+
+    // This routes to get select options data
+    Route::post('/stylist-clients', [CommonController::class, 'get_stylist_clients_list'])->name('stylist_clients');
+  
   });
 
- });
+  Route::get('/stylist-grid', 'Stylist\GridController@index')->name('stylist.grid.index');
+  Route::get('stylist-grid/create', 'Stylist\GridController@createGridIndex')->name('stylist.grid.create');
+  Route::get('stylist-grid/view/{grid_id}', 'Stylist\GridController@view')->name('stylist.grid.view');
+  Route::post('stylist-grid/save', 'Stylist\GridController@saveGridDetails')->name('stylist.grid.save');
+  Route::get('stylist-grid/export/pdf/{grid_id}', 'Stylist\GridController@exportGridPdf')->name('stylist.grid.download.pdf');
  
+  
   Route::get('/stylist-messanger/{chat_room_id?}', 'Stylist\ChatController@index')->name('stylist.messanger.index');
   Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');

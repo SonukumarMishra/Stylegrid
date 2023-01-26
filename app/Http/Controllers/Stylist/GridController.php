@@ -237,7 +237,7 @@ class GridController extends BaseController
             }
 
         }catch(\Exception $e){
-            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+            return redirect()->back(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
         }
 	}
 
