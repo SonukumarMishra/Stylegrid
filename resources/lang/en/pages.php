@@ -31,6 +31,7 @@ return [
    'signup_success' => 'Congratulations! Your account has been successfully created.',
    'logged_out' => 'Logged out',
    'sourcing_chat_default_message' => 'Say hello to :name! :gender is sourcing your :sourcing_title',
+   'grid_sent_to_client_success' => 'Grid has been sent successfully.',
 
    // notificaions description
 

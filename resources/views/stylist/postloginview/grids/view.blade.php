@@ -8,28 +8,34 @@
 
 <style>
 
-.nav.nav-tabs .nav-item .nav-link.active, .nav.nav-pills .nav-item .nav-link.active {
-    box-shadow: 0 2px 4px 0 rgb(90 141 238 / 50%);
-}
+   .nav.nav-tabs .nav-item .nav-link.active, .nav.nav-pills .nav-item .nav-link.active {
+      box-shadow: 0 2px 4px 0 rgb(90 141 238 / 50%);
+   }
 
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-    color: #FFFFFF;
-    background-color: #00A82F;
-    border-color: transparent;
-}
-.nav.nav-tabs {
-    margin-bottom: 1rem;
-    border-bottom-color: #ededed;
-}
-.nav-tabs {
-    border-bottom: 1px solid #7E8FA3;
-}
+   .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+      color: #FFFFFF;
+      background-color: #00A82F;
+      border-color: transparent;
+   }
+   .nav.nav-tabs {
+      margin-bottom: 1rem;
+      border-bottom-color: #ededed;
+   }
+   .nav-tabs {
+      border-bottom: 1px solid #7E8FA3;
+   }
+
+   .table thead th, .table tbody tr{
+      border-bottom: 2px solid #E2E2E2 !important;
+   }
 
 </style>
 
 <div class="app-content content bg-white">
 
-    <div class="content-wrapper">
+   <input type="hidden" id="grid_id" name="grid_id" value="{{ $style_grid_dtls->stylegrid_id }}">
+
+   <div class="content-wrapper">
 
        <div class="content-header row">
 
@@ -408,21 +414,14 @@
 
                                     <th scope="col">Client Name</th>
 
-                                    <th scope="col">Created On</th>
+                                    <th scope="col">Send On</th>
 
                                 </tr>
 
                             </thead>
 
-                            <tbody>
+                            <tbody id="grid_clients_table_body">
 
-                                <tr>
-
-                                    <td>N/A</td>
-
-                                    <td>@Beg</td>
-
-                                </tr>
 
                             </tbody>
 

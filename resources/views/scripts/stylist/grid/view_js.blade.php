@@ -23,8 +23,11 @@
         
         ViewGridRef.styleGridJson = @json($style_grid_dtls);
         ViewGridRef.selectedClientIds = [];
+        ViewGridRef.allGridClients = [];
 
         ViewGridRef.initEvents = function() {
+
+            ViewGridRef.getGridClients();
 
             $('#search_client_input').select2({
 
@@ -150,15 +153,25 @@
                     return false;
                 }
 
-                // getResponseInJsonFromURL($(this).data('action'), '', (response) => { 
-                //     console.log(response);
+                var formData = new FormData();    
+                formData.append( 'client_ids', JSON.stringify(ViewGridRef.selectedClientIds) );
+                formData.append( 'grid_id', $('#grid_id').val() );
+
+                getResponseInJsonFromURL('{{ route("stylist.grid.sent_to_clients") }}', formData, (response) => { 
+                    console.log(response);
                     
-                //     if(response.status != undefined && response.status == 0){
+                    if(response.status != undefined && response.status == 0){
 
-                //         showErrorMessage(response.message);
-                //     }
+                        showErrorMessage(response.message);
 
-                // }, (error) => { console.log(error) } );
+                    }else{
+
+                        $('#search_clients_container').html('');
+                        ViewGridRef.getGridClients();
+                        showSuccessMessage(response.message);
+                    }
+
+                }, (error) => { console.log(error) } );
 
             });
             
@@ -199,7 +212,52 @@
 
             }
         };
+
+        ViewGridRef.getGridClients = function(json) {
+
+            var formData = new FormData();    
+            formData.append( 'grid_id', $('#grid_id').val() );
+
+            getResponseInJsonFromURL('{{ route("stylist.grid.clients") }}', formData, (response) => { 
+             
+                if(response.status != undefined && response.status == 0){
+
+                    showErrorMessage(response.message);
+
+                }else{
+
+                    ViewGridRef.renderGridClientsUI(response.data.list);
+
+                }
+
+            }, (error) => { console.log(error) } );
+        
+        };
+            
+        ViewGridRef.renderGridClientsUI = function(json) {
+
+            $('#grid_clients_table_body').html('');
+
+            ViewGridRef.selectedClientIds = [];
+
+            if(json.length > 0){
                 
+                var html = '';
+
+                $.each(json, function (i, val) { 
+
+                    html += '<tr>';
+                    html += '<td>'+val.client_name+'</td>';
+                    html += '<td>'+formatDateValue(val.created_at)+'</td>';
+                    html += '</tr>';
+
+                    ViewGridRef.selectedClientIds.push(val.member_id);
+                });
+                
+                $('#grid_clients_table_body').html(html);
+
+            }
+        };
 
         ViewGridRef.processExceptions = function(e) {
             showErrorMessage(e);

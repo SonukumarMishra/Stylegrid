@@ -59,8 +59,9 @@ use App\Http\Controllers\CommonController;
   Route::get('stylist-grid/view/{grid_id}', 'Stylist\GridController@view')->name('stylist.grid.view');
   Route::post('stylist-grid/save', 'Stylist\GridController@saveGridDetails')->name('stylist.grid.save');
   Route::get('stylist-grid/export/pdf/{grid_id}', 'Stylist\GridController@exportGridPdf')->name('stylist.grid.download.pdf');
- 
-  
+  Route::post('stylist-grid/send-to-clients', 'Stylist\GridController@sendGridToClients')->name('stylist.grid.sent_to_clients');
+  Route::post('stylist-grid/clients', 'Stylist\GridController@getGridClients')->name('stylist.grid.clients');
+
   Route::get('/stylist-messanger/{chat_room_id?}', 'Stylist\ChatController@index')->name('stylist.messanger.index');
   Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');

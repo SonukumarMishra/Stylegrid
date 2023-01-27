@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StyleGrids;
 use App\Models\StyleGridDetails;
 use App\Models\StyleGridProductDetails;
+use App\Models\StyleGridClients;
 use Validator,Redirect;
 use Config;
 use Storage;
@@ -286,4 +287,76 @@ class GridController extends BaseController
         }
 	}
 	
+    public function sendGridToClients(Request $request)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($request->grid_id);
+
+            if($style_grid_dtls){
+
+                $client_ids = json_decode($request->client_ids, true);
+
+                if(is_array($client_ids) && count($client_ids)){
+
+                    foreach ($client_ids as $key => $value) {
+                        
+                        $client = new StyleGridClients;
+                        $client->grid_id = $style_grid_dtls->stylegrid_id;
+                        $client->member_id = $value;
+                        $client->save();
+                    }
+                    
+                }
+
+                return response()->json(['status' => 1, 'message' => trans('pages.grid_sent_to_client_success') ]);
+                
+            }else{
+
+                return response()->json(['status' => 0, 'message' => trans('pages.crud_messages.added_success', [ 'attr' => 'stylegrid' ]) ]);
+
+            }
+
+        }catch(\Exception $e){
+            
+            Log::info("error sendGridToClients ". $e->getMessage());
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
+    public function getGridClients(Request $request)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($request->grid_id);
+
+            if($style_grid_dtls){
+
+                $list = StyleGridClients::from('sg_grid_clients as grid_client')
+                                        ->select('member.full_name as client_name', 'grid_client.created_at', 'grid_client.grid_client_id', 'grid_client.member_id')
+                                        ->join('sg_stylegrids as grid', 'grid.stylegrid_id', '=', 'grid_client.grid_id')
+                                        ->leftjoin('sg_member as member', 'member.id', '=', 'grid_client.member_id')
+                                        ->where([
+                                            'grid_client.grid_id' => $request->grid_id,
+                                            'grid_client.is_active' => 1
+                                        ])
+                                        ->get();
+
+                return response()->json(['status' => 1, 'message' => trans('pages.action_success'), 'data' => [ 'list' => $list ] ]);
+                
+            }else{
+
+                return response()->json(['status' => 0, 'message' => trans('pages.crud_messages.added_success', [ 'attr' => 'stylegrid' ]) ]);
+
+            }
+
+        }catch(\Exception $e){
+            
+            Log::info("error getGridClients ". $e->getMessage());
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
 }
