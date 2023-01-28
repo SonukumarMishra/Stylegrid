@@ -66,67 +66,9 @@
 
            <div id="create-grid-1" class="mt-2">
 
-
-
-            <div class="row">
-
-         
-
-                @if (count($style_grids))
-
-
-
-                  @foreach ($style_grids as $g_key => $grid)
-
-
-
-                        <div class="col-lg-4 mt-2 col-12">
-
-                           <div class="stylegrid-bg-img height_350" style="background: url({{asset($grid->feature_image)}})">
-
-                                 <div class="">
-
-                                    <div class="row bottom-text my-2 w-100">
-
-                                       <div class="col-8">
-
-                                             <h1 class="ml-2 mt-3">{{ $grid->title }}</h1>
-
-                                       </div>
-
-                                       <div class="col-4 text-lg-center text-right">
-
-                                             <a href="{{ route('stylist.grid.view', [ 'grid_id' => $grid->stylegrid_id ]) }}"><button class="go-to-grid-btn mt-4">Go to Grid</button></a>
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                           </div>
-
-                        </div>
-
-                  @endforeach
-
-                @else 
-
-                        <div class="col-12">
-
-                            <h3 class="text-center">
-
-                                No grid created yet!
-
-                            </h3>
-
-                        </div>
-
-               @endif
+            <div class="row" id="grid_container">
 
             </div>
-
-   
 
            </div>
 
@@ -140,5 +82,4 @@
 
 @include('stylist.postloginview.partials.footer.footerjs')
 
-
-
+@include('scripts.stylist.grid.index_js')

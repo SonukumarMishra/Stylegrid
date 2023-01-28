@@ -1,7 +1,7 @@
 <?php
 return [
 
-   'crud_messages' => [
+   'crud' => [
        'no_data' => ':attr not found.',
        'added_success' => 'The :attr added successfully.',
        'updated_success' => 'The :attr updated successfully.',

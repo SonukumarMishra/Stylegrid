@@ -66,10 +66,6 @@ class MemberController extends Controller
     
     }
 
-    public function memberGrid()
-    {
-        return view('member.dashboard.member-grid');
-    }
     public function memberGridDetails()
     {
         return view('member.dashboard.member-grid-details');

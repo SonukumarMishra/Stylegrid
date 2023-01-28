@@ -74,7 +74,7 @@ class CommonRepository {
 									})
 									->where('not.is_active', 1)
 									->orderBy('not.notification_id', 'desc')
-									->paginate(20, ['*'], 'page', $request->page);
+									->paginate(config('custom.default_page_limit'), ['*'], 'page', $request->page);
 									
 			$result['list'] = $list->getCollection();
 			$result['total'] = $list->total();

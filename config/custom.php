@@ -2,6 +2,8 @@
 
 return [
 
+    'default_page_limit' => 20,
+    
     'user_type' => [
         'member' => 'member',
         'stylist' => 'stylist'

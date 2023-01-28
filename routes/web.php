@@ -55,8 +55,11 @@ use App\Http\Controllers\CommonController;
   });
 
   Route::get('/stylist-grid', 'Stylist\GridController@index')->name('stylist.grid.index');
+  
   Route::get('stylist-grid/create', 'Stylist\GridController@createGridIndex')->name('stylist.grid.create');
   Route::get('stylist-grid/view/{grid_id}', 'Stylist\GridController@view')->name('stylist.grid.view');
+  Route::post('/stylist-grid/list', 'Stylist\GridController@getStyleGridList')->name('stylist.grid.list');
+
   Route::post('stylist-grid/save', 'Stylist\GridController@saveGridDetails')->name('stylist.grid.save');
   Route::get('stylist-grid/export/pdf/{grid_id}', 'Stylist\GridController@exportGridPdf')->name('stylist.grid.download.pdf');
   Route::post('stylist-grid/send-to-clients', 'Stylist\GridController@sendGridToClients')->name('stylist.grid.sent_to_clients');
@@ -127,7 +130,12 @@ Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccess
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);
 Route::post('/member-decline-offer', [Member::class, 'memberDeclineOffer']);
 Route::get('/member-submit-request-complete', [Member::class, 'memberSubmitRequestComplete']);
-Route::get('/member-grid', [Member::class, 'memberGrid']);
+
+// Member Grids 
+Route::get('/member-grid', 'Member\GridController@index')->name('member.grid.index');
+Route::post('/member-grid/list', 'Member\GridController@getStyleGridList')->name('member.grid.list');
+Route::get('member-grid/view/{grid_id}', 'Member\GridController@view')->name('member.grid.view');
+
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
 Route::get('/member-orders', [Member::class, 'memberOrders']);
 Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest']);

@@ -2599,6 +2599,14 @@ margin-bottom: 23px; */
   height: 400px !important;
 }
 
+.height_500{
+  height: 500px !important;
+}
+
+.height_570{
+  height: 570px !important;
+}
+
 .height_200{
   height: 200px !important;
 }
@@ -2997,4 +3005,24 @@ margin-bottom: 23px; */
   right: 6px !important;
   padding-right: 0.5em !important;
   padding-left: 0.5em !important;
+}
+
+/* Grid styles -------------------------------------------------*/
+.stylegrid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 10px;
+}
+
+.stylegrid-product-img {
+  height: 250px;
+  width: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.stylegrid-bg-img{
+  background-size: cover !important;
+  /*background-size: 100% 100% !important;*/
+  background-repeat: no-repeat !important;
 }

@@ -256,26 +256,14 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 
 		var block_dataa =  	data[0].block_data;
 
-		// alert(dataa)
-
-			console.log(dataa)
-
-			console.log(block_dataa)
-
-			
-
-			// alert(block_dataa.length)
-
-			// alert(dataa.length)
-
+		
 			 if (dataa.length > 0) {
 
 			 // if (1!=1) {
 
 				 // alert("if data avail");
 
-				 console.log("if data avail");
-
+			
 				for (i = 0; i < dataa.length; i++) {
 
 					
@@ -316,15 +304,9 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 
 					checknumberng();
 
-					// alert(block_dataa.length);
-
 				for(j = 0; j < block_dataa.length; j++){
 
 					var img=constants.base_url+'/stylist/grid_block/'+block_dataa[j].block_image;
-
-					console.log(img)
-
-					// alert('block id '+block_dataa[j].block_id)
 
 					var mjblock='<div class="mjrowtrack_inner col-6" grid="1" id="row_'+dataa[i].grid_id+'_block_'+block_dataa[j].block_id+'" data-toggle="modal"   data-target="#row_'+dataa[i].grid_id+'_gridmodal_'+block_dataa[j].block_id+'"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><img src="'+img+'" alt="" style="height: 50%; width: 100%;"></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="1" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
 
@@ -374,11 +356,7 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 
 	   function image_preview_remove(val){
 
-		   console.log(val)
-
 		   var clickedid =	$(val).attr('newatr');
-
-		   // alert(clickedid)
 
 		    // $("#firstcol"+clickedid).load(" #div > *");
 
@@ -694,8 +672,6 @@ function formvalidation(val){
 
 			var data = JSON.parse(ajaxresponse);
 
-		console.log(data)
-
 		window.location.reload();
 
 			
@@ -759,8 +735,6 @@ function makeTrim(x) {
                 var file = $(val)[0].files;
 
                 var ext = $(val).val().split('.').pop().toLowerCase();
-
-				console.log(ext)
 
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
 
@@ -923,10 +897,6 @@ function makeTrim(x) {
 		// const myArray = mj.split('#');
 
 		// const myArray = val;
-
-		console.log("modal data")
-
-		console.log(data)
 
 		if(data){
 

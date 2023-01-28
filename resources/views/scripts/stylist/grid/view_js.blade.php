@@ -27,8 +27,6 @@
 
         ViewGridRef.initEvents = function() {
 
-            ViewGridRef.getGridClients();
-
             $('#search_client_input').select2({
 
                 width:"100%",
@@ -98,8 +96,6 @@
 
             });
 
-            $('#grid_clients_modal').modal('show');
-
             $('body').on('click', '.grid-item-inner-input-block', function(e) {
 
                 e.preventDefault();
@@ -136,6 +132,14 @@
 
             // });
 
+            $('body').on('click', '#send_to_client_btn', function(e) {
+            
+                e.preventDefault();
+                ViewGridRef.getGridClients();
+                $('#grid_clients_modal').modal('show');
+
+            });
+
             $('body').on('click', '.remove-client', function(e) {
             
                 e.preventDefault();
@@ -148,18 +152,31 @@
             
                 e.preventDefault();
             
-                if(ViewGridRef.selectedClientIds.length == 0){
+                var client_ids = [];
+                
+                $.each(ViewGridRef.selectedClientIds, function (i1, val1) { 
+                     
+                    var index_grid = ViewGridRef.allGridClients.indexOf(val1);
+                    if(index_grid == -1){
+                        client_ids.push(val1);
+                    }
+                });
+
+                if(client_ids.length == 0){
                     showErrorMessage('Please select client');
                     return false;
                 }
 
+                showSpinner('#send_grid_btn', 'sm', 'light');
+
                 var formData = new FormData();    
-                formData.append( 'client_ids', JSON.stringify(ViewGridRef.selectedClientIds) );
-                formData.append( 'grid_id', $('#grid_id').val() );
+                formData.append( 'client_ids', JSON.stringify(client_ids) );
+                formData.append( 'stylegrid_id', $('#stylegrid_id').val() );
 
                 getResponseInJsonFromURL('{{ route("stylist.grid.sent_to_clients") }}', formData, (response) => { 
-                    console.log(response);
-                    
+                   
+                    hideSpinner('#send_grid_btn', 'sm');
+
                     if(response.status != undefined && response.status == 0){
 
                         showErrorMessage(response.message);
@@ -182,7 +199,7 @@
             var html = '';
             html += '<div class="col-6 client-li mb-1" data-id="'+dtls.value+'">';
             html += '   <div class="d-flex justify-content-between border-primary border_radius_5 p-mini-5">';
-            html += '       <h6 class="text-primary">'+dtls.label+'</h6>';
+            html += '       <h6 class="text-primary mb-0">'+dtls.label+'</h6>';
             html += '       <i class="fa-solid fa-xmark text-danger fa-2x remove-client" data-id="'+dtls.value+'"></i>';
             html += '   </div>';
             html += '</div>';
@@ -216,7 +233,7 @@
         ViewGridRef.getGridClients = function(json) {
 
             var formData = new FormData();    
-            formData.append( 'grid_id', $('#grid_id').val() );
+            formData.append( 'stylegrid_id', $('#stylegrid_id').val() );
 
             getResponseInJsonFromURL('{{ route("stylist.grid.clients") }}', formData, (response) => { 
              
@@ -239,11 +256,11 @@
             $('#grid_clients_table_body').html('');
 
             ViewGridRef.selectedClientIds = [];
+            ViewGridRef.allGridClients = [];
+            var html = '';
 
             if(json.length > 0){
                 
-                var html = '';
-
                 $.each(json, function (i, val) { 
 
                     html += '<tr>';
@@ -252,11 +269,16 @@
                     html += '</tr>';
 
                     ViewGridRef.selectedClientIds.push(val.member_id);
+                    ViewGridRef.allGridClients.push(val.member_id);
                 });
-                
-                $('#grid_clients_table_body').html(html);
-
+               
+            }else{
+                html += '<tr>';
+                html += '   <td colspan="2">No data found!</td>';
+                html += '</tr>';
             }
+            $('#grid_clients_table_body').html(html);
+
         };
 
         ViewGridRef.processExceptions = function(e) {

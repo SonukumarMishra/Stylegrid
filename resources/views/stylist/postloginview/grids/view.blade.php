@@ -33,7 +33,7 @@
 
 <div class="app-content content bg-white">
 
-   <input type="hidden" id="grid_id" name="grid_id" value="{{ $style_grid_dtls->stylegrid_id }}">
+   <input type="hidden" id="stylegrid_id" name="stylegrid_id" value="{{ $style_grid_dtls->stylegrid_id }}">
 
    <div class="content-wrapper">
 
@@ -61,11 +61,13 @@
 
              <div class="col-md-4 quick-link text-right">
 
-                <span class="mr-5"><a hrf="">Quick Link</a></span>
+                {{-- <span class="mr-5"><a hrf="">Quick Link</a></span> --}}
 
                 <div class="row justify-content-end my-2">
 
-                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
+                  <button class="grid-btn m-0 mr-1" id="send_to_client_btn">Send to Client</button>
+
+                   {{-- <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
 
                       alt=""></a>
 
@@ -73,7 +75,7 @@
 
                       alt=""></a>
 
-                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a> --}}
 
                 </div>
 
