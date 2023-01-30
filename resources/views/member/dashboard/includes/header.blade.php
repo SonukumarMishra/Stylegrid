@@ -44,7 +44,13 @@
                                 <a class="p-50 text-primary d-flex justify-content-center" href="{{ route('member.notifications.index') }}">View all notifications</a>
                               </li>
                             </ul>
-                        </li>    
+                        </li>
+                        <li class="dropdown dropdown-notification nav-item">
+                            <a class="nav-link nav-link-label" href="{{ route('member.cart.index') }}">                               
+                                <img src="{{ asset('member/dashboard/app-assets/images/gallery/Shopping Bag.png') }}" height="20" width="20" alt="">
+                                <span class="badge badge-pill badge-danger badge-up cart-badge">1</span>
+                            </a>
+                        </li>       
                         <li>
                             <div class="search-container">
                                 <form action="/action_page.php">

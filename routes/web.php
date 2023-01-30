@@ -157,6 +157,15 @@ Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoo
 Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
 Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineStatus')->name('member.messanger.online.status');
   
+// member cart 
+
+Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {
+
+  Route::get('/', 'Member\CartController@index')->name('index');
+  Route::post('add', 'Member\CartController@addToCart')->name('add');
+  Route::post('list', 'Member\CartController@getCartList')->name('list');
+});
+
 //member section End
 
 //Admin Section Start

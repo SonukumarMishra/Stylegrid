@@ -34,6 +34,17 @@ return [
         ]
     ],
 
+    'cart' => [
+        
+        'module_type' => [
+            'stylegrid' => 'stylegrid'
+        ],
+        'item_type' => [
+            'grid' => 'grid'    // This is Main grid's sub grids type
+        ]
+
+    ],
+
     'notification_types' => [
         'sourcing_new_request' => 'sourcing_new_request',
         'sourcing_offer_accepted' => 'sourcing_offer_accepted',

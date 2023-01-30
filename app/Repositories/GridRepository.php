@@ -108,7 +108,8 @@ class GridRepository {
                         $style_grid_dtls->grids[$key]['items'] = StyleGridProductDetails::where([
                                                                     'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
                                                                     'is_active' => 1
-                                                                ])->get();
+                                                                ])
+																->get();
 
 
                     }

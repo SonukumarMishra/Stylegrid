@@ -39,7 +39,37 @@
 
             });
 
-            
+            $('body').on('click', '#add_to_cart_btn', function(e) {
+
+                e.preventDefault();
+
+                showSpinner('#add_to_cart_btn', 'sm', 'light');
+
+                var formData = new FormData();    
+                formData.append( 'module_id', $('#cart_module_id').val() );
+                formData.append( 'module_type', $('#cart_module_type').val() );
+                formData.append( 'item_id', $('#cart_item_id').val() );
+                formData.append( 'item_type', $('#cart_item_type').val() );
+
+                getResponseInJsonFromURL('{{ route("member.cart.add") }}', formData, (response) => { 
+                   
+                    hideSpinner('#add_to_cart_btn', 'sm');
+
+                    if(response.status != undefined && response.status == 0){
+
+                        showErrorMessage(response.message);
+
+                    }else{
+
+                        $('#cart_btn_title').text('Remove From Cart');
+                        $('#add_to_cart_btn').data('action', 'remove');
+                        showSuccessMessage(response.message);
+                    }
+
+                }, (error) => { console.log(error) } );
+
+            });
+
         }
 
         ViewGridRef.bindGridItemDetailsModal = function(stylegrid_dtls_id, stylegrid_product_id) {
@@ -60,7 +90,7 @@
                     $('#product_price').html(item_details.product_price.toFixed(2));
                     $('#product_size').html(item_details.product_size);
                     $('#product_image_preview').attr('src', asset_url+item_details.product_image);
-
+                    $('#cart_item_id').val(stylegrid_product_id);
                 }
 
             }
