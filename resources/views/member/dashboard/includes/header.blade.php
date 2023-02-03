@@ -24,6 +24,33 @@
                           <li><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/STYLEGRID-LOGO.png') }}" alt="" class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
+                        <li class="dropdown dropdown-notification nav-item">
+                            <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                                <img src="{{ asset('/member/dashboard/app-assets/images/icons/Bell.svg') }}" alt="">
+                              <span class="badge badge-pill badge-danger badge-up notify-badge hidden" id="notify-badge-count"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right header-notiifcation-container">
+                              <li class="dropdown-menu-header hidden" id="notify-read-all-container">
+                                <div class="dropdown-header px-1 py-75 d-flex justify-content-between">
+                                  <span class="notification-title" id="notify-badge-count-title"></span>
+                                  <span class="text-bold-400 cursor-pointer" id="notify-all-read-btn">Mark all as read</span>
+                                </div>
+                              </li>
+                              <li class="scrollable-container media-list" id="unread-notifications-container">
+                              
+                              
+                              </li>
+                              <li class="dropdown-menu-footer">
+                                <a class="p-50 text-primary d-flex justify-content-center" href="{{ route('member.notifications.index') }}">View all notifications</a>
+                              </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown dropdown-notification nav-item">
+                            <a class="nav-link nav-link-label" href="{{ route('member.cart.index') }}">                               
+                                <img src="{{ asset('member/dashboard/app-assets/images/gallery/Shopping Bag.png') }}" height="20" width="20" alt="">
+                                <span class="badge badge-pill badge-danger badge-up cart-badge">1</span>
+                            </a>
+                        </li>       
                         <li>
                             <div class="search-container">
                                 <form action="/action_page.php">

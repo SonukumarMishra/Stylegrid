@@ -1045,10 +1045,6 @@
 
             }
 
-            console.log(CreateGridRef.styleGridJson);
-
-
-
         };
 
 
@@ -1087,9 +1083,6 @@
 
             }
 
-            console.log('saveStyleGridItemObj ', CreateGridRef.styleGridJson);
-
-
 
         };
 
@@ -1125,10 +1118,6 @@
 
             }
 
-            console.log('deleteStyleGridItemObj ', CreateGridRef.styleGridJson);
-
-
-
         };
 
         
@@ -1150,9 +1139,6 @@
 
 
             }
-
-            console.log(CreateGridRef.styleGridJson);
-
 
 
         };

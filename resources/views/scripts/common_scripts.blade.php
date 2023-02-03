@@ -201,9 +201,7 @@
 
         window.showSpinner = function(form_selector, size = 'lg', color = 'primary') {
             $(form_selector).append(
-                '<div class="text-center col-12 mt-4 mb-4" id="spinner-ref"><div class="spinner-border spinner-border-' +
-                size + ' text-' + color +
-                '" role="status">  <span class="sr-only">Loading...</span> </div></div>');
+                '<span class="text-center col-12 mt-4 mb-4" id="spinner-ref"><div class="spinner-border spinner-border-' + size + ' text-' + color + '" role="status">  <span class="sr-only">Loading...</span> </div></span>');
         }
 
         window.hideSpinner = function(form_selector) {

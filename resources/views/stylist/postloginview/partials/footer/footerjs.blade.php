@@ -101,6 +101,7 @@
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
+<script src="{{ asset('extensions/select2/js/select2.min.js') }}"></script>
 
 <script>
 
@@ -117,6 +118,8 @@
 <script src="{{asset('stylist/assets/js/common.js')}}"></script>
 
 @include('scripts.common_scripts')
+
+@include('stylist.postloginview.partials.header-notifications')
 
 {{-- Pusher code for realtime chat --}}
 
@@ -145,12 +148,12 @@
         temp_fd.append( 'user_data', JSON.stringify(user_info) );
         temp_fd.append( 'status', status );
 
-        getResponseInJsonFromURL("{{ route('stylist.messanger.online.status') }}", temp_fd, (response) => { console.log(response) }, (error) => { console.log(error) } );
+        getResponseInJsonFromURL("{{ route('stylist.messanger.online.status') }}", temp_fd, (response) => {  }, (error) => { console.log(error) } );
 
     }
 
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
     
     var pusher = new Pusher("{{ config('chat.pusher.key') }}", {
         encrypted: true,

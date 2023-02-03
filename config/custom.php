@@ -2,6 +2,8 @@
 
 return [
 
+    'default_page_limit' => 20,
+    
     'user_type' => [
         'member' => 'member',
         'stylist' => 'stylist'
@@ -30,6 +32,17 @@ return [
             'stylist' => 1,
             'member' => 0
         ]
+    ],
+
+    'cart' => [
+        
+        'module_type' => [
+            'stylegrid' => 'stylegrid'
+        ],
+        'item_type' => [
+            'grid' => 'grid'    // This is Main grid's sub grids type
+        ]
+
     ],
 
     'notification_types' => [

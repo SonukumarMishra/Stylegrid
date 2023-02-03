@@ -27,14 +27,11 @@
 
             channel.bind("sourcing_updates", function (pusher_data) {
 
-                console.log("sourcing_updates", pusher_data);
-
                 // Handle pusher events for sourcing request updates
                 var payload = pusher_data.data;
 
                 if(pusher_data.action == "{{ config('custom.sourcing_pusher_action_type.offer_received') }}" && payload.notify_user_id == auth_id && payload.notify_user_type == auth_user_type){
                     
-                    console.log('refresh list');
                     SourcingRef.getLiveRequests();
                 }
 

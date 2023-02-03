@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('extensions/toastr/css/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert/css/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('extensions/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/temp_chat/style.css') }}">
     
 </head>

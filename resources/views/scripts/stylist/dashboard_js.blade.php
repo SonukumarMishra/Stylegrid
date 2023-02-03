@@ -204,14 +204,7 @@
 
                     if((data.chat_room_dtls.sender_user == auth_user_type && data.chat_room_dtls.sender_id == auth_id) || (data.chat_room_dtls.receiver_user == auth_user_type && data.chat_room_dtls.receiver_id == auth_id)){
 
-
-
-                        console.log('Refrrsh contacts');
-
-
-
                         DashboardRef.getDashboardChatContacts(false);
-
 
 
                     }

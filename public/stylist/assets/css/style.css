@@ -2951,3 +2951,24 @@ transform: rotate(180deg);
   width: 80px;
   height: 22px;
 }
+
+.header-notiifcation-container{
+  width: 30rem !important;
+  background: #fff !important;
+}
+
+.notify-badge{
+  top: 9px !important;
+  right: 6px !important;
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
+}
+
+.border_radius_5{
+  border-radius: 5px;
+}
+
+.p-mini-5{
+  padding: 5px;
+}
+/* .select2-container{ width: 100% !important; } */

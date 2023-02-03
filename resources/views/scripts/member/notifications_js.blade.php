@@ -60,8 +60,9 @@
                 if (response.status == '1') {
 
                     // NotificationRef.notificationsTotalPage = response.data.total_page;
-                    $('#notifications_container').append(NotificationRef.notificationsListUI(response.data));
-
+                    // $('#notifications_container').append(NotificationRef.notificationsListUI(response.data));
+                    $('#notifications_container').append(response.data.view);
+                    
                 } else {
                     showErrorMessage(response.error);
                 }

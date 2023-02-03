@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Session;
 use App\Models\StyleGrids;
 use App\Models\StyleGridDetails;
 use App\Models\StyleGridProductDetails;
+use App\Models\StyleGridClients;
+use App\Repositories\GridRepository as GridRepo;
 use Validator,Redirect;
 use Config;
 use Storage;
@@ -26,6 +28,16 @@ class GridController extends BaseController
             if(!Session::get("Stylistloggedin")) {
                 return redirect("/stylist-login");
             }
+
+            $this->auth_user = [
+                'auth_id' => Session::get("stylist_id"),
+                'user_id' => Session::get("stylist_id"),
+                'auth_name' => Session::get('stylist_data')->name,
+                'auth_profile' => Session::get('stylist_data')->profile_image,
+                'auth_user' => 'stylist',
+                'user_type' => 'stylist'
+            ];
+
             return $next($request);
         });
     }
@@ -33,17 +45,7 @@ class GridController extends BaseController
     public function index()
 	{
         try{
-
-            $stylist_id = Session::get("stylist_id");
-
-            $style_grids = StyleGrids::where([
-                                        'stylist_id' => $stylist_id,
-                                        'is_active' => 1
-                                    ])
-                                    ->orderBy('stylegrid_id', 'desc')
-                                    ->get();
-
-    		return view('stylist.postloginview.grids.index', compact('style_grids'));
+    		return view('stylist.postloginview.grids.index');
 
         }catch(\Exception $e){
 
@@ -188,7 +190,7 @@ class GridController extends BaseController
 
                 }
 
-                $response_array = ['status' => 1, 'message' => trans('pages.crud_messages.added_success', [ 'attr' => 'stylegrid' ]) ];
+                $response_array = ['status' => 1, 'message' => trans('pages.crud.added_success', [ 'attr' => 'stylegrid' ]) ];
 
             }else{
 
@@ -203,41 +205,56 @@ class GridController extends BaseController
         }
     }
 
+    public function getStyleGridList(Request $request)
+	{
+        try{
+
+            $result = GridRepo::get_stylegrid_list($request, $this->auth_user);
+          
+            $view = '';
+
+            $view = view("stylist.postloginview.grids.index-list-ui", compact('result'))->render();
+
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                'data' => [
+                                    'view' => $view,
+                                    'total_page' => $result['total_page']
+                                ]  
+                            ];
+
+            return response()->json($response_array, 200);
+
+            $response_array = ['status' => 1, 'message' => trans('pages.action_success'), 'data' => $result ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("index getStyleGridList - ". $e->getMessage());
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
     public function view($grid_id)
 	{
         try{
 
-            $style_grid_dtls = StyleGrids::find($grid_id);
+            $style_grid_dtls = GridRepo::get_stylegrid_details($grid_id);
 
             if($style_grid_dtls){
-
-                $style_grid_dtls->grids = StyleGridDetails::where([
-                                                'stylegrid_id' => $style_grid_dtls->stylegrid_id,
-                                                'is_active' => 1
-                                            ])->get();
-
-                if(count($style_grid_dtls->grids)){
-                    
-                    foreach ($style_grid_dtls->grids as $key => $value) {
-
-                        $style_grid_dtls->grids[$key]['items'] = StyleGridProductDetails::where([
-                                                                    'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
-                                                                    'is_active' => 1
-                                                                ])->get();
-
-
-                    }
-                }
 
                 return view('stylist.postloginview.grids.view', compact('style_grid_dtls'));
 
             }else{
 
-                return redirect()->back();
+                return redirect()->route('stylist.grid.index')->with(['status' => 0, 'message' => trans('pages.crud.no_data', ['attr' => 'grid'])]);
             }
 
         }catch(\Exception $e){
-            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+            return redirect()->route('stylist.grid.index')->with(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
         }
 	}
 
@@ -286,4 +303,76 @@ class GridController extends BaseController
         }
 	}
 	
+    public function sendGridToClients(Request $request)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($request->stylegrid_id);
+
+            if($style_grid_dtls){
+
+                $client_ids = json_decode($request->client_ids, true);
+
+                if(is_array($client_ids) && count($client_ids)){
+
+                    foreach ($client_ids as $key => $value) {
+                        
+                        $client = new StyleGridClients;
+                        $client->stylegrid_id = $style_grid_dtls->stylegrid_id;
+                        $client->member_id = $value;
+                        $client->save();
+                    }
+                    
+                }
+
+                return response()->json(['status' => 1, 'message' => trans('pages.grid_sent_to_client_success') ]);
+                
+            }else{
+
+                return response()->json(['status' => 0, 'message' => trans('pages.crud.added_success', [ 'attr' => 'stylegrid' ]) ]);
+
+            }
+
+        }catch(\Exception $e){
+            
+            Log::info("error sendGridToClients ". $e->getMessage());
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
+    public function getGridClients(Request $request)
+	{
+        try{
+
+            $style_grid_dtls = StyleGrids::find($request->stylegrid_id);
+
+            if($style_grid_dtls){
+
+                $list = StyleGridClients::from('sg_grid_clients as grid_client')
+                                        ->select('member.full_name as client_name', 'grid_client.created_at', 'grid_client.grid_client_id', 'grid_client.member_id')
+                                        ->join('sg_stylegrids as grid', 'grid.stylegrid_id', '=', 'grid_client.stylegrid_id')
+                                        ->leftjoin('sg_member as member', 'member.id', '=', 'grid_client.member_id')
+                                        ->where([
+                                            'grid_client.stylegrid_id' => $request->stylegrid_id,
+                                            'grid_client.is_active' => 1
+                                        ])
+                                        ->get();
+
+                return response()->json(['status' => 1, 'message' => trans('pages.action_success'), 'data' => [ 'list' => $list ] ]);
+                
+            }else{
+
+                return response()->json(['status' => 0, 'message' => trans('pages.crud.added_success', [ 'attr' => 'stylegrid' ]) ]);
+
+            }
+
+        }catch(\Exception $e){
+            
+            Log::info("error getGridClients ". $e->getMessage());
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
 }

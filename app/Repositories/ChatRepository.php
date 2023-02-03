@@ -499,7 +499,7 @@ class ChatRepository {
 
             } else {
 
-                $limit = $request->has('limit') ? $request->limit : 20;
+                $limit = $request->has('limit') ? $request->limit : config('custom.default_page_limit');
                 $page_index = $request->has('page') ? $request->page : 1;
 				
 				$chat_room = ChatRoom::find($request->chat_room_id);

@@ -122,7 +122,9 @@
     <script src="{{ asset('member/dashboard/assets/js/common.js') }}" type="text/javascript"></script>
 
     @include('scripts.common_scripts')
-  
+    
+    @include('member.dashboard.includes.header-notifications')
+
     {{-- Pusher code for realtime chat --}}
 
     <script src="https://js.pusher.com/7.2.0/pusher.min.js"></script>
@@ -149,12 +151,12 @@
             temp_fd.append( 'user_data', JSON.stringify(user_info) );
             temp_fd.append( 'status', status );
 
-            getResponseInJsonFromURL("{{ route('member.messanger.online.status') }}", temp_fd, (response) => { console.log(response) }, (error) => { console.log(error) } );
+            getResponseInJsonFromURL("{{ route('member.messanger.online.status') }}", temp_fd, (response) => {  }, (error) => { console.log(error) } );
 
         }
 
         // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
+        Pusher.logToConsole = false;
         
         var pusher = new Pusher("{{ config('chat.pusher.key') }}", {
             encrypted: true,

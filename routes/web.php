@@ -8,6 +8,7 @@ use App\Http\Controllers\StylistWebsiteController as StylistWebsite;
 use App\Http\Controllers\CreateGridController as CreateGridController;
 use App\Http\Controllers\Admin\LoginController as AdminLogin;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\CommonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,20 +33,38 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::get('/', [StylistWebsite::class, 'index']);
  Route::get('/sign-up', [StylistWebsite::class, 'index']);
 
- Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
+//  Route::group(['prefix' => 'stylist', 'namespace' => 'Stylist', 'as' => 'stylist.'], function () {
 
-  Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
+//   Route::group(['prefix' => 'grid', 'as' => 'grid.'], function () {
 
-    Route::get('/index', 'GridController@index')->name('index');
-    Route::get('/create', 'GridController@createGridIndex')->name('create');
-    Route::get('/view/{grid_id}', 'GridController@view')->name('view');
-    Route::post('/save', 'GridController@saveGridDetails')->name('save');
-    Route::get('/export/pdf/{grid_id}', 'GridController@exportGridPdf')->name('download.pdf');
+//     Route::get('/index', 'GridController@index')->name('index');
+//     Route::get('/create', 'GridController@createGridIndex')->name('create');
+//     Route::get('/view/{grid_id}', 'GridController@view')->name('view');
+//     Route::post('/save', 'GridController@saveGridDetails')->name('save');
+//     Route::get('/export/pdf/{grid_id}', 'GridController@exportGridPdf')->name('download.pdf');
     
+//   });
+
+//  });
+ 
+  Route::group(['prefix' => 'options-', 'as' => 'options.'], function () {
+
+    // This routes to get select options data
+    Route::post('/stylist-clients', [CommonController::class, 'get_stylist_clients_list'])->name('stylist_clients');
+  
   });
 
- });
- 
+  Route::get('/stylist-grid', 'Stylist\GridController@index')->name('stylist.grid.index');
+  
+  Route::get('stylist-grid/create', 'Stylist\GridController@createGridIndex')->name('stylist.grid.create');
+  Route::get('stylist-grid/view/{grid_id}', 'Stylist\GridController@view')->name('stylist.grid.view');
+  Route::post('/stylist-grid/list', 'Stylist\GridController@getStyleGridList')->name('stylist.grid.list');
+
+  Route::post('stylist-grid/save', 'Stylist\GridController@saveGridDetails')->name('stylist.grid.save');
+  Route::get('stylist-grid/export/pdf/{grid_id}', 'Stylist\GridController@exportGridPdf')->name('stylist.grid.download.pdf');
+  Route::post('stylist-grid/send-to-clients', 'Stylist\GridController@sendGridToClients')->name('stylist.grid.sent_to_clients');
+  Route::post('stylist-grid/clients', 'Stylist\GridController@getGridClients')->name('stylist.grid.clients');
+
   Route::get('/stylist-messanger/{chat_room_id?}', 'Stylist\ChatController@index')->name('stylist.messanger.index');
   Route::post('/stylist-messanger-auth', 'Stylist\ChatController@pusherAuth')->name('stylist.messanger.pusher.auth');
   Route::POST('/stylist-messanger-contacts', 'Stylist\ChatController@getChatContacts')->name('stylist.messanger.contacts');
@@ -81,9 +100,11 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
+
  Route::get('/stylist-notifications', [Stylist::class, 'notificationsIndex'])->name('stylist.notifications.index');
- Route::post('/stylist-notifications-list', [Stylist::class, 'notificationsList'])->name('stylist.notifications.list');
- 
+ Route::post('/stylist-notifications', [Stylist::class, 'notificationsList'])->name('stylist.notifications.list');
+ Route::post('/stylist-notifications-unread', [Stylist::class, 'unreadNotificationsList'])->name('stylist.notifications.unread_list');
+ Route::post('/stylist-notifications-read-all', [Stylist::class, 'readNotifications'])->name('stylist.notifications.read_all');
  
  //stylist section End
  ///member Section Start
@@ -109,7 +130,12 @@ Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccess
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);
 Route::post('/member-decline-offer', [Member::class, 'memberDeclineOffer']);
 Route::get('/member-submit-request-complete', [Member::class, 'memberSubmitRequestComplete']);
-Route::get('/member-grid', [Member::class, 'memberGrid']);
+
+// Member Grids 
+Route::get('/member-grid', 'Member\GridController@index')->name('member.grid.index');
+Route::post('/member-grid/list', 'Member\GridController@getStyleGridList')->name('member.grid.list');
+Route::get('member-grid/view/{grid_id}', 'Member\GridController@view')->name('member.grid.view');
+
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
 Route::get('/member-orders', [Member::class, 'memberOrders']);
 Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest']);
@@ -118,7 +144,9 @@ Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestP
 
 // member notifications 
 Route::get('/member-notifications', [Member::class, 'notificationsIndex'])->name('member.notifications.index');
-Route::post('/member-notifications-list', [Member::class, 'notificationsList'])->name('member.notifications.list');
+Route::post('/member-notifications', [Member::class, 'notificationsList'])->name('member.notifications.list');
+Route::post('/member-notifications-unread', [Member::class, 'unreadNotificationsList'])->name('member.notifications.unread_list');
+Route::post('/member-notifications-read-all', [Member::class, 'readNotifications'])->name('member.notifications.read_all');
 
 // Memeber panel chat
 Route::get('/member-messanger/{chat_room_id?}', 'Member\ChatController@index')->name('member.messanger.index');
@@ -129,6 +157,15 @@ Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoo
 Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
 Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineStatus')->name('member.messanger.online.status');
   
+// member cart 
+
+Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {
+
+  Route::get('/', 'Member\CartController@index')->name('index');
+  Route::post('add', 'Member\CartController@addToCart')->name('add');
+  Route::post('list', 'Member\CartController@getCartList')->name('list');
+});
+
 //member section End
 
 //Admin Section Start

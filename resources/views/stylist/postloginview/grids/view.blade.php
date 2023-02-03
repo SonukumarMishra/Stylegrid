@@ -8,13 +8,34 @@
 
 <style>
 
+   .nav.nav-tabs .nav-item .nav-link.active, .nav.nav-pills .nav-item .nav-link.active {
+      box-shadow: 0 2px 4px 0 rgb(90 141 238 / 50%);
+   }
 
+   .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+      color: #FFFFFF;
+      background-color: #00A82F;
+      border-color: transparent;
+   }
+   .nav.nav-tabs {
+      margin-bottom: 1rem;
+      border-bottom-color: #ededed;
+   }
+   .nav-tabs {
+      border-bottom: 1px solid #7E8FA3;
+   }
+
+   .table thead th, .table tbody tr{
+      border-bottom: 2px solid #E2E2E2 !important;
+   }
 
 </style>
 
 <div class="app-content content bg-white">
 
-    <div class="content-wrapper">
+   <input type="hidden" id="stylegrid_id" name="stylegrid_id" value="{{ $style_grid_dtls->stylegrid_id }}">
+
+   <div class="content-wrapper">
 
        <div class="content-header row">
 
@@ -40,11 +61,13 @@
 
              <div class="col-md-4 quick-link text-right">
 
-                <span class="mr-5"><a hrf="">Quick Link</a></span>
+                {{-- <span class="mr-5"><a hrf="">Quick Link</a></span> --}}
 
                 <div class="row justify-content-end my-2">
 
-                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
+                  <button class="grid-btn m-0 mr-1" id="send_to_client_btn">Send to Client</button>
+
+                   {{-- <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Chat.svg')}}"
 
                       alt=""></a>
 
@@ -52,7 +75,7 @@
 
                       alt=""></a>
 
-                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a>
+                   <a href="" class="mx-1"><img src="{{asset('stylist/app-assets/images/icons/Gear.svg')}}" alt=""></a> --}}
 
                 </div>
 
@@ -319,10 +342,110 @@
  </div>
 
 
+ {{-- Grid's clients --}}
+ <div class="modal" id="grid_clients_modal" tabindex="-1" role="dialog" style="top: 5% !important;">
+
+   <div class="modal-dialog" role="document">
+
+      <div class="modal-content pt-1">
+
+         <div class="modal-header">
+            <h3 class="modal-title" id="myModalLabel1">Clients of Grid</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+         <div class="modal-body py-2">
+
+            <div class="col-12">
+               <ul class="nav nav-tabs justify-content-end" role="tablist">
+                  
+                  <li class="nav-item">
+                     <a class="nav-link active" data-toggle="tab" href="#client-form-tab"
+                        aria-controls="service-align-end" role="tab" aria-selected="false">
+                        Send To Client
+                     </a>
+                  </li>
+
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="tab" href="#clients-list-tab" role="tab" aria-selected="true">
+                        Clients
+                     </a>
+                  </li>
+                  
+                  
+               </ul>
+               <div class="tab-content">
+
+                  <div class="tab-pane active" id="client-form-tab" role="tabpanel">
+                     
+                     <div class="row">
+                     
+                        <div class="col-md-12 mb-1">
+                           <div class="form-group">
+                             <select class="select2 form-control" id="search_client_input">
+                             </select>
+                           </div>
+                         </div>
+
+                         <div class="col-md-12 d-flex" id="search_clients_container">
+
+                         </div>
+
+                        <div class="row col-12 d-flex justify-content-end">
+
+                           <button class="submit-request" id="send_grid_btn">Send</button>
+
+                        </div>
+                        
+
+                     </div>
+
+                  </div>
+
+                  <div class="tab-pane" id="clients-list-tab" role="tabpanel">
+                     
+                     <div class="text-center add-table-border">
+
+                        <table class="table w-100 table-responsive borderless" id="grid_clients_table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th scope="col">Client Name</th>
+
+                                    <th scope="col">Send On</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="grid_clients_table_body">
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                  </div>                 
+                  
+               </div>
+            </div>
+
+         </div>
+
+      </div>
+
+   </div>
+
+</div>
+
 
 @include('stylist.postloginview.partials.footer.footerjs')
 
-
-
-@include('scripts.stylist.grid.view')
+@include('scripts.stylist.grid.view_js')
 

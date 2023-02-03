@@ -20,8 +20,6 @@
         messageInput = $("#message-form .m-send"),
         defaultMessengerColor = "#2180f3",
         access_token = $('meta[name="csrf-token"]').attr("content");
-
-        console.log(chat_baseurl);
         var selectedRoomId = "";
     
     /**
@@ -175,8 +173,7 @@
                 data: { _token: access_token, page: contactsPage },
                 dataType: "JSON",
                 success: (response) => {
-                    console.log(response);
-
+                   
                     setContactsLoading(false);
 
                     if(response.status = 1){
@@ -315,8 +312,7 @@
         disableOnLoad();
 
         var room_dtls = getDetailsFromObjectByKey(allContactsList, room_id, 'chat_room_id');
-        console.log("room details - ", room_dtls);
-
+       
         if(room_dtls != undefined){
 
             $("#message-form input[name='receiver_id']").val(room_dtls.receiver_id);
@@ -358,7 +354,7 @@
     
     // While sending a message, show this temporary message card.
     function sendTempMessageCard(message, id) {
-        console.log("message", message);
+       
         return `
         <div class="message-card mc-sender" data-message-id="" data-room-id="${id}" >
             <p>
@@ -373,7 +369,7 @@
 
     // Chat messages UI.
     function getChatMessagesUI(list) {
-        console.log("list ", list);
+       
         var html = '';
 
         if(list.length > 0){
@@ -467,7 +463,7 @@
                     messageInput.focus();
                 },
                 success: (response) => {
-                    console.log(response);
+                    
                     // return;
                     if (response.status == 0) {
                         // message card error status
