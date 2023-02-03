@@ -148,7 +148,7 @@
 
 
 
-                                               <div class="grid-item-inner-input-block" data-stylegrid-dtls-id="{{ $item->stylegrid_dtls_id }}"  data-stylegrid-product-id="{{ $item->stylegrid_product_id }}">
+                                               <div class="grid-item-inner-input-block" data-stylegrid-id="{{ $item->stylegrid_id }}" data-stylegrid-dtls-id="{{ $item->stylegrid_dtls_id }}"  data-stylegrid-product-id="{{ $item->stylegrid_product_id }}">
 
 
 
@@ -283,7 +283,7 @@
                                  <input type="hidden" id="cart_module_type" value="{{ config('custom.cart.module_type.stylegrid') }}">
                                  <input type="hidden" id="cart_item_id" >
                                  <input type="hidden" id="cart_item_type" value="{{ config('custom.cart.item_type.stylegrid_product') }}">
-                                 <button class="submit-request" id="add_to_cart_btn" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span id="cart_btn_title"> Add To Cart</span></button>
+                                 <button class="submit-request" style="width:210px;" id="cart_action_btn" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span id="cart_btn_title"> Add To Cart</span></button>
 
                               </div>                           
 

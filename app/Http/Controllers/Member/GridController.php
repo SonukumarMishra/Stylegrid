@@ -18,6 +18,7 @@ use Config;
 use Storage;
 use Helper;
 use PDF;
+use DB;
 
 class GridController extends BaseController
 {
@@ -109,6 +110,41 @@ class GridController extends BaseController
         }catch(\Exception $e){
             return redirect()->route('member.grid.index')->with(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
         }
+	}
+
+    public function getStyleGridProductDetails(Request $request)
+	{
+        try{
+
+            $details = StyleGridProductDetails::from('sg_stylegrid_product_details as product')
+                                                ->where([
+                                                    'product.stylegrid_id' => $request->stylegrid_id,
+                                                    'product.stylegrid_product_id' => $request->stylegrid_product_id
+                                                ])
+                                                ->leftjoin('sg_cart_details as cart_item', function($join) {
+                                                    $join->on('cart_item.item_id', '=', 'product.stylegrid_product_id')
+                                                        ->where([
+                                                            'cart_item.item_type' => config('custom.cart.item_type.stylegrid_product')
+                                                        ]);
+                                                })
+                                                ->select('product.*', DB::raw('(CASE WHEN cart_item.cart_dtls_id IS NOT NULL THEN 1 ELSE 0 END) AS is_cart_item'), 'cart_item.cart_id', 'cart_item.cart_dtls_id')
+                                                ->first();
+
+            if($details){
+                $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 'data' => $details ];
+            }else{
+                $response_array = [ 'status' => 0, 'message' => trans('pages.crud.no_data', ['attr' => 'grid']) ];
+            }
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("index getStyleGridProductDetailsUI - ". $e->getMessage());
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+            return response()->json($response_array, 200);
+        }
+
 	}
 
 }

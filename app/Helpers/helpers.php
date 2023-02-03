@@ -4,6 +4,7 @@ use Config;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Repositories\CartRepository as CartRepo;
 use File;
 use Storage;
 use Hash;
@@ -172,6 +173,12 @@ class Helper
     public static function generateRandomString($title, $length = 10) {
         
         return substr(str_shuffle(str_repeat($title, 10)), 0, 10);
+    }
+
+    public static function getUserCartItemsCount($auth_user) {
+        
+        return CartRepo::get_user_cart_items_count($auth_user);
+
     }
 
 }
