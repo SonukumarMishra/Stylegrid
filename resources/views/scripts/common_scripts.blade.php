@@ -121,7 +121,7 @@
 
         }
 
-        window.confirmDialogMessage = function(title_msg, sub_title_msg, furtherFuntionToCall, target = '') {
+        window.confirmDialogMessage = function(title_msg, sub_title_msg, confirm_btn_text='Ok',furtherFuntionToCall, target = '') {
 
             Swal.fire({
                 customClass: {
@@ -131,7 +131,7 @@
                 text: sub_title_msg,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Ok',
+                confirmButtonText: confirm_btn_text,
                 target: (target != '' ? document.getElementById(target) : 'body'),
             }).then((result) => {
 
@@ -295,6 +295,28 @@
             
         window.processExceptions = function(e) {
             showErrorMessage(e);
+        };
+
+        window.manageCartBadgeCount = function(total_cart_items) {
+
+            if(total_cart_items == 0){
+                $('.cart-badge-count').hide();
+            }else{
+                $('.cart-badge-count').html(total_cart_items);
+                $('.cart-badge-count').show();
+            }
+
+            if($('#cart-index-items-count-title').length > 0){
+             
+                if(total_cart_items == 1){
+                    $('#cart-index-items-count-title').html('There is '+total_cart_items+' product in your cart.');
+                }else if(total_cart_items > 1){
+                    $('#cart-index-items-count-title').html('There are '+total_cart_items+' products in your cart.');
+                }else{
+                    $('#cart-index-items-count-title').html('');
+                }
+                
+            }
         };
 
     }(window));

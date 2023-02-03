@@ -163,6 +163,7 @@ Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {
 
   Route::get('/', 'Member\CartController@index')->name('index');
   Route::post('add', 'Member\CartController@addToCart')->name('add');
+  Route::post('remove', 'Member\CartController@removeCartItems')->name('remove');
   Route::post('list', 'Member\CartController@getCartList')->name('list');
 });
 

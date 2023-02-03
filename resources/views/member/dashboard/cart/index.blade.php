@@ -1,9 +1,5 @@
 @extends('member.dashboard.layouts.default')
 
-<style>
-
-
-</style>
 @section('content')
 
     <div class="content-wrapper">
@@ -18,7 +14,7 @@
 
                      <h1>Your Cart</h1>
 
-                     <h3>There are 3 products in your cart</h3>
+                     <h3 id="cart-index-items-count-title"></h3>
 
                   </div>
 

@@ -44,12 +44,18 @@
                 e.preventDefault();
 
                 showSpinner('#add_to_cart_btn', 'sm', 'light');
+                
+                var items = [
+                    {
+                        'item_id' : $('#cart_item_id').val(),
+                        'item_type' : $('#cart_item_type').val()
+                    }
+                ];
 
                 var formData = new FormData();    
                 formData.append( 'module_id', $('#cart_module_id').val() );
                 formData.append( 'module_type', $('#cart_module_type').val() );
-                formData.append( 'item_id', $('#cart_item_id').val() );
-                formData.append( 'item_type', $('#cart_item_type').val() );
+                formData.append( 'items', JSON.stringify(items) );
 
                 getResponseInJsonFromURL('{{ route("member.cart.add") }}', formData, (response) => { 
                    
@@ -61,6 +67,8 @@
 
                     }else{
 
+                        manageCartBadgeCount(response.data.cart_items_count);
+                        
                         $('#cart_btn_title').text('Remove From Cart');
                         $('#add_to_cart_btn').data('action', 'remove');
                         showSuccessMessage(response.message);

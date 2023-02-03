@@ -33,6 +33,7 @@ return [
    'sourcing_chat_default_message' => 'Say hello to :name! :gender is sourcing your :sourcing_title',
    'grid_sent_to_client_success' => 'Grid has been sent successfully.',
    'add_to_cart_success' => 'Product has been added to your cart.',
+   'remove_cart_item_success' => 'Product has been removed to your cart.',
 
    // notificaions description
 

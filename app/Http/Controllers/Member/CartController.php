@@ -62,6 +62,12 @@ class CartController extends BaseController
           
             if($result){
 
+                $cart_items_count = CartRepo::get_user_cart_items_count($this->auth_user);
+
+                $result = [
+                    'cart_items_count' => $cart_items_count
+                ];
+
                 $response_array = ['status' => 1, 'message' => trans('pages.add_to_cart_success'), 'data' => $result ];
 
             }else{
@@ -82,7 +88,6 @@ class CartController extends BaseController
 
 	}
 
-    
     public function getCartList(Request $request)
 	{
         try{
@@ -96,7 +101,8 @@ class CartController extends BaseController
             $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
                                 'data' => [
                                     'view' => $view,
-                                    'total_page' => $result['total_page']
+                                    'total_page' => $result['total_page'],
+                                    'cart_items_count' => $result['cart_items_count'],
                                 ]  
                             ];
 
@@ -105,6 +111,7 @@ class CartController extends BaseController
         }catch(\Exception $e){
 
             Log::info("error getCartList - ". $e->getMessage());
+            
             $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
 
             return response()->json($response_array, 200);
@@ -112,4 +119,38 @@ class CartController extends BaseController
 
 	}
     
+    public function removeCartItems(Request $request)
+	{
+        try{
+
+            $result = CartRepo::remove_cart_item($request, $this->auth_user);
+          
+            if($result){
+
+                $cart_items_count = CartRepo::get_user_cart_items_count($this->auth_user);
+
+                $result = [
+                    'cart_items_count' => $cart_items_count
+                ];
+
+                $response_array = ['status' => 1, 'message' => trans('pages.remove_cart_item_success'), 'data' => $result ];
+
+            }else{
+
+                $response_array = ['status' => 0, 'message' => trans('pages.something_wrong') ];
+
+            }
+
+            return response()->json($response_array, 200);
+          
+        }catch(\Exception $e){
+
+            Log::info("error removeCartItems - ". $e->getMessage());
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
 }

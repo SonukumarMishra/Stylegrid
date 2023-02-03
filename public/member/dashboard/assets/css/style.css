@@ -3026,3 +3026,9 @@ margin-bottom: 23px; */
   /*background-size: 100% 100% !important;*/
   background-repeat: no-repeat !important;
 }
+
+.img_200{
+  width: 200px;
+  height: 200px; 
+  object-fit: cover;
+}
