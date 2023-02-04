@@ -46,9 +46,16 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-notification nav-item">
+                            @php
+                                $header_cart_count = \Helper::getUserCartItemsCount([
+                                                                                        'auth_id' => Session::get("member_id"),
+                                                                                        'auth_user' =>  'member'
+                                                                                    ]);
+
+                            @endphp
                             <a class="nav-link nav-link-label" href="{{ route('member.cart.index') }}">                               
                                 <img src="{{ asset('member/dashboard/app-assets/images/gallery/Shopping Bag.png') }}" height="20" width="20" alt="">
-                                <span class="badge badge-pill badge-danger badge-up cart-badge">1</span>
+                                <span class="badge badge-pill badge-danger badge-up cart-badge-count" style="display:{{ $header_cart_count == 0 ? 'none' : 'block'}};">{{ $header_cart_count }}</span>
                             </a>
                         </li>       
                         <li>

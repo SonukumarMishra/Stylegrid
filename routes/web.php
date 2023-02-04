@@ -135,6 +135,7 @@ Route::get('/member-submit-request-complete', [Member::class, 'memberSubmitReque
 Route::get('/member-grid', 'Member\GridController@index')->name('member.grid.index');
 Route::post('/member-grid/list', 'Member\GridController@getStyleGridList')->name('member.grid.list');
 Route::get('member-grid/view/{grid_id}', 'Member\GridController@view')->name('member.grid.view');
+Route::post('member-grid/product-details', 'Member\GridController@getStyleGridProductDetails')->name('member.grid.product');
 
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
 Route::get('/member-orders', [Member::class, 'memberOrders']);
@@ -163,6 +164,7 @@ Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {
 
   Route::get('/', 'Member\CartController@index')->name('index');
   Route::post('add', 'Member\CartController@addToCart')->name('add');
+  Route::post('remove', 'Member\CartController@removeCartItems')->name('remove');
   Route::post('list', 'Member\CartController@getCartList')->name('list');
 });
 

@@ -40,7 +40,7 @@ return [
             'stylegrid' => 'stylegrid'
         ],
         'item_type' => [
-            'grid' => 'grid'    // This is Main grid's sub grids type
+            'stylegrid_product' => 'stylegrid_product'    // This is Main grid's sub grids type
         ]
 
     ],

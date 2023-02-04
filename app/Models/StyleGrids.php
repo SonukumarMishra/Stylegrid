@@ -11,4 +11,10 @@ class StyleGrids extends Model
     
     protected $table='sg_stylegrids';
     protected $primaryKey = 'stylegrid_id';
+
+    public function stylegrid_products() 
+    {
+        return $this->hasMany(StyleGridProductDetails::class, 'stylegrid_id', 'stylegrid_id');
+    }
+
 }

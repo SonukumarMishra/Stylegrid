@@ -30,71 +30,152 @@
 
                 e.preventDefault();
 
-                var stylegrid_dtls_id = $(this).data('stylegrid-dtls-id');
-                var stylegrid_product_id = $(this).data('stylegrid-product-id');
-
-                ViewGridRef.bindGridItemDetailsModal(stylegrid_dtls_id, stylegrid_product_id);
-
-                $('#grid_item_details_modal').modal('show');
+                ViewGridRef.bindGridItemDetailsModal($(this).data('stylegrid-id'), $(this).data('stylegrid-product-id'));
 
             });
 
-            $('body').on('click', '#add_to_cart_btn', function(e) {
+            $('body').on('click', '#cart_action_btn', function(e) {
 
                 e.preventDefault();
 
-                showSpinner('#add_to_cart_btn', 'sm', 'light');
+                if($(this).data('action') == 'remove'){
 
-                var formData = new FormData();    
-                formData.append( 'module_id', $('#cart_module_id').val() );
-                formData.append( 'module_type', $('#cart_module_type').val() );
-                formData.append( 'item_id', $('#cart_item_id').val() );
-                formData.append( 'item_type', $('#cart_item_type').val() );
-
-                getResponseInJsonFromURL('{{ route("member.cart.add") }}', formData, (response) => { 
+                    ViewGridRef.removeCartItem({
+                        cart_id :  $(this).data('cart-id'),
+                        cart_dtls_id : $(this).data('cart-dtls-id'),
+                    });
                    
-                    hideSpinner('#add_to_cart_btn', 'sm');
-
-                    if(response.status != undefined && response.status == 0){
-
-                        showErrorMessage(response.message);
-
-                    }else{
-
-                        $('#cart_btn_title').text('Remove From Cart');
-                        $('#add_to_cart_btn').data('action', 'remove');
-                        showSuccessMessage(response.message);
-                    }
-
-                }, (error) => { console.log(error) } );
+                }else{
+                    ViewGridRef.addToCartItem();
+                }
 
             });
 
         }
 
-        ViewGridRef.bindGridItemDetailsModal = function(stylegrid_dtls_id, stylegrid_product_id) {
+        ViewGridRef.bindGridItemDetailsModal = function(stylegrid_id, stylegrid_product_id) {
             
-            var obj_index = ViewGridRef.styleGridJson['grids'].findIndex(x => x.stylegrid_dtls_id == stylegrid_dtls_id);
+            var formData = new FormData();    
+            formData.append( 'stylegrid_id', stylegrid_id );
+            formData.append( 'stylegrid_product_id', stylegrid_product_id );
 
-            if(obj_index != -1){
+            getResponseInJsonFromURL('{{ route("member.grid.product") }}', formData, (response) => { 
+                
+                $('#cart_action_btn').prop('disabled', false);
 
-                var obj_item_index = ViewGridRef.styleGridJson['grids'][obj_index]['items'].findIndex(x => x.stylegrid_product_id == stylegrid_product_id);
-    
-                if(obj_item_index != -1){
-       
-                    var item_details = ViewGridRef.styleGridJson['grids'][obj_index]['items'][obj_item_index];
+                if(response.status != undefined && response.status == 0){
 
-                    $('#product_name').html(item_details.product_name);
-                    $('#product_brand').html(item_details.product_brand);
-                    $('#product_type').html(item_details.product_type);
-                    $('#product_price').html(item_details.product_price.toFixed(2));
-                    $('#product_size').html(item_details.product_size);
-                    $('#product_image_preview').attr('src', asset_url+item_details.product_image);
-                    $('#cart_item_id').val(stylegrid_product_id);
+                    showErrorMessage(response.message);
+                    return false;
+
+                }else{
+           
+                    var item_details = response.data;
+ 
+                    if(item_details != undefined){
+ 
+                        $('#product_name').html(item_details.product_name);
+                        $('#product_brand').html(item_details.product_brand);
+                        $('#product_type').html(item_details.product_type);
+                        $('#product_price').html(item_details.product_price.toFixed(2));
+                        $('#product_size').html(item_details.product_size);
+                        $('#product_image_preview').attr('src', asset_url+item_details.product_image);
+                        $('#cart_item_id').val(stylegrid_product_id);
+
+                        $('#cart_action_btn').data('cart-id', '');
+                        $('#cart_action_btn').data('cart-dtls-id', '');
+
+                        if(item_details.is_cart_item == 1){
+                            $('#cart_btn_title').text('Remove From Cart');
+                            $('#cart_action_btn').data('action', 'remove');
+                            $('#cart_action_btn').data('cart-id', item_details.cart_id);
+                            $('#cart_action_btn').data('cart-dtls-id', item_details.cart_dtls_id);
+                        }else{
+                            $('#cart_btn_title').text('Add To Cart');
+                            $('#cart_action_btn').data('action', 'add');
+                        }
+
+                        $('#grid_item_details_modal').modal('show');
+
+                    }
+
                 }
 
-            }
+            }, (error) => { console.log(error) } );
+           
         };
+
+        ViewGridRef.addToCartItem = function() {
+
+            showSpinner('#cart_action_btn', 'sm', 'light');
+                
+            var items = [
+                {   
+                    'item_id' : $('#cart_item_id').val(),
+                    'item_type' : $('#cart_item_type').val()
+                }
+            ];
+
+            var formData = new FormData();    
+            formData.append( 'module_id', $('#cart_module_id').val() );
+            formData.append( 'module_type', $('#cart_module_type').val() );
+            formData.append( 'items', JSON.stringify(items) );
+
+            getResponseInJsonFromURL('{{ route("member.cart.add") }}', formData, (response) => { 
+            
+                hideSpinner('#cart_action_btn', 'sm');
+
+                if(response.status != undefined && response.status == 0){
+
+                    showErrorMessage(response.message);
+
+                }else{
+
+                    manageCartBadgeCount(response.data.cart_items_count);
+                    
+                    ViewGridRef.bindGridItemDetailsModal($('#grid_id').val(), $('#cart_item_id').val());
+                    $('#cart_action_btn').prop('disabled', true);
+                    showSuccessMessage(response.message);
+                }
+
+            }, (error) => { console.log(error) } );
+            
+        }
+
+        ViewGridRef.removeCartItem = function(data) {
+        
+            showSpinner('#cart_action_btn', 'sm', 'light');
+
+            var formData = new FormData();            
+            formData.append('user_id', auth_id);
+            formData.append('user_type', auth_user_type);
+            formData.append('cart_id', data.cart_id);
+            formData.append('cart_dtls_id', data.cart_dtls_id);
+            
+            window.getResponseInJsonFromURL('{{ route("member.cart.remove") }}', formData, (response) => {
+
+                hideSpinner('#cart_action_btn', 'sm');
+
+                if (response.status == '1') {
+
+                    showSuccessMessage(response.message);
+                    
+                    manageCartBadgeCount(response.data.cart_items_count);
+
+                    $('#cart_action_btn').data('cart-id', '');
+                    $('#cart_action_btn').data('cart-dtls-id', '');
+                    $('#cart_btn_title').text('Add To Cart');
+                    $('#cart_action_btn').data('action', 'add');
+
+                } else {
+                    showErrorMessage(response.error);
+                }
+
+
+            }, processExceptions, 'POST');
+        
+        };
+        
 
         ViewGridRef.processExceptions = function(e) {
             showErrorMessage(e);
