@@ -29,7 +29,7 @@
                                             <p class="pl-1">Approve or decline the latest stylist applications.</p>
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
-                                            <a href="#"><button
+                                            <a href="<?php echo url('admin-review-stylist');?>"><button
                                                     class="go-to-grid-btn mr-1">Browse</button></a>
                                         </div>
                                     </div>
@@ -89,7 +89,7 @@
                                             <p class="pl-1">Update the featured product section on the shop page.</p>
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
-                                            <a href="#"><button
+                                            <a href="<?php echo url('/admin-upload-product');?>"><button
                                                     class="go-to-grid-btn mr-1">Add Product</button></a>
                                         </div>
                                     </div>
