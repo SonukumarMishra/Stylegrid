@@ -17,6 +17,16 @@
                      <h3 id="cart-index-items-count-title"></h3>
 
                   </div>
+                  
+                    {{-- <div class="col-md-4 quick-link text-right"> --}}
+
+                        {{-- <span class="mr-5"><a hrf="">Quick Link</a></span> --}}
+
+                        {{-- <div class="row justify-content-end my-2">
+
+                        <button class="grid-btn m-0 mr-1" id="send_to_client_btn">Send to Client</button>
+                    </div> --}}
+                </div>
 
                </div>
 
