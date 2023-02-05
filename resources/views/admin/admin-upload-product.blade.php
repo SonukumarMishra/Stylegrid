@@ -15,28 +15,199 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-12">
-                        <div class="search-container-member">
-                            <h2>Upload Fashion Products (up to 15 new ones can be added)</h2>
-                             <div>
-                                <a href="javascript:void(0)" id="uploadImage">Add</a>
+                        <div class="search-container-member px-3 py-3">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h2 class="upload-text mb-2 ml-2">Upload Fashion Products (up to 15 new ones can be added)</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                </div> 
+                            </div>
+                             <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                       
+                                            <div class="admin-grid" type="button" class="" data-toggle="modal" data-target="#gridLabel">
+                                                <div class="admin-delete px-1">  <img  src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid" ></div>
+                                                                             <img src='{{ asset('admin-section/assets/images/adminn1.png')}}' class=" border img-fluid">
+                                            </div>
+                                     
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                            <div class="admin-grid">
+                                                <div class="admin-delete">  <img class="px-1" src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
+                                            <img src='{{ asset('admin-section/assets/images/adminn2.png')}}' class=" border img-fluid">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                            <div class="admin-grid">
+                                                <div class="admin-delete">  <img class="px-1" src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
+                                            <img src='{{ asset('admin-section/assets/images/adminn3.png')}}' class=" border img-fluid">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                            <div class="admin-grid">
+                                                <div class="admin-delete">  <img  src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
+                                            <img src='{{ asset('admin-section/assets/images/adminn4.png')}}' class=" border img-fluid">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6 ">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <a href="">
+                                    <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                              
                              </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
-                        <div class="search-container-member">
-                            <h2>Upload Home Products (up to 15 new ones can be added)</h2>
-                             <div>
-
+                        <div class="search-container-member px-3 py-3">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h2 class="upload-text mb-2 ml-2">Upload Fashion Products (up to 15 new ones can be added)</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                </div> 
+                            </div>
+                             <div class="container-fluid">
+                                <div class="row">
+                                <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6 ">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                              
                              </div>
                         </div>
                     </div>
 
                     <div class="col-lg-12">
-                        <div class="search-container-member">
-                            <h2>Upload Beauty Products (up to 15 new ones can be added)</h2>
-                             <div>
-
+                        <div class="search-container-member px-3 py-3">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h2 class="upload-text mb-2 ml-2">Upload Fashion Products (up to 15 new ones can be added)</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                </div> 
+                            </div>
+                             <div class="container-fluid">
+                                <div class="row">
+                                <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6 ">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6">
+                                        <a href="">
+                                        <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                              
                              </div>
                         </div>
                     </div>
@@ -110,6 +281,40 @@
             </div>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="gridLabel" tabindex="-1" role="dialog" aria-labelledby="gridLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="row">
+        <div class="col-md-6">
+        <img src='{{ asset('admin-section/assets/images/grid.png')}}' class="  img-fluid">
+        </div>
+        <div class="col-md-6 text-center">
+            <h1 class="modal-h1">Bottega Veneta</h1>
+            <span class="span-modal">Cotton-twill jacket</span>
+            <p class="modal-p mt-3">Aside from the house's signature intrecciato weave, Bottega Veneta's pieces can also be instantly recognized by the iconic triangle motif. This cotton-twill jacket incorporates the shape into the chest pocket, yoke and sharp collar. Pair yours with the matching pants.</p>
+            <span class="span1-modal my-3">All sizes available</span>
+            <div class="mt-2">
+            <button type="button" class="edit-btn py-1 px-3" >Edit Product</button></div>
+            <div class="mt-1">
+        <button type="button" class="go-back-btn  py-1 px-4">Go Back</button>
+</div>
+        </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+       
+      </div>
+    </div>
+  </div>
 </div>
 @include('admin.includes.footer')
 <script>

@@ -837,3 +837,130 @@ color: #2B2B2B;
     display: inline-table !important;
   }
 }
+
+/*******************************admin-grid ******************/
+.admin-grid{
+  position: relative;
+}
+.admin-delete{
+  position: absolute;
+  right:0
+}
+.select-admin-grid{
+  border: 1.62472px solid #686868;;
+}
+.add-item-here{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 16.2472px;
+line-height: 25px;
+text-align: center;
+color: #8D8D8D;
+}
+.add-item{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 600;
+font-size: 58.4899px !important;
+line-height: 90px;
+text-align: center;
+float: none !important;
+text-align: center !important ;
+color: #000000;
+}
+.upload-text{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 24px;
+line-height: 36px;
+color: #000000;
+}
+.clear-all{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 16.2472px;
+line-height: 25px;
+/* identical to box height */
+
+text-align: right;
+
+color: #8D8D8D;
+}
+.modal-h1{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 36px;
+text-align: center;
+
+color: #000000;
+}
+.span-modal{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+/* identical to box height */
+
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #000000;
+}
+.modal-p{
+  
+font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 128.3%;
+/* or 21px */
+
+text-align: center;
+
+color: #000000;
+}
+.span1-modal{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 16px;
+line-height: 128.3%;
+/* identical to box height, or 21px */
+
+text-align: center;
+}
+.go-back-btn{
+  font-family: 'Genos';
+font-style: normal;
+font-weight: 400;
+font-size: 15.7895px;
+line-height: 19px;
+text-align: center;
+border: 1px solid #2b2b2b;
+color: #2B2B2B;
+background: transparent;
+}
+.edit-btn{
+  background: #000000;
+  border-radius: 3.15789px;
+  font-family: 'Genos';
+font-style: normal;
+font-weight: 400;
+font-size: 15.7895px;
+line-height: 19px;
+text-align: center;
+
+color: #FFFFFF;
+}
+@media (min-width: 576px){
+.modal-dialog {
+    max-width: 621px;
+    margin: 1.75rem auto;
+}
+}
