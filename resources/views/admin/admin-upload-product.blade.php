@@ -59,12 +59,12 @@
                                         </a>
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-6 ">
-                                        <a href="">
-                                        <div class="select-admin-grid py-3 ">
+                                       
+                                        <div class="select-admin-grid py-3 " type="button" class="" data-toggle="modal" data-target="#additemLabel">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
                                               <div class="text-center mt-1"> <button class="add-item">+</button></div>
                                             </div>
-                                        </a>
+                                       
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-6">
                                     <a href="">
@@ -285,35 +285,70 @@
 <!-- Modal -->
 <div class="modal fade" id="gridLabel" tabindex="-1" role="dialog" aria-labelledby="gridLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                            <div class="col-md-6">
+                                <img src='{{ asset('admin-section/assets/images/grid.png')}}' class="  img-fluid">
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="modal-h1">Bottega Veneta</h1>
+                                <span class="span-modal">Cotton-twill jacket</span>
+                                <p class="modal-p mt-3">Aside from the house's signature intrecciato weave, Bottega Veneta's pieces can also be instantly recognized by the iconic triangle motif. This cotton-twill jacket incorporates the shape into the chest pocket, yoke and sharp collar. Pair yours with the matching pants.</p>
+                                <span class="span1-modal my-3">All sizes available</span>
+                                <div class="mt-2">
+                                    <button type="button" class="edit-btn py-1 px-3" >Edit Product</button>
+                                </div>
+                                <div class="mt-1">
+                                    <button type="button" class="go-back-btn  py-1 px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>
+                                </div>
+                            </div>
+                    </div>
+            </div>
         
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <div class="row">
-        <div class="col-md-6">
-        <img src='{{ asset('admin-section/assets/images/grid.png')}}' class="  img-fluid">
         </div>
-        <div class="col-md-6 text-center">
-            <h1 class="modal-h1">Bottega Veneta</h1>
-            <span class="span-modal">Cotton-twill jacket</span>
-            <p class="modal-p mt-3">Aside from the house's signature intrecciato weave, Bottega Veneta's pieces can also be instantly recognized by the iconic triangle motif. This cotton-twill jacket incorporates the shape into the chest pocket, yoke and sharp collar. Pair yours with the matching pants.</p>
-            <span class="span1-modal my-3">All sizes available</span>
-            <div class="mt-2">
-            <button type="button" class="edit-btn py-1 px-3" >Edit Product</button></div>
-            <div class="mt-1">
-        <button type="button" class="go-back-btn  py-1 px-4">Go Back</button>
+  </div>
 </div>
+<!--add item Modal -->
+<div class="modal fade" id="additemLabel" tabindex="-1" role="dialog" aria-labelledby="additemLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    <div class="row">
+                            <div class="col-md-6">
+                            <div class="select-admin-grid py-3 ">
+                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                            </div>
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <h1 class="modal-h1">Enter Brand Name</h1>
+                                <span class="span-modal">Enter Product Name</span>
+                                <br>
+                               <div class="mt-5"> <a href="" class="mt-3">Click to enter description...</a></div>
+                               <div class="mt-5"> <p class="modal-p my-5"></p></div>
+                                <span class="span1-modal my-3">All sizes available</span>
+                                <div class="mt-2">
+                                    <button type="button" class="upload-btn py-1 px-3" >Upload Product</button>
+                                </div>
+                                <div class="mt-1">
+                                    <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
+                                </div>
+                            </div>
+                    </div>
+            </div>
+        
         </div>
-       </div>
-      </div>
-      <div class="modal-footer">
-       
-      </div>
-    </div>
   </div>
 </div>
 @include('admin.includes.footer')

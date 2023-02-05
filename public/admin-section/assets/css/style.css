@@ -868,6 +868,8 @@ text-align: center;
 float: none !important;
 text-align: center !important ;
 color: #000000;
+border: 0;
+background: transparent;
 }
 .upload-text{
   font-family: 'Silk Serif';
@@ -958,9 +960,31 @@ text-align: center;
 
 color: #FFFFFF;
 }
+.upload-btn{
+  background: #138232;
+border-radius: 3.15789px;
+font-family: 'Genos';
+font-style: normal;
+font-weight: 400;
+font-size: 15.7895px;
+line-height: 19px;
+text-align: center;
+border: 0;
+color: #FFFFFF;
+}
 @media (min-width: 576px){
 .modal-dialog {
-    max-width: 621px;
+    max-width: 688px;
     margin: 1.75rem auto;
 }
+}
+.tik-btn{
+  background: #00A82F !important;
+  border: 0 !important;
+  color: #fff !important;
+}
+.cross-btn{
+  background: #D50000 !important;
+  border: 0 !important;
+  color: #fff !important;
 }

@@ -178,8 +178,8 @@
                 "render": function ( data, type, row ) {
                     if(!row['status']){
                         var html ='';
-                        html +='<a href="javascript:void(0)"><button class="btn btn-success update-status" onClick="updateStylistStatus('+row['id']+',1)" data-id="'+row['id']+'">Approve</button></a> ';
-                        html +='<a href="javascript:void(0)" ><button class="btn btn-danger update-status" data-id="'+row['id']+'" onClick="updateStylistStatus('+row['id']+',2)" >Decline</button></a>';
+                        html +='<a href="javascript:void(0)"><button class="btn  update-status tik-btn" onClick="updateStylistStatus('+row['id']+',1)" data-id="'+row['id']+'"><span>&#10003;</span></button></a> ';
+                        html +='<a href="javascript:void(0)" ><button class="btn  update-status cross-btn" data-id="'+row['id']+'" onClick="updateStylistStatus('+row['id']+',2)" >X</button></a>';
                         return html;
                     }else{
                         return "COMPLETE";
