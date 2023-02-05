@@ -26,7 +26,7 @@
                             </div>
                              <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                        
                                             <div class="admin-grid" type="button" class="" data-toggle="modal" data-target="#gridLabel">
                                                 <div class="admin-delete px-1">  <img  src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid" ></div>
@@ -34,7 +34,7 @@
                                             </div>
                                      
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                             <div class="admin-grid">
                                                 <div class="admin-delete">  <img class="px-1" src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
@@ -42,7 +42,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                             <div class="admin-grid">
                                                 <div class="admin-delete">  <img class="px-1" src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
@@ -50,7 +50,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                             <div class="admin-grid">
                                                 <div class="admin-delete">  <img  src='{{ asset('admin-section/assets/images/delete.png')}}' class="img-fluid"></div>
@@ -58,7 +58,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6 ">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2 ">
                                        
                                         <div class="select-admin-grid py-3 " type="button" class="" data-toggle="modal" data-target="#additemLabel">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -66,7 +66,7 @@
                                             </div>
                                        
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                     <a href="">
                                     <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -92,7 +92,15 @@
                             </div>
                              <div class="container-fluid">
                                 <div class="row">
-                                <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
+                                            <a href="">
+                                            <div class="select-admin-grid py-3 ">
+                                                <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
+                                                <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                                </div>
+                                            </a>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -100,7 +108,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -108,7 +116,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -116,7 +124,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2 ">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -124,15 +132,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6 ">
-                                        <a href="">
-                                        <div class="select-admin-grid py-3 ">
-                                              <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
-                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -158,7 +158,7 @@
                             </div>
                              <div class="container-fluid">
                                 <div class="row">
-                                <div class="col-lg-2 col-md-4 col-6">
+                                <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -166,7 +166,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -174,7 +174,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -182,7 +182,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -190,7 +190,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6 ">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -198,7 +198,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                    <div class="col-lg-2 col-md-4 col-6">
+                                    <div class="col-lg-2 col-md-4 col-6 mb-2">
                                         <a href="">
                                         <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
@@ -328,7 +328,19 @@
                             <div class="col-md-6">
                             <div class="select-admin-grid py-3 ">
                                               <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
-                                              <div class="text-center mt-1"> <button class="add-item">+</button></div>
+                                              <div class="Neon Neon-theme-dragdropbox mt-5">
+                                            <input name="files[]" id="filer_input2" multiple="multiple" type="file">
+                                            <div class="Neon-input-dragDrop py-5 px-4 mx-3">
+                                                <div class="Neon-input-inner">
+                                                    <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i>
+                                                    </div>
+                                                    <div class="Neon-input-text">
+                                                      
+                                                    </div><a class="Neon-input-choose-btn blue"><div class="text-center mt-1"> <button class="add-item" >+</button></div></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                              
                                             </div>
                             </div>
                             <div class="col-md-6 text-center">

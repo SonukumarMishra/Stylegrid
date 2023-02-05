@@ -988,3 +988,19 @@ color: #FFFFFF;
   border: 0 !important;
   color: #fff !important;
 }
+.Neon-input-dragDrop{
+  background-color: transparent !important;
+  width: auto !important;
+}
+#filer_input2{
+  z-index: 999;
+    opacity: 0;
+    width: 320px;
+    height: 200px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    cursor: pointer;
+}
