@@ -82,6 +82,80 @@ class DashboardController extends Controller
         }
     }
     
+    
+    public function adminReviewStylist(Request $request){
+        return view('admin.admin-review-stylist');
+    }
+    public function adminReviewStylistAjax(Request $request){
+        if($request->ajax()){
+              $dashboard=new Dashboard();
+              $total_data= $dashboard->adminReviewStylistAjax($request,true);
+              $result_data= $dashboard->adminReviewStylistAjax($request);
+              $response_data=[];
+              foreach($result_data as $result){
+                $applied_to_cover='';
+                if(!empty($result->shop)){
+                    $applied_to_cover .=$result->shop.', ';
+                }
+                if(!empty($result->style)){
+                    $applied_to_cover .=$result->style.', ';
+                }
+                if(!empty($result->source)){
+                    $applied_to_cover .=$result->source.', ';
+                }
+
+                $response_data[]=array(
+                    'full_name'=>$result->full_name,
+                    'country_name'=>$result->country_name,
+                    'applied_to_cover'=>ucwords(rtrim($applied_to_cover,', ')),
+                    'shop_style_source'=>$result->shop_style_source,
+                    'email'=>$result->email,
+                    'phone'=>$result->phone,
+                    'applied_date'=>date('d-m-Y',strtotime($result->added_date)),
+                    'spend'=>$result->spend,
+                    'subscription'=>$result->subscription,
+                    'status'=>$result->status,
+                    'slug'=>$result->slug,
+                    'id'=>$result->id,
+                );
+              }
+              $json_data = array(
+                "recordsTotal"    =>$total_data,  
+                "recordsFiltered" => $total_data,
+                "data"            => $response_data 
+            );
+            return $json_data;
+        }
+    }
+
+    public function adminReviewStylistDetails($id){
+        if(!empty($id)){
+            $dashboard=new Dashboard();
+            $stylist_details=$dashboard->getstylistDetails(['s.slug'=>$id]);
+            if($stylist_details){
+                return view('admin.admin-review-stylist-details',compact('stylist_details'));
+            }
+        }
+        return redirect("/admin-review-stylist");
+    }
+    public function adminUpdateStylistStatus(Request $request){
+        if($request->ajax()){
+            $member=new Member();
+            $response=$member->addUpdateData(['id'=>$request->stylist_id,'status'=>$request->status],'sg_stylist');
+            if($response['reference_id']>0){
+                $response['status']=1;
+                $response['message']="Stylist status updated successfully";
+            }else{
+                $response['status']=0;
+                $response['message']="something went wrong!";
+            }
+            return json_encode($response);
+        }
+    }
+    
+    public function adminUploadProduct(Request $request){
+        return view('admin.admin-upload-product');
+    }
 
     public function adminStylist(Request $request){
         return view('admin.admin-stylist');

@@ -22,7 +22,7 @@
                     }
                 }else{
                     ?>
-                    <td class="red-color">Closed</td>
+                    <td class="red-color">Request Sent</td>
                 <?php
                 }
                 ?>

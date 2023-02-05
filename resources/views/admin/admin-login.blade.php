@@ -116,59 +116,54 @@
                 </div>
             </div>
         </div>
-            
-      
-
     </div>
 </div>
 @include('admin.includes.footer')
 <script>
     $(function(){
         $('#admin-login-btn').click(function(){
-    $('#admin-login-form input').css('border', '1px solid #ccc');
-    $('.error').html('');
-    $('.message').html('');
-    var email=makeTrim($('#email').val());
-    var password=makeTrim($('#password').val());
-    var status=true;
-    if(email==''){
-      $('#email').css('border', '2px solid #cc0000');
-      $('#email_error').html('Please enter email');
-      status=false;
-    }else{
-      if (!validEmail(email)) {
-        $('#email').css('border', '2px solid #cc0000');
-        $('#email_error').html('Please enter a valid Email ID');
-        status = false;
-      }
-    }
-    if(password==''){
-      $('#password').css('border'
-       '2px solid #cc0000');
-      $('#password_error').html('Please enter password');
-      status=false;
-    }
-    if(status){
-      $.ajax({
-        url : '/admin-login-post',
-        method : "POST",
-        async: false,
-        data : $('#admin-login-form').serialize(),
-        success : function (ajaxresponse){
-            response = JSON.parse(ajaxresponse);
-            if(response['status']){
-              $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
-              setTimeout(function(){
-                window.location = "/admin-dashboard";
-            }, 500);
+            $('#admin-login-form input').css('border', '1px solid #ccc');
+            $('.error').html('');
+            $('.message').html('');
+            var email=makeTrim($('#email').val());
+            var password=makeTrim($('#password').val());
+            var status=true;
+            if(email==''){
+                $('#email').css('border', '2px solid #cc0000');
+                $('#email_error').html('Please enter email');
+                status=false;
             }else{
-              $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                if (!validEmail(email)) {
+                    $('#email').css('border', '2px solid #cc0000');
+                    $('#email_error').html('Please enter a valid Email ID');
+                    status = false;
+                }
             }
-        }
-    })
-    }
+            if(password==''){
+                $('#password').css('border','2px solid #cc0000');
+                $('#password_error').html('Please enter password');
+                status=false;
+            }
+            if(status){
+                $.ajax({
+                    url : '/admin-login-post',
+                    method : "POST",
+                    async: false,
+                    data : $('#admin-login-form').serialize(),
+                    success : function (ajaxresponse){
+                        response = JSON.parse(ajaxresponse);
+                        if(response['status']){
+                            $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
+                            setTimeout(function(){
+                                window.location = "/admin-dashboard";
+                            }, 500);
+                        }else{
+                            $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                        }
+                    }
+                })
+            }
         })
-       // alert('hello');
     })
 </script>
 

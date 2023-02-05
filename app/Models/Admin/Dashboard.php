@@ -207,8 +207,8 @@ class Dashboard extends Model
 	   $this->db->orderBy($order_by,$dir_by);
 	   
 	   if($count){
-		   $memberData=$this->db->get();
-		   return  count($memberData);
+		   $stylistData=$this->db->get();
+		   return  count($stylistData);
 		   
 	   }else{
 		   if($data['start']<0 || !isset($data['start'])){
@@ -219,10 +219,114 @@ class Dashboard extends Model
 		   }
 		   $this->db->offset($data['start']);
 		   $this->db->limit($data['length']);
-		   $memberData=$this->db->get();
-		   return $memberData;
+		   $stylistData=$this->db->get();
+		   return $stylistData;
 	   }
    }
+
+   function adminReviewStylistAjax($data,$count=false){
+	$this->db = DB::table('sg_stylist AS s');
+   $this->db->select([
+	   "s.id",
+	   "s.full_name",
+	   "s.status",
+	   "s.gender",
+	   "c.country_name",
+	   "s.membership_cancelled",
+	   "s.email",
+	   "s.phone",
+	   "s.shop",
+	   "s.style",
+	   "s.source",
+	   "s.id as spend",
+	   \DB::raw("DATE_FORMAT(s.added_date, '%m/%d/%Y %H:%i') as added_date"),
+	   \DB::raw('concat(s.shop,\' \',s.style,\' \',s.source) as shop_style_source'),
+	   "s.subscription",
+	   "s.slug",
+   ]);
+   $this->db->join('sg_country as c', 'c.id', '=', 's.country_id');
+   if($data['search']!=''){
+	$search=$data['search'];
+	$this->db->where(function($query) use ($search) {
+		$query->where('s.full_name', 'LIKE', '%'.$search.'%')
+				->orWhere('s.phone', 'LIKE', '%'.$search.'%')
+				->orWhere('s.gender', 'LIKE', '%'.$search.'%')
+				->orWhere('c.country_name', 'LIKE', '%'.$search.'%')
+				->orWhere('s.email', 'LIKE', '%'.$search.'%');
+	});
+}
+   if($data['order'][0]['column']!=''){
+	   $order_by = '';
+		   switch ($data['order'][0]['column']) {
+			   case 1:
+			   $order_by = 's.full_name';
+			   break;
+			   
+			   case 2:
+			   $order_by = 'c.country_name';
+			   break;
+			   
+			   case 3:
+			   $order_by = 'shop_style_source';
+			   break;
+			   
+			   case 4:
+			   $order_by = 's.email';
+			   break;
+			   
+			   case 5:
+			   $order_by = 's.phone';
+			   break;
+			   
+			   case 6:
+			   $order_by = 's.added_date';
+			   break;
+			   
+			   case 7:
+			   $order_by = 's.status';
+			   break;
+			   
+			   default:
+			   $order_by = 's.id';
+			   break;
+		   }
+	   $dir_by = '';
+	   switch ($data['order'][0]['dir']) {
+
+		   case 'asc':
+			   $dir_by = 'asc';
+			   break;
+		   case 'desc':
+			   $dir_by = 'desc';
+			   break;
+		   default:
+			   $dir_by = 'asc';
+			   break;
+	   }
+   }else{
+	   $order_by='s.id';
+	   $dir_by = 'asc';
+   }
+   $this->db->orderBy($order_by,$dir_by);
+   
+   if($count){
+	   $stylistData=$this->db->get();
+	   return  count($stylistData);
+	   
+   }else{
+	   if($data['start']<0 || !isset($data['start'])){
+		   $data['start']=0; 
+	   }
+	   if($data['length']<0 || !isset($data['length'])){
+		   $data['length']=5; 
+	   }
+	   $this->db->offset($data['start']);
+	   $this->db->limit($data['length']);
+	   $stylistData=$this->db->get();
+	   return $stylistData;
+   }
+}
+   
 
 	function getMemberDetails($where){
 		if(count($where)){
@@ -262,6 +366,11 @@ class Dashboard extends Model
 				"s.email",
 				"s.gender",
 				"s.phone",
+				"s.styling_experience",
+				"s.fashion_styling_brief",
+				"s.client_brief",
+				"s.fashion_beauty_brands",
+				"s.stronger_experience",
 				"s.profile_image",
 				"s.subscription",
 				"s.id as spend",
