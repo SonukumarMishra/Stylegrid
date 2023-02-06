@@ -135,10 +135,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="select-admin-grid py-3 ">
-                            <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
-                                <div class="Neon Neon-theme-dragdropbox mt-5">
+                        <div class="Neon Neon-theme-dragdropbox mt-5">
                                     <input name="product_image" id="product-image" class="file-upload" multiple="multiple" type="file">
-                                    <div class="Neon-input-dragDrop py-5 px-4 mx-3">
+                                    <div class="Neon-input-dragDrop  px-4 mx-3">
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
                                             <div class="Neon-input-text"></div>
@@ -150,6 +149,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            <div><h6 class="add-item-here-1 mb-lg-5 pb-lg-5">Add image here</h6></div>
+                                
                                
                                 <div id="divImageMediaPreview" class="text-center"></div>
                                 <div class="text-center">

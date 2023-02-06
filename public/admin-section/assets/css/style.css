@@ -841,6 +841,18 @@ color: #2B2B2B;
 }
 
 /*******************************admin-grid ******************/
+.clear_all_product{
+  font-family: 'Silk Serif' !important;
+font-style: normal;
+font-weight: 400;
+font-size: 16.2472px !important;
+line-height: 25px;
+/* identical to box height */
+
+text-align: right;
+
+color: #8D8D8D !important;
+}
 .admin-grid{
   position: relative;
 }
@@ -853,12 +865,25 @@ color: #2B2B2B;
 }
 .add-item-here{
   font-family: 'Silk Serif';
-font-style: normal;
-font-weight: 400;
-font-size: 16.2472px;
-line-height: 25px;
-text-align: center;
-color: #8D8D8D;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16.2472px;
+  line-height: 25px;
+  /* identical to box height */
+  
+  text-align: center;
+  
+  color: #8D8D8D;
+}
+.add-item-here-1{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  
+  color: #000000;
 }
 .add-item{
   font-family: 'Silk Serif';
