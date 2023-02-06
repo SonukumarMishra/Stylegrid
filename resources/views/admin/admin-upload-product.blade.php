@@ -11,7 +11,7 @@
                 <div class="">
                     <h1>Upload New Featured Products</h1>
                     <h3>Showcase new trending product on members dashboards.</h3>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Additem">Add item</button>
+                    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Additem">Add item</button>-->
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-12">
