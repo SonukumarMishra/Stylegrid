@@ -167,8 +167,8 @@ background-color: transparent;
   .topnav .search-container {
     float: none;
   }
-  .content-body h1{
-    font-size: 25px;
+  .content-body h1,.admin-head{
+    font-size: 25px !important;
   }
   .content-body h3{
     font-size: 16px;
@@ -550,7 +550,7 @@ padding: 6px 15px;
 }
 .member-detail{
   background: #FFFFFF;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+/* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
 }
 .mem-name{
   font-family: 'Silk Serif Medium';
@@ -587,11 +587,12 @@ padding: 0.2rem 0.6rem;
 }
 .max-data{
   font-family: 'Silk Serif';
-font-style: normal;
-font-weight: 300;
-font-size: 16px;
-line-height: 104.1%;
-color: #000000;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 119.5%;
+  text-align: center;
+   color: #000000;
 }
 .max-info{
   font-family: 'Silk Serif Medium';
@@ -749,7 +750,7 @@ color: #2B2B2B;
   }
 
   .content-body h1,#inbox-msg h3,#style-news h1,#footer h1,
-  #browse-soursing h1,#notice-board h1,#refer-client h1,#create-grid-1 h1{
+  #browse-soursing h1,#notice-board h1,#refer-client h1,#create-grid-1 h1, .admin-head{
     font-size: 25px;
     line-height: 30px;
   }
@@ -1010,4 +1011,44 @@ color: #FFFFFF;
 }
 .err{
   border: 2px solid #cc0000 !important;
+}
+textarea.form-control {
+  max-width: 400px !important;
+  border-radius: 0px;
+  font-family: 'Silk Serif';
+  background: transparent !important;
+}
+textarea {
+  width: 100%;
+  height: 200px !important;
+  border-radius: 0px;
+  box-shadow: 0px 4px 10px rgb(0 0 0 / 25%);
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 20px !important;
+line-height: 119.5%;
+text-align: center;
+color: #575757;
+}
+.admin-head{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 48px !important;
+line-height: 73px;
+text-align: center;
+letter-spacing: 0.04em;
+color: #000000;
+}
+.admin-text{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 16px !important;
+line-height: 24px;
+text-align: center;
+letter-spacing: 0.04em;
+
+color: #000000;
 }

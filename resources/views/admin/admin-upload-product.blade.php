@@ -122,34 +122,42 @@
                                     </div>
                                 </div>
                                 <div id="product_image_error" class="error"></div>
-                                <div id="divImageMediaPreview"></div>
-                                <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
-                                    
+                                <div id="divImageMediaPreview" class="text-center"></div>
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
+                                </div>   
                         </div>
                     </div>
                     <div class="col-md-6 text-center">
-                        <h1 class="modal-h1">Enter Brand Name</h1>
-                        <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                        placeholder="Enter brand name..." id="brand" name="brand"  maxlength="10" >
+                                <div class="mb-2">
+                                    <h1 class="span-modal">Enter Brand Name</h1>
+                                    <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
+                                                    placeholder="Enter brand name..." id="brand" name="brand"  maxlength="10" >
                                     <div id="autsuggestion_section"></div>
                                     <div id="brand_error" class="error"></div>
-                        <span class="span-modal">Enter Product Name</span>
-                        <br>
-                        <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
-                        <div id="product_name_error" class="error"></div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="span-modal">Enter Product Name</span>
+                                    <br>
+                                    <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
+                                    <div id="product_name_error" class="error"></div>
+                                </div>
                         <!-- <div class="mt-5">-->
-                                <span class="span-modal">Enter Product Description</span>
-                                <textarea name="product_description" id="product_description" class="form-control" placeholder="Product Description"></textarea>
-                                <!--<a href="" class="mt-3">Click to enter description...</a>-->
-                                <div id="product_description_error" class="error"></div>
-
+                                <div class="mb-2">
+                                    <span class="span-modal">Enter Product Description</span>
+                                    <textarea name="product_description" id="product_description" class="form-control" placeholder="Product Description"></textarea>
+                                    <!--<a href="" class="mt-3">Click to enter description...</a>-->
+                                    <div id="product_description_error" class="error"></div>
+                                </div>
                         <!-- </div>-->
                         <!-- <div class="mt-5">-->
-                            <p class="modal-p my-3">Enter Product Size</p>
-                        <!-- </div>-->
-                        <!--<span class="span1-modal my-3">All sizes available</span>-->
-                        <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
-                        <div id="product_size_error" class="error"></div>
+                                <div class="mb-2">
+                                    <span class="modal-p myb-2">Enter Product Size</span>
+                            <!-- </div>-->
+                            <!--<span class="span1-modal my-3">All sizes available</span>-->
+                                    <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
+                                    <div id="product_size_error" class="error"></div>
+                                </div>
                         <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
                         <div class="mt-2">
                             <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>

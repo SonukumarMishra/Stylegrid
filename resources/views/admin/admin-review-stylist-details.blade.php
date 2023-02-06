@@ -7,45 +7,44 @@
         </div>
         <div class="content-body">
             <!-- Revenue, Hit Rate & Deals -->
-            <div class=" mt-lg-3 row">
-                <div class="col-lg-8">
-                    <h1><?php echo explode(" ",$stylist_details->full_name)[0];?>’s Application</h1>
-                    <h3>Review the answers he gave bellow.</h3>
+            <div class=" mt-lg-3">
+                <div class="text-center">
+                    <h1 class="admin-head"><?php echo explode(" ",$stylist_details->full_name)[0];?>’s Application</h1>
+                    <h3 class="admin-text">Review the answers he gave bellow.</h3>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-lg-4">
                 <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-md-7 mt-md-0 mt-3">
-                            
-                            <div class="member-detail pt-2 pb-3">
-                                <div class="d-flex mt-2 ml-2">
-                                    <div class="max-data col-4 ">Tell us about your styling experience.</div>
-                                    <div class="max-info col-8"><textarea  disabled name="" id="">{{$stylist_details->styling_experience}}</textarea></div>
+                         <div class="member-detail pt-2 pb-3">
+                                <div class="mt-2 text-center mb-5">
+                                    <div class="max-data mb-2 ">Tell us about your styling experience.</div>
+                                    <div class="max-info"><textarea  disabled name="" id="" class="form-control mx-auto" placeholder="I have worked in a number of styling companies over the last 5 years, including Threads and Moda Operandi.">{{$stylist_details->styling_experience}}</textarea></div>
                                 </div>
-                                <div class="d-flex mt-2 ml-2">
-                                    <div class="max-data col-4">Please list some of your favourite fashion and beauty brands below.</div>
-                                    <div class="max-info col-8"><textarea disabled name="" id="">{{$stylist_details->fashion_styling_brief}}</textarea></div>
-                                </div>
-                                <div class="d-flex mt-2 ml-2">
-                                    <div class="max-data col-4 ">How many clients, if any, will you service using StyleGrid?</div>
-                                    <div class="max-info col-8"><textarea disabled name="" id="">{{$stylist_details->client_brief}}</textarea></div>
-                                </div>
-                                <div class="d-flex mt-2 ml-2">
-                                    <div class="max-data col-4 ">Please list some of your fashion and beauty favourite brands
-                                        below.</div>
-                                        <div class="max-info col-8"><textarea disabled name="" id="">{{$stylist_details->fashion_beauty_brands}}</textarea></div>
+                                <div class=" mt-2 text-center mb-5">
+                                    <div class="max-data mb-2">Have you worked for a fashion or styling company previously?</div>
+                                    <div class="max-info "><textarea disabled name="" id="" class="form-control mx-auto" placeholder="Threads, Modi Operandi">{{$stylist_details->fashion_styling_brief}}</textarea>
                                     </div>
-                                <div class="d-flex mt-2 ml-2">
-                                    <div class="max-data col-4">Is your experience stronger in fashion, home or beauty? List all if applicable.</div>
-                                    <div class="max-info col-8"><textarea disabled name="" id="">{{$stylist_details->stronger_experience}}</textarea></div>
+                                </div>
+                                <div class="mt-2 text-center mb-5">
+                                    <div class="max-data mb-2">How many clients, if any, will you service using StyleGrid?</div>
+                                    <div class="max-info"><textarea disabled name="" id="" class="form-control mx-auto" placeholder="Around 20">{{$stylist_details->client_brief}}</textarea></div>
+                                </div>
+                                <div class=" mt-2 text-center mb-5">
+                                    <div class="max-data mb-2">Please list some of your fashion and beauty favourite brands below.</div>
+                                        <div class="max-info"><textarea disabled name="" id="" class="form-control mx-auto" placeholder="Chanel, Dior, Tom Ford, Casablanca, Jennifer Chamandi, Common Projects, Barbara Sturm">{{$stylist_details->fashion_beauty_brands}}</textarea></div>
+                                    </div>
+                                <div class="mt-2 text-center mb-5">
+                                    <div class="max-data mb-2">Are you able to source luxury product for clients?</div>
+                                    <div class="max-info"><textarea disabled name="" id="" class="form-control mx-auto" placeholder="Yes, I have a number of contacts to help me fulfill specific client requests made on the platform.">{{$stylist_details->stronger_experience}}</textarea></div>
+                                </div>
+                                <div class="mt-2 text-center mb-5">
+                                    <div class="max-data mb-2">Is your experience stronger in fashion, home or beauty? List all if applicable.</div>
+                                    <div class="max-info"><textarea disabled name="" id="" class="form-control mx-auto" placeholder="My experience is stronger in fashion.">{{$stylist_details->stronger_experience}}</textarea></div>
                                 </div>
                                 
                             </div>
-                        </div>
                     </div>
-                </div>
-            </div>
+                 </div>
         </div>
     </div>
          <!--  Cancel Modal -->
