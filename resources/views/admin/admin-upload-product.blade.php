@@ -21,7 +21,7 @@
                                     <h2 class="upload-text mb-2 ml-2">Upload Fashion Products (up to 15 new ones can be added)</h2>
                                 </div>
                                 <div class="col-md-4">
-                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                    <h6 class="clear-all mr-2"><a href="javascript:void(0)" data-id="Fashion" class="clear_all_product">Clear all</a></h6>
                                 </div> 
                             </div>
                              <div class="container-fluid">
@@ -38,7 +38,7 @@
                                     <h2 class="upload-text mb-2 ml-2">Upload Home Products (up to 15 new ones can be added)</h2>
                                 </div>
                                 <div class="col-md-4">
-                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                    <h6 class="clear-all mr-2"><a href="javascript:void(0)" data-id="Home" class="clear_all_product">Clear all</a></h6>
                                 </div> 
                             </div>
                              <div class="container-fluid">
@@ -56,7 +56,7 @@
                                     <h2 class="upload-text mb-2 ml-2">Upload Beauty Products (up to 15 new ones can be added)</h2>
                                 </div>
                                 <div class="col-md-4">
-                                    <h6 class="clear-all mr-2">Clear all</h6>
+                                    <h6 class="clear-all mr-2"><a href="javascript:void(0)" data-id="Beauty" class="clear_all_product">Clear all</a></h6>
                                 </div> 
                             </div>
                              <div class="container-fluid">
@@ -90,6 +90,34 @@
         </div>
   </div>
 </div>
+ 
+
+
+  <div class="modal fade" id="deleteProductConfirmBox" tabindex="-1" role="dialog" aria-labelledby="deleteProductConfirmBox" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content pt-1">
+            <div class="mr-2">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body py-2">
+                <h2><div id="delete_product_mssage_box" class="message"></div></h2>
+                <div class="row justify-content-center mt-2">
+                    <div>
+                        <input type="hidden" name="type_value" id="type_value">
+                        <input type="hidden" name="type_name" id="type_name">
+                        <a href="javascript:void(0)"><button class="cancel-btn px-3" type="button" id="remove_product">Yes</button></a></div>
+                    <div><a href=""><button class="back-btn ml-2" type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">No</button></a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!--add item Modal -->
 <div class="modal fade" id="AddProductPopup" tabindex="-1" role="dialog" aria-labelledby="AddProductPopup" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -177,6 +205,52 @@
     
     $(function(){
         showProductList();
+        $('#remove_product').click(function(){
+            var type_name=$('#type_name').val();
+            var type_value=$('#type_value').val();
+            if(type_value!=''){
+                $.ajax({
+                    url : '/admin-remove-product-ajax',
+                    method : "POST",
+                    data : {
+                        'type_name':type_name,
+                        'type_value':type_value,
+                        '_token': constants.csrf_token
+                    },
+                    success : function (ajaxresponse){
+                        response = JSON.parse(ajaxresponse);
+                        if (response['status']) {
+                            $('#deleteProductConfirmBox').modal('hide');
+                            if(type_name==0){
+                                $('.'+type_value+'_product_counter').remove();
+                            }else{
+                                $('#product'+type_value).remove();
+                            }
+                            $('#common_message_box').html('<div class="alert alert-success">'+response['message']+'</div>')
+                            //$("html, body").animate({ scrollTop: 0 }, "slow");
+                        }
+                    }
+                })
+            }
+        })
+        $('.clear_all_product').click(function(){
+            $('.message').html('');
+            $('#type_name').val('');
+            $('#delete_product_mssage_box').html('');
+            $('#type_value').val('');
+            var type=$(this).attr('data-id');
+            var total_product_counter=$('.'+type+'_product_counter').length;
+            if(total_product_counter>0){
+                $('#type_name').val(0);
+                $('#type_value').val(type);
+                $('#delete_product_mssage_box').html('Are you sure want to remove all product of '+type+'?');
+                $('#deleteProductConfirmBox').modal('show');
+                return false;
+            }else{
+                $('#common_message_box').html('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>No products!</div>');
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
+        })
         $('#upload_product').click(function(){
             $('.message').html('');
             $('.error').html('');
@@ -230,6 +304,7 @@
                             setTimeout(function(){
                                 $('#AddProductPopup').modal('hide');
                                 $('#common_message_box').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>' + response['message'] + '</div>');
+                                $("html, body").animate({ scrollTop: 0 }, "slow");
                                 showProductList();
                             }, 500);
                         } else {
@@ -242,48 +317,44 @@
             }else{
                 $('#mssage_box').html('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>Please enter the mandatory fields!</div>');
             }
-             
-            
-         
-    })
+        })
 
-    $('#brand').keyup(function(){
-    $('#autsuggestion_section').html('');
-    var brand_search=$(this).val();
-    if(brand_search.length>0){
-        $.ajax({
-            url : '/get-brands-list',
-            method : "POST",
-            data : {
-                'brand_search':brand_search,
-                '_token': constants.csrf_token
-            },
-            success : function (ajaxresponse){
-                response = JSON.parse(ajaxresponse);
-
-                if (response['status']) {
-                    if(response['data'].length>0){
-                        brandList=[];
-                        var html='';
-                        html +='<ul>';
-                        for(i=0;i<response['data'].length;i++){
-                            html +='<li class="select_brand" onClick="selectBrand('+response['data'][i]['id']+')" id="'+response['data'][i]['id']+'" title'+response['data'][i]['id']+'="">'+response['data'][i]['name']+'</li>';
-                            brandList[response['data'][i]['id']]=response['data'][i]['name']
+        $('#brand').keyup(function(){
+            $('#autsuggestion_section').html('');
+            var brand_search=$(this).val();
+            if(brand_search.length>0){
+                $.ajax({
+                    url : '/get-brands-list',
+                    method : "POST",
+                    data : {
+                        'brand_search':brand_search,
+                        '_token': constants.csrf_token
+                    },
+                    success : function (ajaxresponse){
+                        response = JSON.parse(ajaxresponse);
+                        if (response['status']) {
+                            if(response['data'].length>0){
+                                brandList=[];
+                                var html='';
+                                html +='<ul>';
+                                for(i=0;i<response['data'].length;i++){
+                                    html +='<li class="select_brand" onClick="selectBrand('+response['data'][i]['id']+')" id="'+response['data'][i]['id']+'" title'+response['data'][i]['id']+'="">'+response['data'][i]['name']+'</li>';
+                                    brandList[response['data'][i]['id']]=response['data'][i]['name']
+                                }
+                                html +='<ul>';
+                                $('#autsuggestion_section').html(html);
+                            }
                         }
-                        html +='<ul>';
-                        $('#autsuggestion_section').html(html);
                     }
-                }
+                })
             }
         })
-    }
-})
         $("#product-image").change(function () {
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#divImageMediaPreview");
-            dvPreview.html("");    
-            $('#product_image_error').html('');        
-           // $($(this)[0].files).each(function () {
+            if (typeof (FileReader) != "undefined") {
+                var dvPreview = $("#divImageMediaPreview");
+                dvPreview.html("");    
+                $('#product_image_error').html('');        
+                // $($(this)[0].files).each(function () {
                 var file = $(this)[0].files;//$(this); 
                 var ext = $('#product-image').val().split('.').pop().toLowerCase();
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
@@ -306,23 +377,21 @@
                         }
                         $('#image_preview_remove').show();
                         reader.readAsDataURL(file[0]);
-                    }
-                     
+                    }     
                 }
            // });
-        }
-    });
+            }
+        });
 
-    $('#image_preview_remove').click(function(){
-    $("#product-image").val('');
-    $('#image_preview_remove').hide();
-    $("#divImageMediaPreview").html('');
-})
+        $('#image_preview_remove').click(function(){
+            $("#product-image").val('');
+            $('#image_preview_remove').hide();
+            $("#divImageMediaPreview").html('');
+        })
 
         $('#uploadImage').click(function(){
             $('#uploadProductPopup').modal('show');
         }) 
-         
     })
     var brandList=[];
     function selectBrand(brand_id){
@@ -359,7 +428,7 @@
                             $('#fashion_product_section').html(fashion_html);
                             var home_html='';
                             for(i=0;i<response['home_products'].length;i++){
-                                home_html +='<div class="col-lg-2 col-md-4 col-6 mb-2" id="product'+response['home_products'][i]['id']+'">';
+                                home_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 Home_product_counter" id="product'+response['home_products'][i]['id']+'">';
                                 home_html +='<div class="admin-grid" type="button" class="" >'; 
                                 home_html +='<div class="admin-delete px-1"><a href="javascript:void(0)" onClick="removeProduct('+response['home_products'][i]['id']+')"><img  src="'+constants.base_url+'/admin-section/assets/images/delete.png" class="img-fluid" ></a></div>';
                                 home_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['home_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/home/'+response['home_products'][i]['image']+'" class=" border img-fluid"></a>';
@@ -376,7 +445,7 @@
 
                             var beauty_html='';
                             for(i=0;i<response['beauty_products'].length;i++){
-                                beauty_html +='<div class="col-lg-2 col-md-4 col-6 mb-2" id="product'+response['beauty_products'][i]['id']+'">';
+                                beauty_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 Beauty_product_counter" id="product'+response['beauty_products'][i]['id']+'">';
                                 beauty_html +='<div class="admin-grid" type="button" class="">'; 
                                 beauty_html +='<div class="admin-delete px-1"><a href="javascript:void(0)" onClick="removeProduct('+response['beauty_products'][i]['id']+')"><img  src="'+constants.base_url+'/admin-section/assets/images/delete.png" class="img-fluid" ></a></div>';
                                 beauty_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['beauty_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/beauty/'+response['beauty_products'][i]['image']+'" class=" border img-fluid"></a>';
@@ -396,28 +465,19 @@
             }
         })
     }
+
     function removeProduct(id){
+        $('#delete_product_mssage_box').html('');
+        $('#type_name').val('');
+        $('#type_value').val('');
         if(id>0){
-            $.ajax({
-            url : '/admin-remove-product-ajax',
-            method : "POST",
-            data : {
-                'id':id,
-                '_token': constants.csrf_token
-            },
-            success : function (ajaxresponse){
-                response = JSON.parse(ajaxresponse);
-                if (response['status']) {
-                    $('#product'+id).remove();
-                    $('#common_message_box').html('<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>'+response['message']+'</div>');
-
-                }
-            }
-        })
+            $('#type_name').val(1);
+            $('#type_value').val(id);
+            $('#delete_product_mssage_box').html('Are you sure want to remove product?');
+            $('#deleteProductConfirmBox').modal('show');
         }
-        
-
     }
+
     function AddProduct(type){
         $('.message').html('');
         $('.error').html('');
@@ -434,10 +494,11 @@
                 $('#AddProductPopup').modal('show');
             }else{
                 $('#common_message_box').html('<div class="alert alert-danger">You can not upload more than 15 products.</div>')
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         }
-
     }
+
     function viewProducts(id){
         $('#viewProductDataSection').html('');
         if(id>0){
@@ -455,7 +516,7 @@
                         $('#viewProductPopup').modal('show');
                         var product_html='';
                         product_html +='<div class="col-md-6">';
-                        product_html +='<img src="'+constants.base_url+'/attachments/products/fashion/'+response['product']['image']+'" class="  img-fluid">';
+                        product_html +='<img src="'+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+'" class="  img-fluid">';
                         product_html +='</div>';
                         product_html +='<div class="col-md-6 text-center">';
                         product_html +='<h1 class="modal-h1">'+response['product']['brand_name']+'</h1>';
@@ -473,8 +534,8 @@
                         }else{
                             //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
                         }
-            }
-        })
+                }
+            })
         }
     }
 </script>

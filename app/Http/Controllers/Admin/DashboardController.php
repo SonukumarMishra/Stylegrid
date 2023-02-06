@@ -199,18 +199,48 @@ class DashboardController extends Controller
     public function adminRemoveProductAjax(Request $request){
         if($request->ajax()){
             $dashboard=new Dashboard();
-            $product=$dashboard->getProducts(['p.id'=>$request->id]);
-            if(count($product)){
-                $image=$product[0]->image;
-                if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
-                    File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
+            $type_name=$request->type_name;
+            $type_value=$request->type_value;
+            if(!$type_name){
+                $products=$dashboard->getProducts(['p.type'=>$type_value]);
+                if(count($products)){
+                    foreach($products as $product){
+                        if (File::exists(public_path('attachments/products/'.strtolower($product->type).'/'.$product->image))) {
+                            File::delete(public_path('attachments/products/'.strtolower($product->type).'/'.$product->image));
+                        }
+                        $dashboard->deleteData(['id'=>$product->id],'sg_product');
+                    }
+                    return json_encode([
+                        'status'=>1,
+                        'message'=>"Product removed successfullyqqqq!",
+                    ]);
+                }else{
+                    return json_encode([
+                        'status'=>0,
+                        'message'=>"Something went wrong!",
+                    ]);  
                 }
-                $dashboard->deleteData(['id'=>$request->id],'sg_product');
+            }else{
+                $product=$dashboard->getProducts(['p.id'=>$request->type_value]);
+                if(count($product)){
+                    if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
+                        File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
+                    }
+                    $dashboard->deleteData(['id'=>$request->id],'sg_product');
+                    return json_encode([
+                        'status'=>1,
+                        'message'=>"Product removed successfully!",
+                    ]);
+                }else{
+                    return json_encode([
+                        'status'=>0,
+                        'message'=>"Something went wrong!",
+                    ]); 
+                }
+                
             }
-            return json_encode([
-                'status'=>1,
-                'message'=>"Product removed successfully!",
-            ]);
+            
+            
         }
     }
     
