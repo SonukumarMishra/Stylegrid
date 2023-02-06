@@ -190,10 +190,10 @@
                                 </div>
                         <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
                         <div class="mt-2">
-                            <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
+                            <button type="button" class="upload-btn  px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
-                            <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
+                            <button type="button" class="go-back-btn   px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
                         </div>
                     </div>
                 </div>
@@ -274,10 +274,10 @@
                                 </div>
                         <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
                         <div class="mt-2">
-                            <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
+                            <button type="button" class="upload-btn  px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
-                            <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
+                            <button type="button" class="go-back-btn  px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
                         </div>
                     </div>
                 </div>
@@ -610,10 +610,10 @@
                         product_html +='<p class="modal-p mt-3">'+response['product']['description']+'</p>';
                         product_html +='<span class="span1-modal my-3">'+response['product']['size']+'</span>';
                         product_html +='<div class="mt-2">';
-                        product_html +='<button type="button" class="edit-btn py-1 px-3" >Edit Product</button>';
+                        product_html +='<button type="button" class="edit-btn  px-3" >Edit Product</button>';
                         product_html +='</div>';
                         product_html +='<div class="mt-1">';
-                        product_html +='<button type="button" class="go-back-btn  py-1 px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>';
+                        product_html +='<button type="button" class="go-back-btn   px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>';
                         product_html +='</div>';
                         product_html +='</div>';
                         $('#viewProductDataSection').html(product_html);

@@ -443,7 +443,7 @@ color: #7A7A7A;
     line-height: 30px;
     text-align: center;
     letter-spacing: 0.04em;
-    
+    text-align: center;
     color: #7A7A7A;
   }
   .next-btn {
@@ -824,6 +824,7 @@ color: #7A7A7A;
     outline: none;
     background: none;
     padding: 10px;
+    text-align: center;
   
     font-size: 1.2em;
   }
