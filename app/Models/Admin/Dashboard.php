@@ -403,6 +403,33 @@ class Dashboard extends Model
 		}
 	}
 
+	function getProducts($where=[]){
+		$this->db = DB::table('sg_product AS p');
+		$this->db->select([
+			"p.id",
+			"p.name",
+			"p.brand_id",
+			"p.type",
+			"p.size",
+			"p.description",
+			"p.image",
+			"p.status",
+			"b.name as brand_name",
+		]);
+		$this->db->join('sg_brand as b', 'b.id', '=', 'p.brand_id');
+		if(count($where)){
+			$this->db->where($where);
+		}
+		$result=$this->db->get();
+		return $result;
+	}
+	function deleteData($where,$table){
+		if(count($where) && !empty($table)){
+			return DB::table($table)->where($where)->delete();
+		}
+	}
+	
+
 	function getStylistBrands($where){
 		if(count($where)){
 			$this->db = DB::table('sg_stylist_brand AS sb');

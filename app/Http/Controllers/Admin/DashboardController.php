@@ -7,6 +7,8 @@ use App\Models\Admin\Dashboard;
 use App\Models\Member;
 use Session;
 use Config;
+use Illuminate\Support\Facades\File; 
+
 /*
 @author-Sunil Kumar Mishra
 date:26-11-2022
@@ -154,8 +156,97 @@ class DashboardController extends Controller
     }
     
     public function adminUploadProduct(Request $request){
-        return view('admin.admin-upload-product');
+        $member=new Member();
+        $brand_list=$member->getBrandList();
+        return view('admin.admin-upload-product',compact('brand_list'));
     }
+    public function adminShowProductListAjax(Request $request){
+        if($request->ajax()){
+            $dashboard=new Dashboard();
+            $products=$dashboard->getProducts([]);
+            $fashion_products=[];
+            $home_products=[];
+            $beauty_products=[];
+            foreach($products as $product){
+                if($product->type=='Fashion'){
+                    $fashion_products[]=$product;
+                }
+                if($product->type=='Home'){
+                    $home_products[]=$product;
+                }
+                if($product->type=='Beauty'){
+                    $beauty_products[]=$product;
+                }
+            }
+            return json_encode([
+                'status'=>1,
+                'fashion_products'=>$fashion_products,
+                'home_products'=>$home_products,
+                'beauty_products'=>$beauty_products,
+            ]);
+        }
+    }
+    public function adminViewProductAjax(Request $request){
+        if($request->ajax()){
+            $dashboard=new Dashboard();
+            $product=$dashboard->getProducts(['p.id'=>$request->id]);
+            return json_encode([
+                'status'=>1,
+                'product'=>$product?$product[0]:[],
+            ]);
+        }
+    }
+    public function adminRemoveProductAjax(Request $request){
+        if($request->ajax()){
+            $dashboard=new Dashboard();
+            $product=$dashboard->getProducts(['p.id'=>$request->id]);
+            if(count($product)){
+                $image=$product[0]->image;
+                if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
+                    File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
+                }
+                $dashboard->deleteData(['id'=>$request->id],'sg_product');
+            }
+            return json_encode([
+                'status'=>1,
+                'message'=>"Product removed successfully!",
+            ]);
+        }
+    }
+    
+    public function adminUploadProductAjax(Request $request){
+        if($request->ajax()){
+            $member=new Member();
+            $product_image_name='';
+                $product_image= $request->file('product_image');
+                if(!empty($product_image)){
+                    $new_name = rand() . '.' . $product_image->getClientOriginalExtension();
+                    $product_image->move(public_path('attachments/products/'.strtolower($request->product_type)), $new_name);
+                    $product_image_name=$new_name;
+                }
+                $brand_data=$member->getBrandList(['b.name'=>$request->brand]);
+                $brand_id=0;
+                if(count($brand_data)){
+                    $brand_id=$brand_data[0]->id;
+                }
+                $response=$member->addUpdateData(
+                    [
+                        'id'=>0,
+                        'name'=>$request->product_name,
+                        'brand_id'=>$brand_id,
+                        'type'=>$request->product_type,
+                        'size'=>$request->product_size,
+                        'description'=>$request->product_description,
+                        'image'=>$product_image_name,
+                        'status'=>1,
+                        'added_date'=>now()
+                    ],'sg_product');
+                    $response['status']=1;
+
+             return json_encode($response);
+        }
+    }
+    
 
     public function adminStylist(Request $request){
         return view('admin.admin-stylist');

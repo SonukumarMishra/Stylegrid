@@ -190,6 +190,10 @@ Route::post('/admin-review-stylist-ajax', [AdminDashboard::class, 'adminReviewSt
 Route::get('/admin-review-stylist-details/{title}', [AdminDashboard::class, 'adminReviewStylistDetails']);
 Route::post('/admin-update-stylist-status', [AdminDashboard::class, 'adminUpdateStylistStatus']);
 Route::get('/admin-upload-product', [AdminDashboard::class, 'adminUploadProduct']);
+Route::post('/admin-upload-product-ajax', [AdminDashboard::class, 'adminUploadProductAjax']);
+Route::post('/admin-show-product-list-ajax', [AdminDashboard::class, 'adminShowProductListAjax']);
+Route::post('/admin-view-product-ajax', [AdminDashboard::class, 'adminViewProductAjax']);
+Route::post('/admin-remove-product-ajax', [AdminDashboard::class, 'adminRemoveProductAjax']);
 
 
 

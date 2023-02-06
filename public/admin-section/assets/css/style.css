@@ -992,7 +992,7 @@ color: #FFFFFF;
   background-color: transparent !important;
   width: auto !important;
 }
-#filer_input2{
+.file-upload{
   z-index: 999;
     opacity: 0;
     width: 320px;
@@ -1003,4 +1003,11 @@ color: #FFFFFF;
     margin-right: auto;
     margin-left: auto;
     cursor: pointer;
+}
+.error {
+  color: #ff0000;
+  font-size: 0.8rem;
+}
+.err{
+  border: 2px solid #cc0000 !important;
 }
