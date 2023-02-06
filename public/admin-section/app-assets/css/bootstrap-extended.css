@@ -267,10 +267,10 @@ form {
   form .form-group {
     margin-bottom: 1.5rem; }
   form .form-control {
-    border: 1px solid #cacfe7;
-    color: #3b4781; }
+    border: 1px solid #000;
+    color: #000; }
     form .form-control::-webkit-input-placeholder {
-      color: #aeb5da; }
+      color: #000; }
     form .form-control:-moz-placeholder {
       /* Firefox 18- */
       color: #aeb5da; }

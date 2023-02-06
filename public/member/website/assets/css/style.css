@@ -705,7 +705,7 @@ input[type=checkbox]:checked+label {
   outline: none;
   background: none;
   padding: 10px;
-
+text-align: center;
   font-size: 1.2em;
 }
 

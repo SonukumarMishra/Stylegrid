@@ -135,10 +135,9 @@
                 <div class="row">
                     <!--<div class="col-md-6">
                         <div class="select-admin-grid py-3 ">
-                            <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
-                                <div class="Neon Neon-theme-dragdropbox mt-5">
+                        <div class="Neon Neon-theme-dragdropbox mt-5">
                                     <input name="product_image" id="product-image" class="file-upload" multiple="multiple" type="file">
-                                    <div class="Neon-input-dragDrop py-5 px-4 mx-3">
+                                    <div class="Neon-input-dragDrop  px-4 mx-3">
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
                                             <div class="Neon-input-text"></div>
@@ -151,6 +150,8 @@
                                         </div>
                                     </div>
                                 </div>
+                            <div><h6 class="add-item-here-1 mb-lg-5 pb-lg-5">Add image here</h6></div>
+                                
                                
                                 <div id="divImageMediaPreview" class="text-center"></div>
                                 <div class="text-center">
@@ -221,7 +222,7 @@
                             <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
-                            <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
+                            <button type="button" class="go-back-btn  px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
                         </div>
                     </div>
                 </div>
@@ -599,10 +600,10 @@
                         product_html +='<p class="modal-p mt-3">'+response['product']['description']+'</p>';
                         product_html +='<span class="span1-modal my-3">'+response['product']['size']+'</span>';
                         product_html +='<div class="mt-2">';
-                        product_html +='<button type="button" class="edit-btn py-1 px-3" onClick="editProduct('+id+')">Edit Product</button>';
+                        product_html +='<button type="button" class="edit-btn px-3" onClick="editProduct('+id+')">Edit Product</button>';
                         product_html +='</div>';
                         product_html +='<div class="mt-1">';
-                        product_html +='<button type="button" class="go-back-btn  py-1 px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>';
+                        product_html +='<button type="button" class="go-back-btn   px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>';
                         product_html +='</div>';
                         product_html +='</div>';
                         $('#viewProductDataSection').html(product_html);

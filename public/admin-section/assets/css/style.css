@@ -120,6 +120,7 @@
   font-size: 12px;
   line-height: 18px;
   border: none;
+  width: 100%;
   background: #f3f3f3;
   color: #686868;
   height: 36px;
@@ -840,6 +841,18 @@ color: #2B2B2B;
 }
 
 /*******************************admin-grid ******************/
+.clear_all_product{
+  font-family: 'Silk Serif' !important;
+font-style: normal;
+font-weight: 400;
+font-size: 16.2472px !important;
+line-height: 25px;
+/* identical to box height */
+
+text-align: right;
+
+color: #8D8D8D !important;
+}
 .admin-grid{
   position: relative;
 }
@@ -852,12 +865,25 @@ color: #2B2B2B;
 }
 .add-item-here{
   font-family: 'Silk Serif';
-font-style: normal;
-font-weight: 400;
-font-size: 16.2472px;
-line-height: 25px;
-text-align: center;
-color: #8D8D8D;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16.2472px;
+  line-height: 25px;
+  /* identical to box height */
+  
+  text-align: center;
+  
+  color: #8D8D8D;
+}
+.add-item-here-1{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  
+  color: #000000;
 }
 .add-item{
   font-family: 'Silk Serif';
@@ -939,6 +965,8 @@ line-height: 128.3%;
 text-align: center;
 }
 .go-back-btn{
+  width: 183px;
+  height: 30px;
   font-family: 'Genos';
 font-style: normal;
 font-weight: 400;
@@ -950,6 +978,8 @@ color: #2B2B2B;
 background: transparent;
 }
 .edit-btn{
+  width: 183px;
+  height: 30px;
   background: #000000;
   border-radius: 3.15789px;
   font-family: 'Genos';
@@ -962,6 +992,8 @@ text-align: center;
 color: #FFFFFF;
 }
 .upload-btn{
+  width: 183px;
+  height: 30px;
   background: #138232;
 border-radius: 3.15789px;
 font-family: 'Genos';
@@ -1055,6 +1087,12 @@ color: #000000;
 #product_description{
   text-align: left !important;
   box-shadow: none !important;
+  font-size: 1rem !important;
+}
+#product_description textarea .form-control, #product_description textarea .form-control::placeholder{
+  color: #000 !important;
+  border :1px solid #000 !important;
+  
 }
 #autsuggestion_section ul{
 list-style: none;
@@ -1077,4 +1115,8 @@ cursor: pointer;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+#upload-product-form input, #upload-product-form input::placeholder{
+  color: #000 !important;
+  border-color: #000 !important;
 }
