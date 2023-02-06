@@ -226,7 +226,7 @@ class DashboardController extends Controller
                     if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
                         File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
                     }
-                    $dashboard->deleteData(['id'=>$request->id],'sg_product');
+                    $dashboard->deleteData(['id'=>$request->type_value],'sg_product');
                     return json_encode([
                         'status'=>1,
                         'message'=>"Product removed successfully!",
@@ -259,9 +259,19 @@ class DashboardController extends Controller
                 if(count($brand_data)){
                     $brand_id=$brand_data[0]->id;
                 }
+                if($request->id>0){
+                    $dashboard=new Dashboard();
+                    $product=$dashboard->getProducts(['p.id'=>$request->id]);
+                    if(count($product) && !empty($product_image_name)){
+                        if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
+                            File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
+                        }                    
+                    }
+                }
+
                 $response=$member->addUpdateData(
                     [
-                        'id'=>0,
+                        'id'=>$request->id?$request->id:0,
                         'name'=>$request->product_name,
                         'brand_id'=>$brand_id,
                         'type'=>$request->product_type,

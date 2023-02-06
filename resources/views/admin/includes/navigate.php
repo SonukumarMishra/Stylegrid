@@ -71,16 +71,19 @@
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
                             data-i18n="">Admin</span></a> </li>
 
-                <li class=" nav-item mt-5"><a href="<?php echo url('/admin-dashboard');?>"class="active"><i class="ft-home active"></i><span class="menu-title"
-                            data-i18n="">Home</span></a>
+                <li class=" nav-item mt-5">
+                    <a href="<?php echo url('/admin-dashboard');?>" <?php if(Request::path()=='admin-dashboard') { ?>class="active"<?php } ?> >
+                        <i class="ft-home <?php if(Request::path()=='admin-dashboard') { ?>active<?php } ?>"></i>
+                        <span class="menu-title" data-i18n="">Home</span>
+                    </a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-layers"></i><span class="menu-title"
+                <li class=" nav-item"><a href="<?php echo url('/admin-upload-product');?>" <?php if(Request::path()=='admin-upload-product') { ?>class="active"<?php } ?>><i class="ft-layers <?php if(Request::path()=='admin-upload-product') { ?>active<?php } ?>"></i><span class="menu-title"
                             data-i18n="">Product</span></a>
                 </li>
-                <li class="snav-item"><a href="<?php echo url('/admin-member-list')?>"><i class="ft-monitor"></i><span class="menu-title"
+                <li class="nav-item"><a href="<?php echo url('/admin-member-list')?>" <?php if(Request::path()=='admin-member-list') { ?>class="active"<?php } ?>><i class="ft-monitor <?php if(Request::path()=='admin-member-list') { ?>active<?php } ?>"></i><span class="menu-title"
                             data-i18n="">Members</span></a>
                 </li>
-                <li class=" nav-item"><a href="<?php echo url('/admin-stylist')?>" ><i class="ft-layout "></i><span
+                <li class=" nav-item"><a href="<?php echo url('/admin-stylist')?>" <?php if(Request::path()=='admin-stylist') { ?>class="active"<?php } ?>><i class="ft-layout <?php if(Request::path()=='admin-stylist') { ?>active<?php } ?>"></i><span
                             class="menu-title" data-i18n="">Stylists</span></a>
 
                 </li>

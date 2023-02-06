@@ -133,7 +133,7 @@
                 <form id="upload-product-form">
                     @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <div class="select-admin-grid py-3 ">
                             <div><h6 class="add-item-here pt-2">Add an item here</h6></div>
                                 <div class="Neon Neon-theme-dragdropbox mt-5">
@@ -142,10 +142,11 @@
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
                                             <div class="Neon-input-text"></div>
-                                            <a class="Neon-input-choose-btn blue">
+                                            <a class="Neon-input-choose-btn blue" >
                                                 <div class="text-center mt-1">
                                                     <button class="add-item" >+</button>
                                                 </div>
+                                                
                                             </a>
                                         </div>
                                     </div>
@@ -157,7 +158,33 @@
                                 </div>   
                         </div>
                          <div id="product_image_error" class="error"></div>
+                    </div>-->
+
+                    <div class="col-md-6">
+                        <div class="select-admin-grid py-1 ">
+                            <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
+                                <div class="Neon Neon-theme-dragdropbox ">
+                                    <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
+                                    <div class="Neon-input-dragDrop">
+                                        <div class="Neon-input-inner">
+                                            <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+                                            <div class="Neon-input-text"></div>
+                                            <a class="Neon-input-choose-btn blue" id="add_update_image_preview">
+                                                <div class="text-center">
+                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="divImageMediaPreview" class="text-center"></div>
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
+                                </div>   
+                            </div>
+                         <div id="product_image_error" class="error"></div>
                     </div>
+
                     <div class="col-md-6 text-center">
                                 <div class="mb-2">
                                     <h1 class="span-modal">Enter Brand Name</h1>
@@ -188,8 +215,9 @@
                                     <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
                                     <div id="product_size_error" class="error"></div>
                                 </div>
-                        <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
-                        <div class="mt-2">
+                                <input type="hidden" name="id" id="id" class="form-control" value="">
+                                <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
+                                <div class="mt-2">
                             <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
@@ -203,89 +231,6 @@
     </div>
 </div>
 
-<!-- texting add item Modal -->
-<div class="modal fade" id="Additem" tabindex="-1" role="dialog" aria-labelledby="Additem" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="mssage_box" class="message"></div>
-                <form id="upload-product-form">
-                    @csrf
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="select-admin-grid py-1 ">
-                            <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
-                                <div class="Neon Neon-theme-dragdropbox ">
-                                    <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
-                                    <div class="Neon-input-dragDrop">
-                                        <div class="Neon-input-inner">
-                                            <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-                                            <div class="Neon-input-text"></div>
-                                            <a class="Neon-input-choose-btn blue">
-                                                <div class="text-center">
-                                                    <button class="add-item px-1" ><img src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                               
-                                <div id="divImageMediaPreview" class="text-center"></div>
-                                <div class="text-center">
-                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
-                                </div>   
-                        </div>
-                         <div id="product_image_error" class="error"></div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                                <div class="mb-2">
-                                    <h1 class="span-modal">Enter Brand Name</h1>
-                                    <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                                    placeholder="Enter brand name..." id="brand" name="brand"  maxlength="10" >
-                                    <div id="autsuggestion_section"></div>
-                                    <div id="brand_error" class="error"></div>
-                                </div>
-                                <div class="mb-2">
-                                    <span class="span-modal">Enter Product Name</span>
-                                    <br>
-                                    <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
-                                    <div id="product_name_error" class="error"></div>
-                                </div>
-                        <!-- <div class="mt-5">-->
-                                <div class="mb-2">
-                                    <span class="span-modal">Enter Product Description</span>
-                                    <textarea name="product_description" id="product_description" class="form-control" placeholder="Product Description"></textarea>
-                                    <!--<a href="" class="mt-3">Click to enter description...</a>-->
-                                    <div id="product_description_error" class="error"></div>
-                                </div>
-                        <!-- </div>-->
-                        <!-- <div class="mt-5">-->
-                                <div class="mb-2">
-                                    <span class="modal-p myb-2">Enter Product Size</span>
-                            <!-- </div>-->
-                            <!--<span class="span1-modal my-3">All sizes available</span>-->
-                                    <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
-                                    <div id="product_size_error" class="error"></div>
-                                </div>
-                        <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
-                        <div class="mt-2">
-                            <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
-                        </div>
-                        <div class="mt-1">
-                            <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            </div>
-        </div>
-    </div>
-</div>
 @include('admin.includes.footer')
 <script>
     
@@ -342,13 +287,14 @@
             $('.error').html('');
             $('input, textarea').removeClass('err');
             var status=true;
+            var id=makeTrim($('#id').val());
             var brand=makeTrim($('#brand').val());
             var product_name=makeTrim($('#product_name').val());
             var product_description=makeTrim($('#product_description').val());
             var product_size=makeTrim($('#product_size').val());
             var product_image=makeTrim($('#product-image').val());
             
-            if(product_image==''){
+            if(product_image=='' && id<1){
                 $('#product-image').addClass('err');
                 $('#product_image_error').html('Please select product image!');
                 status=false;
@@ -577,14 +523,57 @@
                 $("#divImageMediaPreview").html('');
                 $("#upload-product-form").trigger("reset");
                 $('#product_type').val($(type).attr('type_id'));
+                $('#upload_product').html('Upload Product');
                 $('#AddProductPopup').modal('show');
+                $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
+
+                /*
+                
+                                                    
+                                                
+                                                <div class="text-center">
+                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
+                                                </div>
+                                                
+                */
             }else{
                 $('#common_message_box').html('<div class="alert alert-danger">You can not upload more than 15 products.</div>')
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             }
         }
     }
-
+    function editProduct(id){
+        $('#viewProductPopup').modal('hide');
+        if(id>0){
+            $.ajax({
+            url : '/admin-view-product-ajax',
+                method : "POST",
+                async: false,
+                data : {
+                    'id':id,
+                    '_token': constants.csrf_token
+                },
+                success : function (ajaxresponse){
+                    response = JSON.parse(ajaxresponse);
+                    if (response['status']) {
+                        $('#AddProductPopup').modal('show');
+                        $('#brand').val(response['product']['brand_name']);
+                        $('#product_name').val(response['product']['name']);
+                        $('#product_description').val(response['product']['description']);
+                        $('#product_size').val(response['product']['size']);
+                        $('#product_type').val(response['product']['type']);
+                        $('#id').val(response['product']['id']);
+                        $('#upload_product').html('Update Product');
+                        $("#divImageMediaPreview").html('');
+                        $('#image_preview_remove').hide();
+                        $('#add_update_image_preview').html('<div class="text-center"><button class="add-item px-1" ><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview"></button></div>');
+                    }else{
+                        //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                    }
+                }
+            })
+        }
+    }
     function viewProducts(id){
         $('#viewProductDataSection').html('');
         if(id>0){
@@ -610,16 +599,16 @@
                         product_html +='<p class="modal-p mt-3">'+response['product']['description']+'</p>';
                         product_html +='<span class="span1-modal my-3">'+response['product']['size']+'</span>';
                         product_html +='<div class="mt-2">';
-                        product_html +='<button type="button" class="edit-btn py-1 px-3" >Edit Product</button>';
+                        product_html +='<button type="button" class="edit-btn py-1 px-3" onClick="editProduct('+id+')">Edit Product</button>';
                         product_html +='</div>';
                         product_html +='<div class="mt-1">';
                         product_html +='<button type="button" class="go-back-btn  py-1 px-5 "  data-dismiss="modal" aria-label="Close">Go Back</button>';
                         product_html +='</div>';
                         product_html +='</div>';
                         $('#viewProductDataSection').html(product_html);
-                        }else{
-                            //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
-                        }
+                    }else{
+                        //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                    }
                 }
             })
         }
