@@ -213,7 +213,7 @@
 
 
 
-                if (item_block_count < 7) {
+                if (item_block_count < 12) {
 
                 
 
@@ -225,7 +225,7 @@
 
                     var html = "";
 
-                    html+= '                    <div class="item-block-inner-row col-6" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
+                    html+= '                    <div class="item-block-inner-row col-3" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
 
                     html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -397,21 +397,21 @@
 
 
 
-                if(CreateGridRef.styleGridJson.main_grid.feature_image == ""){
+                // if(CreateGridRef.styleGridJson.main_grid.feature_image == ""){
 
 
 
-                    // check main grid feature image 
+                //     // check main grid feature image 
 
-                    is_valid_grid = false;
-
-
-
-                    $('.style-grid-main-feature-image-block').addClass('border-2 border-danger');
+                //     is_valid_grid = false;
 
 
 
-                }
+                //     $('.style-grid-main-feature-image-block').addClass('border-2 border-danger');
+
+
+
+                // }
 
 
 
@@ -423,19 +423,19 @@
 
 
 
-                    if(val.feature_image == ""){
+                    // if(val.feature_image == ""){
 
 
 
-                        is_valid_grid = false;
+                    //     is_valid_grid = false;
 
 
 
-                        $('.style-grid-feature-image-block[data-index="'+grid_index_id+'"]').addClass('border-2 border-danger');
+                    //     $('.style-grid-feature-image-block[data-index="'+grid_index_id+'"]').addClass('border-2 border-danger');
 
 
 
-                    }
+                    // }
 
 
 
@@ -775,13 +775,13 @@
 
             html+= '         <div class="row add-item">';
 
-            html+= '            <div class="col-lg-6 d-flex align-items-center">';
+            html+= '            <div class="col-lg-12 d-flex align-items-center">';
 
             html+= '               <div class="row">';
 
             html+= '                  <div class="style-grid-item-left-row d-flex flex-wrap w-100"  data-index="'+index+'">';
 
-            html+= '                    <div class="item-block-inner-row col-6" data-inner-index="1" data-parent-index="'+index+'">';
+            html+= '                    <div class="item-block-inner-row col-3" data-inner-index="1" data-parent-index="'+index+'">';
 
             html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -817,33 +817,33 @@
 
             html+= '            </div>';
 
-            html+= '            <div class="col-lg-6">';
+            // html+= '            <div class="col-lg-6">';
 
-            html+= '               <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">';
+            // html+= '               <div class="Neon Neon-theme-dragdropbox mt-5 mx-lg-4">';
 
-            html+= '                  <input name="item_feature_image['+index+']" class="style-grid-block-input-file"  data-img-preview-selector=".grid-feature-image-src" type="file" data-index="'+index+'">';
+            // html+= '                  <input name="item_feature_image['+index+']" class="style-grid-block-input-file"  data-img-preview-selector=".grid-feature-image-src" type="file" data-index="'+index+'">';
 
-            html+= '                  <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-feature-image-block p_25"  data-index="'+index+'">';
+            // html+= '                  <div class="Neon-input-dragDrop d-flex align-items-center height_300 style-grid-feature-image-block p_25"  data-index="'+index+'">';
 
-            html+= '                     <div class="Neon-input-inner">';
+            // html+= '                     <div class="Neon-input-inner">';
 
-            html+= '                        <div class="Neon-input-text">';
+            // html+= '                        <div class="Neon-input-text">';
 
-            html+= '                           <h3 class="feature-image-title" data-index="'+index+'">Add your feature image here...</h3>';
+            // html+= '                           <h3 class="feature-image-title" data-index="'+index+'">Add your feature image here...</h3>';
 
-            html+= '                        </div>';
+            // html+= '                        </div>';
 
-            html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
+            // html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
 
-            html+= '                 </div>';
+            // html+= '                 </div>';
 
-            html+= '               </div>';
+            // html+= '               </div>';
 
-            //html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
+            // //html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
 
-            html+= '               </div>';
+            // html+= '               </div>';
 
-            html+= '            </div>';
+            // html+= '            </div>';
 
             html+= '         </div>';
 
@@ -945,7 +945,7 @@
 
 
 
-            if (total_block_count == 6) {
+            if (total_block_count == 12) {
 
                 $('.add-item-block-btn[data-index="'+parent_index+'"]').hide();
 

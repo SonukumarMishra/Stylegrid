@@ -2846,13 +2846,13 @@ transform: rotate(180deg);
 /* Grid styles -------------------------------------------------*/
 .stylegrid-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
   grid-gap: 10px;
 }
 
 .stylegrid-product-img {
   height: 250px;
-  width: 100%;
+  width: 240px;
   object-fit: cover;
   cursor: pointer;
 }

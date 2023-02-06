@@ -133,7 +133,7 @@
 
                             <div class="row">
 
-                                <div class="col-8">
+                                <div class="col-8 mt-1">
 
                                     <h1>STYLEGRID {{ $g_key+1 }}</h1>
 
@@ -141,55 +141,67 @@
 
                             </div>
 
-                            <div class="row add-item d-flex align-items-center">
+                            <div class="row add-item mt-4 mb-4">
 
-                                <div class="col-lg-7">
+                              @php
+                                               
+                                 list($grid_items1, $grid_items2) = array_chunk($grid->items->ToArray(), ceil(count($grid->items->ToArray()) / 2));
+                                    
+                              @endphp
+                              
+                              @if (is_array($grid_items1) && count($grid_items1))
+                                
+                                 <div class="col-lg-5">
 
-        
+                                    <section class="stylegrid-cards row d-flex">
 
-                                    <section class="stylegrid-cards p-5">
+                                       @foreach ($grid_items1 as $i_key => $item)
 
-                                        
+                                          <div class="grid-item-inner-input-block" data-stylegrid-dtls-id="{{ $item['stylegrid_dtls_id'] }}"  data-stylegrid-product-id="{{ $item['stylegrid_product_id'] }}">
 
-                                        @if (count($grid->items))
+                                             <img class="stylegrid-product-img" src="{{asset($item['product_image'])}}" alt=" " />
 
+                                          </div>
+                                          
 
-
-                                            @foreach ($grid->items as $i_key => $item)
-
-
-
-                                                <div class="grid-item-inner-input-block" data-stylegrid-dtls-id="{{ $item->stylegrid_dtls_id }}"  data-stylegrid-product-id="{{ $item->stylegrid_product_id }}">
-
-
-
-                                                    <img class="stylegrid-product-img" src="{{asset($item->product_image)}}" alt=" " />
-
-
-
-                                                </div>
-
-
-
-                                            @endforeach
-
-                                        
-
-                                        @endif
-
-                                                               
+                                       @endforeach
 
                                     </section>
 
-        
+                                 </div>
+                                 <div class="col-lg-1"></div>
+                              
+                              @endif
+                                
+                              @if (is_array($grid_items2) && count($grid_items2))
+                                
+                                 <div class="col-lg-1"></div>
+                              
+                                 <div class="col-lg-5">
 
-                                </div>
+                                    <section class="stylegrid-cards row d-flex">
 
-                                <div class="col-lg-5 px-2">
+                                       @foreach ($grid_items2 as $i_key => $item)
+
+                                          <div class="grid-item-inner-input-block" data-stylegrid-dtls-id="{{ $item['stylegrid_dtls_id'] }}"  data-stylegrid-product-id="{{ $item['stylegrid_product_id'] }}">
+
+                                             <img class="stylegrid-product-img" src="{{asset($item['product_image'])}}" alt=" " />
+
+                                          </div>
+
+                                       @endforeach
+
+                                    </section>
+
+                                 </div>
+                                
+                              @endif
+
+                                {{-- <div class="col-lg-5 px-2">
 
                                     <img src={{asset($grid->feature_image)}} class="img-fluid w-100 height_500 img_preview" alt="">
 
-                                </div>
+                                </div> --}}
 
                             </div>
 
@@ -389,7 +401,7 @@
                            </div>
                          </div>
 
-                         <div class="col-md-12 d-flex" id="search_clients_container">
+                         <div class="col-md-12 row" id="search_clients_container">
 
                          </div>
 
