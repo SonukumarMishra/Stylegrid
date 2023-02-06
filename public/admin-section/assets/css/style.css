@@ -1052,3 +1052,29 @@ letter-spacing: 0.04em;
 
 color: #000000;
 }
+#product_description{
+  text-align: left !important;
+  box-shadow: none !important;
+}
+#autsuggestion_section ul{
+list-style: none;
+text-align: left;
+cursor: pointer;
+}
+.style-grid-block-input-file{
+  z-index: 999;
+  opacity: 0;
+  width: auto !important;
+  height: 200px;
+  position: absolute;
+  right: 0px;
+  left: 40px;
+  margin-right: auto;
+  margin-left: auto;
+  cursor: pointer;
+}
+.img_preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -11,6 +11,7 @@
                 <div class="">
                     <h1>Upload New Featured Products</h1>
                     <h3>Showcase new trending product on members dashboards.</h3>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Additem">Add item</button>
                 </div>
                 <div class="row mt-3">
                     <div class="col-lg-12">
@@ -149,12 +150,97 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="product_image_error" class="error"></div>
+                               
                                 <div id="divImageMediaPreview" class="text-center"></div>
                                 <div class="text-center">
                                     <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
                                 </div>   
                         </div>
+                         <div id="product_image_error" class="error"></div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                                <div class="mb-2">
+                                    <h1 class="span-modal">Enter Brand Name</h1>
+                                    <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
+                                                    placeholder="Enter brand name..." id="brand" name="brand"  maxlength="10" >
+                                    <div id="autsuggestion_section"></div>
+                                    <div id="brand_error" class="error"></div>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="span-modal">Enter Product Name</span>
+                                    <br>
+                                    <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
+                                    <div id="product_name_error" class="error"></div>
+                                </div>
+                        <!-- <div class="mt-5">-->
+                                <div class="mb-2">
+                                    <span class="span-modal">Enter Product Description</span>
+                                    <textarea name="product_description" id="product_description" class="form-control" placeholder="Product Description"></textarea>
+                                    <!--<a href="" class="mt-3">Click to enter description...</a>-->
+                                    <div id="product_description_error" class="error"></div>
+                                </div>
+                        <!-- </div>-->
+                        <!-- <div class="mt-5">-->
+                                <div class="mb-2">
+                                    <span class="modal-p myb-2">Enter Product Size</span>
+                            <!-- </div>-->
+                            <!--<span class="span1-modal my-3">All sizes available</span>-->
+                                    <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
+                                    <div id="product_size_error" class="error"></div>
+                                </div>
+                        <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
+                        <div class="mt-2">
+                            <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
+                        </div>
+                        <div class="mt-1">
+                            <button type="button" class="go-back-btn  py-1 px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- texting add item Modal -->
+<div class="modal fade" id="Additem" tabindex="-1" role="dialog" aria-labelledby="Additem" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="mssage_box" class="message"></div>
+                <form id="upload-product-form">
+                    @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="select-admin-grid py-1 ">
+                            <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
+                                <div class="Neon Neon-theme-dragdropbox ">
+                                    <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
+                                    <div class="Neon-input-dragDrop">
+                                        <div class="Neon-input-inner">
+                                            <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+                                            <div class="Neon-input-text"></div>
+                                            <a class="Neon-input-choose-btn blue">
+                                                <div class="text-center">
+                                                    <button class="add-item px-1" ><img src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div id="divImageMediaPreview" class="text-center"></div>
+                                <div class="text-center">
+                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
+                                </div>   
+                        </div>
+                         <div id="product_image_error" class="error"></div>
                     </div>
                     <div class="col-md-6 text-center">
                                 <div class="mb-2">
