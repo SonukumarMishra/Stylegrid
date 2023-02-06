@@ -449,7 +449,7 @@
                     return false;
                 }else{
                     var image_size = (this.files[0].size);
-                    if(image_size>1000000){
+                    if(image_size>3000000){
                         $('#product_image_error').html('Maximum File Size Limit is 1MB');
                         $("#product-image").val('');
                         return false;
