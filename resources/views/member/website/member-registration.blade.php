@@ -452,7 +452,7 @@
 
                     ?>
 
-                    <div class="col-md-3 text-center">
+                    <div class="col-lg-3 col-md-6 text-center">
 
                         <div class="text-right">
 

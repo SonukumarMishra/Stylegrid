@@ -219,7 +219,7 @@
                                 <input type="hidden" name="id" id="id" class="form-control" value="">
                                 <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
                                 <div class="mt-2">
-                            <button type="button" class="upload-btn py-1 px-3" id="upload_product">Upload Product</button>
+                            <button type="button" class="upload-btn px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
                             <button type="button" class="go-back-btn  px-5"  data-dismiss="modal" aria-label="Close">Go Back</button>

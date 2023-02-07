@@ -128,11 +128,11 @@
 
                                                 <div class="Neon-input-inner py-4">
 
-                                                    <div class="Neon-input-text">
+                                                    <div class="Neon-input-text mb-2">
 
                                                         <h3>Add your feature image here...</h3>
 
-                                                    </div><a class="Neon-input-choose-btn blue"><img
+                                                    </div><a class="Neon-input-choose-btn blue mt-2"><img
 
                                                             src="stylist/app-assets/images/icons/plus.png" alt=""></a>
 
@@ -308,7 +308,7 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 
 					var img=constants.base_url+'/stylist/grid_block/'+block_dataa[j].block_image;
 
-					var mjblock='<div class="mjrowtrack_inner col-6" grid="1" id="row_'+dataa[i].grid_id+'_block_'+block_dataa[j].block_id+'" data-toggle="modal"   data-target="#row_'+dataa[i].grid_id+'_gridmodal_'+block_dataa[j].block_id+'"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><img src="'+img+'" alt="" style="height: 50%; width: 100%;"></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="1" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
+					var mjblock='<div class="mjrowtrack_inner col-6" grid="1" id="row_'+dataa[i].grid_id+'_block_'+block_dataa[j].block_id+'" data-toggle="modal"   data-target="#row_'+dataa[i].grid_id+'_gridmodal_'+block_dataa[j].block_id+'"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text mb-2"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><img src="'+img+'" alt="" style="height: 50%; width: 100%;"></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="1" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
 
 		
 
@@ -458,7 +458,7 @@ $('document').ready(function(){  // fetch grid and block in differ array in orde
 
 	$('document').ready(function(){   //inner block
 
-		var mjblock='<div class="mjrowtrack_inner col-6" grid="1" id="row_1_block_1" data-toggle="modal"   data-target="#row_1_gridmodal_1"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="1" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
+		var mjblock='<div class="mjrowtrack_inner col-6" grid="1" id="row_1_block_1" data-toggle="modal"   data-target="#row_1_gridmodal_1"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text mb-2"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="1" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
 
 		
 
@@ -1052,7 +1052,7 @@ function makeTrim(x) {
 
 		
 
-	var mjblock='<div class="mjrowtrack_inner col-6" grid="'+rowid+'" id="row_'+rowid+'_block_1" data-toggle="modal"  data-target="#row_'+rowid+'_gridmodal_1"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="'+rowid+'" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
+	var mjblock='<div class="mjrowtrack_inner col-6" grid="'+rowid+'" id="row_'+rowid+'_block_1" data-toggle="modal"  data-target="#row_'+rowid+'_gridmodal_1"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text mb-2"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="'+rowid+'" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
 
 		
 
@@ -1400,7 +1400,7 @@ function removeblock(value)
 
 		if(count1<7){
 
-		var mjblock='<div class="mjrowtrack_inner col-6" grid="'+rowid+'" data-toggle="modal" id="row_'+rowid+'_block_'+count1+'"  data-target="#row_'+rowid+'_gridmodal_'+count1+'"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="'+rowid+'" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
+		var mjblock='<div class="mjrowtrack_inner col-6" grid="'+rowid+'" data-toggle="modal" id="row_'+rowid+'_block_'+count1+'"  data-target="#row_'+rowid+'_gridmodal_'+count1+'"><div class="Neon Neon-theme-dragdropbox "><div class="Neon-input-dragDrop "><div class="Neon-input-inner py-3"><div class="Neon-input-text mb-2"><h3>Add an item here</h3></div><a class="Neon-input-choose-btn blue"><imgsrc="stylist/app-assets/images/icons/plus.png" alt=""></a></div></div></div><img src="stylist/app-assets/images/icons/Empty-Trash.png" class="img-fluid deletegrid" value="'+rowid+'" onclick="removeblock(this)" alt="" style="position: absolute;top: 0;">';
 
 		
 

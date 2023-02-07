@@ -225,7 +225,7 @@
 
                     var html = "";
 
-                    html+= '                    <div class="item-block-inner-row col-3" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
+                    html+= '                    <div class="item-block-inner-row col-md-3" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
 
                     html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -233,7 +233,7 @@
 
                     html+= '                                <div class="Neon-input-inner">';
 
-                    html+= '                                    <div class="Neon-input-text">';
+                    html+= '                                    <div class="Neon-input-text mb-2">';
 
                     html+= '                                      <h3  class="grid-item-image-title" data-inner-index="'+temp_count+'" data-parent-index="'+index+'">Add an item here</h3>';
 
@@ -775,13 +775,13 @@
 
             html+= '         <div class="row add-item">';
 
-            html+= '            <div class="col-lg-12 d-flex align-items-center">';
+            html+= '            <div class="col-lg-12 align-items-center">';
 
             html+= '               <div class="row">';
 
             html+= '                  <div class="style-grid-item-left-row d-flex flex-wrap w-100"  data-index="'+index+'">';
 
-            html+= '                    <div class="item-block-inner-row col-3" data-inner-index="1" data-parent-index="'+index+'">';
+            html+= '                    <div class="item-block-inner-row col-md-3" data-inner-index="1" data-parent-index="'+index+'">';
 
             html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -789,7 +789,7 @@
 
             html+= '                                <div class="Neon-input-inner">';
 
-            html+= '                                    <div class="Neon-input-text">';
+            html+= '                                    <div class="Neon-input-text mb-2">';
 
             html+= '                                      <h3 class="grid-item-image-title" data-inner-index="1" data-parent-index="'+index+'">Add an item here</h3>';
 
