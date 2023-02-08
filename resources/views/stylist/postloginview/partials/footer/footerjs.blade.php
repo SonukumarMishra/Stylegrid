@@ -102,6 +102,7 @@
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
 <script src="{{ asset('extensions/select2/js/select2.min.js') }}"></script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
 
 <script>
 
