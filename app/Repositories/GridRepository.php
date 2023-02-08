@@ -129,4 +129,47 @@ class GridRepository {
 
 	}
 
+	public static function get_stylegrid_product_details($request) {
+
+		$result = false;
+
+		try{
+			
+			$style_grid_dtls = StyleGrids::find($request->stylegrid_id);
+			
+			if($style_grid_dtls){
+
+                $style_grid_dtls->grids = StyleGridDetails::where([
+                                                'stylegrid_id' => $style_grid_dtls->stylegrid_id,
+                                                'is_active' => 1
+                                            ])->get();
+
+                if(count($style_grid_dtls->grids)){
+                    
+                    foreach ($style_grid_dtls->grids as $key => $value) {
+
+                        $style_grid_dtls->grids[$key]['items'] = StyleGridProductDetails::where([
+                                                                    'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
+                                                                    'is_active' => 1
+                                                                ])
+																->get();
+
+
+                    }
+                }
+
+				$result = $style_grid_dtls;
+
+            }
+
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error get_stylegrid_details ". print_r($e->getMessage(), true));
+			return $result;
+        }
+
+	}
+
 }

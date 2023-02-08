@@ -382,14 +382,26 @@
                      
                      <div class="row">
                      
-                        <div class="col-md-12 mb-1">
+                        {{-- <div class="col-md-12 mb-1">
                            <div class="form-group">
                              <select class="select2 form-control" id="search_client_input">
                              </select>
                            </div>
-                         </div>
+                         </div> --}}
 
-                         <div class="col-md-12 d-flex" id="search_clients_container">
+                         <div class="col-md-12 mt-1 mb-3" id="search_clients_container">
+
+                           <table class="table w-100 table-responsive" id="grid_clients_tbl">
+                              <thead>
+                                  <tr>
+                                      <th scope="col" class="text-left pl-4">#</th>
+                                      <th scope="col">Name</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                 
+                              </tbody>
+                          </table>
 
                          </div>
 
