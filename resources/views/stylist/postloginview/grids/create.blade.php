@@ -185,7 +185,7 @@
 
                                                     </div>
 
-                                                    <a class="Neon-input-choose-btn blue">
+                                                    <a class="Neon-input-choose-btn blue mt-2">
 
                                                         <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
 

@@ -1,3 +1,44 @@
+@font-face {
+    font-family: 'Genos';
+    font-weight: 400;
+    src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Genos-Light';
+    src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif';
+    src: url(../font/silk-serif/Silk\ Serif\ Light.otf);
+  }
+  
+  @font-face {
+    font-family: 'Silk Serif Medium';
+    src: url(../font/silk-serif/Silk\ Serif\ Medium.otf);
+  }
+  
+  @font-face {
+    font-family: 'Avenir';
+    src: url(../font/Avenir/AvenirLTStd-Black.otf);
+  }
+  @font-face {
+    font-family: 'Avenir-Book';
+    src: url(../font/Avenir/AvenirLTStd-Book.otf);
+  }
+  
+  @font-face {
+    font-family: 'Roboto';
+    src: url(../font/Roboto/Roboto-Black.ttf);
+  
+  }
+  
+  @font-face {
+    font-family: 'Roboto-Light';
+    src: url(../font/Roboto/Roboto-Light.ttf);
+  
+  }
 .client-search-container {
 }
 .client-search-container input[type="text"] {
@@ -148,9 +189,11 @@
     font-size: 18px;
     line-height: 24px;
     color: #666f80;
+    font-family: Avenir;
 }
 
 .list-msg {
+    font-family: Avenir-Book;
     font-style: normal;
     font-weight: 500;
     font-size: 14.6811px;
@@ -167,6 +210,7 @@
     font-weight: 500;
     font-size: 13px;
     color: #b8becc;
+    font-family: Avenir-Book;
 }
 .img-collapse {
     position: relative;

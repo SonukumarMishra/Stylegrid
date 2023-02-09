@@ -88,7 +88,7 @@
 
                           <div class="row">
 
-                             <div class="col-lg-12 d-flex align-items-center">
+                             <div class="col-lg-12  align-items-center">
 
                                 <h4>{{ $style_grid_dtls->title }}</h4>
 

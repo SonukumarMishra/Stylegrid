@@ -2,9 +2,9 @@
   font-family: 'Genos';
   src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
 }
-
+             v        mvokuuuuuuuuuuuuuuuuv   fcvmaz>
 @font-face {
-  font-family: 'Genos-Light';
+ v     font-family: 'Genos-Light';
   src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
 }
 
@@ -81,6 +81,7 @@ body {
 .search-container {
   float: right;
   background: #F3F3F3;
+  margin-top: 20px;
 }
 
 .search-container input[type=text] {
@@ -3001,10 +3002,11 @@ margin-bottom: 23px; */
 }
 
 .notify-badge{
-  top: 9px !important;
-  right: 6px !important;
-  padding-right: 0.5em !important;
-  padding-left: 0.5em !important;
+  top: 18px !important;
+  right: 7px !important;
+  font-size: 10px !important;
+  /* padding-right: 0.5em !important; */
+  /* padding-left: 0.5em !important;*/
 }
 
 /* Grid styles -------------------------------------------------*/
@@ -3031,4 +3033,12 @@ margin-bottom: 23px; */
   width: 200px;
   height: 200px; 
   object-fit: cover;
+}
+.page-item.active .page-link {
+  background-color: #00A82F !important;
+  color: #fff !important;
+}
+.page-item.disabled .page-link, .pagination .page-link{
+  font-family: 'Genos' !important;
+  color: #6b6f80;
 }

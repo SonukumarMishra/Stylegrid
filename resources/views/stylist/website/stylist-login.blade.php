@@ -23,7 +23,7 @@
                                 <!-- <span>Email Address</span> -->
                             </div>
                         </div>
-                        <div class="inputbox mb-0">
+                        <div class="inputbox mb-2">
                             <div class="form-group">
                                 <input type="password" name="password" id="password" placeholder="Enter Password...">
                                 <div id="password_error" class="error"></div>
