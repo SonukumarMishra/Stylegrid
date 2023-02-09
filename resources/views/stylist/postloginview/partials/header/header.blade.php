@@ -23,6 +23,9 @@
 	<link rel="stylesheet" href="{{ asset('stylist/assets/css/jquery-ui.css') }}">
     <!-- END: Custom CSS-->
 
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    
     {{-- Extensions --}}
     <link rel="stylesheet" href="{{ asset('extensions/toastr/css/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert/css/sweetalert2.min.css') }}">

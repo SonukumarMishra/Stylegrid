@@ -5,7 +5,7 @@
             <div class="">
                 <div class=" px-md-1 px-1 py-1">
 
-                    <h1>{{ $grid->title }}</h1>
+                    <h1><a href="{{ route('member.grid.view', [ 'grid_id' => $grid->stylegrid_id ]) }}">{{ $grid->title }}</a></h1>
 
                 </div>
 

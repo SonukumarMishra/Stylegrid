@@ -27,74 +27,74 @@
 
         ViewGridRef.initEvents = function() {
 
-            $('#search_client_input').select2({
+            // $('#search_client_input').select2({
 
-                width:"100%",
-                dropdownParent: $('#grid_clients_modal'),
-                ajax: {
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "{{ route('options.stylist_clients') }}",
-                    dataType: 'json',
-                    method:"post",
-                    delay: 250,
-                    data: function (params) {
+            //     width:"100%",
+            //     dropdownParent: $('#grid_clients_modal'),
+            //     ajax: {
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         url: "{{ route('options.stylist_clients') }}",
+            //         dataType: 'json',
+            //         method:"post",
+            //         delay: 250,
+            //         data: function (params) {
 
-                        return {
-                            search: params.term, // search term
-                            stylist_id : auth_id,
-                            member_ids : JSON.stringify(ViewGridRef.selectedClientIds),
-                            filter:1,
-                            page: params.page,
-                        };
-                    },
+            //             return {
+            //                 search: params.term, // search term
+            //                 stylist_id : auth_id,
+            //                 member_ids : JSON.stringify(ViewGridRef.selectedClientIds),
+            //                 filter:1,
+            //                 page: params.page,
+            //             };
+            //         },
 
-                    processResults: function (result) {
+            //         processResults: function (result) {
 
-                        var retVal = [];
+            //             var retVal = [];
 
-                        for (var i = 0; i < result.data.list.length; i++) {
+            //             for (var i = 0; i < result.data.list.length; i++) {
 
-                            var obj = result.data.list[i];
+            //                 var obj = result.data.list[i];
 
-                            var lineObj = {
-                                id: obj.value,
-                                text: obj.label,
-                                json: obj
-                            }
-                            retVal.push(lineObj);
-                        }
-                        return {
-                            results: retVal
-                        };
+            //                 var lineObj = {
+            //                     id: obj.value,
+            //                     text: obj.label,
+            //                     json: obj
+            //                 }
+            //                 retVal.push(lineObj);
+            //             }
+            //             return {
+            //                 results: retVal
+            //             };
 
-                    },
+            //         },
 
-                    cache: true
-                },
-                placeholder: 'Search here...',
-                allowClear: true,
-                minimumInputLength: 1,
-                // multiple: true,
-                language: {
-                    inputTooShort: function(args) {
-                        return "";
-                    }
-                }
-            });
+            //         cache: true
+            //     },
+            //     placeholder: 'Search here...',
+            //     allowClear: true,
+            //     minimumInputLength: 1,
+            //     // multiple: true,
+            //     language: {
+            //         inputTooShort: function(args) {
+            //             return "";
+            //         }
+            //     }
+            // });
 
-            $('#search_client_input').on('select2:select', function (e) {
+            // $('#search_client_input').on('select2:select', function (e) {
 
-                var json = e.params.data.json;
-                ViewGridRef.selectedClientIds.push(json.value);
+            //     var json = e.params.data.json;
+            //     ViewGridRef.selectedClientIds.push(json.value);
                 
-                $(this).val('').trigger('change');
+            //     $(this).val('').trigger('change');
 
-                $('#search_clients_container').append(ViewGridRef.bindClientUI(json));
+            //     $('#search_clients_container').append(ViewGridRef.bindClientUI(json));
 
 
-            });
+            // });
 
             $('body').on('click', '.grid-item-inner-input-block', function(e) {
 
@@ -136,6 +136,7 @@
             
                 e.preventDefault();
                 ViewGridRef.getGridClients();
+                ViewGridRef.loadGridClientsSearchTable();
                 $('#grid_clients_modal').modal('show');
 
             });
@@ -154,13 +155,18 @@
             
                 var client_ids = [];
                 
-                $.each(ViewGridRef.selectedClientIds, function (i1, val1) { 
+                $('.dt-checkboxes:checkbox:checked').map(function() {
+                    client_ids.push(this.value);
+                    return;
+                }).get();
+
+                // $.each(ViewGridRef.selectedClientIds, function (i1, val1) { 
                      
-                    var index_grid = ViewGridRef.allGridClients.indexOf(val1);
-                    if(index_grid == -1){
-                        client_ids.push(val1);
-                    }
-                });
+                //     var index_grid = ViewGridRef.allGridClients.indexOf(val1);
+                //     if(index_grid == -1){
+                //         client_ids.push(val1);
+                //     }
+                // });
 
                 if(client_ids.length == 0){
                     showErrorMessage('Please select client');
@@ -183,8 +189,8 @@
 
                     }else{
 
-                        $('#search_clients_container').html('');
                         ViewGridRef.getGridClients();
+                        ViewGridRef.loadGridClientsSearchTable();
                         showSuccessMessage(response.message);
                     }
 
@@ -192,6 +198,56 @@
 
             });
             
+           
+
+        }
+
+        ViewGridRef.loadGridClientsSearchTable = function() {
+        
+            if ( $.fn.DataTable.isDataTable('#grid_clients_tbl') ) {
+                $('#grid_clients_tbl').DataTable().destroy();
+            }
+
+            ViewGridRef.gridClientsTbl = $('#grid_clients_tbl').DataTable({
+                responsive: true,
+                processing: true,
+                serverSide: true,
+                "ajax": {
+                    "type" : "POST",
+                    "url" : "{{ route('options.stylist_clients') }}",
+                    "data": function ( d ) {
+                        d._token = $('meta[name="csrf-token"]').attr('content'),
+                        d.stylegrid_id = $('#stylegrid_id').val()
+                        // d.member_ids = JSON.stringify(ViewGridRef.selectedClientIds)
+                    }, 
+                    "dataSrc" : function (json) {
+                        return json.data;
+                    }   
+                },
+                "columns": [
+                        {
+                            "data": "value",
+                            render: function(e, t, a, s) {
+                                return "display" === t && (e = '<div class="checkbox"><input type="checkbox" value="'+e+'" class="dt-checkboxes"><label></label></div>'),
+                                e
+                            },
+                            checkboxes: {
+                                selectRow: !0,
+                                selectAllRender: '<div class="checkbox"><input type="checkbox" class="dt-checkboxes" checked=""><label></label></div >'
+                            }
+                        }, 
+                        { "data": "label" },
+                ],
+                columnDefs: [
+                    {
+                        orderable: !1,
+                        targets: [0],
+                        width: "10%",
+                    }
+                ],
+                select: "multi",
+            });
+
         }
 
         ViewGridRef.bindClientUI = function(dtls) {

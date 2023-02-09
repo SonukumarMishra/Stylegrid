@@ -50,7 +50,7 @@ use App\Http\Controllers\CommonController;
   Route::group(['prefix' => 'options-', 'as' => 'options.'], function () {
 
     // This routes to get select options data
-    Route::post('/stylist-clients', [CommonController::class, 'get_stylist_clients_list'])->name('stylist_clients');
+    Route::post('stylist-clients', [CommonController::class, 'get_stylist_clients_list'])->name('stylist_clients');
   
   });
 

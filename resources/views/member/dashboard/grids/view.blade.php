@@ -130,66 +130,55 @@
 
                            </div>
 
-                           <div class="row add-item mt-4 mb-4">
+                           <div class="row add-item d-flex align-items-center">
 
-                              @php
-                                               
-                                 list($grid_items1, $grid_items2) = array_chunk($grid->items->ToArray(), ceil(count($grid->items->ToArray()) / 2));
-                                    
-                              @endphp
+                               <div class="col-lg-7">
 
-                              @if (is_array($grid_items1) && count($grid_items1))
-                                                               
-                                 <div class="col-lg-5">
+       
 
-                                    <section class="stylegrid-cards row d-flex">
+                                   <section class="stylegrid-cards p-5">
 
-                                       @foreach ($grid_items1 as $i_key => $item)
+                                       
 
-                                          <div class="grid-item-inner-input-block" data-stylegrid-id="{{ $item['stylegrid_id'] }}" data-stylegrid-dtls-id="{{ $item['stylegrid_dtls_id'] }}"  data-stylegrid-product-id="{{ $item['stylegrid_product_id'] }}">
+                                       @if (count($grid->items))
 
-                                             <img class="stylegrid-product-img" src="{{asset($item['product_image'])}}" alt=" " />
 
-                                       </div>
 
-                                       @endforeach
+                                           @foreach ($grid->items as $i_key => $item)
 
-                                    </section>
 
-                                 </div>
-                                 <div class="col-lg-1"></div>
 
-                              @endif
+                                               <div class="grid-item-inner-input-block" data-stylegrid-id="{{ $item->stylegrid_id }}" data-stylegrid-dtls-id="{{ $item->stylegrid_dtls_id }}"  data-stylegrid-product-id="{{ $item->stylegrid_product_id }}">
 
-                              @if (is_array($grid_items2) && count($grid_items2))
 
-                                 <div class="col-lg-1"></div>
 
-                                 <div class="col-lg-5">
+                                                   <img class="stylegrid-product-img" src="{{asset($item->product_image)}}" alt=" " />
 
-                                    <section class="stylegrid-cards row d-flex">
 
-                                       @foreach ($grid_items2 as $i_key => $item)
 
-                                          <div class="grid-item-inner-input-block" data-stylegrid-id="{{ $item['stylegrid_id'] }}" data-stylegrid-dtls-id="{{ $item['stylegrid_dtls_id'] }}"  data-stylegrid-product-id="{{ $item['stylegrid_product_id'] }}">
+                                               </div>
 
-                                             <img class="stylegrid-product-img" src="{{asset($item['product_image'])}}" alt=" " />
 
-                                          </div>
 
-                                       @endforeach
+                                           @endforeach
 
-                                    </section>
+                                       
 
-                                 </div>
+                                       @endif
 
-                              @endif
+                                                              
 
-                               {{-- <div class="col-lg-5 px-2">
+                                   </section>
+
+       
+
+                               </div>
+
+                               <div class="col-lg-5 px-2">
 
                                    <img src={{asset($grid->feature_image)}} class="img-fluid w-100 height_500 img_preview" alt="">
 
-                               </div> --}}
+                               </div>
 
                            </div>
 

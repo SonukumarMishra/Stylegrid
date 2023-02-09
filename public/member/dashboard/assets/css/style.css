@@ -1,4 +1,4 @@
- @font-face {
+@font-face {
   font-family: 'Genos';
   src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
 }
@@ -515,7 +515,7 @@ body {
 #inbox .img-1 {
   height: 40px;
   width: 40px;
-  border-radius: 50px;
+  border-radius: 5px;
   position: relative;
 }
 
@@ -3012,13 +3012,13 @@ margin-bottom: 23px; */
 /* Grid styles -------------------------------------------------*/
 .stylegrid-cards {
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 10px;
 }
 
 .stylegrid-product-img {
   height: 250px;
-  width: 240px;
+  width: 100%;
   object-fit: cover;
   cursor: pointer;
 }
