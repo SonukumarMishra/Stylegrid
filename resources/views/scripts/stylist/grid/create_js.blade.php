@@ -225,7 +225,7 @@
 
                     var html = "";
 
-                    html+= '                    <div class="item-block-inner-row col-md-3" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
+                    html+= '                    <div class="item-block-inner-row col-6" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'">';
 
                     html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -239,7 +239,7 @@
 
                     html+= '                                    </div>';
 
-                    html+= '                                    <a class="Neon-input-choose-btn blue"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'"></a>';
+                    html+= '                                    <a class="Neon-input-choose-btn blue mt-2"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="'+temp_count+'"  data-parent-index="'+index+'"></a>';
 
                     html+= '                                </div>';
 
@@ -781,7 +781,7 @@
 
             html+= '                  <div class="style-grid-item-left-row d-flex flex-wrap w-100"  data-index="'+index+'">';
 
-            html+= '                    <div class="item-block-inner-row col-md-3" data-inner-index="1" data-parent-index="'+index+'">';
+            html+= '                    <div class="item-block-inner-row col-6" data-inner-index="1" data-parent-index="'+index+'">';
 
             html+= '                        <div class="Neon Neon-theme-dragdropbox">';
 
@@ -795,7 +795,7 @@
 
             html+= '                                    </div>';
 
-            html+= '                                    <a class="Neon-input-choose-btn blue"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="1" data-parent-index="'+index+'"></a>';
+            html+= '                                    <a class="Neon-input-choose-btn blue mt-2"><img src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" class="grid-item-image-src img_preview" data-inner-index="1" data-parent-index="'+index+'"></a>';
 
             html+= '                                </div>';
 
@@ -833,7 +833,7 @@
 
             html+= '                        </div>';
 
-            html+= '                     <a class="Neon-input-choose-btn blue"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
+            html+= '                     <a class="Neon-input-choose-btn blue mt-2"><img class="grid-feature-image-src img_preview" src="{{ asset('stylist/app-assets/images/icons/plus.png')}}" data-index="'+index+'"></a>';
 
             html+= '                 </div>';
 
