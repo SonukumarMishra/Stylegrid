@@ -13,7 +13,7 @@ class Dashboard extends Model
 	function adminLogin($where){
 		if(count($where)){
 			$this->db = DB::table('sg_admin AS a');
-			$this->select(["a.id","a.name","a.email","a.phone"]);
+			$this->select(["a.id","a.name","a.email","a.phone","a.password","a.verified","a.last_login","a.image","a.username","a.country_id","a.currency","a.admin_received_email","a.status","a.added_date"]);
 			$this->db->where($where);
 			$result=$this->db->get()->first();
 			return $result;	

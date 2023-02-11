@@ -99,7 +99,7 @@
                             data-i18n="">Finances</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Settings</span></a>
+                <li class=" nav-item"><a href="<?php echo url('/admin-settings');?>"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Settings</span></a>
 
                 </li>
                 <li class=" nav-item mt-5"><a href="#"><i class="ft-grid"></i><span class="menu-title"
