@@ -170,11 +170,11 @@
                                         <div class="Neon-input-inner">
                                             <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
                                             <div class="Neon-input-text"></div>
-                                            <a class="Neon-input-choose-btn blue" id="add_update_image_preview">
+                                            <div class="Neon-input-choose-btn blue" id="add_update_image_preview">
                                                 <div class="text-center">
                                                     <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
                                                 </div>
-                                            </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -384,8 +384,11 @@
         })
         $("#product-image").change(function () {
             if (typeof (FileReader) != "undefined") {
+                $('#add_update_image_preview').html('');
+                $('#image_preview_remove').hide();
+               $("#divImageMediaPreview").html('');
                 var dvPreview = $("#divImageMediaPreview");
-                dvPreview.html("");    
+                // dvPreview.html("");    
                 $('#product_image_error').html('');        
                 // $($(this)[0].files).each(function () {
                 var file = $(this)[0].files;//$(this); 
@@ -418,6 +421,7 @@
 
         $('#image_preview_remove').click(function(){
             $("#product-image").val('');
+            alert('remove data');
             $('#image_preview_remove').hide();
             $("#divImageMediaPreview").html('');
         })
@@ -512,6 +516,7 @@
     }
 
     function AddProduct(type){
+
         $('.message').html('');
         $('.error').html('');
         $('input, textarea').removeClass('err');
@@ -545,6 +550,7 @@
     }
     function editProduct(id){
         $('#viewProductPopup').modal('hide');
+        $('#product_image_error').html(''); 
         if(id>0){
             $.ajax({
             url : '/admin-view-product-ajax',
@@ -576,6 +582,7 @@
         }
     }
     function viewProducts(id){
+        $('#product_image_error').html(''); 
         $('#viewProductDataSection').html('');
         if(id>0){
             $.ajax({
