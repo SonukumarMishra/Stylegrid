@@ -332,5 +332,46 @@ class DashboardController extends Controller
         }
         return redirect("/admin-stylist");  
     }
-    
+
+    public function adminSettings(Request $request){
+        return view('admin.admin-settings');
+    }
+    public function adminProfileSettings(Request $request){
+        $member=new Member();
+        $country_list=$member->getCountryList();
+        return view('admin.admin-profile-settings',compact('country_list'));
+    }
+    public function adminUpdateProfileSettingsAjax(Request $request){
+        if($request->ajax()){
+            $admin_image_name='';
+            $admin_image= $request->file('admin_image');
+             if(!empty($admin_image)){
+                $new_name = rand() . '.' . $admin_image->getClientOriginalExtension();
+                $admin_image->move(public_path('attachments/admin/profile'), $new_name);
+                $admin_image_name=$new_name;
+            }
+            if (File::exists(public_path('attachments/admin/profile/'.Session::get("admin_data")->image)) && !empty($admin_image_name)) {
+                File::delete(public_path('attachments/admin/profile/'.Session::get("admin_data")->image));
+            }
+            $update_data=[
+                'id'=>Session::get("admin_data")->id,
+                'currency'=>$request->admin_currency,
+                'country_id'=>$request->admin_country_id,
+                'admin_received_email'=>$request->admin_received_email,
+                'email'=>$request->admin_email,
+            ];
+            if(!empty($admin_image_name)){
+                $update_data['image']=$admin_image_name; 
+            }
+            $member=new Member();
+            $member->addUpdateData($update_data,'sg_admin');
+            $dashboard=new Dashboard();
+            $response=$dashboard->adminLogin(['a.id'=>Session::get("admin_data")->id]);
+            Session::put('admin_data',$response);
+            return json_encode([
+                'status'=>1,
+                'message'=>'profile updated successfully'
+                ]);
+        }
+    }  
 }

@@ -87,53 +87,6 @@
 @include('admin.includes.footer')
 <script>
     $(function(){
-        $('#reason_for_cancellation').change(function(){
-            $('#message_box').html('');
-        })
-        $('#cancel_membership').click(function(){
-            var reason_for_cancellation=$('#reason_for_cancellation').val();
-            if(reason_for_cancellation!=''){
-                $.ajax({
-                    url : '/admin-cancel-stylist-membership',
-                    method : "POST",
-                    async: false,
-                    data : {
-                        'stylist_id':'<?php echo $stylist_details->id;?>',
-                        'reason_for_cancellation':reason_for_cancellation,
-                        '_token': constants.csrf_token
-                    },
-                    success : function (ajaxresponse){
-                        response = JSON.parse(ajaxresponse);
-                        if (response['status']) {
-                            $('#message_box').html('<div class="alert alert-success">'+response['message']+'</div>');
-                            setTimeout(function(){
-                                location.reload();
-                            }, 500);
-                        }else{
-                            $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
-                        }
-                    }
-                })
-            }else{
-                $('#message_box').html('<div class="alert alert-danger">Please select reason of cancellation!</div>');
-            }
-        })
-        $('#stylist_favroute_brand_table, #stylist_client_list_table').DataTable({
-        "bLengthChange": false,
-        "pageLength":5,
-        "searching": false,
-        "columnDefs": [
-            { orderable: false, targets: 1 }
-        ],
-     });        
-     $('#stylist-order-list').DataTable({
-        "bLengthChange": false,
-        "pageLength":10,
-        "searching": false,
-        "columnDefs": [
-            { orderable: false, targets: 1 }
-        ],
-     });  
     })
 </script>
 @stop

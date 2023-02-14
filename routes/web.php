@@ -194,7 +194,9 @@ Route::post('/admin-upload-product-ajax', [AdminDashboard::class, 'adminUploadPr
 Route::post('/admin-show-product-list-ajax', [AdminDashboard::class, 'adminShowProductListAjax']);
 Route::post('/admin-view-product-ajax', [AdminDashboard::class, 'adminViewProductAjax']);
 Route::post('/admin-remove-product-ajax', [AdminDashboard::class, 'adminRemoveProductAjax']);
-
+Route::get('/admin-settings', [AdminDashboard::class, 'adminSettings']);
+Route::get('/admin-profile-settings', [AdminDashboard::class, 'adminProfileSettings']);
+Route::post('/admin-update-profile-settings-ajax', [AdminDashboard::class, 'adminUpdateProfileSettingsAjax']);
 
 
 //admin section end

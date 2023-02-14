@@ -1120,3 +1120,183 @@ cursor: pointer;
   color: #000 !important;
   border-color: #000 !important;
 }
+
+*******admin setting *****/
+.welcome-setting-bg{
+  background: url(../images/admin-bg.png);
+  background-size: cover;
+  height: 50vh;
+  position: relative;
+}
+.setting-text-pos{
+  position: absolute;
+  left: 3%;
+  bottom: 20%;
+}
+.setting-text{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 400;
+font-size: 36px;
+line-height: 54px;
+
+color: #FFFFFF;
+}
+.setting-text-1{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 127.6%;
+   color: #FFFFFF;
+}
+.setting-inner-text-pos{
+  position: absolute;
+  left: 5%;
+  bottom: 10%;
+}
+.welcome-setting-grid-bg{
+  background: #3A3A3A;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.welcome-setting-grid-bg-grey{
+  background: #696969;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.welcome-setting-grid-bg-light-grey{
+  background: #B1B1B1;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.welcome-setting-grid-bg-light-green{
+  background: #003A10;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.welcome-setting-grid-bg-light-greenn{
+  background: #005919;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.welcome-setting-grid-bg-dark-green{
+  background: #007721;
+  background-size: cover;
+  height: 315px;
+  position: relative;
+}
+.setting-inner-text{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 48px;
+   display: flex;
+  align-items: flex-end;
+  color: #FFFFFF;
+}
+.setting-inner-text-1{
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 127.6%;
+  display: flex;
+  align-items: flex-end;
+  color: #FFFFFF;
+}
+#profile-tabs{
+  background: #EDEDED;
+border-radius: 10px;
+}
+#profile-tabs .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  background: linear-gradient(90.55deg, #00A82F 31%, #0094FF 72.21%) !important;
+-webkit-background-clip: text !important;
+-webkit-text-fill-color: transparent !important;
+background-clip: text !important;
+text-fill-color: transparent;
+background-clip: text !important;
+font-family: 'Genos';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 29px;
+text-align: center;
+}
+#profile-tabs .nav-pills .nav-link.active:hover{
+  background: linear-gradient(90.55deg, #00A82F 31%, #0094FF 72.21%) !important;
+-webkit-background-clip: text !important;
+-webkit-text-fill-color: transparent !important;
+background-clip: text !important;
+text-fill-color: transparent;
+background-clip: text !important;
+}
+#profile-tabs .nav.nav-pills .nav-item .nav-link{
+  font-family: 'Genos' !important;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px !important;
+  line-height: 29px;
+  text-align: center !important;
+}
+.profile-img{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+color: #000000;
+}
+.update-new{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 10px;
+line-height: 15px;
+text-align: right;
+text-decoration-line: underline;
+text-underline-offset:3px;
+color: #757575;
+}
+.profile-img-bg{
+  background: #FFFFFF;
+  position: relative;
+}
+.save-btn{
+  background: #138232;
+border-radius: 3.15789px;
+font-family: 'Genos';
+font-style: normal;
+font-weight: 400;
+font-size: 15.7895px;
+line-height: 19px;
+text-align: center;
+color: #FFFFFF;
+width: 183.16px;
+height: 30px;
+border: 0;
+}
+.profile-tab-info label{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+color: #000000
+}
+.profile-tab-info input, .profile-tab-info input::placeholder{
+  font-family: 'Silk Serif';
+font-style: normal;
+font-weight: 300;
+font-size: 14px;
+line-height: 21px;
+border: 0;
+background-color: #fff;
+color: #000000;
+}
