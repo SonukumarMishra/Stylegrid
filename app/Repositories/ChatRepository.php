@@ -58,12 +58,54 @@ class ChatRepository {
 	public static function getChatContacts($request, $auth_user) {
 
 		$result = [
-			'list' => []
+			'list' => [],
+			'total' => 0,
+			'total_page' => 0,
+			'current_page' => 1,
 		];
 
 		try{
 			
-			$users = ChatRoom::from('sg_chat_room as room')
+			if($auth_user['user_type'] == 'admin'){
+
+				$limit = $request->has('limit') ? $request->limit : config('custom.default_page_limit');
+				$page_index = $request->has('page') ? $request->page : 1;
+				
+				$main_query = ChatRoom::from('sg_chat_room as room')
+								->select("room.*")
+								->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
+								->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.full_name
+									WHEN room.sender_user = "member" THEN sender_member.full_name
+									ELSE "" END) AS sender_name'))
+								->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.full_name
+									WHEN room.receiver_user = "member" THEN receiver_member.full_name
+									ELSE "" END) AS receiver_name'))
+								->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.profile_image
+									WHEN room.sender_user = "member" THEN sender_member.profile_image
+									ELSE "" END) AS sender_profile'))
+								->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.profile_image
+									WHEN room.receiver_user = "member" THEN receiver_member.profile_image
+									ELSE "" END) AS receiver_profile'))
+								->leftjoin('sg_stylist as sender_stylist', 'sender_stylist.id', '=', 'room.sender_id')
+								->leftjoin('sg_member as sender_member', 'sender_member.id', '=', 'room.sender_id')
+								->leftjoin('sg_stylist as receiver_stylist', 'receiver_stylist.id', '=', 'room.receiver_id')
+								->leftjoin('sg_member as receiver_member', 'receiver_member.id', '=', 'room.receiver_id')
+								->with('room_last_message')
+								->where('room.is_active', 1)
+								->groupBy('room.chat_room_id')
+								->orderBy('last_message_on', 'desc')
+								->orderBy('room.created_at', 'desc');
+
+				$list = $main_query->paginate($limit, ['*'], 'page', $page_index);
+
+				$result['list'] = $list->getCollection();
+				$result['total'] = $list->total();
+				$result['total_page'] = $list->lastPage();
+				$result['current_page'] = $list->currentPage();
+				
+			}else{
+			
+				$users = ChatRoom::from('sg_chat_room as room')
 								->select("room.*")
 								->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
 								->addSelect(DB::raw("( SELECT count(cr3.chat_message_id) FROM sg_chat_room_messages AS cr3 WHERE cr3.chat_room_id = room.chat_room_id AND cr3.receiver_id='".$auth_user['auth_id']."' AND cr3.receiver_user='".$auth_user['user_type']."' AND is_read=0 ) as unread_count"))
@@ -91,158 +133,117 @@ class ChatRepository {
 								->orderBy('last_message_on', 'desc')
 								->orderBy('room.created_at', 'desc');
 
-			if(isset($request->module) && !empty(isset($request->module))){
-				$users = $users->where('module', $request->module);
-			}
+				if(isset($request->module) && !empty(isset($request->module))){
+					$users = $users->where('module', $request->module);
+				}
 
-			$users = $users->get();
-		  
-			if(count($users)){
+				$users = $users->get();
+			
+				if(count($users)){
 
-				foreach ($users as $key => $value) {
-					
-					$temp_sender_id = $value->sender_id;
-					$temp_sender_user = $value->sender_user;
-					
-					$temp_receiver_id = $value->receiver_id;
-					$temp_receiver_user = $value->receiver_user;
-
-					if($temp_sender_user == $auth_user['user_type'] && $temp_sender_id == $auth_user['auth_id']){
-
-						$users[$key]->sender_id = $temp_sender_id;
-						$users[$key]->receiver_id = $temp_receiver_id;
-
-						$users[$key]->sender_user = $temp_sender_user;
-						$users[$key]->receiver_user = $temp_receiver_user;
-
-					}else if($temp_receiver_user == $auth_user['user_type'] && $temp_receiver_id == $auth_user['auth_id']){
+					foreach ($users as $key => $value) {
 						
-						$users[$key]->sender_id = $temp_receiver_id;
-						$users[$key]->receiver_id = $temp_sender_id;
+						$temp_sender_id = $value->sender_id;
+						$temp_sender_user = $value->sender_user;
+						
+						$temp_receiver_id = $value->receiver_id;
+						$temp_receiver_user = $value->receiver_user;
 
-						$users[$key]->sender_user = $temp_receiver_user;
-						$users[$key]->receiver_user = $temp_sender_user;
+						if($temp_sender_user == $auth_user['user_type'] && $temp_sender_id == $auth_user['auth_id']){
 
-					}
+							$users[$key]->sender_id = $temp_sender_id;
+							$users[$key]->receiver_id = $temp_receiver_id;
 
-					// if($auth_user['user_type'] == "stylist"){
+							$users[$key]->sender_user = $temp_sender_user;
+							$users[$key]->receiver_user = $temp_receiver_user;
 
-					// 	if($temp_sender_user == $auth_user['user_type']){
-
-					// 		$users[$key]->sender_id = $temp_sender_id;
-					// 		$users[$key]->receiver_id = $temp_receiver_id;
-
-					// 		$users[$key]->sender_user = $temp_sender_user;
-					// 		$users[$key]->receiver_user = $temp_receiver_user;
-
-					// 	}else if($temp_receiver_user == $auth_user['user_type']){
+						}else if($temp_receiver_user == $auth_user['user_type'] && $temp_receiver_id == $auth_user['auth_id']){
 							
-					// 		$users[$key]->sender_id = $temp_receiver_id;
-					// 		$users[$key]->receiver_id = $temp_sender_id;
+							$users[$key]->sender_id = $temp_receiver_id;
+							$users[$key]->receiver_id = $temp_sender_id;
 
-					// 		$users[$key]->sender_user = $temp_receiver_user;
-					// 		$users[$key]->receiver_user = $temp_sender_user;
+							$users[$key]->sender_user = $temp_receiver_user;
+							$users[$key]->receiver_user = $temp_sender_user;
 
-					// 	}
+						}
 
-					// }else if($auth_user['user_type'] == "member"){
+						$users[$key]->sender_name = "";
+						$users[$key]->sender_profile = "";
+						$users[$key]->sender_online = "";
+						$users[$key]->receiver_name = "";
+						$users[$key]->receiver_profile = "";
+						$users[$key]->receiver_online = "";
 
-					// 	if($temp_sender_user == $auth_user['user_type']){
+						$sender_info = $receiver_info = false;
 
-					// 		$users[$key]->sender_id = $temp_sender_id;
-					// 		$users[$key]->receiver_id = $temp_receiver_id;
-
-					// 		$users[$key]->sender_user = $temp_sender_user;
-					// 		$users[$key]->receiver_user = $temp_receiver_user;
+						
+						if($users[$key]->sender_user == 'stylist'){
 							
+							$sender_info = Stylist::where('id', $users[$key]->sender_id)
+												->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
+												->first();
+							
+						}else if($users[$key]->sender_user == 'member'){
 
-					// 	}else if($temp_receiver_user == $auth_user['user_type']){
+							$sender_info = Member::where('id', $users[$key]->sender_id)
+												->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
+												->first();						
+						}
 
-					// 		$users[$key]->sender_id = $temp_receiver_id;
-					// 		$users[$key]->receiver_id = $temp_sender_id;
+						if($users[$key]->receiver_user == 'stylist'){
+							
+							$receiver_info = Stylist::where('id', $users[$key]->receiver_id)
+												->select('full_name', 'dummy_name', 'profile_image', 'is_online as receiver_online')
+												->first();
 
-					// 		$users[$key]->sender_user = $temp_receiver_user;
-					// 		$users[$key]->receiver_user = $temp_sender_user;
+							if($receiver_info){
 
-					// 	}
+								if($value->module == config('custom.chat_module.sourcing')){
 
-					// }
-					
-					$users[$key]->sender_name = "";
-					$users[$key]->sender_profile = "";
-					$users[$key]->sender_online = "";
-					$users[$key]->receiver_name = "";
-					$users[$key]->receiver_profile = "";
-					$users[$key]->receiver_online = "";
+									$users[$key]->receiver_name = $receiver_info->dummy_name;
+									$users[$key]->receiver_profile = NULL;		
 
-					$sender_info = $receiver_info = false;
+								}else{
 
-					
-					if($users[$key]->sender_user == 'stylist'){
-						
-						$sender_info = Stylist::where('id', $users[$key]->sender_id)
-											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
-											->first();
-						
-					}else if($users[$key]->sender_user == 'member'){
+									$users[$key]->receiver_name = $receiver_info->full_name;
+									$users[$key]->receiver_profile = $receiver_info->profile_image;	
 
-						$sender_info = Member::where('id', $users[$key]->sender_id)
-											->select('full_name as sender_name', 'profile_image as sender_profile', 'is_online as sender_online')
-											->first();						
-					}
-
-					if($users[$key]->receiver_user == 'stylist'){
-						
-						$receiver_info = Stylist::where('id', $users[$key]->receiver_id)
-											->select('full_name', 'dummy_name', 'profile_image', 'is_online as receiver_online')
-											->first();
-
-						if($receiver_info){
-
-							if($value->module == config('custom.chat_module.sourcing')){
-
-								$users[$key]->receiver_name = $receiver_info->dummy_name;
-								$users[$key]->receiver_profile = NULL;		
-
-							}else{
-
-								$users[$key]->receiver_name = $receiver_info->full_name;
-								$users[$key]->receiver_profile = $receiver_info->profile_image;	
-
+								}
+								
+								$users[$key]->receiver_online = $receiver_info->receiver_online;
 							}
 							
-							$users[$key]->receiver_online = $receiver_info->receiver_online;
+							
+						}else if($users[$key]->receiver_user == 'member'){
+
+							$receiver_info = Member::where('id', $users[$key]->receiver_id)
+												->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
+												->first();						
+												
+							if($receiver_info){
+								$users[$key]->receiver_name = $receiver_info->receiver_name;
+								$users[$key]->receiver_profile = $receiver_info->receiver_profile;
+								$users[$key]->receiver_online = $receiver_info->receiver_online;
+							}
 						}
-						
-						
-					}else if($users[$key]->receiver_user == 'member'){
 
-						$receiver_info = Member::where('id', $users[$key]->receiver_id)
-											->select('full_name as receiver_name', 'profile_image as receiver_profile', 'is_online as receiver_online')
-											->first();						
-											
-						if($receiver_info){
-							$users[$key]->receiver_name = $receiver_info->receiver_name;
-							$users[$key]->receiver_profile = $receiver_info->receiver_profile;
-							$users[$key]->receiver_online = $receiver_info->receiver_online;
+						if($sender_info){
+
+							$users[$key]->sender_name = $sender_info->sender_name;
+							$users[$key]->sender_profile = $sender_info->sender_profile;
+							$users[$key]->sender_online = $sender_info->sender_online;
+
 						}
-					}
-
-					if($sender_info){
-
-						$users[$key]->sender_name = $sender_info->sender_name;
-						$users[$key]->sender_profile = $sender_info->sender_profile;
-						$users[$key]->sender_online = $sender_info->sender_online;
 
 					}
-
 				}
-			}
+			
+				$result['list'] = $users;
 
+			}
+			
 			// $queries = DB::getQueryLog();
 			
-			$result['list'] = $users;
-
 			return $result;
     
 		}catch(\Exception $e) {
@@ -404,72 +405,6 @@ class ChatRepository {
 											->where('msg.chat_message_id', $messange_id)
 											->first();
 
-
-			// if($chat_message){
-
-			// 	$json = $chat_message;
-
-			// 	$sender_user = $receiver_user = false;
-
-			// 	$sender_name = $sender_profile = $receiver_name = $receiver_profile = '';
-
-			// 	if($chat_message->sender_user == 'stylist'){
-				
-			// 		$sender_user = Stylist::find($chat_message->sender_id);
-
-			// 		if($sender_user){
-
-			// 			$sender_name = $sender_user->full_name;
-			// 			$sender_profile = $sender_user->profile_image;
-	
-			// 		}
-
-			// 	}else if($chat_message->sender_user == 'member'){
-				
-			// 		$sender_user = Member::find($chat_message->sender_id);
-			// 		if($sender_user){
-
-			// 			$sender_name = $sender_user->full_name;
-			// 			$sender_profile = $sender_user->profile_image;
-	
-			// 		}
-			// 	}
-
-			// 	if($chat_message->receiver_user == 'stylist'){
-				
-			// 		$receiver_user = Stylist::find($chat_message->receiver_id);
-				
-			// 		if($receiver_user){
-
-			// 			$receiver_name = $chat_room->module == config('custom.chat_module.sourcing') ? $receiver_user->dummy_name : $receiver_user->full_name;
-			// 			$receiver_profile = $chat_room->module == config('custom.chat_module.sourcing') ? NULL : $receiver_user->profile_image;
-	
-			// 		}
-
-			// 	}else if($chat_message->receiver_user == 'member'){
-				
-			// 		$receiver_user = Member::find($chat_message->receiver_id);
-					
-			// 		if($receiver_user){
-
-			// 			$receiver_name = $receiver_user->full_name;
-			// 			$receiver_profile = $receiver_user->profile_image;
-	
-			// 		}
-			// 	}
-
-			// 	$json['sender_name'] = $sender_name;
-			// 	$json['sender_profile'] = $sender_profile;
-			// 	$json['sender_online'] = $sender_user ? $sender_user->is_online : 0;
-				
-			// 	$json['receiver_name'] = $receiver_name;
-			// 	$json['receiver_profile'] = $receiver_profile;
-			// 	$json['receiver_online'] = $receiver_user ? $receiver_user->is_online : 0;
-			// 	$json['last_message'] = $chat_message->message;
-			// 	$json['last_message_on'] = $chat_message->created_at;
-				
-			// }
-
 			return $chat_message;
 
 		}catch(\Exception $e) {
@@ -499,53 +434,66 @@ class ChatRepository {
 
             } else {
 
-                $limit = $request->has('limit') ? $request->limit : config('custom.default_page_limit');
+				$result = [
+					'list' => [],
+					'total' => 0,
+					'total_page' => 0,
+					'current_page' => 1,
+				];
+
+                $limit = $request->has('limit') ? $request->limit : 5;
                 $page_index = $request->has('page') ? $request->page : 1;
 				
 				$chat_room = ChatRoom::find($request->chat_room_id);
 
                 $main_query = ChatRoomMessage::select('msg.*')
                                             ->from('sg_chat_room_messages as msg')
-											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.dummy_name
-												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.full_name
-												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.full_name
-												WHEN msg.sender_user = "member" THEN sender_member.full_name
-												ELSE "" END) AS sender_name'))
-											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.dummy_name
-												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.full_name
-												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.full_name
-												WHEN msg.receiver_user = "member" THEN receiver_member.full_name
-												ELSE "" END) AS receiver_name'))
-											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN NULL
-											WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.profile_image
-											WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.profile_image
-											WHEN msg.sender_user = "member" THEN sender_member.profile_image
-											ELSE "" END) AS sender_profile'))
-											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN NULL
-												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.profile_image
-												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.profile_image
-												WHEN msg.receiver_user = "member" THEN receiver_member.profile_image
-												ELSE "" END) AS receiver_profile'))
-											// ->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = msg.sender_id LIMIT 1)  
-											// WHEN msg.sender_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = msg.sender_id LIMIT 1)
-											// 					ELSE "" END) AS sender_name'))
-											// ->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" THEN (select full_name from sg_stylist as tmp_st where tmp_st.id = msg.receiver_id LIMIT 1)  
-											// 					WHEN msg.receiver_user = "member" THEN (select full_name from sg_member as tmp_mb where tmp_mb.id = msg.receiver_id LIMIT 1)
-											// 					ELSE "" END) AS receiver_name'))
-						
-											// ->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = msg.sender_id LIMIT 1)  
-											// 					WHEN msg.sender_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = msg.sender_id LIMIT 1)
-											// 					ELSE "" END) AS sender_profile'))
-						
-											// ->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" THEN (select profile_image from sg_stylist as tmp_st where tmp_st.id = msg.receiver_id LIMIT 1)  
-											// 					WHEN msg.receiver_user = "member" THEN (select profile_image from sg_member as tmp_mb where tmp_mb.id = msg.receiver_id LIMIT 1)
-											// 					ELSE "" END) AS receiver_profile'))
 											->leftjoin('sg_stylist as sender_stylist', 'sender_stylist.id', '=', 'msg.sender_id')
 											->leftjoin('sg_member as sender_member', 'sender_member.id', '=', 'msg.sender_id')
 											->leftjoin('sg_stylist as receiver_stylist', 'receiver_stylist.id', '=', 'msg.receiver_id')
 											->leftjoin('sg_member as receiver_member', 'receiver_member.id', '=', 'msg.receiver_id')
 											->where('msg.chat_room_id', $request->chat_room_id)
                                             ->orderBy('msg.created_at', 'DESC');
+
+				if($auth_user['user_type'] == 'admin'){
+
+					$main_query = $main_query->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" THEN sender_stylist.full_name
+																		WHEN msg.sender_user = "member" THEN sender_member.full_name
+																	ELSE "" END) AS sender_name'))
+											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" THEN receiver_stylist.full_name
+																		WHEN msg.receiver_user = "member" THEN receiver_member.full_name
+																		ELSE "" END) AS receiver_name'))
+											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" THEN sender_stylist.profile_image
+																		WHEN msg.sender_user = "member" THEN sender_member.profile_image
+																		ELSE "" END) AS sender_profile'))
+											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" THEN receiver_stylist.profile_image
+																		WHEN msg.receiver_user = "member" THEN receiver_member.profile_image
+																		ELSE "" END) AS receiver_profile'));
+
+				}else{
+
+					$main_query = $main_query->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.dummy_name
+																	WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.full_name
+																	WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.full_name
+																	WHEN msg.sender_user = "member" THEN sender_member.full_name
+																	ELSE "" END) AS sender_name'))
+																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.dummy_name
+																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.full_name
+																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.full_name
+																	WHEN msg.receiver_user = "member" THEN receiver_member.full_name
+																	ELSE "" END) AS receiver_name'))
+																->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN NULL
+																WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.profile_image
+																WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.profile_image
+																WHEN msg.sender_user = "member" THEN sender_member.profile_image
+																ELSE "" END) AS sender_profile'))
+																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN NULL
+																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.profile_image
+																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.profile_image
+																	WHEN msg.receiver_user = "member" THEN receiver_member.profile_image
+																	ELSE "" END) AS receiver_profile'));
+
+				}
 
 				if(isset($request->type) && !empty(isset($request->type))){
 					
@@ -555,11 +503,11 @@ class ChatRepository {
 
                 $list = $main_query->paginate($limit, ['*'], 'page', $page_index);
 
-                $result = [
-                    'list' => $list->getCollection(),
-                    'total' => $list->total()
-                ];
-
+				$result['list'] = $list->getCollection();
+				$result['total'] = $list->total();
+				$result['total_page'] = $list->lastPage();
+				$result['current_page'] = $list->currentPage();
+				
                 $response_array = array('status' => 1,  'message' => trans('pages.action_success'), 'data' => $result );
 
                 return $response_array;

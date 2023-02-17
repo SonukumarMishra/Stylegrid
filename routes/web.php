@@ -198,6 +198,10 @@ Route::get('/admin-settings', [AdminDashboard::class, 'adminSettings']);
 Route::get('/admin-profile-settings', [AdminDashboard::class, 'adminProfileSettings']);
 Route::post('/admin-update-profile-settings-ajax', [AdminDashboard::class, 'adminUpdateProfileSettingsAjax']);
 
+// Admin chat 
+Route::get('/admin-messanger', 'Admin\ChatController@index')->name('admin.messanger.index');
+Route::POST('/admin-messanger-contacts', 'Admin\ChatController@getChatContacts')->name('admin.messanger.contacts');
+Route::post('/admin-messanger-room-messages', 'Admin\ChatController@getChatRoomMessage')->name('admin.messanger.room.messages');
 
 //admin section end
 

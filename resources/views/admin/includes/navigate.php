@@ -91,7 +91,7 @@
                             data-i18n="">Orders</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-aperture"></i><span class="menu-title"
+                <li class=" nav-item"><a href="<?php echo url('/admin-messanger')?>" <?php if(Request::path()=='admin-messanger') { ?>class="active"<?php } ?>><i class="ft-layers <?php if(Request::path()=='admin-messanger') { ?>active<?php } ?>"></i><span class="menu-title"
                             data-i18n="">Chats</span></a>
 
                 </li>
