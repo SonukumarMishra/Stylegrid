@@ -64,76 +64,79 @@
                                     aria-labelledby="home-tab">
                                     <form class="mt-3" id="update_admin_profile_form">
                                         @csrf
-                                    <div class="profile-tab-info">
-                                        <div class="profile-img">Profile Picture</div>
-                                        <div class="row">
-                                        <div class="profile-img-bg w-25 mt-2 col-lg-4 col-6">
-                                            <div class="update-new"><input type="file" name="admin_image" id="admin_image" class="file-upload style-grid-block-input-file" >Upload
-                                                    New </div>
-                                            <div id="admin_selected_image_section">
-                                                <?php
-                                                if(is_file('attachments/admin/profile/'.Session::get("admin_data")->image)){
-                                                    $image=Session::get("admin_data")->image; 
-                                                }else{
-                                                    $image='profile-img.png'; 
-                                                } 
-                                                ?>
-                                            <img src="<?php echo  asset('attachments/admin/profile/'.$image)?>" class="img-fluid"
-                                                alt="">
-                                            </div>
-                                            <div id="admin_image_error" class="error"></div>
-                                            <div class="text-center">
-                                                <a href="javascript:void(0)" style="display: none;" id="admin_image_preview_remove">Remove</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                        
-                                            <div class="form-row">
-                                                <div class="col-md-4 mb-2">
-                                                    <label for="formGroupExampleInput">Username</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Username" value="<?php echo Session::get("admin_data")->username;?>">
-                                                </div>
-                                                <div class="col-md-4 mb-2">
-                                                    <label for="formGroupExampleInput">Email</label>
-                                                    <input type="text" class="form-control" placeholder="Email" name="admin_email" id="admin_email" value="<?php echo Session::get("admin_data")->email;?>">
-                                                    <div id="admin_email_error" class="error"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4 mb-2">
-                                                    <label for="formGroupExampleInput">Country</label>
-                                                    <select name="admin_country_id" id="admin_country_id" class="form-control">
-                                                        <option value="">select Country</option>
-                                                        <?php
-                                                        foreach($country_list as $country){
-                                                            ?>
-                                                            <option value="<?php echo $country->id;?>" <?php if($country->id==Session::get("admin_data")->country_id){ echo "selected";}?>><?php echo $country->country_name;?></option>
-                                                            <?php
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                    <div id="admin_country_id_error" class="error"></div>
-
-                                                </div>
-                                                <div class="col-md-4 mb-2">
-                                                    <label for="formGroupExampleInput">Platform Currency</label>
-                                                    <input type="text" class="form-control" placeholder="Platform Currency" name="admin_currency" id="admin_currency" value="<?php echo Session::get("admin_data")->currency;?>">
-                                                    <div id="admin_currency_error" class="error"></div>
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="col-md-4 mb-2">
-                                                    <label for="formGroupExampleInput">Enter the email where all admin emails are received</label>
-                                                    <input type="text" class="form-control"
-                                                        placeholder="info@stylegrid.com" placeholder="Receive Email" id="admin_received_email" name="admin_received_email" value="<?php echo Session::get("admin_data")->admin_received_email;?>">
-                                                        <div id="admin_received_email_error" class="error"></div>
+                                        <div class="profile-tab-info">
+                                            <div class="profile-img">Profile Picture</div>
+                                            <div class="row">
+                                                    <div class=" w-25 mt-2 col-lg-4 col-6 mb-2">
+                                                        <div class="profile-img-bg">
+                                                         <div class="update-new pr-1"><input type="file" name="admin_image" id="admin_image" class="file-upload style-grid-block-input-file pr-2" >Upload New </div>
+                                                            <div id="admin_selected_image_section">
+                                                                <?php
+                                                                if(is_file('attachments/admin/profile/'.Session::get("admin_data")->image)){
+                                                                    $image=Session::get("admin_data")->image; 
+                                                                }else{
+                                                                    $image='profile-img.png'; 
+                                                                } 
+                                                                ?>
+                                                                <img src="<?php echo  asset('attachments/admin/profile/'.$image)?>" class="img-fluid ml-2"
+                                                                alt="">
+                                                            </div>
+                                                            <div id="admin_image_error" class="error"></div>
+                                                            <div class="text-center">
+                                                                <a href="javascript:void(0)" style="display: none;" id="admin_image_preview_remove">Remove</a>
+                                                            </div>
+                                                        <div>
                                                     </div>
+                                                </div>
+                                                </div>
                                             </div>
-                                            <div class="text-right mt-2"><button class="save-btn" type="button" id="update_admin_profile">Save</button></div>
-                                        
-                                    </div>
-                                </form>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-2">
+                                                        <label for="formGroupExampleInput">Username</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Username" value="<?php echo Session::get("admin_data")->username;?>">
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label for="formGroupExampleInput">Email</label>
+                                                        <input type="text" class="form-control" placeholder="Email" name="admin_email" id="admin_email" value="<?php echo Session::get("admin_data")->email;?>">
+                                                        <div id="admin_email_error" class="error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-2">
+                                                        <label for="formGroupExampleInput">Country</label>
+                                                        <select name="admin_country_id" id="admin_country_id" class="form-control">
+                                                            <option value="">select Country</option>
+                                                            <?php
+                                                            foreach($country_list as $country){
+                                                                ?>
+                                                                <option value="<?php echo $country->id;?>" <?php if($country->id==Session::get("admin_data")->country_id){ echo "selected";}?>><?php echo $country->country_name;?></option>
+                                                                <?php
+                                                            }
+                                                            ?>
+                                                        </select>
+                                                        <div id="admin_country_id_error" class="error"></div>
+
+                                                    </div>
+                                                    <div class="col-md-4 mb-2">
+                                                        <label for="formGroupExampleInput">Platform Currency</label>
+                                                        <input type="text" class="form-control" placeholder="Platform Currency" name="admin_currency" id="admin_currency" value="<?php echo Session::get("admin_data")->currency;?>">
+                                                        <div id="admin_currency_error" class="error"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-md-4 mb-2">
+                                                        <label for="formGroupExampleInput">Enter the email where all admin emails are received</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="info@stylegrid.com" placeholder="Receive Email" id="admin_received_email" name="admin_received_email" value="<?php echo Session::get("admin_data")->admin_received_email;?>">
+                                                            <div id="admin_received_email_error" class="error"></div>
+                                                        </div>
+                                                </div>
+                                                <div class="text-right mt-2">
+                                                    <button class="save-btn" type="button" id="update_admin_profile">Save</button>
+                                                </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="tab-pane fade" id="promotion" role="tabpanel"
                                     aria-labelledby="profile-tab">
@@ -301,7 +304,7 @@
         $('#admin_image_preview_remove').click(function(){
             $("#admin_image").val('');
             $('#admin_image_preview_remove').hide();
-            $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
+            $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid ml-2" alt="">');
             
         })
     })
