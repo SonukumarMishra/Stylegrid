@@ -196,7 +196,7 @@
 
 
 
-                            <div class="m-body scrollstyle">
+                            <div class="m-body scrollstyle" id="chat_list_container">
 
                                 
 

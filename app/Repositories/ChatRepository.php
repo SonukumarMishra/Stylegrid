@@ -70,34 +70,52 @@ class ChatRepository {
 
 				$limit = $request->has('limit') ? $request->limit : config('custom.default_page_limit');
 				$page_index = $request->has('page') ? $request->page : 1;
-				
+
+				// DB::connection()->enableQueryLog();
+
 				$main_query = ChatRoom::from('sg_chat_room as room')
-								->select("room.*")
-								->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
-								->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.full_name
-									WHEN room.sender_user = "member" THEN sender_member.full_name
-									ELSE "" END) AS sender_name'))
-								->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.full_name
-									WHEN room.receiver_user = "member" THEN receiver_member.full_name
-									ELSE "" END) AS receiver_name'))
-								->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.profile_image
-									WHEN room.sender_user = "member" THEN sender_member.profile_image
-									ELSE "" END) AS sender_profile'))
-								->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.profile_image
-									WHEN room.receiver_user = "member" THEN receiver_member.profile_image
-									ELSE "" END) AS receiver_profile'))
-								->leftjoin('sg_stylist as sender_stylist', 'sender_stylist.id', '=', 'room.sender_id')
-								->leftjoin('sg_member as sender_member', 'sender_member.id', '=', 'room.sender_id')
-								->leftjoin('sg_stylist as receiver_stylist', 'receiver_stylist.id', '=', 'room.receiver_id')
-								->leftjoin('sg_member as receiver_member', 'receiver_member.id', '=', 'room.receiver_id')
-								->with('room_last_message')
-								->where('room.is_active', 1)
-								->groupBy('room.chat_room_id')
-								->orderBy('last_message_on', 'desc')
-								->orderBy('room.created_at', 'desc');
+										->select("room.*")
+										->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
+										->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.full_name
+											WHEN room.sender_user = "member" THEN sender_member.full_name
+											ELSE "" END) AS sender_name'))
+										->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.full_name
+											WHEN room.receiver_user = "member" THEN receiver_member.full_name
+											ELSE "" END) AS receiver_name'))
+										->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.profile_image
+											WHEN room.sender_user = "member" THEN sender_member.profile_image
+											ELSE "" END) AS sender_profile'))
+										->addselect(DB::raw('(CASE WHEN room.receiver_user = "stylist" THEN receiver_stylist.profile_image
+											WHEN room.receiver_user = "member" THEN receiver_member.profile_image
+											ELSE "" END) AS receiver_profile'))
+										->leftjoin('sg_stylist as sender_stylist', 'sender_stylist.id', '=', 'room.sender_id')
+										->leftjoin('sg_member as sender_member', 'sender_member.id', '=', 'room.sender_id')
+										->leftjoin('sg_stylist as receiver_stylist', 'receiver_stylist.id', '=', 'room.receiver_id')
+										->leftjoin('sg_member as receiver_member', 'receiver_member.id', '=', 'room.receiver_id')
+										->with('room_last_message')
+										->where('room.is_active', 1)
+										->groupBy('room.chat_room_id');
+
+				if($request->has('is_filter') && $request->is_filter){
+
+					if(isset($request->search) && !empty($request->search)){
+						
+						$search = $request->search;
+
+						$main_query = $main_query->where(DB::raw("CONCAT(IFNULL(sender_stylist.full_name,''), IFNULL(sender_member.full_name,'') ,IFNULL(receiver_stylist.full_name,'') ,IFNULL(receiver_member.full_name,''))"), 'LIKE', '%' . $search . '%');
+
+					}
+				}else{
+
+					$main_query = $main_query->orderBy('last_message_on', 'desc')
+											->orderBy('room.created_at', 'desc');
+											
+				}
 
 				$list = $main_query->paginate($limit, ['*'], 'page', $page_index);
-
+				// $queries = DB::getQueryLog();
+				// Log::info(print_r($queries, true)); 
+			  
 				$result['list'] = $list->getCollection();
 				$result['total'] = $list->total();
 				$result['total_page'] = $list->lastPage();

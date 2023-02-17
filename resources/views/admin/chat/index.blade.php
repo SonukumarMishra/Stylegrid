@@ -244,9 +244,7 @@
 
                         <div class="col-lg-4 chat-list-bg p-2 " id="chatContactRow">
                             <form class="form-inline my-2 my-lg-0 pb-2">
-                                <input class="form-control mr-sm-2 w-100" type="search"
-                                    placeholder="Search chat database..." aria-label="Search">
-                                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+                                <input class="form-control mr-sm-2 w-100" type="search" placeholder="Search chat..." aria-label="Search" id="search_input">
                             </form>
 
                             <div id="listOfContacts" class="contacts-list">

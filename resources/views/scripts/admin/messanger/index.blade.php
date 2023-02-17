@@ -25,6 +25,8 @@
         MessangerRef.contactCurrentPage = 1;
         MessangerRef.contactTotalPage = 0;
         MessangerRef.contactIsActiveAjax = false;
+        MessangerRef.contactIsFilter = false;
+
         MessangerRef.chatCurrentPage = 1;
         MessangerRef.chatTotalPage = 0;
         MessangerRef.chatIsActiveAjax = false;
@@ -67,6 +69,27 @@
 
             });
 
+            $('#search_input').on('input', function(e) {
+
+                MessangerRef.contactIsActiveAjax = false;
+                MessangerRef.contactCurrentPage = 1;
+                
+                $('#listOfContacts').html('');
+                $('#chat_messages_container').hide();
+
+                if('' == this.value) {
+                    MessangerRef.contactIsFilter = false;
+                    MessangerRef.getChatContacts();
+                }else{
+
+                    if(this.value.length > 3){
+                        MessangerRef.contactIsFilter = true;
+                        MessangerRef.getChatContacts();
+                    }
+
+                }
+            });
+
             $('body').on('click', '.download-all-btn',function(e){
 
                 e.preventDefault();
@@ -104,7 +127,11 @@
         
             var formData = new FormData();            
             formData.append('page', MessangerRef.contactCurrentPage);
-            
+            formData.append('is_filter', MessangerRef.contactIsFilter);
+            formData.append('search', $('#search_input').val());
+
+            console.log(MessangerRef.contactCurrentPage);
+
             if(MessangerRef.contactCurrentPage == 1){
                 $('#listOfContacts').html('');
             }
@@ -230,19 +257,16 @@
                     if(response.data.list.length > 0){
 
                         var parent_room_dtls = getDetailsFromObjectByKey(MessangerRef.allContactsList, MessangerRef.activeChatContactRoom, 'chat_room_id');
-                        var chat_container_html = '';
+
+                        var chat_container_html = MessangerRef.getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
 
                         if(MessangerRef.chatCurrentPage == 1){
-
-                            chat_container_html = MessangerRef.getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
 
                             $('#chat_list_container').append(chat_container_html);
 
                             scrollToBottom('#chat_list_container');
 
                         }else{
-
-                            chat_container_html = MessangerRef.getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
 
                             const lastMsg = $('#chat_list_container').find($('#chat_list_container').find(".message-card")[0]);
 

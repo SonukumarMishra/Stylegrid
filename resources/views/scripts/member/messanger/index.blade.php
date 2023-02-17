@@ -691,6 +691,9 @@
     
 
     let messagesPage = 1;
+    let chatCurrentPage = 1;
+    let chatTotalPage = 0;
+    let chatIsActiveAjax = false;
 
     let noMoreMessages = false;
 
@@ -702,7 +705,7 @@
 
         if (newFetch) {
 
-            messagesPage = 1;
+            chatCurrentPage = 1;
 
             noMoreMessages = false;
 
@@ -728,7 +731,7 @@
 
                     // type: type,
 
-                    page: messagesPage,
+                    page: chatCurrentPage,
 
                 },
 
@@ -738,21 +741,15 @@
 
                     // setMessagesLoading(false);
 
-                    if (messagesPage == 1) {
+                    var parent_room_dtls = getDetailsFromObjectByKey(allContactsList, room_id, 'chat_room_id');
+                    
+                    var chat_container_html = getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
 
-                        
-
-                        var parent_room_dtls = getDetailsFromObjectByKey(allContactsList, room_id, 'chat_room_id');
-
-                        // render messages data
-
-                        var chat_container_html = getChatMessagesUI(response.data.list.length > 0 ? response.data.list.reverse() : response.data.list, parent_room_dtls);
+                    if (chatCurrentPage == 1) {
 
                         messagesElement.html(chat_container_html);
 
                         scrollToBottom(messagesContainer);
-
-
 
                     } else {
 
@@ -762,7 +759,7 @@
 
                             lastMsg.offset().top - messagesContainer.scrollTop();
 
-                            messagesElement.prepend(response.messages);
+                            messagesElement.prepend(chat_container_html);
 
                             messagesContainer.scrollTop(lastMsg.offset().top - curOffset);
 
@@ -777,10 +774,11 @@
 
 
                     // Pagination lock & messages page
+                    chatTotalPage = response.data.total_page;
 
-                    noMoreMessages = messagesPage >= response.data.total;
+                    // noMoreMessages = messagesPage >= response.data.total;
 
-                    if (!noMoreMessages) messagesPage += 1;
+                    // if (!noMoreMessages) messagesPage += 1;
 
                     // Enable message form if messenger not = 0; means if data is valid
 
@@ -789,6 +787,8 @@
                         disableOnLoad(false);
 
                     }
+
+                    chatIsActiveAjax = false;
 
                 },
 
@@ -1870,7 +1870,17 @@
 
         });
 
-        
+        $("#chat_list_container").on('scroll', function() {
+
+            if ( $(this).scrollTop() <= 0 && chatCurrentPage <= chatTotalPage && chatIsActiveAjax == false) {
+                
+                chatIsActiveAjax = true;
+                chatCurrentPage++;
+                fetchChatRoomMessages(selectedRoomId, false);
+            }
+
+        });
+
 
         // get contacts list
 
