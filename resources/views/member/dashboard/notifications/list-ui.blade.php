@@ -1,6 +1,6 @@
-@if (count($list))
+@if (count($result['list']))
 
-    @foreach ($list as $item)
+    @foreach ($result['list'] as $item)
 
         <div class="col-12 notification-card">
             <div class="row notification-row">
@@ -22,6 +22,19 @@
         </div>
         
     @endforeach    
+
+@else
+    @if (count($result['list']) == 0 && $result['current_page'] == 1)
+        <div class="col-12">
+
+            <h3 class="text-center text-muted">
+
+                No notification yet!
+
+            </h3>
+
+        </div>
+    @endif
 
 @endif
 

@@ -199,9 +199,16 @@
         };
 
 
-        window.showSpinner = function(form_selector, size = 'lg', color = 'primary') {
-            $(form_selector).append(
+        window.showSpinner = function(form_selector, size = 'lg', color = 'primary', main_tag='div') {
+            
+            if(main_tag != 'div'){
+                $(form_selector).append('<'+main_tag+' class="text-center col-12 mt-4 mb-4" id="spinner-ref"><div class="spinner-border spinner-border-' + size + ' text-' + color + '" role="status">  <span class="sr-only">Loading...</span> </div></'+main_tag+'>');
+            }else{
+
+                $(form_selector).append(
                 '<div class="text-center col-12 mt-4 mb-4" id="spinner-ref"><div class="spinner-border spinner-border-' + size + ' text-' + color + '" role="status">  <span class="sr-only">Loading...</span> </div></div>');
+
+            }
         }
 
         window.hideSpinner = function(form_selector) {

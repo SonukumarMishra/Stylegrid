@@ -15,8 +15,8 @@
                 </li>
 
                 <li class="nav-item text-center">
-                    <div class="stylish-img"><img src="{{ asset('/member/dashboard/app-assets/images/gallery/Headshot.JPG') }}"
-                            class="img-fluid" alt="">
+                    <div class="stylish-img">
+                        <img src="{{ asset('common/images/default_user.jpeg') }}" class="img-fluid" alt="">
                     </div>
 
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span

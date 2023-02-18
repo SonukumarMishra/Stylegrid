@@ -374,7 +374,7 @@ class StylistController extends Controller
             if(isset($result['list'])){
 
                 $list = $result['list'];
-                $view = view("stylist.postloginview.notifications.list-ui", compact('list'))->render();
+                $view = view("stylist.postloginview.notifications.list-ui", compact('result'))->render();
 
             }
 
