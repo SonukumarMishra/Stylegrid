@@ -25,6 +25,9 @@
       current_url:"{{str_replace(URL::to('/'),'',URL::current())}}",
       csrf_token: '{{ csrf_token() }}',
   };
+
+  var asset_url = "{{URL::to('/')}}"+'/';
+  
 </script>
 <script src="{{asset('admin-section/assets/js/common.js')}}" type="text/javascript"></script>
 @include('scripts.common_scripts')

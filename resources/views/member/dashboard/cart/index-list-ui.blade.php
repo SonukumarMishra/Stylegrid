@@ -83,7 +83,7 @@
 
             <h3 class="text-center text-muted">
 
-                Your cart is emplty!
+                Your cart is empty!
 
             </h3>
 

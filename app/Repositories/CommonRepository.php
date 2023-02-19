@@ -53,7 +53,8 @@ class CommonRepository {
 		$result = [
 			'list' => [],
 			'total' => 0,
-			'total_page' => 0
+			'total_page' => 0,
+			'current_page' => 1,
 		];
 
 		try{
@@ -79,6 +80,7 @@ class CommonRepository {
 			$result['list'] = $list->getCollection();
 			$result['total'] = $list->total();
 			$result['total_page'] = $list->lastPage();
+			$result['current_page'] = $list->currentPage();
 
 			return $result;
 

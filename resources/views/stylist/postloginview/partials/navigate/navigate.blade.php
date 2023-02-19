@@ -76,16 +76,16 @@
 
                 <li class="nav-item text-center">
                     <div class="stylish-img">
-                        <?php
-                        if(is_file('stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image)){
-                            //$image='stylist/attachments/profileImage/'.Session::get('stylist_data')->profile_image;
-							$image='stylist/app-assets/images/gallery/stylist.png';
+                        <?php 
+                        if(Session::get('stylist_data')->profile_image != ''){
+                            $image = Session::get('stylist_data')->profile_image;
+							// $image= asset('stylist/app-assets/images/gallery/stylist.png');
                         }else{
-                            $image='stylist/app-assets/images/gallery/stylist.png';
+                            $image = asset('common/images/default_user.jpeg');
                         }
-                        $image='stylist/app-assets/images/gallery/stylist.png';
+                       
                         ?>
-                        <img src="{{ asset($image) }}" class="img-fluid" alt="">
+                        <img src="{{ $image }}" class="img-fluid sidemnu_img_avtar" alt="">
                     </div>
 
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span

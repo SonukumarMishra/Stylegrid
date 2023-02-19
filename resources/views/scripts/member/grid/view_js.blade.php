@@ -107,7 +107,7 @@
 
         ViewGridRef.addToCartItem = function() {
 
-            showSpinner('#cart_action_btn', 'sm', 'light');
+            showSpinner('#cart_action_btn', 'sm', 'light', 'span');
                 
             var items = [
                 {   
@@ -144,7 +144,7 @@
 
         ViewGridRef.removeCartItem = function(data) {
         
-            showSpinner('#cart_action_btn', 'sm', 'light');
+            showSpinner('#cart_action_btn', 'sm', 'light', 'span');
 
             var formData = new FormData();            
             formData.append('user_id', auth_id);

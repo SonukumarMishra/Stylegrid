@@ -321,7 +321,7 @@
 
                     html += '<tr>';
                     html += '<td>'+val.client_name+'</td>';
-                    html += '<td>'+formatDateValue(val.created_at)+'</td>';
+                    html += '<td>'+convertUtcDateTimeToLocalDateTime(val.created_at)+'</td>';
                     html += '</tr>';
 
                     ViewGridRef.selectedClientIds.push(val.member_id);

@@ -299,7 +299,7 @@ class MemberController extends Controller
             if(isset($result['list'])){
 
                 $list = $result['list'];
-                $view = view("member.dashboard.notifications.list-ui", compact('list'))->render();
+                $view = view("member.dashboard.notifications.list-ui", compact('result'))->render();
 
             }
 

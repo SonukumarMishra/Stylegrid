@@ -112,10 +112,9 @@
 
             $("#chat_list_container").on('scroll', function() {
 
-                if ( $(this).scrollTop() <= 0 && MessangerRef.chatCurrentPage <= MessangerRef.chatTotalPage && MessangerRef.chatIsActiveAjax == false) {
+                if ( $(this).scrollTop() <= 0 && MessangerRef.chatCurrentPage > 1 && MessangerRef.chatCurrentPage <= MessangerRef.chatTotalPage && MessangerRef.chatIsActiveAjax == false) {
                     
                     MessangerRef.chatIsActiveAjax = true;
-                    MessangerRef.chatCurrentPage++;
                     MessangerRef.getChatRoomMessages(MessangerRef.activeChatContactRoom, false);
                 }
 
@@ -129,8 +128,6 @@
             formData.append('page', MessangerRef.contactCurrentPage);
             formData.append('is_filter', MessangerRef.contactIsFilter);
             formData.append('search', $('#search_input').val());
-
-            console.log(MessangerRef.contactCurrentPage);
 
             if(MessangerRef.contactCurrentPage == 1){
                 $('#listOfContacts').html('');
@@ -217,11 +214,12 @@
 
             if(room_dtls != undefined){
             
-                MessangerRef.getChatRoomMessages(room_id, true);
-                
+                MessangerRef.chatIsActiveAjax = false;
                 MessangerRef.activeChatDate = '';
                 MessangerRef.chatCurrentPage = 1;
 
+                MessangerRef.getChatRoomMessages(room_id, true);
+                
                 $('#chat_list_container').html('');
 
                 $("#active-chat-box-user-name").html(room_dtls.sender_name +' & '+room_dtls.receiver_name);
@@ -269,14 +267,28 @@
                         }else{
 
                             const lastMsg = $('#chat_list_container').find($('#chat_list_container').find(".message-card")[0]);
+                            
+                            const chat_date_div = $('#chat_list_container').find($('#chat_list_container').find(".chat-date")[0]);
 
-                            const curOffset =
+                            if(lastMsg.length > 0){
 
-                                lastMsg.offset().top - $('#chat_list_container').scrollTop();
+                                const curOffset = lastMsg.offset().top - $('#chat_list_container').scrollTop();
 
                                 $('#chat_list_container').prepend(chat_container_html);
 
+                                if(chat_date_div.length > 0 && $('#chat_list_container .message-card:first').data('date') == MessangerRef.activeChatDate){
+                                    
+                                    $('#chat_list_container .chat-date[data-date="'+MessangerRef.activeChatDate+'"]').remove();
+                                    
+                                    var date_ui = '<div class="row chat-date my-1" data-date="'+MessangerRef.activeChatDate+'">'+convertUtcDateTimeToLocalDateTime(MessangerRef.activeChatDate, 'dddd Do MMMM YYYY')+'</div>';
+
+                                    $('#chat_list_container').prepend(date_ui);
+                                }
+
                                 $('#chat_list_container').scrollTop(lastMsg.offset().top - curOffset);
+
+                            }
+
                         }
 
                     }
@@ -286,6 +298,7 @@
                     showErrorMessage(response.message);
                 }
                 MessangerRef.chatIsActiveAjax = false;
+                MessangerRef.chatCurrentPage++;
 
             }, processExceptions, 'POST');
 
@@ -302,10 +315,10 @@
                     if(MessangerRef.activeChatDate == '' || MessangerRef.activeChatDate != convertUtcDateTimeToLocalDateTime(val.created_at, 'YYYY-MM-DD')){
 
                         MessangerRef.activeChatDate = convertUtcDateTimeToLocalDateTime(val.created_at, 'YYYY-MM-DD');
-                        html += '<div class="chat-date my-1">'+convertUtcDateTimeToLocalDateTime(val.created_at, 'dddd Do MMMM YYYY')+'</div>';
+                        html += '<div class="row chat-date my-1" data-date="'+MessangerRef.activeChatDate+'">'+convertUtcDateTimeToLocalDateTime(val.created_at, 'dddd Do MMMM YYYY')+'</div>';
                     }
 
-                    html += '<div class="row mx-2 mb-1 message-card">';
+                    html += '<div class="row mx-2 mb-1 message-card" data-date="'+MessangerRef.activeChatDate+'">';
 
                     var profile = '';
 
@@ -316,7 +329,7 @@
                     
                     }else{
 
-                        profile = val.reciever_profile != null ? ( val.reciever_user == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+val.reciever_profile : '{{asset('common/images/default_user.jpeg')}}';              
+                        profile = val.sender_profile != null ? ( val.sender_user == "stylist" ? '' : asset_url+ '{{ config('custom.media_path_prefix.member') }}' )+val.sender_profile : '{{asset('common/images/default_user.jpeg')}}';
 
                         html += '   <div class="col-md-2"></div>';
                         html += '   <div class="col-md-10 msg-box-right py-2">';
@@ -324,21 +337,21 @@
                     }
 
                    
-                    html += '       <div class="d-flex">';
-                    html += '           <div class="">';
-                    html += '               <img src="'+profile+'" class="img-fluid chat-pic" alt="">';
-                    html += '           </div>';
-                    html += '           <div class="col-11 pl-1">';
-                    html += '               <div class="d-flex justify-content-between">';
-                    html += '                   <div class="msg-h1">'+val.sender_name+'</div><span class="msg-time ml-2">'+convertUtcDateTimeToLocalDateTime(val.created_at, 'HH:mm')+'</span>';
+                    html += '           <div class="d-flex">';
+                    html += '               <div class="">';
+                    html += '                   <img src="'+profile+'" class="img-fluid chat-pic" alt="">';
                     html += '               </div>';
+                    html += '               <div class="col-11 pl-1">';
+                    html += '                   <div class="d-flex justify-content-between">';
+                    html += '                       <div class="msg-h1">'+val.sender_name+'</div><div class="msg-time ml-2">'+convertUtcDateTimeToLocalDateTime(val.created_at, 'HH:mm')+'</div>';
+                    html += '                   </div>';
                     html += '               <div>';
                     if(val.type == "file"){
 
                         var files_array = JSON.parse(val.files);
 
                         if(files_array.length > 1){
-                            html += "           <div class='text-right mt-1'><a href='#' class='download-all-btn' data-files='"+val.files+"'><i class='fas fa-download'></i>&nbsp;Download All</a></div>";
+                            html += "       <div class='text-right mt-1'><a href='#' class='download-all-btn' data-files='"+val.files+"'><i class='fas fa-download'></i>&nbsp;Download All</a></div>";
                         }
 
                         if(files_array.length > 0){
@@ -380,11 +393,11 @@
                             html += '      </div>';
                         }
                     }else{
-                        html += '                   <div class="msg-p">'+val.message+'</div>';
+                        html += '           <div class="msg-p">'+val.message+'</div>';
                     }
-                    html += '               </div>';
                     html += '           </div>';
                     html += '       </div>';
+                    html += '</div>';
                     html += '    </div>';
                     html += '</div>';
 
