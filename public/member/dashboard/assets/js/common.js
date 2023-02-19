@@ -1,4 +1,10 @@
 
+$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+    var regEx = /^[a-z][a-z\s]*$/;
+    if(!$(this).val().match(regEx)){
+      $(this).val('');
+    } 
+  });
 var brandList=[];
 function selectBrand(brand_id){
     $('#brand').val(brandList[brand_id]);
@@ -50,6 +56,7 @@ $(function(){
         $("#divImageMediaPreview").html('');
     })
     $("#source_image").change(function () {
+        $('#image_error').html('');
         if (typeof (FileReader) != "undefined") {
             var dvPreview = $("#divImageMediaPreview");
             dvPreview.html("");            
@@ -57,7 +64,7 @@ $(function(){
                 var file = $(this)[0].files;//$(this); 
                 var ext = $('#source_image').val().split('.').pop().toLowerCase();
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
-                    $('#image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
+                    $('#image_error').html('Invalid Image Format! Image Format Must Be<br> JPG, JPEG, PNG or GIF.');
                     $("#source_image").val('');
                     return false;
                 }else{

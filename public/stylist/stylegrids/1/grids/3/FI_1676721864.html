@@ -1,0 +1,1514 @@
+
+@extends('pos.includes.default')
+@section('content')
+
+    <!------------------------end of navbar---------------->
+    <!----------------------main left content-------------->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-lg-8  ">
+                <div id="left-bg" class="py-3 px-2">
+                <div class="row justify-content-center">
+                    <!--<div class="col text-right">
+                       <button id="toggle"class="list-btn px-5 py-2">List of Category</button>
+                    </div>
+                    <div class="col">
+                        <button class="list-btn px-5 py-2 ml-2">Brands</button>
+                    </div>-->
+                    <div class="col text-right">
+                        <button class="list-btn px-lg-5 py-2" id="order-section-tab">Order History</button>
+                    </div>
+                    <div class="col text-right">
+                        <button class="brand-btn px-lg-5 py-2" id="product-section-tab">Products</button>
+                    </div>
+                </div>
+
+                
+
+                <div class="row justify-content-center align-items-center marketplace-content" style="display:none;">
+                    <div class="col-6" style="position: absolute;margin-top: 3%;text-align: center;margin-left: 10%;">
+                        <p class="name">Coming Soon!</p>
+                    </div>
+                    
+                </div>
+                <div class="row py-3 px-3" id="product-section-above" style="">
+                    
+                    <div  id="product-section"  class="row px-lg-3" style="width:100%;overflow-y:auto">
+                        <div  id="product-part"  class="row px-lg-3" style="width:100%;">
+
+                        </div>
+                        <div id="pagination"></div>
+                    </div>
+                    
+
+                    <div  id="order-section"  style="width:100%;display:none;" >
+                        <div class="container-fluid mt-5" id="search-data-table" style="display:none;">
+                            <div class="row">
+                                <div class="col-lg-2 col-4">
+                                    <div class="input-group rounded">
+                                        <span class="input-group-text border-0" id="search-addon">
+                                            <img src="{{asset('pos-section/assets/images/search.png')}}" class="img-fluid" alt="">
+                                        </span>
+                                        <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                                            aria-describedby="search-addon" />
+                        
+                                    </div>
+                                </div>
+                        
+                            </div>
+                            <div class="row justify-content-end mb-4">
+                                <a href=""><button class="filter-btn"><i class="bi bi-filter"></i> Filter</button></a>
+                                <a href=""><button class="filter-btn pdf-btn"><i class="bi bi-file-pdf"></i> PDF</button></a>
+                                <a href=""><button class="filter-btn excel-btn"><i class="bi bi-file-excel"></i> EXCEL</button></a>
+                                <a href=""><button class="filter-btn create-btn"><i class="bi bi-file-plus"></i> Create</button></a>
+                            </div>
+                        </div>
+                        <table id="sales-data-table" class="table table-striped table-bordered  border-top-0 table-responsive" style="width:100%">
+                            <thead class="text-center">
+                                <tr>
+                                    <th style="width: 12% !important;" >Sale Time</th>
+                                    <th style="width: 6%  !important;">Grand Total</th>
+                                    <th style="width: 14%  !important;">Status&nbsp;/&nbsp;Payment Status</th>
+                                    <th style="width: 20%;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                
+                                
+                            </tbody>
+                            <tfoot>
+                                
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" >
+                <div id="right-side" class="py-1 px-lg-3">
+                    <div class=" d-flex justify-content-center align-items-center pecn-plus-mt-zero" style="margin-top:25%;">
+                        <div class="col-10">
+                            <p class="name py-1 pecn">Please Enter Customer Number :</p>
+                            <div id="pos-message-box" class="message"></div>
+                            <div id="user_name_section" style="margin-bottom: 5px;"></div>
+                            <input type="text" name="customer_phone_number" id="customer_phone_number" style="
+                            border: 1px solid !important;border-radius: 5px !important;" value="" class="form-control" placeholder="Customer Phone">
+                               
+                        </div>
+                        <div class="col-2 text-right">
+                            <p class="name py-1 pecn">&nbsp;</p>
+                            <button class="add-btn px-2 pb-1" id="add-new-customer">+</button>
+                        </div>
+                    </div>
+                    <div id="selected-product-section" style="display:none;">
+                        <div class="row mt-2 px-4">
+                            <div class="col-3" >
+                                <h1>Product</h1>
+                            </div>
+                            <div class="col-3">
+                                <h1>Price</h1>
+                            </div>
+                            <div class="col-3">
+                                <h1>Quantity</h1>
+                            </div>
+                            <div class="col-3">
+                                <h1>Subtotal</h1>
+                            </div>
+                        </div>
+                        <div id="loader_section"></div>
+                        <div id="cart_section">
+                            <div class="row mt-2 mx-lg-3 mx-1 py-1 td-bg not-found-product" >
+                                <div class="col-12 pt-2">
+                                    <h2>No Products added!</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" mt-3 mx-3 py-1 td-bg  py-3">
+                            <div id="coupon_list_section">
+                            </div>
+                            <div class="spinner-border text-primary coupon_loader" style="display: none;margin-left:50%;" role="status" ><span class="sr-only">Loading...</span></div>
+                            <div id="coupon_applied_section">
+                            </div>
+                            
+                        
+                    <!-- <div class="row justify-content-end mr-2">
+                        <div class="apply-coupon d-flex justify-content-end py-1 px-2 mr-2 rounded">
+                        <img src="/pos-section/assets/images/tag.png" class="img-fluid" alt="">
+                        <div class="apply pl-2">Apply Coupon</div>
+                        </div>
+                        </div>-->
+                        
+                            <div class="total-payable row justify-content-center mt-3 pay-border mx-4">
+                                <div class="row tds text-center">
+                                    <div class="col-2 "><label for="" class="mb-0">Taxes</label><br>
+                                        <span id="tax_part"></span>
+                                    </div>
+                                    <div class="col-3"><label for="" class="mb-0">Discount</label><br>
+                                        <span id="discount_part"></span>
+                                    </div>
+                                    <div class="col-3"><label for="" class="mb-0">Subtotal</label><br>
+                                        <span id="sub_total_part"></span>
+                                    </div>
+                                    <div class="col-4"><label for="" class="mb-0">Coupon Discount</label><br>
+                                        <span id="coupon_discount_part">$0.00</span>
+                                    </div>
+                                </div>
+                            <div class="d-flex px-lg-5">
+                            <div class="pay">Total Payable :</div>
+                            <div class="d-flex ml-2"> <span class="green-dollar1">$ </span>
+                            <div class="payable-amount" id="total-payable-amount">0.00</div>
+                            </div>
+                            </div>
+                            </div>
+                    </div>
+                    <div class="input-container mx-3 py-1 py-3">
+                        
+                        <div class="row justify-content-center">
+                            <div class="col-4 text-center reset-btn"><button class="reset-btn rounded" disabled id="customer-cart-reset">Reset</button></div>
+                            <div class="col-4 text-center hold-btn"> <button class="hold-btn rounded" disabled id="customer-cart-hold">Hold</button></div>
+                            <div class="col-4 text-center play-btn"><button type="button" class="play-btn" data-toggle="modal" id="pay_now_btn1" onClick="openPayNow()"
+                                >Pay Now</button>
+                                <input type="hidden" id="coupon_id" name="coupon_id" value="0">
+                            </div>
+                        </div>
+                        <!--<div class="row justify-content-center">
+                            <button type="button" class="play-btn rounded" style="display: none" data-toggle="modal" id="pay_now_btn" onclick="openPayNow()">Pay Now</button>
+                        </div>-->
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="order_completed_section" style="background-color:white;margin-top:20px;">
+               
+ 
+            </div>
+        </div>
+    </div>
+</div>
+    <!-----------------register modal------------>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pay Now</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_popup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>    
+                <div id="Add_Payment___BV_modal_body_" class="modal-body">
+                    <div id="payment-message-box"></div>
+                    <form class="">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              <span>
+                                <fieldset class="form-group" id="__BVID__154">
+                                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__154__BV_label_">Received Amount *</legend>
+                                  <div>
+                                    <input type="text" placeholder="Received Amount" class="form-control" readonly label="Received_Amount" aria-describedby="Received_Amount-feedback" id="received_amount" name="received_amount">
+                                    <div id="Received_Amount-feedback" class="invalid-feedback"></div>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                  </div>
+                                </fieldset>
+                              </span>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              <span>
+                                <fieldset class="form-group" id="__BVID__157">
+                                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" >Paying Amount *</legend>
+                                  <div>
+                                    <input type="text" placeholder="Paying Amount" class="form-control" readonly label="Paying_Amount" aria-describedby="Paying_Amount-feedback" id="paying_amount">
+                                    <div id="Paying_Amount-feedback" class="invalid-feedback"></div>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                  </div>
+                                </fieldset>
+                              </span>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              <label>Change Return :</label>
+                              <p class="change_amount">0.00</p>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12">
+                              <span>
+                                <fieldset class="form-group" id="__BVID__160">
+                                  <legend tabindex="-1" class="bv-no-focus-ring col-form-label pt-0" id="__BVID__160__BV_label_">Payment choice *</legend>
+                                  <div>
+                                    <div dir="auto" class="v-select vs--single vs--searchable" state="true">
+                                        <select name="payment_option" id="payment_option" class="form-control">
+                                            <option value="" disabled>Select Payment Option</option>
+                                            <option value="cash" selected>Cash</option>
+                                            <option value="credit_card" disabled>Credit Card</option>
+                                        </select>
+                                       
+                                     </div>
+                                    <div class="invalid-feedback"></div>
+                                    <!---->
+                                    <!---->
+                                    <!---->
+                                  </div>
+                                </fieldset>
+                              </span>
+                            </div>
+                             
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="card">
+                            <!---->
+                            <!---->
+                            <div class="card-body">
+                              <!---->
+                              <!---->
+                              <div class="list-group">
+                                <div class="list-group-item d-flex justify-content-between align-items-center"> Total Products <span class="badge badge-primary badge-pill" id="total_product_counter">1</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center"> Order Tax <span class="font-weight-bold" id="tax_paynow">$ 0.00 </span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center"> Discount <span class="font-weight-bold" id="discount_amount_paynow">$ 0.00</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center"> Shipping <span class="font-weight-bold" >$ 0.00</span>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center"> Total Payable <span class="font-weight-bold" id="total-payable-amount_paynow"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <!---->
+                            <!---->
+                          </div>
+                        </div>
+                        <div class="mt-3 col-md-12">
+                          <button type="button" class="btn btn-primary" id="pay_with_cash">Submit</button>
+                          <!---->
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+            </div>
+        </div>
+    </div>
+
+
+
+ 
+
+    <div class="modal fade" id="LogoutConfirmationPopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Logout Confirmation</h5>
+                    <button type="button" class="close close_LogoutConfirmationPopup" data-dismiss="modal" aria-label="Close" id="close_popup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        <div class="row text-center" >
+                            <div class="col-md-12">
+                                <p>Are you sure want to logout?</p>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button type="button" class="submit-btn px-3 py-2" onclick="location.href = '/pos-agent-logout';">Yes</button>
+                                    <button type="button" class="submit-btn px-3 py-2 close_LogoutConfirmationPopup">No</button>
+                                </div>
+                            </div>
+                        </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="addnewCustomer" tabindex="-1" role="dialog" aria-labelledby="addnewCustomerLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addnewCustomerLabel">Add Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close_customerpopup">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="add-new-customer-message-box"></div>
+                    <form id="add-new-customer-form">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email">Customer Name *</label>
+                                    <input type="text" name="customer_name" class="form-control" placeholder="Customer Name" id="customer_name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email" >Email *</label>
+                                    <input type="text"  name="customer_email" class="form-control" placeholder="Email" id="customer_email">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email">Phone</label>
+                                    <input type="text" class="form-control" placeholder="Phone" name="customer_phone" id="customer_phone">
+                                </div>
+                            </div>
+                            <!--<div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email">Country</label>
+                                    <input type="email" class="form-control" placeholder="Country" id="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="email">City</label>
+                                    <input type="email" class="form-control" placeholder="City" id="email">
+                                </div>
+                            </div>-->
+                            
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="message-text" class="">Address</label>
+                            <textarea class="form-control" id="message-text" placeholder="Address"></textarea>
+                        </div>-->
+                        <button type="button" class="submit-btn px-3 py-2" id="add-new-customer-btn">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="totalPages" id="totalPages" value="{{$total_page}}">
+    @include('pos.includes.footer')
+    <script>
+        $('#logout-confirmation').click(function(){
+            $('#LogoutConfirmationPopup').modal('show');
+        })
+
+        $('.close_LogoutConfirmationPopup').click(function(){
+            $('#LogoutConfirmationPopup').modal('hide');
+        })        
+        var constants = {
+                current_url:'{{str_replace(URL::to("/"),'',URL::current())}}',
+                base_url:'{{URL::to("/")}}',
+                csrf_token: '{{ csrf_token() }}',
+            };
+        $(document).ready(function(){
+	        var totalPage = parseInt($('#totalPages').val());	
+	        /*vvar pag = $('#pagination').simplePaginator({
+		        totalPages: totalPage,
+		        maxButtonsVisible: 5,
+		        currentPage: 1,
+	 	        nextLabel: 'Next',
+	 	        prevLabel: 'Prev',
+		        firstLabel: 'First',
+		        lastLabel: 'Last',
+		        clickCurrentPage: true,
+		        pageChange: function(page) {			
+			        $("#product-part").html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+                    $.ajax({
+                        url: '/pos-product-list',
+				        method:"POST",
+				        dataType: "json",		
+                        data: {
+                            'page': page,
+                            'page': page,
+                            '_token': constants.csrf_token
+                        },
+				        success:function(ajaxresponse){
+                            response = ajaxresponse;
+					        $('#product-part').html(response['data']);
+				        }
+			        });
+		        }
+	        });
+            */ 
+        });
+        function removeCoupon(){
+            $('.coupon_loader').show();
+            $('#coupon_list_section').show();
+            $('#coupon_applied_section').html('');
+            $('#coupon_applied_section').hide();
+            $('#coupon_id').val(0);
+            $.ajax({
+		        type: 'POST',
+		        url: '/pos-remove-coupon',
+		        data: {
+			        '_token': constants.csrf_token
+		        },
+		        success: function(ajaxresponse) {
+                    response=JSON.parse(ajaxresponse);
+			        if (response['status']) {
+                        //$('#checkout_section').html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+ 				        $('#pos-message-box').html('<div class="alert alert-success">Coupon removed successfully</div>');
+                         $('#tax_part').html('$'+Number(response['data']['orderMetaData']['tax']).toFixed(2));
+                         $('#tax_paynow').html('$'+Number(response['data']['orderMetaData']['tax']).toFixed(2));
+                        $('#discount_part').html('$'+Number(response['data']['orderMetaData']['discount_amount']).toFixed(2));
+                        $('#discount_amount_paynow').html('$'+Number(response['data']['orderMetaData']['discount_amount']).toFixed(2));
+                        $('#sub_total_part').html('$'+Number(response['data']['orderMetaData']['sub_total_amount']).toFixed(2));
+                        $('#coupon_discount_part').html('$'+Number(response['data']['orderMetaData']['coupon_discount']).toFixed(2));
+                        $('#total-payable-amount').html(Number(response['data']['orderMetaData']['total']).toFixed(2));
+                        $('#total-payable-amount_paynow').html('$'+Number(response['data']['orderMetaData']['total']).toFixed(2));
+                        $('#pay_with_cash').html('Pay With Cash ($'+Number(response['data']['orderMetaData']['total']).toFixed(2)+')');
+                        $('#coupon_applied_section').html('');
+                        $('#coupon_applied_section').hide();
+                        $('#coupon_list_section').show();
+
+                        $('#received_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+                        $('#paying_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+
+			        } else {
+				        $('#pos-message-box').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+			        }
+                    $('.coupon_loader').hide();
+		        }
+	        });
+        }
+        function applyCoupon(coupon){
+            var coupon_code=$(coupon).attr('data_id');
+            if(coupon_code!=''){
+                $('.coupon_loader').show();
+        $.ajax({
+		type: 'POST',
+		url: '/pos-check-coupon',
+		data: {
+			'coupon':coupon_code,
+			'_token': constants.csrf_token
+		},
+		success: function(ajaxresponse) {
+            response=JSON.parse(ajaxresponse);
+			if (response['status']) {
+              //  $('#checkout_section').html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+             //   $('#view-coupon-list').hide();
+                $('#coupon_id').val(response['coupon_details']['data']['coupon_id']);
+				$('#pos-message-box').html('<div class="alert alert-success">' + response['message'] + '</div>');
+                $('#tax_part').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['tax']).toFixed(2));
+                $('#tax_paynow').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['tax']).toFixed(2));
+                $('#discount_part').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['discount_amount']).toFixed(2));
+                $('#discount_amount_paynow').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['discount_amount']).toFixed(2));
+                $('#sub_total_part').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['sub_total_amount']).toFixed(2));
+                $('#coupon_discount_part').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['coupon_discount']).toFixed(2));
+                $('#total-payable-amount').html(Number(response['coupon_details']['data']['getOrderMetaData']['total']).toFixed(2));
+                $('#total-payable-amount_paynow').html('$'+Number(response['coupon_details']['data']['getOrderMetaData']['total']).toFixed(2));
+                $('#pay_with_cash').html('Pay With Cash ($'+Number(response['coupon_details']['data']['getOrderMetaData']['total']).toFixed(2)+')');
+                
+                $('#received_amount').val(Number(response['coupon_details']['data']['getOrderMetaData']['total'].toFixed(2)));
+                $('#paying_amount').val(Number(response['coupon_details']['data']['getOrderMetaData']['total'].toFixed(2)));
+                var html='';
+				html +='<div style="display: flex;justify-content: space-between;">';
+				html +='<h6>'+response['coupon_details']['data']['name']+'<span style="color: #6b6d6c;"> applied</span></h6>';
+				html +='<button onClick="removeCoupon();">REMOVE</button></div>';
+				html +='<p class="mt-2" id="coupon_discount_section">Yayy! You saved <span style="color:#67af77">$'+response['coupon_details']['data']['getOrderMetaData']['coupon_discount'].toFixed(2)+'</span> on this order</p>';
+                $('#coupon_applied_section').html(html);
+                $('#coupon_applied_section').show();
+                $('#coupon_list_section').hide();
+			} else {
+				$('#pos-message-box').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+			}
+            $('.coupon_loader').hide();
+		}
+	});
+        }
+    }
+        function loadCoupons(){
+            $.ajax({
+				type: 'POST',
+				url: '/get-coupon-list',
+				data: {
+					'_token': constants.csrf_token
+				},
+				success: function(ajaxresponse) {
+					response=JSON.parse(ajaxresponse);
+					if (response['status']) {
+                        var html ='';
+						if(response['data'].length>0){
+                            html +='<div class="row justify-content-center ">';
+    						for(i=0;i<response['data'].length;i++){
+                                html +='<div class=""><button class="offer rounded" data_id="'+response['data'][i]['code']+'" onClick="applyCoupon(this)">'+response['data'][i]['code']+'</button></div>';
+                            }
+							html += '</div>';
+							$('#coupon_list_section').html(html);
+						}
+					}
+				}
+			});
+        }
+        function viewProducts(order_id){
+            $('.order_description').hide();
+            $('#order_product_section'+order_id).show();
+        }
+
+        function viewSales(order_id){
+            $('.order_description').hide();
+            $('#order_sales_section'+order_id).show();
+        }
+        function viewPrint(order_id){
+            //$('.order_description').hide();
+            //$('#order_print_section'+order_id).show();
+            var divContents = document.getElementById("Show_invoice___BV_modal_body_"+order_id).innerHTML;
+            var a = window.open('', '', 'height=500, width=800');
+            a.document.write('<html>');
+            a.document.write('<body>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+        
+        function loadOrders(){
+            var html='';
+            $('#sales-data-table tbody').html('');
+            $('#sales-data-table tbody').append('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+            var customer_phone_number=$('#customer_phone_number').val();
+            if(customer_phone_number!=''){
+                if(customer_phone_number.length==10){
+                    $('#sales-data-table').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '/pos-manage-order-list',
+                        cache: false,
+                        data: {
+                            'customer_phone_number': customer_phone_number,
+                            '_token': constants.csrf_token
+                        },
+                        success: function(ajaxresponse) {
+                            response = JSON.parse(ajaxresponse);
+                             if (response['status']) {
+                                if(response['orders'].length>0){
+                                    var shipper_name='{{Session::get('agent_data')->firstname.' '.Session::get('agent_data')->lastname}}';
+                                    for(i=0;i<response['orders'].length;i++){
+                                        html +='<tr style="background-color:white">';
+                                        html +='<td>'+response['orders'][i]['order_date']+'</td>';
+                                        //html +='<td>'+shipper_name+'</td>';
+                                       // html +='<td><button class="com-btn">'+response['orders'][i]['order_status']+'</button></td>';
+                                        html +='<td class="">$'+response['orders'][i]['total_amount']+'</td>';
+                                        html +='<td class="">'+response['orders'][i]['order_status']+'&nbsp;/&nbsp;Paid</td>';
+                                        html +='<td class="text-center d-flex justify-content-lg-center">';
+                                        html +='<button class="com-btn mx-1 mb-1 btn btn-resett" onClick="viewSales('+response['orders'][i]['id']+')"><i class="bi bi-receipt"></i>&nbsp;&nbsp;Sales </button>';
+                                        html +='<button class="com-btn mx-1 mb-1  btn btn-success" style="color:white;" onClick="viewProducts('+response['orders'][i]['id']+')"><i class="bi bi-cast"></i>&nbsp;&nbsp;Products </button>';
+                                        html +='<button class="com-btn mx-1 mb-1 btn btn-warning" style="color:black;"><i class="bi bi-skip-backward"></i>&nbsp;&nbsp;Refund </button>';
+                                        html +='<button class="com-btn mx-1 mb-1 btn btn-primary" style="color:white;background-color:#428bca" onClick="viewPrint('+response['orders'][i]['id']+')"><i class="bi bi-printer"></i>&nbsp;&nbsp;Print</button>';
+                                        
+                                        html +='</td>';
+                                        html +='</tr>';
+                                        html +='<tr>';
+                                        html +='<td style="width:100%" colspan="5">';
+                                        html +='<table  style="display:none;" class="order_description" id="order_product_section'+response['orders'][i]['id']+'">'; 
+                                        html +='<tr>';
+                                        html +='<td style="width:45%">Name</td>';
+                                        html +='<td style="width:10%">Price</td>';
+                                        html +='<td style="width:5%">Quantity</td>';
+                                        html +='<td style="width:20%">Total Price</td>';
+                                        html +='<td style="width:15%">Actions</td>';
+                                        html +='</tr>';
+
+                                        for(j=0;j<response['orders'][i]['order_products'].length;j++){
+
+                                            html +='<tr>';
+                                            html +='<td >'+response['orders'][i]['order_products'][j]['show_title']+'</td>';   
+                                            html +='<td >$'+response['orders'][i]['order_products'][j]['total_discounted_price']+'</td>';   
+                                            html +='<td>'+response['orders'][i]['order_products'][j]['quantity']+'</td>'; 
+                                            html +='<td>$'+Number((response['orders'][i]['order_products'][j]['quantity'])*(response['orders'][i]['order_products'][j]['total_discounted_price'])).toFixed(2)+'</td>'; 
+                                            html +='<td><button class="com-btn mx-1 mb-1 btn btn-warning" style="color:black;"><i class="bi bi-skip-backward"></i>&nbsp;&nbsp;Refund </button></td>';  
+                                            html +='</tr>'; 
+                                        }
+                                        html +='</table>';
+                                        html +='<table  style="display:none;" class="order_description" id="order_sales_section'+response['orders'][i]['id']+'">'; 
+                                        if(Number(response['orders'][i]['orderMetaData']['coupon_discount']).toFixed(2)>0){
+                                            html +='<tr>';
+                                                html +='<td style="width:40%"><b>Coupon Discount</b></td>';
+                                                html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['coupon_discount']).toFixed(2)+'</td>';
+                                                html +='<td style="width:40%"><b>Discounted Price After Coupon</b></td>';
+                                                html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['discounted_price_after_coupon']).toFixed(2)+'</td>';
+                                            html +='</tr>';
+                                        }
+                                        
+                                        html +='<tr>';
+                                            html +='<td style="width:40%"><b>Discounted Price</b></td>';
+                                            html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['discounted_price']).toFixed(2)+'</td>';
+                                            html +='<td style="width:40%"><b>Discount Amount</b></td>';
+                                            html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['discount_amount']).toFixed(2)+'</td>';
+                                        html +='</tr>';
+
+                                        html +='<tr>';
+                                            html +='<td style="width:40%"><b>Sub Total Amount</b></td>';
+                                            html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['sub_total_amount']).toFixed(2)+'</td>';
+                                            html +='<td style="width:40%"><b>Tax</b></td>';
+                                            html +='<td style="width:30%">$'+Number(response['orders'][i]['orderMetaData']['tax']).toFixed(2)+'</td>';
+                                        html +='</tr>';
+                                        var total_amt=(response['orders'][i]['orderMetaData']['total'])-(response['orders'][i]['orderMetaData']['delivery_fee']+response['orders'][i]['orderMetaData']['Platform_Fee']);
+                                        html +='<tr>';
+                                            html +='<td style="width:40%"><b>Total</b></td>';
+                                            html +='<td style="width:30%">$'+Number(total_amt).toFixed(2)+'</td>';
+                                        html +='</tr>';
+                                    html +='</table>';
+                                    html +='<table  style="display:none;width:100%;" class="order_description" id="order_print_section'+response['orders'][i]['id']+'">'; 
+                                        html +='<tr>';
+                                        html +='<td colspan="5">';
+                                       
+                                       // var html ='';
+                                        html +='<div id="Show_invoice___BV_modal_body_'+response['orders'][i]['id']+'" class="modal-body" >';
+                                        html +='<div id="invoice-POS">';
+                                        html +='<div style="max-width: 80%; text-align:center; margin: 0px auto;">';
+                                        html +='<div class="info">';
+                                        html +='<h2 class="text-center">Anything Instantly</h2>';
+                                        html +='<p>';
+                                        html +='<span> Date : '+response['orders'][i]['order_date']+' <br></span>';
+                                        html +='<span> Address : '+response['orders'][i]['address']+'<br></span>';
+                                        html +='<span>Phone : '+response['orders'][i]['phone']+' <br></span>';
+                                        html +='</p>';
+                                        html +='</div>';
+                                        html +='<table class="table_data">';
+                                        html +='<tbody>';
+                                        for(k=0;k<response['orders'][i]['order_products'].length;k++){
+                                            html +='<tr>';
+                                            html +='<td colspan="3"> '+response['orders'][i]['order_products'][k]['show_title']+' <br style="display: none;">';
+                                            html +='<span style="display: none;">IMEI/SN : </span>';
+                                            html +='<br>';
+                                            html +='<span>$'+response['orders'][i]['order_products'][k]['discounted_price']+'x '+response['orders'][i]['order_products'][k]['quantity']+'</span>';
+                                            html +='</td>';
+                                            html +='<td style="text-align: right; vertical-align: bottom;">$'+response['orders'][i]['order_products'][k]['total_discounted_price']+'</td>';
+                                            html +='</tr>';
+                                        }
+
+                            if(Number(response['orders'][i]['orderMetaData']['tax']).toFixed(2)>0){
+                                html +='<tr style="margin-top: 10px;">';
+                                html +='<td colspan="3" class="total"><b>Order Tax</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['orders'][i]['orderMetaData']['tax'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }
+                            if(Number(response['orders'][i]['orderMetaData']['discount_amount']).toFixed(2)>0){
+                                html +='<tr style="margin-top: 10px;">';
+                                html +='<td colspan="3" class="total"><b>Discount</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['orders'][i]['orderMetaData']['discount_amount'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }        
+                            html +=' <tr style="margin-top: 10px;">';
+                            html +=' <td colspan="3" class="total"><b>Shipping</b></td>';
+                            html +=' <td class="total" style="text-align: right;">$ 0.00</td>';
+                            html +='</tr>';
+
+                            if(Number(response['orders'][i]['orderMetaData']['sub_total_amount']).toFixed(2)>0){
+                                html +=' <tr style="margin-top: 10px;">';
+                                html +=' <td colspan="3" class="total"><b>Grand Total</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['orders'][i]['orderMetaData']['sub_total_amount'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }
+                            html +='</tbody>';
+                            html +='</table>';
+        
+                            html +='<table class="change mt-3" style="font-size: 14px;width:100%;">';
+                            html +='<thead>';
+                            html +=' <tr style="background: rgb(238, 238, 238);">';
+                            html +='<th colspan="1" style="text-align: left;">Paid By:</th>';
+                            html +=' <th colspan="2" style="text-align: center;">Amount:</th>';
+                            html +=' <th colspan="1" style="text-align: right;">Change Return:</th>';
+                            html +='</tr>';
+                            html +='</thead>';
+                            html +='<tbody>';
+                            html +=' <tr>';
+                            html +=' <td colspan="1" style="text-align: left;">Cash</td>';
+                            html +=' <td colspan="2" style="text-align: center;">$'+response['orders'][i]['total_amount']+'</td>';
+                            html +=' <td colspan="1" style="text-align: right;">$0.00</td>';
+                            html +=' </tr>';
+                            html +='</tbody>';
+                            html +='</table>';
+                            html +='<div id="legalcopy" class="ml-2">';
+                            html +='<p class="legal">';
+                            html +='<strong>Thank You For Shopping With Us.<br> Please Come Again</strong>';
+                            html +=' </p>';
+                            html +='<div id="bar">';
+                            html +='<div textmargin="0" fontoptions="bold" class="barcode">';
+                            html +=' <div style="display: none;"></div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+
+                            html +='</div>';
+                                        
+                                        
+                                        
+                                            
+                                        html +='</td>';
+                                        html +='</tr>';
+                                    html +='</table>';   
+
+                                html +='</td>';   
+                            html +='</tr>';
+                            //html +='<tr style="background-color:#2BBA5F">';
+                            //  html +='<td colspan="7"><hr></td>';
+                            // html +='</tr>';
+
+                                    }
+                                }else {
+                                    html +='<tr>';
+                                    html +='<td colspan="6"><b>No data found!</b></td>';
+                                    html +='</tr>';
+                                }
+                                $("#sales-data-table tbody").html('');
+                                $("#sales-data-table tbody").append(html);
+                            }
+                        }
+		            }); 
+                }else{
+                    $('#sales-data-table').hide();
+                    //$('#sales-data-table tbody').html('Please enter valid phone number!');
+                    $('#pos-message-box').html('<div class="alert alert-danger">Please enter valid phone number!</div>');
+                }
+            }else{
+                $('#sales-data-table').hide();
+                //$('#sales-data-table tbody').html('Please Enter Phone no.');
+                $('#pos-message-box').html('<div class="alert alert-danger">Please Enter Phone no.</div>');
+            }
+        }
+
+        function addProductToCart(product_id, shipper_id, quantity = 1, destroy = 0) {
+            $('.message').html('');
+            var customer_phone_number=makeTrim($('#customer_phone_number').val());
+            if(customer_phone_number!=''){
+                if(customer_phone_number.length==10){
+                    $('#loader_section').html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+                    $.ajax({
+			            type: 'POST',
+			            url: '/pos-add-product-to-cart',
+			            cache: false,
+			            data: {
+                            'quantity': quantity,
+                            'product_id': product_id,
+                            'shipper_id': shipper_id,
+                            'destroy_cart': destroy,
+                            '_token': constants.csrf_token
+			            },
+			            success: function(ajaxresponse) {
+				            response = JSON.parse(ajaxresponse);
+				            if (response['status']) {
+                                loadCoupons();
+                                var html='';
+                                for(i=0;i<response['data']['cartlist'].length;i++){
+                                    if(!$('#cart'+response['data']['cartlist'][i]['id']).length){
+                                        html +='<div class="row mt-2 mx-3 py-1 td-bg cart_counter" id="cart'+response['data']['cartlist'][i]['id']+'">';
+                                        html +='<div class="col-3 pt-1">';
+                                        html +=' <h2>'+response['data']['cartlist'][i]['show_title']+'</h2>';
+                                        html +=' <div class="d-flex">';
+                                        html +=' <h6>'+response['data']['cartlist'][i]['upc']+'</h6> <a href="" class="ml-2 mt-0"><img src="" class="img-fluid mb-2" alt=""></a>';
+                                        html +=' </div>';
+                                        html +='</div>';
+                                        html +='<div class="col-3 mt-3 text-center d-flex">';
+                                        html +=' <span class="dollar">$ </span>';
+                                        html +=' <div class="price line-thro">'+response['data']['cartlist'][i]['price'].toFixed(2)+'</div>&nbsp;';
+                                 
+                                    html +=' <span class="dollar">$ </span>';
+                                    html +=' <div class="price">'+response['data']['cartlist'][i]['discounted_price'].toFixed(2)+'</div>';
+                                    html +=' </div>';
+                                    html +='<div class="col-lg-3 col-4 mt-2  text-center">';
+                                    html +='<div class="cart-bg py-1">';
+                                    html +='<input type="hidden" class="customer_cart_details_id"  value="'+response['data']['cartlist'][i]['id']+'">';
+                                    //html +='<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>';
+                                    html +='<button class="minus-btn" onClick="changeQuantity(0,'+response['data']['cartlist'][i]['id']+','+response['data']['cartlist'][i]['product_id']+')">-</button>';
+                                    html +='<span class="mx-2" id="product_quantity_section'+response['data']['cartlist'][i]['id']+'">'+response['data']['cartlist'][i]['quantity']+'</span>';
+                                    html +='<input type="hidden"  min="1" max="10" id="product_quantity'+response['data']['cartlist'][i]['id']+'" value="'+response['data']['cartlist'][i]['quantity']+'" readonly>';
+                                    html +='<input type="hidden"  min="1" max="10" id="product_price'+response['data']['cartlist'][i]['id']+'" value="'+response['data']['cartlist'][i]['discounted_price']+'" readonly>';
+                                    html +='<button class="plus-btn" onClick="changeQuantity(1,'+response['data']['cartlist'][i]['id']+','+response['data']['cartlist'][i]['product_id']+')">+</button>';
+                                    html +='</div>';
+                                    html +=' </div>';
+                                    html +='<div class="col-lg-3 col-2 pl-0 mt-3  text-center d-flex">';
+                                    html +='<span class="green-dollar">$ </span>';
+                                    html +=' <div class="sub-total" id="update_price'+response['data']['cartlist'][i]['id']+'">'+(response['data']['cartlist'][i]['discounted_price']*response['data']['cartlist'][i]['quantity']).toFixed(2)+'</div>';
+                                    html +='</div>';
+                                    html +=' <div class="cross-btn px-1"><a href="javascript:void(0)" onClick="deleteCartProductItem('+response['data']['cartlist'][i]['id']+')"><img src="/pos-section/assets/images/cross.png" class="img-fluid" alt=""></a></div>';
+                                    html +='</div>';
+                                    }
+                                }
+                                $('#total-payable-amount').html(response['data']['orderMetaData']['total'].toFixed(2));
+                                $('#total-payable-amount_paynow').html('$'+response['data']['orderMetaData']['total'].toFixed(2));
+                                $('#pay_with_cash').html('Pay With Cash ($'+response['data']['orderMetaData']['total'].toFixed(2)+')');
+                                $('#tax_part').html('$'+response['data']['orderMetaData']['tax'].toFixed(2));
+                                $('#tax_paynow').html('$'+response['data']['orderMetaData']['tax'].toFixed(2));
+                                $('#discount_part').html('$'+response['data']['orderMetaData']['discount_amount'].toFixed(2));
+                                $('#discount_amount_paynow').html('$'+response['data']['orderMetaData']['discount_amount'].toFixed(2));
+                                $('#sub_total_part').html('$'+response['data']['orderMetaData']['sub_total_amount'].toFixed(2));
+                                $('#cart_section').append(html);
+                                $('#loader_section').html('');
+                                $('.not-found-product').remove();
+
+                                $('#received_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+                                $('#paying_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+                                //$('#customer_phone_number').trigger('blur');
+				            }else{
+                                $('#pos-message-box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                                $('#loader_section').html('');
+                            }
+			            }
+		            });
+                }else{
+                    $('#pos-message-box').html('<div class="alert alert-danger">Please Enter a valid phone!</div>');
+                }
+                }else{
+                    $('#pos-message-box').html('<div class="alert alert-danger">Please Enter Phone no.</div>');
+                }
+	        }
+            function deleteCartProductItem(id){
+                $('.message').html('');
+		        if(id>0){
+			        $.ajax({
+				        type: 'POST',
+				        url: '/pos-remove-product-from-cart',
+				        cache: true,
+				        data: {
+					        'id': id,
+					        '_token': constants.csrf_token
+				        },
+				        success: function(ajaxresponse) {
+					        response = JSON.parse(ajaxresponse);
+					        response = response['data'];
+					        if (response['status']) {
+						        $('#cart' + id).remove();
+						        if (!response['total_cart']) {
+							        html ='<div class="row mt-2 mx-3 py-1 td-bg not-found-product" >';
+                                    html +='<div class="col-12 pt-2">';
+                                    html +=' <h2>No Products added!</h2>';
+                                    html +='</div>'; 
+                                    html +='</div>'; 
+                                    $('#cart_section').html(html);
+                                    $('#total-payable-amount').html('0.00');
+                                    $('#total-payable-amount_paynow').html('$'+'0.00');
+                                    $('#pay_with_cash').html('Pay With Cash ($0.00)');
+                                    $('#tax_part').html('$0.00');
+                                    $('#tax_paynow').html('$0.00');
+                                    $('#discount_part').html('$0.00');
+                                    $('#discount_amount_paynow').html('$0.00');
+                                    $('#sub_total_part').html('$0.00');
+                                   // $('#pay_now_btn').prop('disabled', true);
+                                    $('#customer-cart-hold').prop('disabled', true);
+                                    $('#customer-cart-reset').prop('disabled', true);
+                                    $('#coupon_list_section').html('');
+						        }else{
+                                    $('#total-payable-amount').html(response['OrderMetaData']['total'].toFixed(2));
+                                    $('#total-payable-amount_paynow').html('$'+response['OrderMetaData']['total'].toFixed(2));
+                                    $('#pay_with_cash').html('Pay With Cash ($'+response['OrderMetaData']['total'].toFixed(2)+')');
+                                }
+                                $('#pos-message-box').html('<div class="alert alert-success">'+response['message']+'</div>');
+					        }
+				        }
+			        });
+		        }
+	        }
+
+
+            function changeQuantity(action,id,product_id){
+                var product_quantity = parseInt($('#product_quantity' + id).val());
+                if (action == '0') product_quantity--;
+                else product_quantity++;
+                if(product_quantity>0){
+                    $('#product_quantity' + id).val(product_quantity);
+                    updateProductCartQuantity(id, product_quantity,product_id)
+                }else{
+                    $('#product_quantity_section'+product_id).removeClass('open');
+                    $('#product_quantity_section'+product_id).attr('cart_detail_id', 0);
+                    deleteCartProductItem(id);
+                }
+            }
+
+            function updateProductCartQuantity(id, quantity,product_id) {
+                $('.message').html('');
+                if (quantity) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/pos-update-cart-item-quantity',
+                        cache: false,
+                        async:false,
+                        data: {
+                        'id': id,
+                            'quantity': quantity,
+                            '_token': constants.csrf_token
+                        },
+                        success: function(ajaxresponse) {
+                            response = JSON.parse(ajaxresponse);
+                            if (response['status']) {
+                                $('#update_price' + id).html(($('#product_price' + id).val() * quantity).toFixed(2));
+                                $('#product_quantity' + product_id).val(quantity);
+                                $('#product_quantity_section' + id).html(quantity);
+                                $('#total-payable-amount').html(response['data']['OrderMetaData']['total'].toFixed(2));
+                                $('#total-payable-amount_paynow').html('$'+response['data']['OrderMetaData']['total'].toFixed(2));
+                                $('#pay_with_cash').html('Pay With Cash ($'+response['data']['OrderMetaData']['total'].toFixed(2)+')');
+
+                                $('#received_amount').val(Number(response['data']['OrderMetaData']['total'].toFixed(2)));
+                                $('#paying_amount').val(Number(response['data']['OrderMetaData']['total'].toFixed(2)));
+
+                                //calculateQuantityPrice();
+                                $('#pos-message-box').html('<div class="alert alert-success">'+response['message']+'</div>');
+                            // $('#pay_now_btn').prop('disabled', false);
+                                $('#customer-cart-hold').prop('disabled', false);
+                                $('#customer-cart-reset').prop('disabled', false);
+                                $('#tax_part').html('$'+response['data']['OrderMetaData']['tax'].toFixed(2));
+                                $('#tax_paynow').html('$'+response['data']['OrderMetaData']['tax'].toFixed(2));
+                                $('#discount_part').html('$'+response['data']['OrderMetaData']['discount_amount'].toFixed(2));
+                                $('#discount_amount_paynow').html('$'+response['data']['OrderMetaData']['discount_amount'].toFixed(2));
+                                $('#sub_total_part').html('$'+response['data']['OrderMetaData']['sub_total_amount'].toFixed(2));
+                            } else {
+                                $('#product_quantity' + id).val(response['old_quantity']);
+                                $('#product_quantity_section' + id).html(response['old_quantity']);
+                                $('#pos-message-box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+                            }
+                        }
+                    });
+                }
+            }
+            function openPayNow(){
+                $('.message').html('');
+                if($('.cart_counter').length){
+                    $('#payment-message-box').html('');
+                    $('#total_product_counter').html($('.cart_counter').length);
+                    $('#exampleModal').modal('show');
+                }else{
+                    $('#pos-message-box').html('<div class="alert alert-danger">Please add at least one product in cart!</div>');
+                }
+            }
+
+            $(window).keydown(function(event){
+                if(event.keyCode == 13) {
+                    var search_position=$('#search_position').val();
+                    if(search_position==1){
+                        $('#customer_phone_number').trigger('blur');
+                    }else{
+                        if(search_position==2){
+                            $('#pos-product-search').trigger('blur');
+                        }
+                    }   
+                }
+            });
+
+            $(function(){
+                $('#customer-cart-hold').click(function(){
+                    $('#customer_phone_number').val('');
+                    $.ajax({
+				        type: 'POST',
+				        url: '/pos-customer-cart-hold',
+				        data: {
+					        '_token': constants.csrf_token
+				        },
+				        cache: true,
+				        success: function(ajaxresponse) {
+					        var response = JSON.parse(ajaxresponse);
+                            $('#customer-cart-hold').prop('disabled', true);
+                            $('#customer-cart-reset').prop('disabled', true);
+                            $('#selected-product-section').hide();
+                            $('#cart_section').html('');
+                            $(".pecn-plus-mt-zero").css("margin-top","25%");
+                            $('.pecn').show();
+                            $('#total-payable-amount').html('0.00');
+                            $('#total-payable-amount_paynow').html('$'+'0.00');
+                            $('#pay_with_cash').html('Pay With Cash ($0.00)');
+				        }
+			        });
+                })
+                $('#customer-cart-reset').click(function(){
+                    $('#customer_phone_number').val('');
+                    $.ajax({
+				        type: 'POST',
+				        url: '/pos-customer-cart-reset',
+				        data: {
+					        '_token': constants.csrf_token
+				        },
+				        cache: true,
+				        success: function(ajaxresponse) {
+                            var response = JSON.parse(ajaxresponse);
+                            $('#customer-cart-hold').prop('disabled', true);
+                            $('#customer-cart-reset').prop('disabled', true);
+                            $('#selected-product-section').hide();
+                            $('#cart_section').html('');
+                            $(".pecn-plus-mt-zero").css("margin-top","25%");
+                            $('.pecn').show();
+                            $('#total-payable-amount').html('0.00');
+                            $('#total-payable-amount_paynow').html('$'+'0.00');
+                            
+                            $('#pay_with_cash').html('Pay With Cash ($0.00)');
+				        }
+			        });
+                })
+            
+                $('#pos-product-search').blur(function(){
+                    var product_search=$('#pos-product-search').val();
+                    $.ajax({
+				        type: 'POST',
+				        url: '/pos-product-search',
+				        data: {
+					        'product_search': product_search,
+					        '_token': constants.csrf_token
+				        },
+				        cache: true,
+				        success: function(ajaxresponse) {
+					        var response = JSON.parse(ajaxresponse);
+					        if (response['status']) {
+                                $('#remove-row').remove();
+                                $('#product-section').html(response['data']);
+						        //$('#add-new-customer-message-box').html('<div class="alert alert-success">' + response['message'] + '</div>');
+						        setTimeout(function(){
+							    //$('#customer_phone_number').val(customer_phone);
+                                //$('#addnewCustomer').modal('hide');
+						        }, 2000);
+					        } else {
+						        // $('#add-new-customer-message-box').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+					        }
+				        }
+			        });
+                })
+                $('#add-new-customer').click(function(){
+                    $('#addnewCustomer').modal('show');
+                })
+                $('#add-new-customer-btn').click(function(){
+                    $('#add-new-customer-form input').css('border', '1px solid #ccc');
+                    $('.error').html('');
+                    var customer_name = makeTrim($('#customer_name').val());
+                    var customer_phone = makeTrim($('#customer_phone').val());
+                    var customer_email = makeTrim($('#customer_email').val());
+                    var status = true;
+		            if (customer_name == '') {
+			            $('#customer_name').css('border', '2px solid #cc0000');
+			            //$('#customer_name_error').html('Required*');
+			            status = false;
+		            }
+                    if (customer_phone == '') {
+                        $('#customer_phone').css('border', '2px solid #cc0000');
+                        //$('#customer_phone_error').html('Required*');
+                        status = false;
+                    } else {
+                        if (customer_phone.length == '10') {} else {
+                            $('#customer_phone').css('border', '2px solid #cc0000');
+                            //$('#customer_phone_error').html('Please enter valid phone!');
+                            status = false;
+                        }
+                    }
+                    if (customer_email == '') {
+                        $('#customer_email').css('border', '2px solid #cc0000');
+                        //$('#customer_email_error').html('Required*');
+                        status = false;
+                    } else {
+                        if (!validEmail(customer_email)) {
+                            $('#customer_email').css('border', '2px solid #cc0000');
+                            $('#customer_email_error').html('Please enter a valid Email ID');
+                            status = false;
+                        }
+                    }
+		 
+                    if (status) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/pos-add-new-customer',
+                            data: $('#add-new-customer-form').serialize(),
+                            cache: true,
+                            success: function(ajaxresponse) {
+                                var response = JSON.parse(ajaxresponse);
+                                if (response['status']) {
+                                    $('#add-new-customer-message-box').html('<div class="alert alert-success">' + response['message'] + '</div>');
+                                    setTimeout(function(){
+                                        $('#customer_phone_number').val(customer_phone);
+                                        $('#addnewCustomer').modal('hide');
+                                        $('#add-new-customer-form').trigger("reset");
+                                    }, 2000);
+                                } else {
+                                    $('#add-new-customer-message-box').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+                                }
+                            }
+                        });
+                    } else {
+                        $('#add-new-customer-message-box').html('<div class="alert alert-danger">Please enter the required fields!</div>');
+                        return false;
+                    }
+                })
+
+                $('#close_customerpopup').click(function(){
+                    $('#addnewCustomer').modal('hide');
+                })
+
+                $('#order-section-tab').click(function(){
+                    $('#order-section-tab').removeClass('brand-btn');
+                    $('#order-section-tab').removeClass('list-btn');
+                    $('#order-section-tab').addClass('brand-btn');
+                    $('#product-section-tab').removeClass('brand-btn');
+                    $('#product-section-tab').removeClass('list-btn');
+                    $('#product-section-tab').addClass('list-btn');
+                    $('#order-section').show();
+                    $('#product-section').hide();
+                    loadOrders();
+                })
+
+                $('#product-section-tab').click(function(){
+                    $('#product-section-tab').removeClass('brand-btn');
+                    $('#product-section-tab').removeClass('list-btn');
+                    $('#product-section-tab').addClass('brand-btn');
+                    $('#order-section-tab').removeClass('brand-btn');
+                    $('#order-section-tab').removeClass('list-btn');
+                    $('#order-section-tab').addClass('list-btn');
+                    $('#product-section').show();
+                    $('#order-section').hide();
+                })
+                $('#pay_with_cash').click(function(){
+                    var paynow_text=$('#pay_with_cash').html();
+                    $('#pay_with_cash').html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+                    $('#payment-message-box').html('');
+                    $('#pay_with_cash').prop('disabled', true);
+                    $.ajax({
+				        type: 'POST',
+				        url: '/pos-create-order',
+				        cache: false,
+				        async:false,
+				        data: {
+                            'coupon_id':$('#coupon_id').val(),
+					        '_token': constants.csrf_token
+				        },
+				    success: function(ajaxresponse) {
+					response = JSON.parse(ajaxresponse);
+					if (response['status']) {
+                        $('#payment-message-box').html(response['message']);
+                        //setTimeout(function() {
+                            var html='';
+                            html ='<div class="row mt-2 mx-3 py-1 td-bg not-found-product" >';
+                            html +='<div class="col-12 pt-2">';
+                            html +=' <h2>No Products added!</h2>';
+                            html +='</div>'; 
+                            html +='</div>'; 
+                            $('#cart_section').html(html);
+                            $('#tax_part').html('$0.00');
+                            $('#tax_paynow').html('$0.00');
+                            $('#discount_part').html('$0.00');
+                            $('#discount_amount_paynow').html('$0.00');
+                            $('#sub_total_part').html('$0.00');
+                            $('#total-payable-amount').html('0.00');
+                            $('#total-payable-amount_paynow').html('$'+'0.00');
+                           // $('#pay_with_cash').html('Pay With Cash ($0.00)');
+                            //$('#pay_now_btn').prop('disabled', true);
+                            $('#exampleModal').modal('hide');
+                            $(".pecn-plus-mt-zero").removeAttr("style");
+                            $('.pecn').hide();
+                            $('#order_completed_section').show();
+                            $('#selected-product-section').hide();
+                            //console.log(response['order_data']);
+                            var html ='';
+                            html +='<div id="Show_invoice___BV_modal_body_" class="modal-body" >';
+                            html +='<div id="invoice-POS">';
+                            html +='<div style="max-width: 80%; text-align:center; margin: 0px auto;">';
+                            html +='<div class="info">';
+                            html +='<h2 class="text-center">Anything Instantly</h2>';
+                            html +='<p>';
+                            html +='<span> Date : '+response['order_data']['order_date']+' <br></span>';
+                            html +='<span> Address : '+response['order_data']['address']+'<br></span>';
+                            html +='<span>Phone : '+response['order_data']['phone']+' <br></span>';
+                            html +='</p>';
+                            html +='</div>';
+                            html +='<table class="table_data">';
+                            html +='<tbody>';
+                            for(i=0;i<response['order_data']['order_products'].length;i++){
+                                html +='<tr>';
+                                html +='<td colspan="3"> '+response['order_data']['order_products'][i]['show_title']+' <br style="display: none;">';
+                                html +='<span style="display: none;">IMEI/SN : </span>';
+                                html +='<br>';
+                                html +='<span>$'+response['order_data']['order_products'][i]['discounted_price']+'x '+response['order_data']['order_products'][i]['quantity']+'</span>';
+                                html +='</td>';
+                                html +='<td style="text-align: right; vertical-align: bottom;">$'+response['order_data']['order_products'][i]['total_discounted_price']+'</td>';
+                                html +='</tr>';
+                            }
+
+                            if(response['order_data']['orderMetaData']['tax'].toFixed(2)>0){
+                                html +='<tr style="margin-top: 10px;">';
+                                html +='<td colspan="3" class="total"><b>Order Tax</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['order_data']['orderMetaData']['tax'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }
+                            if(response['order_data']['orderMetaData']['discount_amount'].toFixed(2)>0){
+                                html +='<tr style="margin-top: 10px;">';
+                                html +='<td colspan="3" class="total"><b>Discount</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['order_data']['orderMetaData']['discount_amount'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }        
+                            html +=' <tr style="margin-top: 10px;">';
+                            html +=' <td colspan="3" class="total"><b>Shipping</b></td>';
+                            html +=' <td class="total" style="text-align: right;">$ 0.00</td>';
+                            html +='</tr>';
+
+                            if(response['order_data']['orderMetaData']['sub_total_amount'].toFixed(2)>0){
+                                html +=' <tr style="margin-top: 10px;">';
+                                html +=' <td colspan="3" class="total"><b>Grand Total</b></td>';
+                                html +='<td class="total" style="text-align: right;">$'+response['order_data']['orderMetaData']['sub_total_amount'].toFixed(2)+'</td>';
+                                html +='</tr>';
+                            }
+                            html +='</tbody>';
+                            html +='</table>';
+        
+                            html +='<table class="change mt-3" style="font-size: 14px;width:100%;">';
+                            html +='<thead>';
+                            html +=' <tr style="background: rgb(238, 238, 238);">';
+                            html +='<th colspan="1" style="text-align: left;">Paid By:</th>';
+                            html +=' <th colspan="2" style="text-align: center;">Amount:</th>';
+                            html +=' <th colspan="1" style="text-align: right;">Change Return:</th>';
+                            html +='</tr>';
+                            html +='</thead>';
+                            html +='<tbody>';
+                            html +=' <tr>';
+                            html +=' <td colspan="1" style="text-align: left;">Cash</td>';
+                            html +=' <td colspan="2" style="text-align: center;">$'+response['order_data']['total_amount']+'</td>';
+                            html +=' <td colspan="1" style="text-align: right;">$0.00</td>';
+                            html +=' </tr>';
+                            html +='</tbody>';
+                            html +='</table>';
+                            html +='<div id="legalcopy" class="ml-2">';
+                            html +='<p class="legal">';
+                            html +='<strong>Thank You For Shopping With Us.<br> Please Come Again</strong>';
+                            html +=' </p>';
+                            html +='<div id="bar">';
+                            html +='<div textmargin="0" fontoptions="bold" class="barcode">';
+                            html +=' <div style="display: none;"></div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            html +=' </div>';
+
+                            html +='</div>';
+                            html +=' <div class="col-12 text-center mt-3">';
+                            html +='<button class="btn btn-outline-primary" onClick="printButton()"><i class="i-Billing"></i>Print</button>&nbsp;';
+                            html +='<button class="btn btn-outline-primary" onClick="closeButton()" ><i class="i-Billing"></i>Close</button>';
+                            html +='</div>';
+		
+                            $('#order_completed_section').html(html);
+    			      //  }, 1000);
+					} else {
+                        $('#payment-message-box').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+                        $('#pay_with_cash').prop('disabled', false); 
+                        $('#pay_with_cash').html(paynow_text);
+					}
+				}
+			});
+        })
+
+            
+            $('#close_popup').click(function(){
+                $('#exampleModal').modal('hide');
+            })
+            $('.marketplace').click(function(){
+                $('.marketplace-content').show();
+                $('.marketplace-content').fadeOut(2000);
+            })
+            $('#customer_phone_number').keyup(function(){
+                var customer_phone=$('#customer_phone_number').val();
+                $('#search_position').val(0);
+                if(customer_phone.length>0){
+                    $('#search_position').val(1);
+                }
+            })
+
+            $('#pos-product-search').keyup(function(){
+                var search_input=$('#pos-product-search').val();
+                $('#search_position').val(0);
+               // $('#is_search').val(0);
+                if(search_input.length>0){
+                $('#search_position').val(2);
+                //    $('#is_search').val(1);
+                }
+            })
+
+
+            $('#customer_phone_number').blur(function(){
+            $('#user_name_section').html('');
+            $('#sales-data-table tbody').html('');
+            $('.message').html('');
+            $('#pay_now_btn').hide();
+            $('#cart_section').html('<div class="spinner-border text-primary" role="status"  id="buyNow_loader"><span class="sr-only">Loading...</span></div>');
+            var customer_phone_number=$('#customer_phone_number').val();
+            var html='';
+
+            $('#customer-cart-hold').prop('disabled', true);
+            $('#customer-cart-reset').prop('disabled', true);
+            $('#selected-product-section').hide();
+            $(".pecn-plus-mt-zero").css("margin-top","25%");
+            $('.pecn').show();
+            $('#total-payable-amount').html('0.00');
+            $('#total-payable-amount_paynow').html('$'+'0.00');
+            $('#pay_with_cash').html('Pay With Cash ($0.00)');
+             
+               if(customer_phone_number.length==10){
+                loadOrders();
+                
+                   $.ajax({
+			            url : '/pos-check-user-phone',
+			            method : "POST",
+			            data : {
+				            customer_phone_number:customer_phone_number,
+				            '_token': constants.csrf_token
+			            },
+			            success : function (ajaxresponse){
+				        response=JSON.parse(ajaxresponse);
+				        if (response['status']) {
+                            $('#user_name_section').html('<b>Welcome </b>'+response['user_name']+',');
+                            $(".pecn-plus-mt-zero").removeAttr("style");
+                            $('.pecn').hide();
+                            $('#selected-product-section').show();
+                            $('#cart_section').html('');
+                            $('#pay_with_cash').prop('disabled', false);
+                            if(response['data']['cartlist'].length>0){
+                                //console.log(response['data']['cartlist']);
+                                loadCoupons();
+                                $('#pay_now_btn').show();
+                                $('#customer-cart-hold').prop('disabled', false);
+                                $('#customer-cart-reset').prop('disabled', false);
+                                var total_payable=0;
+                                for(i=0;i<response['data']['cartlist'].length;i++){
+
+                                   // console.log('hello');
+                                    html +='<div class="row mt-2 mx-3 py-1 td-bg cart_counter" id="cart'+response['data']['cartlist'][i]['id']+'">';
+                                    html +='<div class="col-3 pt-1">';
+                                    html +=' <h2>'+response['data']['cartlist'][i]['show_title']+'</h2>';
+                                    html +=' <div class="d-flex">';
+                                    html +=' <h6>'+response['data']['cartlist'][i]['upc']+'</h6> <a href="" class="ml-2 mt-0"><img src="" class="img-fluid mb-2" alt=""></a>';
+                                    html +=' </div>';
+                                    html +='</div>';
+                                    html +='<div class="col-3 mt-3 text-center d-flex">';
+                                    html +=' <span class="dollar">$ </span>';
+                                    html +=' <div class="price line-thro">'+response['data']['cartlist'][i]['price'].toFixed(2)+'</div>&nbsp;';
+                                 
+                                    html +=' <span class="dollar">$ </span>';
+                                    html +=' <div class="price">'+response['data']['cartlist'][i]['discounted_price'].toFixed(2)+'</div>';
+                                    html +=' </div>';
+                                    html +='<div class="col-lg-3 col-4 mt-2  text-center">';
+                                    html +='<div class="cart-bg py-1">';
+                                    html +='<input type="hidden" class="customer_cart_details_id"  value="'+response['data']['cartlist'][i]['id']+'">';
+                                    html +='<button class="minus-btn" onClick="changeQuantity(0,'+response['data']['cartlist'][i]['id']+','+response['data']['cartlist'][i]['product_id']+')">-</button>';
+                                    html +='<span class="mx-2" id="product_quantity_section'+response['data']['cartlist'][i]['id']+'">'+response['data']['cartlist'][i]['quantity']+'</span>';
+                                    html +='<input type="hidden"  min="1" max="10" id="product_quantity'+response['data']['cartlist'][i]['id']+'" value="'+response['data']['cartlist'][i]['quantity']+'" readonly>';
+                                    html +='<input type="hidden"  min="1" max="10" id="product_price'+response['data']['cartlist'][i]['id']+'" value="'+response['data']['cartlist'][i]['discounted_price']+'" readonly>';
+                                    html +='<button class="plus-btn" onClick="changeQuantity(1,'+response['data']['cartlist'][i]['id']+','+response['data']['cartlist'][i]['product_id']+')">+</button>';
+                                    html +='</div>';
+                                    html +=' </div>';
+                                    html +='<div class="col-lg-3 col-2  pl-0 mt-3  text-center d-flex">';
+                                    html +='<span class="green-dollar">$ </span>';
+                                    html +=' <div class="sub-total" id="update_price'+response['data']['cartlist'][i]['id']+'">'+(response['data']['cartlist'][i]['discounted_price']*response['data']['cartlist'][i]['quantity']).toFixed(2)+'</div>';
+                                    html +='</div>';
+                                    html +=' <div class="cross-btn px-1"><a href="javascript:void(0)" onClick="deleteCartProductItem('+response['data']['cartlist'][i]['id']+')"><img src="/pos-section/assets/images/cross.png" class="img-fluid" alt=""></a></div>';
+                                    html +='</div>';
+                                   // total_payable=total_payable+(response['data']['cartlist'][i]['discounted_price']*response['data']['cartlist'][i]['quantity']);
+                                }
+                                $('#total-payable-amount').html(response['data']['orderMetaData']['total'].toFixed(2));
+                                $('#total-payable-amount_paynow').html('$'+response['data']['orderMetaData']['total'].toFixed(2));
+                                
+                                $('#pay_with_cash').html('Pay With Cash ($'+response['data']['orderMetaData']['total'].toFixed(2)+')');
+                                
+                                $('#received_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+                                $('#paying_amount').val(Number(response['data']['orderMetaData']['total'].toFixed(2)));
+
+                                $('#tax_part').html('$'+response['data']['orderMetaData']['tax'].toFixed(2));
+                                $('#tax_paynow').html('$'+response['data']['orderMetaData']['tax'].toFixed(2));
+                                $('#discount_part').html('$'+response['data']['orderMetaData']['discount_amount'].toFixed(2));
+                                $('#discount_amount_paynow').html('$'+response['data']['orderMetaData']['discount_amount'].toFixed(2));
+                                $('#sub_total_part').html('$'+response['data']['orderMetaData']['sub_total_amount'].toFixed(2));
+                                $('#cart_section').html(html);
+                            }else{
+                                html +='<div class="row mt-2 mx-3 py-1 td-bg not-found-product" >';
+                                html +='<div class="col-12 pt-2">';
+                                html +=' <h2>No Products added!</h2>';
+                                html +='</div>'; 
+                                html +='</div>'; 
+                                $('#cart_section').html(html);
+                            }
+                            
+					      //  $('#order_success_message').html('<div class="alert alert-success">' + response['message'] + '</div>');
+					        setTimeout(function() {
+						      //  location.reload(true);
+					        }, 1000);
+				        }else{
+                            $('#add-new-customer').trigger('click');
+                            $('#customer_phone').val($('#customer_phone_number').val());
+                            //$('#pos-message-box').html('<div class="alert alert-danger">'+response['message']+'</div>');
+					        //$('#order_success_message').html('<div class="alert alert-danger">' + response['message'] + '</div>');
+				        }
+			        }
+		        });
+                
+               }else{
+                $('#cart_section').html('');
+                $('#pos-message-box').html('<div class="alert alert-danger">Please enter valid phone number!</div>');
+
+               }
+            })
+        })
+
+        function closeButton(){
+            $('#customer_phone_number').val('');
+            $('#selected-product-section').hide();
+            $('#cart_section').html('');
+            $(".pecn-plus-mt-zero").css("margin-top","25%");
+            $('.pecn').show();
+            $('#total-payable-amount').html('0.00');
+            $('#total-payable-amount_paynow').html('$'+'0.00');
+            $('#pay_with_cash').html('Pay With Cash ($0.00)');
+            $('#order_completed_section').html('');
+        }
+        function printButton(){
+            var divContents = document.getElementById("Show_invoice___BV_modal_body_").innerHTML;
+            var a = window.open('', '', 'height=500, width=800');
+            a.document.write('<html>');
+            a.document.write('<body>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+           // window.print();
+        }
+        function makeTrim(x) {
+		if (x) {
+			return x.replace(/^\s+|\s+$/gm, '');
+		} else {
+			return x;
+		}
+	}
+    function validEmail(email) {
+		var re = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		return re.test(email);
+	}
+
+    $(document).ready(function(){
+
+load_data(1);
+
+function load_data(page, query = '')
+{
+
+    $.ajax({
+            url: '/pos-product-list',
+            method:"POST",
+            dataType: "json",		
+            data: {
+                'query': query,
+                'page': page,
+                '_token': constants.csrf_token
+            },
+            success:function(ajaxresponse){
+                response = ajaxresponse;
+                $('#product-part').html(response['data']);
+            }
+		});
+}
+
+$(document).on('click', '.page-link', function(){
+  var page = $(this).data('page_number');
+  var query = $('#search_box').val();
+  load_data(page, query);
+});
+
+$('#search_box').keyup(function(){
+  //var query = $('#search_box').val();
+  //load_data(1, query);
+});
+
+});
+    </script>
+    @stop
+
+    <!-----------------list of category modal------->
+    

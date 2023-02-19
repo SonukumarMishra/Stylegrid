@@ -165,6 +165,12 @@
             }
         })
     })
+
+    $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+        $('#admin-login-btn').trigger('click');
+        }
+  });
 </script>
 
 

@@ -22,7 +22,7 @@
                      
                         <div class="inputbox">
                             <div class="form-group">
-                                <input type="text" name="user_name" id="user_name" placeholder="Create username..."  maxlength="25">
+                                <input type="text" name="user_name" id="user_name" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" placeholder="Create username..."  maxlength="25">
                                 <div id="user_name_error" class="error"></div>
                             </div>
                             

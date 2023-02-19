@@ -66,7 +66,7 @@
 
                         <div class="form-group mb-0">
 
-                            <input type="text" name="full_name" id="full_name" placeholder="Full Name..."  maxlength="60">
+                            <input type="text" class="alphaonly"  name="full_name" id="full_name" placeholder="Full Name..."  maxlength="40">
 
                             <!-- <span>Full Name</span> -->
 

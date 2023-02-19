@@ -1,4 +1,10 @@
 $(function(){
+  $('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+    var regEx = /^[a-z][a-z\s]*$/;
+    if(!$(this).val().match(regEx)){
+      $(this).val('');
+    } 
+  });
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       if(constants.current_url=='/stylist-login'){

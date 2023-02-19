@@ -166,7 +166,7 @@
 
                                 <div class="w-100">
 
-                                    <input type="text" placeholder="Input price here..." id="source_price" name="source_price"
+                                    <input type="number" placeholder="Input price here..." id="source_price" name="source_price"
 
                                         class="w-100 form-control submit-input" maxlength="6">
 

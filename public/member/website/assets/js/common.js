@@ -1,3 +1,9 @@
+$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+  var regEx = /^[a-z][a-z\s]*$/;
+  if(!$(this).val().match(regEx)){
+    $(this).val('');
+  } 
+});
 function checkArray(key,array){
   var status = false;
   for(var i=0; i<array.length; i++){
@@ -18,7 +24,7 @@ $(function(){
       selected_brand.push($(this).attr('data_id'));
     });
     var brand_search=$(this).val();
-    if(brand_search.length>0){
+    //if(brand_search.length>0){
       $.ajax({
         url : '/get-brands-list',
         method : "POST",
@@ -58,7 +64,7 @@ $(function(){
              }
         }
     })
-    }
+   // }
   })
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
