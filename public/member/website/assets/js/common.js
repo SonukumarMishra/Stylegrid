@@ -1,7 +1,7 @@
 $('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
-  var regEx = /^[a-z][a-z\s]*$/;
+  var regEx = /^[a-zA-Z\ s]*$/;
   if(!$(this).val().match(regEx)){
-    $(this).val('');
+     $(this).val('');
   } 
 });
 function checkArray(key,array){
@@ -187,7 +187,7 @@ $(function(){
   }
   if (confirm_password == '') {
     $('#confirm_password').css('border', '2px solid #cc0000');
-    $('#confirm_password_error').html('Required*');
+    $('#confirm_password_error').html('Please enter Confirm Password');
     status = false;
   }
   if (password != '') {

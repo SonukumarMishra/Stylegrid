@@ -227,27 +227,46 @@ class StylistWebsiteController extends Controller
             $password=sha1($request->password);
             $login_data=$member->checkStylistExistance(['s.email'=>$email,'s.password'=>$password]);
             if($login_data){
-                if(!$login_data->membership_cancelled){
-                    if($login_data->verified){
-                        Session::put('stylist_data', $login_data);
-                        Session::put('stylist_id', $login_data->id);
-                        Session::put('Stylistloggedin',TRUE);
-                        return json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
+                if($login_data->status==1){
+                    if(!$login_data->membership_cancelled){
+                        if($login_data->verified){
+                            Session::put('stylist_data', $login_data);
+                            Session::put('stylist_id', $login_data->id);
+                            Session::put('Stylistloggedin',TRUE);
+                            return json_encode(['status'=>1,'message'=>'You are being redirected to Dashboard']);
+                        }
+                        return json_encode(
+                            [
+                            'status'=>0,
+                            'message'=>'Account not verified',
+                            //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
+                        ]);
+                    }else{
+                        return json_encode(
+                            [
+                            'status'=>0,
+                            'verification_url'=>'',
+                            'message'=>'Your Membership has been cancelled!',
+                        ]);
                     }
-                    return json_encode(
-                        [
-                        'status'=>0,
-                        'message'=>'Account not verified',
-                        //'verification_url'=>\URL::to("/").'/member-account-verification/'.$login_data->token
-                    ]);
-                }else{
+                }
+                else if($login_data->status==0){
                     return json_encode(
                         [
                         'status'=>0,
                         'verification_url'=>'',
-                        'message'=>'Your Membership has been cancelled!',
+                        'message'=>'Your account need to approval by admin!',
                     ]);
                 }
+                else{
+                    return json_encode(
+                        [
+                        'status'=>0,
+                        'verification_url'=>'',
+                        'message'=>'Your account has been locked by admin!',
+                    ]);
+                }
+                
                 
             }else{
                 return json_encode(['status'=>0,'message'=>'Invalid Email Id or Password!']);

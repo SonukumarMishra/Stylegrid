@@ -50,13 +50,13 @@
                     <div class="p-3 lg-border-left ">
                             <div class="form-group">
                                 <label for="">Enter the name of the product here:</label>
-                                <input type="text" class="form-control submit-input alphaonly" aria-describedby="emailHelp"
+                                <input type="text" class="form-control submit-input alphaonly"   aria-describedby="emailHelp"
                                     placeholder="Enter product name..."  id="product_name" name="product_name" maxlength="40">
                                 <div id="product_name_error" class="error"></div>
                             </div>
                             <div class="form-group">
                                 <label for="">Tell us the brand of the product:</label>
-                                <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
+                                <input type="text" class="form-control submit-input" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" aria-describedby="emailHelp"
                                     placeholder="Enter brand name..." id="brand" name="brand" maxlength="10">
                                 <div id="autsuggestion_section"></div>
                                 <div id="brand_error" class="error"></div>

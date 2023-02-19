@@ -8,7 +8,7 @@
             <td>{{$source_row['p_type']}}</td>
             <td>{{$source_row['name']}}</td>
             <td>{{$source_row['country_name']}}</td>
-            <td>{{date('d/m/Y',strtotime($source_row['p_deliver_date']))}}</td>
+            <td>{{date('m/d/Y',strtotime($source_row['p_deliver_date']))}}</td>
             <?php
 
                 if($source_row['total_offer']>0 && $source_row['p_status']!='Fulfilled'){

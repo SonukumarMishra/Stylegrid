@@ -130,37 +130,9 @@
             </div>
             <div class="modal-body">
                 <div id="mssage_box" class="message"></div>
-                <form id="upload-product-form">
+                <form id="upload-product-form" method="post">
                     @csrf
                 <div class="row">
-                    <!--<div class="col-md-6">
-                        <div class="select-admin-grid py-3 ">
-                        <div class="Neon Neon-theme-dragdropbox mt-5">
-                                    <input name="product_image" id="product-image" class="file-upload" multiple="multiple" type="file">
-                                    <div class="Neon-input-dragDrop  px-4 mx-3">
-                                        <div class="Neon-input-inner">
-                                            <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
-                                            <div class="Neon-input-text"></div>
-                                            <a class="Neon-input-choose-btn blue" >
-                                                <div class="text-center mt-1">
-                                                    <button class="add-item" >+</button>
-                                                </div>
-                                                
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            <div><h6 class="add-item-here-1 mb-lg-5 pb-lg-5">Add image here</h6></div>
-                                
-                               
-                                <div id="divImageMediaPreview" class="text-center"></div>
-                                <div class="text-center">
-                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
-                                </div>   
-                        </div>
-                         <div id="product_image_error" class="error"></div>
-                    </div>-->
-
                     <div class="col-md-6">
                         <div class="select-admin-grid py-1 ">
                             <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
@@ -178,10 +150,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="divImageMediaPreview" class="text-center"></div>
-                                <div class="text-center">
-                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
-                                </div>   
+                                <div id="divImageMediaPreview1" class="text-center"></div>
+                                   
                             </div>
                          <div id="product_image_error" class="error"></div>
                     </div>
@@ -189,15 +159,15 @@
                     <div class="col-md-6 text-center">
                                 <div class="mb-2">
                                     <h1 class="span-modal">Enter Brand Name</h1>
-                                    <input type="text" class="form-control submit-input" aria-describedby="emailHelp"
-                                                    placeholder="Enter brand name..." id="brand" name="brand"  maxlength="10" >
+                                    <input type="text" class="form-control submit-input alphaonly" aria-describedby="emailHelp"
+                                                    placeholder="Enter brand name..." id="brand" name="brand"  maxlength="50" >
                                     <div id="autsuggestion_section"></div>
                                     <div id="brand_error" class="error"></div>
                                 </div>
                                 <div class="mb-2">
                                     <span class="span-modal">Enter Product Name</span>
                                     <br>
-                                    <input type="text" name="product_name" id="product_name" class="form-control" placeholder="Product Name">
+                                    <input type="text" name="product_name" id="product_name" class="form-control alphaonly" placeholder="Product Name">
                                     <div id="product_name_error" class="error"></div>
                                 </div>
                         <!-- <div class="mt-5">-->
@@ -213,12 +183,13 @@
                                     <span class="modal-p myb-2">Enter Product Size</span>
                             <!-- </div>-->
                             <!--<span class="span1-modal my-3">All sizes available</span>-->
-                                    <input type="text" name="product_size" id="product_size" class="form-control" placeholder="Product Size">
+                                    <input type="text" name="product_size" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"  maxlength="25" id="product_size" class="form-control" placeholder="Product Size">
                                     <div id="product_size_error" class="error"></div>
                                 </div>
                                 <input type="hidden" name="id" id="id" class="form-control" value="">
-                                <input type="hidden" name="product_type" id="product_type" class="form-control" value="">
+                                <input type="hidden" name="product_type" id="product_type" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" class="form-control" value="">
                                 <div class="mt-2">
+                                    <input type="hidden" name="check_image" id="check_image" value="0">
                             <button type="button" class="upload-btn px-3" id="upload_product">Upload Product</button>
                         </div>
                         <div class="mt-1">
@@ -286,6 +257,7 @@
         $('#upload_product').click(function(){
             $('.message').html('');
             $('.error').html('');
+            $('#product_description').removeClass('err');
             $('input, textarea').removeClass('err');
             var status=true;
             var id=makeTrim($('#id').val());
@@ -294,7 +266,13 @@
             var product_description=makeTrim($('#product_description').val());
             var product_size=makeTrim($('#product_size').val());
             var product_image=makeTrim($('#product-image').val());
+            var check_image=makeTrim($('#check_image').val());
             
+            if(check_image==0){
+                $('#product-image').addClass('err');
+                $('#product_image_error').html('Please select product image!');
+                status=false;
+            }
             if(product_image=='' && id<1){
                 $('#product-image').addClass('err');
                 $('#product_image_error').html('Please select product image!');
@@ -386,32 +364,44 @@
             if (typeof (FileReader) != "undefined") {
                 $('#add_update_image_preview').html('');
                 $('#image_preview_remove').hide();
-               $("#divImageMediaPreview").html('');
-                var dvPreview = $("#divImageMediaPreview");
-                // dvPreview.html("");    
+               var dvPreview = $("#add_update_image_preview");
                 $('#product_image_error').html('');        
                 // $($(this)[0].files).each(function () {
                 var file = $(this)[0].files;//$(this); 
                 var ext = $('#product-image').val().split('.').pop().toLowerCase();
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
                     $('#product_image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
+                    var html ='';
+                    html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+                    $("#add_update_image_preview").html(html);
                     $("#product-image").val('');
+                    $('#check_image').val(0);
                     return false;
                 }else{
                     var image_size = (this.files[0].size);
                     if(image_size>3000000){
+                        var html ='';
+                        html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+                        $("#add_update_image_preview").html(html);
                         $('#product_image_error').html('Maximum File Size Limit is 3 MB');
                         $("#product-image").val('');
+                        $('#check_image').val(0);
                         return false;
                     }else{
                         var reader = new FileReader();
                         reader.onload = function (e) {
-                            var img = $("<img />");
-                            img.attr("style", "width: 150px; height:100px; padding: 10px");
-                            img.attr("src", e.target.result);
-                            dvPreview.append(img);
+                            //var img = $("<img />");
+                            //img.attr("style", "width: 150px; height:100px; padding: 10px");
+                            //img.attr("src", e.target.result);
+                            var html ='';
+                            html ='<img  src="'+e.target.result+'"/ style="width: 300px; height:300px; padding: 10px">';
+                            html +='<div class="text-center">';
+                            html +='<a href="javascript:void(0)" onClick="removeImage()" id="image_preview_remove">Remove</a>';
+                            html +='</div>';
+                            dvPreview.append(html);
+                            $('#check_image').val(1);
                         }
-                        $('#image_preview_remove').show();
+                        //$('#image_preview_remove').show();
                         reader.readAsDataURL(file[0]);
                     }     
                 }
@@ -419,17 +409,18 @@
             }
         });
 
-        $('#image_preview_remove').click(function(){
-            $("#product-image").val('');
-            alert('remove data');
-            $('#image_preview_remove').hide();
-            $("#divImageMediaPreview").html('');
-        })
-
         $('#uploadImage').click(function(){
             $('#uploadProductPopup').modal('show');
         }) 
     })
+    function removeImage(){
+        $("#product-image").val('');
+        $('#image_preview_remove').hide();
+        var html ='';
+        html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+        $("#add_update_image_preview").html(html);
+        $('#check_image').val(0);
+    }
     var brandList=[];
     function selectBrand(brand_id){
         $('#brand').val(brandList[brand_id]);
@@ -526,12 +517,12 @@
             if(available_product_count<15){
                 $("#product-image").val('');
                 $('#image_preview_remove').hide();
-                $("#divImageMediaPreview").html('');
                 $("#upload-product-form").trigger("reset");
                 $('#product_type').val($(type).attr('type_id'));
                 $('#upload_product').html('Upload Product');
                 $('#AddProductPopup').modal('show');
                 $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
+                $('#check_image').val(0);
 
                 /*
                 
@@ -551,6 +542,7 @@
     function editProduct(id){
         $('#viewProductPopup').modal('hide');
         $('#product_image_error').html(''); 
+        $('.error').html('');
         if(id>0){
             $.ajax({
             url : '/admin-view-product-ajax',
@@ -571,9 +563,15 @@
                         $('#product_type').val(response['product']['type']);
                         $('#id').val(response['product']['id']);
                         $('#upload_product').html('Update Product');
-                        $("#divImageMediaPreview").html('');
                         $('#image_preview_remove').hide();
-                        $('#add_update_image_preview').html('<div class="text-center"><button class="add-item px-1" ><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview"></button></div>');
+                        
+                        if(response['product']['image']==''){
+                            $('#check_image').val(0);
+                            $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
+                        }else{
+                            $('#check_image').val(1);
+                            $('#add_update_image_preview').html('<div class="text-center"><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview"></div>');
+                        }
                     }else{
                         //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
                     }

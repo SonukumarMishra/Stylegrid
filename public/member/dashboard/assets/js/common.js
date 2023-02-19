@@ -1,8 +1,9 @@
+ 
 
 $('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
-    var regEx = /^[a-z][a-z\s]*$/;
+    var regEx = /^[a-zA-Z\ s]*$/;
     if(!$(this).val().match(regEx)){
-      $(this).val('');
+       $(this).val('');
     } 
   });
 var brandList=[];
@@ -203,7 +204,7 @@ function sourceFormValidation(){
     var product_type=makeTrim($('#product_type').val());
     var country=makeTrim($('#country').val());
     var deliver_date=makeTrim($('#deliver_date').val());
-    
+ 
     var status=true;
     if(product_name==''){
         $('#product_name').css('border', '2px solid #cc0000');

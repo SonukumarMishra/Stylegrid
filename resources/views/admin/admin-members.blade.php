@@ -86,7 +86,7 @@
                 "sProcessing": "<img src='{{ asset('admin-section/assets/images/ajax-loader.gif')}}' style='width:100px;height:100px;'>"
             },
              "order": [
-                [2, "desc"]
+                [8, "desc"]
              ],
              "ajax":{
                 url :"/admin-member-list-ajax", 
