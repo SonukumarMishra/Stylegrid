@@ -182,7 +182,7 @@
 
                                         <h4 class="mt-3">Price offer: £<?php echo number_format($offer->price,2);?></h4>
 
-                                        <h4>Shipping date: <?php echo date('d/m/Y',strtotime($offer->p_deliver_date));?></h4>
+                                        <h4>Shipping date: <?php echo date('m/d/Y',strtotime($offer->p_deliver_date));?></h4>
 
                                         <h4>Condition: New</h4>
 

@@ -150,7 +150,7 @@
 
                             <h4 class="mt-3">Required in: {{$source_data->country_name}}</h4>
 
-                            <h4>Date required: {{$source_data->p_deliver_date}}</h4>
+                            <h4>Date required: {{date('m/d/Y',strtotime($source_data->p_deliver_date))}}</h4>
 
                             <h4>Condition requested: New</h4>
 

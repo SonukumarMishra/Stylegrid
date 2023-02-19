@@ -165,7 +165,7 @@ if(password==''){
 }
 if (confirm_password == '') {
   $('#confirm_password').css('border', '2px solid #cc0000');
-  $('#confirm_password_error').html('Required*');
+  $('#confirm_password_error').html('Please enter Confirm Password');
   status = false;
 }
 if (password != '') {
@@ -426,7 +426,8 @@ function stylistSetpOneValidation(){
   }
   if (confirm_password == '') {
     $('#confirm_password').css('border', '2px solid #cc0000');
-    $('#confirm_password_error').html('Required*');
+    $('#confirm_password_error').html('Please enter Confirm Password');
+
     status = false;
   }
   if (password != '') {

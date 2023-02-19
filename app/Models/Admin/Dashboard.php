@@ -79,6 +79,10 @@ class Dashboard extends Model
 					case 7:
 					$order_by = 'm.subscription';
 					break;
+
+					case 8:
+					$order_by = 'm.id';
+					break;
 					
 					default:
 					$order_by = 'm.id';
@@ -181,6 +185,10 @@ class Dashboard extends Model
 				   
 				   case 7:
 				   $order_by = 's.subscription';
+				   break;
+
+				   case 8:
+				   $order_by = 's.id';
 				   break;
 				   
 				   default:

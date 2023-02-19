@@ -65,6 +65,7 @@ class Member extends Model
 				"s.verified",
 				"s.short_bio",
 				"s.profile_image",
+				"s.status",
 				"s.membership_cancelled"
 			]);
 			$this->db->where($where);
