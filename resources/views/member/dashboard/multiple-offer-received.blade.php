@@ -164,7 +164,7 @@
 
                                     <div class="border-right my-3">
 
-                                        <img src="{{ asset('member/dashboard/attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
+                                        <img src="{{ asset('attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
 
                                     </div>
 

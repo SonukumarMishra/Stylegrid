@@ -100,8 +100,10 @@ class SourcingRepository {
 							->join('sg_brand AS b', 'b.id', '=', 'sg_sourcing.p_brand')
 							->withCount([ 
 								'sourcing_offers as requested' => function ($query) use($request) {
-									$query->select(\DB::raw("COUNT(id)"))
-											->where('stylist_id', $request->user_id);
+									$query->select(
+										\DB::raw("COUNT(id)")
+										)
+										->where('stylist_id', $request->user_id);
 								}
 							])
 							->whereNotIn('sg_sourcing.id', $my_requests_ids)

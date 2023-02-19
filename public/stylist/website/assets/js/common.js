@@ -1,8 +1,8 @@
 $(function(){
   $('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
-    var regEx = /^[a-z][a-z\s]*$/;
+    var regEx = /^[a-zA-Z\ s]*$/;
     if(!$(this).val().match(regEx)){
-      $(this).val('');
+       $(this).val('');
     } 
   });
   $(window).keydown(function(event){
