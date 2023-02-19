@@ -408,15 +408,13 @@ class Dashboard extends Model
 		$this->db->select([
 			"p.id",
 			"p.name",
-			"p.brand_id",
+			"p.brand_name",
 			"p.type",
 			"p.size",
 			"p.description",
 			"p.image",
 			"p.status",
-			"b.name as brand_name",
 		]);
-		$this->db->join('sg_brand as b', 'b.id', '=', 'p.brand_id');
 		if(count($where)){
 			$this->db->where($where);
 		}

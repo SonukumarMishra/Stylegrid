@@ -1,3 +1,9 @@
+$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+  var regEx = /^[a-z][a-z\s]*$/;
+  if(!$(this).val().match(regEx)){
+    $(this).val('');
+  } 
+});
 function makeTrim(x) {
     if (x) {
         return x.replace(/^\s+|\s+$/gm, '');

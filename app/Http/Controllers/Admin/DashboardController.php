@@ -249,31 +249,33 @@ class DashboardController extends Controller
             $member=new Member();
             $product_image_name='';
                 $product_image= $request->file('product_image');
-                if(!empty($product_image)){
+                 if(!empty($product_image)){
                     $new_name = rand() . '.' . $product_image->getClientOriginalExtension();
                     $product_image->move(public_path('attachments/products/'.strtolower($request->product_type)), $new_name);
                     $product_image_name=$new_name;
                 }
-                $brand_data=$member->getBrandList(['b.name'=>$request->brand]);
-                $brand_id=0;
-                if(count($brand_data)){
-                    $brand_id=$brand_data[0]->id;
-                }
                 if($request->id>0){
+                   
                     $dashboard=new Dashboard();
                     $product=$dashboard->getProducts(['p.id'=>$request->id]);
-                    if(count($product) && !empty($product_image_name)){
+                    if(count($product)){
+                       if(!empty($product_image_name)){
                         if (File::exists(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image))) {
                             File::delete(public_path('attachments/products/'.strtolower($product[0]->type).'/'.$product[0]->image));
-                        }                    
+                        }
+                       }else{
+                        $product_image_name=$product[0]->image;
+                    } 
                     }
                 }
-
+                if(empty($product_image_name)){
+                    return json_encode(['status'=>0,'message'=>'Please select image']);
+                }
                 $response=$member->addUpdateData(
                     [
                         'id'=>$request->id?$request->id:0,
                         'name'=>$request->product_name,
-                        'brand_id'=>$brand_id,
+                        'brand_name'=>$request->brand,
                         'type'=>$request->product_type,
                         'size'=>$request->product_size,
                         'description'=>$request->product_description,
