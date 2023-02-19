@@ -3,7 +3,14 @@
 
     @foreach ($list as $key => $source_row)
         <tr>
-            <td class="d-flex"><span class="dot"></span>{{$source_row['p_name']}}</td>
+            <td class="d-flex">
+                <span class="dot"></span>
+                @if ($source_row['p_status']=='Fulfilled' && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
+                    <a href="{{ route('stylist.sourcing.view', ['title' => $source_row['p_slug']])}}">{{$source_row['p_name']}}</a>
+                @else
+                    {{$source_row['p_name']}}
+                @endif            
+            </td>
             <td>{{$source_row['p_size']}}</td>
             <td>{{$source_row['p_type']}}</td>
             <td>{{$source_row['name']}}</td>

@@ -92,6 +92,8 @@ class SourcingRepository {
 										->where('sg_sourcing.member_stylist_type', '=' , config('custom.sourcing.sourcing_user_type.stylist'))
 										->where('sg_sourcing.member_stylist_id', '=', $request->user_id)
 										->pluck('id');
+										
+			DB::connection()->enableQueryLog();
 
 			$list = Sourcing::from('sg_sourcing')
 							->select("sg_sourcing.id", "sg_sourcing.member_stylist_id", "sg_sourcing.member_stylist_type", "sg_sourcing.p_image", "sg_sourcing.p_name", "sg_sourcing.p_slug", "sg_sourcing.p_code", "b.name", "sg_sourcing.p_type", "sg_sourcing.p_size", "c.country_name", "sg_sourcing.p_deliver_date", "sg_sourcing.p_status")
@@ -104,12 +106,21 @@ class SourcingRepository {
 											->where('stylist_id', $request->user_id);
 								}
 							])
+							->with([ 
+								'sourcing_accepted_details' => function ($query) use($request) {
+									if($request->user_type == config('custom.user_type.stylist')){
+										$query->where('stylist_id', $request->user_id);
+									}
+								}
+							])
 							->whereNotIn('sg_sourcing.id', $my_requests_ids)
 							->groupBy("sg_sourcing.id")
 							->orderBy('sg_sourcing.p_created_date', 'desc')
 							->orderBy("offer_updated_on","DESC")
 							->paginate(10, ['*'], 'page', $page_index);
-						
+			$queries = DB::getQueryLog();
+			Log::info(print_r($queries, true)); 
+						  
 			$response_array['list'] = $list;
 
 			return $response_array;
@@ -156,6 +167,13 @@ class SourcingRepository {
 								'sourcing_offers as decline_offer' => function ($query) {
 									$query->where('status', 2)
 										->select(\DB::raw("COUNT(id)"));
+								}
+							])
+							->with([ 
+								'sourcing_accepted_details' => function ($query) use($request) {
+									// if($request->user_type == config('custom.user_type.stylist')){
+									// 	$query->where('stylist_id', $request->user_id);
+									// }
 								}
 							])
 							->groupBy("sg_sourcing.id")
@@ -396,6 +414,32 @@ class SourcingRepository {
 			$response_array['error'] = $e->getMessage();
 
 			return $response_array;
+
+        }
+
+	}
+
+	public static function getSourcingRequestDetails($slug) {
+		
+		$result = false;
+
+		try {
+
+			$result = Sourcing::from('sg_sourcing as sourcing')
+								->where('sourcing.p_slug', $slug)
+								->with(['sourcing_accepted_details', 'sourcing_chat_room'])
+								->select('sourcing.*')
+								->first();
+					
+			Log::info("data ". print_r($result, true));
+
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error getSourcingRequestDetails ". print_r($e->getMessage(), true));
+
+			return $result;
 
         }
 

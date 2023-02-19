@@ -98,6 +98,7 @@ use App\Http\Controllers\CommonController;
  Route::get('/stylist-submit-request-complete', [Stylist::class, 'stylistSubmitRequestComplete']);
  Route::get('/stylist-offer-received/{title}', [Stylist::class, 'stylistOfferReceived']);
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
+ Route::get('/stylist-sourcing/{title}', [Stylist::class, 'stylistSourcingRequestView'])->name('stylist.sourcing.view');
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
 

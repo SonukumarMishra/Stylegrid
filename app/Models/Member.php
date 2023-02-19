@@ -251,16 +251,12 @@ class Member extends Model
 				'sourcing_offer_id' => $offer_id
 			];
 
-			Log::info("ref ". print_r($ref_data, true));
-
 			SourcingRepo::triggerPusherEventsForSourcingUpdates(config('custom.sourcing_pusher_action_type.offer_accepted'), $ref_data);
 
 			// Create sourcing chat contact
 			$sourcing_dtls = Sourcing::find($sourcing_id);
-			Log::info("sourcing_dtls ". print_r($sourcing_dtls, true));
 
 			$sourcing_offer_dtls = SourcingOffer::find($offer_id);
-			Log::info("sourcing_offer_dtls ". print_r($sourcing_offer_dtls, true));
 
 			if($sourcing_dtls && $sourcing_offer_dtls){
 				
@@ -313,6 +309,7 @@ class Member extends Model
 					'receiver_id' => $sourcing_offer_dtls->stylist_id,
 					'receiver_user' => config('custom.user_type.stylist'),
 					'module' => config('custom.chat_module.sourcing'),
+					'module_ref_id' => $sourcing_dtls->id,
 					'auth_user' => $auth_user,
 					'message_obj' => $message_obj
 				];

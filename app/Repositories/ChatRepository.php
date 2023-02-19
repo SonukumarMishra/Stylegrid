@@ -583,6 +583,7 @@ class ChatRepository {
 					$chat_room->receiver_id = $value['receiver_id'];
 					$chat_room->receiver_user = $value['receiver_user'];
 					$chat_room->module = $value['module'];
+					$chat_room->module_ref_id = $value['module_ref_id'];
 					$chat_room->save();
 
 					if($chat_room){

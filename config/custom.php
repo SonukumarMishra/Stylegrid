@@ -31,6 +31,11 @@ return [
         'sourcing_user_type' => [
             'stylist' => 1,
             'member' => 0
+        ],
+        'sourcing_offer_status' => [
+            'pending' => 0,
+            'accepted' => 1,
+            'decline' => 2
         ]
     ],
 

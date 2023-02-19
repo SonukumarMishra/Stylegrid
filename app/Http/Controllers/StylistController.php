@@ -429,4 +429,20 @@ class StylistController extends Controller
         }
     }
 
+    public function stylistSourcingRequestView($slug){
+        
+        try {
+
+            $sourcing_details = SourcingRepo::getSourcingRequestDetails($slug);
+
+            return view('stylist.postloginview.sourcing.view', compact('sourcing_details'));
+            
+        }catch(\Exception $e){
+
+            Log::info("stylistSourcingRequestView error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+    }
+
 }
