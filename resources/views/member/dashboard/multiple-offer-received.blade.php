@@ -162,9 +162,9 @@
 
                                 <div class="col-md-6">
 
-                                    <div class="border-right my-3">
+                                    <div class="border-right my-3 text-center">
 
-                                        <img src="{{ asset('attachments/source/'.$offer->p_image) }}" class="img-fluid" alt="">
+                                        <img src="{{ asset('attachments/source/'.$offer->p_image) }}" class="img-fluid w-75" alt="">
 
                                     </div>
 

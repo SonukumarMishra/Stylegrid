@@ -1073,7 +1073,7 @@ color: #7A7A7A;
   
   .Neon-input-dragDrop {
     display: block;
-    width:max-content;
+    width:70%;
     margin: 0 auto 25px auto;
     padding: 25px;
     color: #8d9499;

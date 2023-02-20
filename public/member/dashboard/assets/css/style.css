@@ -2504,17 +2504,28 @@ margin-bottom: 23px; */
 }
 
 #demo .carousel-control-prev {
-
-  right: 23%;
+  background-image: url(../images/prev.png) !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  /* transform: rotate(45deg); */
+  right: 13%;
   top: 8%;
+  height: 30px;
+ /* // background-image: url(../images/next.png) !important; */
 }
 
 #demo .carousel-control-next {
-
-  right: 20%;
+  background-image: url(../images/previous-next.jpg) !important;
+  background-size: contain;
+  background-repeat: no-repeat;
+  right: 6%;
   top: 8%;
+  height: 27px;
 }
+#demo .carousel-control-next-icon {
+  
 
+}
 .caro-caption {
   position: absolute;
   right: 10%;

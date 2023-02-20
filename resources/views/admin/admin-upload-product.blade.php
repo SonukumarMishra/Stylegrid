@@ -443,7 +443,7 @@
                                 fashion_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 Fashion_product_counter" id="product'+response['fashion_products'][i]['id']+'">';
                                 fashion_html +='<div class="admin-grid" type="button" class="" >'; 
                                 fashion_html +='<div class="admin-delete px-1"><a href="javascript:void(0)" onClick="removeProduct('+response['fashion_products'][i]['id']+')"><img  src="'+constants.base_url+'/admin-section/assets/images/delete.png" class="img-fluid" ></a></div>';
-                                fashion_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['fashion_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/fashion/'+response['fashion_products'][i]['image']+'" class=" border img-fluid"></a>';
+                                fashion_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['fashion_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/fashion/'+response['fashion_products'][i]['image']+'" class="fashion-img border img-fluid"></a>';
                                 fashion_html +='</div>';
                                 fashion_html +='</div>';
                             }

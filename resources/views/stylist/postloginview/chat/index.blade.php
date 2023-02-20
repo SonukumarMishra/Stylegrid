@@ -272,7 +272,7 @@
 
                                     
 
-                                    <textarea readonly='readonly' rows="4" name="message" class="form-control m-send app-scroll" placeholder="Type message..."> </textarea>
+                                    <textarea  rows="4" name="message" class="form-control m-send app-scroll" placeholder="Type message..."> </textarea>
 
                                     
 

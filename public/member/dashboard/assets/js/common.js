@@ -274,3 +274,6 @@ $(document).ready(function(){
         interval: false,
       });
 });
+$('div#demo.carousel.slide').carousel({
+    interval: false,
+  });
