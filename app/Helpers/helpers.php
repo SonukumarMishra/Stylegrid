@@ -15,13 +15,13 @@ use Log;
 class Helper
 {
 
-  public static function upload_document($input_file, $directory, $name = '', $is_pdf = false, $save_url_path = false){
+  public static function upload_document($input_file, $directory, $name = '', $is_pdf = false, $save_url_path = false, $input_file_url=false){
 
     $result = '';
 
     try{
 
-        if($is_pdf == false && isset($input_file) && !empty($input_file) && base64_decode($input_file) == true ){
+        if($is_pdf == false && $input_file_url == false && isset($input_file) && !empty($input_file) && base64_decode($input_file) == true ){
 
             $base64_image_tmp = $input_file;
 
@@ -127,6 +127,49 @@ class Helper
 
             $storage_folder_path = $directory . '/' . $filename;
 
+            if($cloudResponse){
+
+                if($save_url_path){
+                    $result = URL::asset($storage_folder_path);
+                }else{
+                    $result = $storage_folder_path;
+                }
+                
+                if($default_storage != 'public'){
+
+                    $fileUrl = Storage::url($directory . '/' . $filename);
+
+                    $result = $fileUrl;
+
+                }
+
+            }
+
+        }else if($input_file_url){
+
+            $filename = time();
+
+            $extension = pathinfo($input_file, PATHINFO_EXTENSION);
+
+            $filename =  (!empty($name) ? $name : $filename).".".$extension;
+
+            $default_storage = config('filesystems.default');
+
+            $default_storage_driver = config('filesystems.disks.'.$default_storage.'.driver');
+
+            if($default_storage == 'public'){
+
+                if(!File::isDirectory($directory)){
+
+                    File::makeDirectory($directory, 0777, true, true);
+
+                }
+            }
+
+            $cloudResponse =  Storage::disk($default_storage_driver)->put($directory . '/' . $filename,  file_get_contents($input_file));
+
+            $storage_folder_path = $directory . '/' . $filename;
+          
             if($cloudResponse){
 
                 if($save_url_path){

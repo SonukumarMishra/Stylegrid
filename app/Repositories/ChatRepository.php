@@ -74,7 +74,7 @@ class ChatRepository {
 				// DB::connection()->enableQueryLog();
 
 				$main_query = ChatRoom::from('sg_chat_room as room')
-										->select("room.*")
+										->select("room.*", 'sourcing.id as sourcing_id', 'sourcing.p_name as sourcing_title', 'sourcing.p_slug as sourcing_slug')
 										->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
 										->addselect(DB::raw('(CASE WHEN room.sender_user = "stylist" THEN sender_stylist.full_name
 											WHEN room.sender_user = "member" THEN sender_member.full_name
@@ -92,6 +92,7 @@ class ChatRepository {
 										->leftjoin('sg_member as sender_member', 'sender_member.id', '=', 'room.sender_id')
 										->leftjoin('sg_stylist as receiver_stylist', 'receiver_stylist.id', '=', 'room.receiver_id')
 										->leftjoin('sg_member as receiver_member', 'receiver_member.id', '=', 'room.receiver_id')
+										->leftjoin('sg_sourcing as sourcing', 'sourcing.id', '=', 'room.module_ref_id')
 										->with('room_last_message')
 										->where('room.is_active', 1)
 										->groupBy('room.chat_room_id');
@@ -124,10 +125,11 @@ class ChatRepository {
 			}else{
 			
 				$users = ChatRoom::from('sg_chat_room as room')
-								->select("room.*")
+								->select("room.*", 'sourcing.id as sourcing_id', 'sourcing.p_name as sourcing_title', 'sourcing.p_slug as sourcing_slug')
 								->addSelect(DB::raw("( SELECT cr2.created_at FROM sg_chat_room_messages AS cr2 WHERE cr2.chat_room_id = room.chat_room_id ORDER BY cr2.created_at DESC LIMIT 1) as last_message_on"))
 								->addSelect(DB::raw("( SELECT count(cr3.chat_message_id) FROM sg_chat_room_messages AS cr3 WHERE cr3.chat_room_id = room.chat_room_id AND cr3.receiver_id='".$auth_user['auth_id']."' AND cr3.receiver_user='".$auth_user['user_type']."' AND is_read=0 ) as unread_count"))
 								->with('room_last_message')
+								->leftjoin('sg_sourcing as sourcing', 'sourcing.id', '=', 'room.module_ref_id')
 								->where(function ($q) use($auth_user) {
 
 									$q->where(function ($q1) use($auth_user) {
@@ -218,8 +220,8 @@ class ChatRepository {
 
 								if($value->module == config('custom.chat_module.sourcing')){
 
-									$users[$key]->receiver_name = $receiver_info->dummy_name;
-									$users[$key]->receiver_profile = NULL;		
+									$users[$key]->receiver_name = $receiver_info->full_name;
+									$users[$key]->receiver_profile = $receiver_info->profile_image;	
 
 								}else{
 
@@ -309,7 +311,7 @@ class ChatRepository {
 
 								$doc_title = isset($value->media_name) ? time().'_'.strtok($value->media_name, '.') : time();
 
-								$doc_url = \Helper::upload_document($value->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title, false, true);
+								$doc_url = \Helper::upload_document($value->media_source, 'uploads/chat/'.$request->chat_room_id, $doc_title, false, true, isset($value->is_url) ? $value->is_url : false);
 								
 								if(!empty($doc_url)){
 
@@ -317,6 +319,12 @@ class ChatRepository {
 								}
 
 								unset($media_files[$key]->media_source);
+
+								if(isset($media_files[$key]->is_url)){
+
+									unset($media_files[$key]->is_url);
+
+								}
 	
 							}
 						}
@@ -396,22 +404,22 @@ class ChatRepository {
 		
 			$chat_message = ChatRoomMessage::select('msg.*')
 											->from('sg_chat_room_messages as msg')
-											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.dummy_name
+											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.full_name
 												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.full_name
 												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.full_name
 												WHEN msg.sender_user = "member" THEN sender_member.full_name
 												ELSE "" END) AS sender_name'))
-											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.dummy_name
+											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.full_name
 												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.full_name
 												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.full_name
 												WHEN msg.receiver_user = "member" THEN receiver_member.full_name
 												ELSE "" END) AS receiver_name'))
-											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN NULL
+											->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.profile_image
 												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.profile_image
 												WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.profile_image
 												WHEN msg.sender_user = "member" THEN sender_member.profile_image
 												ELSE "" END) AS sender_profile'))
-											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN NULL
+											->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.profile_image
 												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.profile_image
 												WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.profile_image
 												WHEN msg.receiver_user = "member" THEN receiver_member.profile_image
@@ -490,22 +498,22 @@ class ChatRepository {
 
 				}else{
 
-					$main_query = $main_query->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.dummy_name
+					$main_query = $main_query->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.full_name
 																	WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.full_name
 																	WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.full_name
 																	WHEN msg.sender_user = "member" THEN sender_member.full_name
 																	ELSE "" END) AS sender_name'))
-																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.dummy_name
+																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.full_name
 																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.full_name
 																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.full_name
 																	WHEN msg.receiver_user = "member" THEN receiver_member.full_name
 																	ELSE "" END) AS receiver_name'))
-																->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN NULL
+																->addselect(DB::raw('(CASE WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id != "'.$auth_user['user_id'].'"  THEN sender_stylist.profile_image
 																WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.sender_id = "'.$auth_user['user_id'].'" THEN sender_stylist.profile_image
 																WHEN msg.sender_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN sender_stylist.profile_image
 																WHEN msg.sender_user = "member" THEN sender_member.profile_image
 																ELSE "" END) AS sender_profile'))
-																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN NULL
+																->addselect(DB::raw('(CASE WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" THEN receiver_stylist.profile_image
 																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.sourcing').'" AND msg.receiver_id = "'.$auth_user['user_id'].'" THEN receiver_stylist.profile_image
 																	WHEN msg.receiver_user = "stylist" AND "'.$chat_room->module.'"="'.config('custom.chat_module.private').'" THEN receiver_stylist.profile_image
 																	WHEN msg.receiver_user = "member" THEN receiver_member.profile_image
@@ -577,15 +585,23 @@ class ChatRepository {
 
 				foreach ($chat_room_array as $key => $value) {
 					
-					$chat_room = new ChatRoom;
-					$chat_room->sender_id = $value['sender_id'];
-					$chat_room->sender_user = $value['sender_user'];
-					$chat_room->receiver_id = $value['receiver_id'];
-					$chat_room->receiver_user = $value['receiver_user'];
-					$chat_room->module = $value['module'];
-					$chat_room->module_ref_id = $value['module_ref_id'];
-					$chat_room->save();
+					if(isset($value['chat_room_id']) && $value['chat_room_id']){
 
+						$chat_room = ChatRoom::find($value['chat_room_id']);
+
+					}else{
+
+						$chat_room = new ChatRoom;
+						$chat_room->sender_id = $value['sender_id'];
+						$chat_room->sender_user = $value['sender_user'];
+						$chat_room->receiver_id = $value['receiver_id'];
+						$chat_room->receiver_user = $value['receiver_user'];
+						$chat_room->module = $value['module'];
+						$chat_room->module_ref_id = $value['module_ref_id'];
+						$chat_room->save();
+
+					}
+					
 					if($chat_room){
 
 						if(isset($value['message_obj']) && isset($value['auth_user'])){

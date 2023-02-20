@@ -429,7 +429,7 @@ class StylistController extends Controller
         }
     }
 
-    public function stylistSourcingRequestView($slug){
+    public function sourcingRequestView($slug){
         
         try {
 
@@ -439,7 +439,7 @@ class StylistController extends Controller
             
         }catch(\Exception $e){
 
-            Log::info("stylistSourcingRequestView error - ". $e->getMessage());
+            Log::info("sourcingRequestView error - ". $e->getMessage());
             return redirect()->back();
         }
 

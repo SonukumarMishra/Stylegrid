@@ -16,7 +16,7 @@
                    
                   @foreach ($grid->cart_items_details as $p_key => $p_val)
                      
-                     <div class="row mx-md-2 mx-1 my-1 border-bottom">
+                     <div class="row mx-md-2 mx-1 my-1 border-bottom cart-product-div" data-cart-dtls-id="{{ $p_val->cart_dtls_id}}" data-cart-id="{{ $p_val->cart_id}}">
                         <div class="col-9 row">
    
                            <div class="form-group col-4">

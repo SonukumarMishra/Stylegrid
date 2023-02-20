@@ -18,14 +18,6 @@
 
                   </div>
                   
-                    {{-- <div class="col-md-4 quick-link text-right"> --}}
-
-                        {{-- <span class="mr-5"><a hrf="">Quick Link</a></span> --}}
-
-                        {{-- <div class="row justify-content-end my-2">
-
-                        <button class="grid-btn m-0 mr-1" id="send_to_client_btn">Send to Client</button>
-                    </div> --}}
                 </div>
 
                </div>
@@ -38,6 +30,13 @@
                <div class="row" id="cart_container">
 
                </div>
+
+               <div class="row col-12 d-flex justify-content-end">
+
+                    <button class="submit-request" id="send_items_tochat_btn" style="display:none;">Chat To Stylist</button>
+
+                </div>
+                
    
          </div>
 

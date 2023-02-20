@@ -353,4 +353,21 @@ class MemberController extends Controller
 
         }
     }
+
+    public function sourcingRequestView($slug){
+        
+        try {
+
+            $sourcing_details = SourcingRepo::getSourcingRequestDetails($slug);
+
+            return view('member.dashboard.sourcing.view', compact('sourcing_details'));
+            
+        }catch(\Exception $e){
+
+            Log::info("sourcingRequestView error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+    }
+
 }

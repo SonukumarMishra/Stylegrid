@@ -98,7 +98,7 @@ use App\Http\Controllers\CommonController;
  Route::get('/stylist-submit-request-complete', [Stylist::class, 'stylistSubmitRequestComplete']);
  Route::get('/stylist-offer-received/{title}', [Stylist::class, 'stylistOfferReceived']);
  Route::post('/stylist-accept-offer', [Stylist::class, 'stylistAcceptOffer']);
- Route::get('/stylist-sourcing/{title}', [Stylist::class, 'stylistSourcingRequestView'])->name('stylist.sourcing.view');
+ Route::get('/stylist-sourcing/{title}', [Stylist::class, 'sourcingRequestView'])->name('stylist.sourcing.view');
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
 
@@ -127,6 +127,7 @@ Route::get('/member-dashboard', [Member::class, 'memberDashboard']);
 Route::get('/member-sourcing', [Member::class, 'memberSourcing']);
 Route::post('/member-sourcing-live-requests-json', [Member::class, 'getMemberSourcingLiveRequests'])->name('member.sourcing.live.requests');
 Route::get('/offer-received/{title}', [Member::class, 'memberOfferReceived']);
+Route::get('/member-sourcing/{title}', [Member::class, 'sourcingRequestView'])->name('member.sourcing.view');
 Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccessful']);
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);
 Route::post('/member-decline-offer', [Member::class, 'memberDeclineOffer']);
@@ -167,6 +168,7 @@ Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {
   Route::post('add', 'Member\CartController@addToCart')->name('add');
   Route::post('remove', 'Member\CartController@removeCartItems')->name('remove');
   Route::post('list', 'Member\CartController@getCartList')->name('list');
+  Route::post('send-to-messanger', 'Member\CartController@sendCartItemsToMessanger')->name('send_to_messanger');
 });
 
 //member section End

@@ -586,6 +586,11 @@
 
                 html += '                   <span class="list-name">'+(val.receiver_name)+'</span>';
 
+                if(val.sourcing_title  != undefined && val.sourcing_title != '' && val.sourcing_title != null){
+                    
+                    html +=             '<p class="list-name mb-0">'+val.sourcing_title+'</p>';
+
+                }
                 if(val.room_last_message != '' && val.room_last_message != null){
 
 
@@ -908,7 +913,13 @@
 
             // update info in view
 
-            $(".active-chat-box-user-name").html(room_dtls.receiver_name);
+            var temp_active_chat_title = room_dtls.receiver_name;
+            
+            if(room_dtls.sourcing_title != undefined && room_dtls.sourcing_title != null){
+                temp_active_chat_title += ' - <a href="'+chat_baseurl+'stylist-sourcing/'+room_dtls.sourcing_slug+'" target="_blank">'+room_dtls.sourcing_title+'</a>';
+            }
+
+            $(".active-chat-box-user-name").html(temp_active_chat_title);
 
             $('.active-chat-box-online-status').data('receiver-id', room_dtls.receiver_id);
 
@@ -1194,7 +1205,9 @@
 
                             });
 
-
+                            if(val.message != ''){
+                                html += '<p class="col-12 mb-0">'+val.message+'</p>';
+                            }
 
                         html += '      </div>';
 

@@ -359,7 +359,7 @@
 
                                         <label for="">What is the product type? (Bag, Dress, Heels etc)</label>
 
-                                        <input type="text"  name="product_type" class="form-control submit-input"
+                                        <input type="text"  name="product_type" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)" class="form-control submit-input"
 
                                              placeholder="Enter product type..."  required>
 
@@ -371,7 +371,7 @@
 
                                         <label for="">Enter the price of product here:</label>
 
-                                        <input type="number" name="product_price" class="form-control submit-input"
+                                        <input type="number" name="product_price" min="0" class="form-control submit-input"
 
                                              placeholder="Enter product price..." required>
 
@@ -383,7 +383,7 @@
 
                                         <label for="">Does the product have a size? Leave blank if none.</label>
 
-                                        <input type="text" name="product_size" class="form-control submit-input"
+                                        <input type="text" name="product_size" onkeypress="return /[0-9a-zA-Z]/i.test(event.key)"  maxlength="25"  class="form-control submit-input"
 
                                              placeholder="Enter product size...">
 

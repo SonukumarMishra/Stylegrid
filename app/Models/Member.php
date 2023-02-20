@@ -264,7 +264,7 @@ class Member extends Model
 				$sourcing_stylist = Stylist::where([
 														'id' => $sourcing_offer_dtls->stylist_id
 													])
-											->select('gender', 'dummy_name')							
+											->select('gender', 'dummy_name', 'full_name')							
 											->first();
 
 				if($sourcing_dtls->member_stylist_type == 0 ){
@@ -294,7 +294,7 @@ class Member extends Model
 
 				$message_obj = [
 					'message' => trans('pages.sourcing_chat_default_message', [
-						'name' => $sourcing_stylist && $sourcing_stylist->dummy_name != null ? $sourcing_stylist->dummy_name : '',
+						'name' => $sourcing_stylist && $sourcing_stylist->full_name != null ? $sourcing_stylist->full_name : '',
 						'gender' =>  $sourcing_stylist && $sourcing_stylist->gender == 'Female' ? 'She' : ($sourcing_stylist->gender == 'Male' ? 'He' : ''),
 						'sourcing_title' => $sourcing_stylist && $sourcing_dtls->p_name ? $sourcing_dtls->p_name : ''
 					]),

@@ -22,6 +22,7 @@
         };
 
         CartRef.cartCurrentPage = 1;
+        CartRef.cartItemsCount = 0;
         CartRef.cartTotalPage = 0;
         CartRef.isActiveAjax = false;
 
@@ -42,6 +43,55 @@
                 });
 
             });
+
+            $('body').on('click', '#send_items_tochat_btn', function(e) {
+
+                e.preventDefault();
+               
+                var cart_dtls_ids = [];
+                var cart_id = '';
+
+                $(".cart-product-div").each(function (key, val) {
+
+                    cart_dtls_ids.push($(this).data('cart-dtls-id'));
+                    cart_id = $(this).data('cart-id');
+                });
+                
+                if(cart_dtls_ids.length > 0){
+
+                    showLoadingDialog();
+
+                    var formData = new FormData();
+                    formData.append('cart_dtls_ids', JSON.stringify(cart_dtls_ids));
+                    formData.append('cart_id', cart_id);
+
+                    window.getResponseInJsonFromURL('{{ route("member.cart.send_to_messanger") }}', formData, (response) => {
+
+                        hideLoadingDialog();
+
+                        if (response.status == '1') {
+
+                            manageCartBadgeCount(response.data.cart_items_count);
+
+                            CartRef.cartItemsCount = response.data.cart_items_count;
+                            CartRef.showHideSendToStylistBtn();
+                    
+                            window.location.href = '{{ route("member.messanger.index") }}';
+
+                        } else {
+                            showErrorMessage(response.error);
+                        }
+
+
+                    }, processExceptions, 'POST');
+
+                }else{
+                    showErrorMessage('Unable to process your request.');
+                    return false;
+                }
+
+            });
+
 
             $(window).scroll(function() {
                        
@@ -109,6 +159,9 @@
                     
                     manageCartBadgeCount(response.data.cart_items_count);
 
+                    CartRef.cartItemsCount = response.data.cart_items_count;
+                    CartRef.showHideSendToStylistBtn();
+
                     $('#cart_container').append(response.data.view);
                     
                 } else {
@@ -120,6 +173,19 @@
            
         };
         
+        CartRef.showHideSendToStylistBtn = function(e) {
+        
+                if(CartRef.cartItemsCount > 0){
+
+                    $('#send_items_tochat_btn').show();
+
+                }else{
+
+                    $('#send_items_tochat_btn').hide();
+                    
+                }
+        }
+
         CartRef.initEvents();
 
     };

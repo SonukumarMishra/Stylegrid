@@ -92,7 +92,7 @@ class SourcingRepository {
 										->where('sg_sourcing.member_stylist_type', '=' , config('custom.sourcing.sourcing_user_type.stylist'))
 										->where('sg_sourcing.member_stylist_id', '=', $request->user_id)
 										->pluck('id');
-										
+
 			DB::connection()->enableQueryLog();
 
 			$list = Sourcing::from('sg_sourcing')
