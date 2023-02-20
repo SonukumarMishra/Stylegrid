@@ -63,7 +63,7 @@
                 $('#unread-notifications-container').append(html);
 
             }else{
-                $('#unread-notifications-container').append('<h6 class="text-center text-muted mt-2 mb-2">No Notifications!</h6>');
+                $('#unread-notifications-container').append('<h6 class="header-notification text-center text-muted mt-2 mb-2">No Notifications!</h6>');
             }
 
         }

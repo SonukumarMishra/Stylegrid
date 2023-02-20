@@ -2988,3 +2988,43 @@ transform: rotate(180deg);
   width: 105px;
   object-fit: cover;
 }
+.header-notification{
+  font-family: 'Genos' !important;
+}
+.notification-footer{
+  font-family: 'Silk Serif Medium';
+    color: #000 !important;
+}
+.notification-footer:hover{
+  color: #00A82F !important;
+}
+#notify-all-read-btn,#notify-badge-count-title{
+  font-family: 'Genos' !important;
+ 
+ }
+ #notify-badge-count-title{
+  font-family: 'Genos' !important;
+  color: #000;
+ }
+ #unread-notifications-container .media-heading{
+  font-family: 'Genos' !important;
+  color: #000;
+ }
+ #unread-notifications-container .notification-text{
+  font-family: 'Genos' !important;
+  /* color: #000; */
+ }
+ .gridcreated_j{
+  background: rgba(255,255,255,0.4);
+    width: 35%;
+    padding: 3px 22px;
+}
+.gridcreated_j h4{
+  font-family: 'Genos';
+}
+.stylegrid-bg-img .img-grid-name{
+  background: rgba(0,0,0,0.5);
+    padding-bottom: 8px;
+    padding-left: 10px;
+    font-family: 'Genos';
+}

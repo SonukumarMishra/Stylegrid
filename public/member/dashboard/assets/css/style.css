@@ -2,9 +2,8 @@
   font-family: 'Genos';
   src: url(../font/genos/fonts/ttf/Genos-Regular.ttf);
 }
-             v        mvokuuuuuuuuuuuuuuuuv   fcvmaz>
 @font-face {
- v     font-family: 'Genos-Light';
+  font-family: 'Genos-Light';
   src: url(../font/genos/fonts/ttf/Genos-Light.ttf);
 }
 
@@ -3053,3 +3052,28 @@ margin-bottom: 23px; */
   font-family: 'Genos' !important;
   color: #6b6f80;
 }
+.header-notification{
+  font-family: 'Genos' !important;
+}
+.notification-footer{
+  font-family: 'Silk Serif Medium';
+    color: #000 !important;
+}
+.notification-footer:hover{
+  color: #00A82F !important;
+}
+#notify-all-read-btn,#notify-badge-count-title{
+  font-family: 'Genos' !important;
+ }
+ #notify-badge-count-title{
+  font-family: 'Genos' !important;
+  color: #000;
+ }
+ #unread-notifications-container .media-heading{
+  font-family: 'Genos' !important;
+  color: #000;
+ }
+ #unread-notifications-container .notification-text{
+  font-family: 'Genos' !important;
+  /* color: #000; */
+ }

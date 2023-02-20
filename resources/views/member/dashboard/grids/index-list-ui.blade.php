@@ -13,7 +13,7 @@
 
                         <div class="col-8">
 
-                            <h1 class="ml-2 mt-3">{{ $grid->title }}</h1>
+                            <h1 class="ml-2 mt-3 img-grid-name">{{ $grid->title }}</h1>
 
                         </div>
 

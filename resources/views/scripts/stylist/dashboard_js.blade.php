@@ -154,7 +154,7 @@
 
                     html += '           </div>';
 
-                    html += '           <a href="'+chat_baseurl+'stylist-messanger/'+val.chat_room_id+'" class="d-flex align-items-center "><h6>'+(val.receiver_name)+'</h6></a>';
+                    html += '           <a href="'+chat_baseurl+'stylist-messanger/'+val.chat_room_id+'" class="d-flex align-items-center header-notification"><h6>'+(val.receiver_name)+'</h6></a>';
 
                     html += '       </div>';
 

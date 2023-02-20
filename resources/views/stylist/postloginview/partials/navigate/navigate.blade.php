@@ -40,7 +40,7 @@
                               
                               </li>
                               <li class="dropdown-menu-footer">
-                                <a class="p-50 text-primary d-flex justify-content-center" href="{{ route('stylist.notifications.index') }}">View all notifications</a>
+                                <a class="p-50  d-flex justify-content-center notification-footer" href="{{ route('stylist.notifications.index') }}">View all notifications</a>
                               </li>
                             </ul>
                         </li> 
