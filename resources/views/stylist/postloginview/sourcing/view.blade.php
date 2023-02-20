@@ -84,7 +84,7 @@
                                         
                                         <div class="mt-2">
 
-                                            <a href="{{ route('stylist.messanger.index', ['chat_room_id' => $sourcing_details->sourcing_chat_room->chat_room_id])}}" class="accept-btn px-3">Chat with Stylist</a> 
+                                            <a href="{{ route('stylist.messanger.index', ['chat_room_id' => $sourcing_details->sourcing_chat_room->chat_room_id])}}" class="accept-btn px-3">Chat with Member</a> 
 
                                         </div>
                                         

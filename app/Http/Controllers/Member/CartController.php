@@ -263,23 +263,7 @@ class CartController extends BaseController
 
                         CartDetails::whereIn('cart_dtls_id', $remove_cart_items_ids)->delete();
 
-                        $existing_cart_items_count = CartDetails::where([
-                                                                    'cart_id' => $request->cart_id,
-                                                                    'is_active' => 1
-                                                                ])
-                                                                ->count();
-
-                        if($existing_cart_items_count == 0){
-
-                            Cart::where([
-                                    'association_id' => $auth_user['auth_id'],
-                                    'association_type_term' => $auth_user['auth_user'],
-                                    'cart_id' => $request->cart_id,
-                                    'is_active' => 1
-                                    ])
-                                    ->delete();
-
-                        }
+                        CartRepo::update_user_cart($request, $auth_user);
 
                         $result = true;
 

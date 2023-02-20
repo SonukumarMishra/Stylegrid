@@ -173,6 +173,48 @@ class CartRepository {
 
 	}
 
+	public static function update_user_cart($request, $auth_user) {
+
+		$result = true;
+
+		try{
+			
+			$user_cart = Cart::where([
+								'association_id' => $auth_user['auth_id'],
+								'association_type_term' => $auth_user['auth_user'],
+								'is_active' => 1
+							])->first();
+
+			if($user_cart){
+
+				$existing_cart_items_count = CartDetails::where([
+															'cart_id' => $user_cart->cart_id,
+															'is_active' => 1
+														])
+														->count();
+
+				if($existing_cart_items_count == 0){
+
+					Cart::where([
+						'association_id' => $auth_user['auth_id'],
+						'association_type_term' => $auth_user['auth_user'],
+						'is_active' => 1
+					])->delete();
+
+				}
+
+			}
+			
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error update_user_cart ". print_r($e->getMessage(), true));
+			return $result;
+        }
+
+	}
+
 	public static function get_user_cart_items_count($auth_user) {
 
 		$total_items = 0;

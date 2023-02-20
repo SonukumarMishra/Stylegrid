@@ -37,7 +37,7 @@
                 <li class=" nav-item"><a href="{{ route('member.messanger.index') }}" class="{{ request()->is('member-messanger*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('member-messanger*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Messenger</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('member.cart.index') }}" class="{{ request()->is('member-cart*') ? 'active' : '' }}"><i class="ft-monitor"></i><span class="menu-title"
                             data-i18n="">Shop</span></a>
                 </li>
                 <li class=" nav-item"><a href="{{ url('/member-grid') }}" class="{{ request()->is('member-grid*') ? 'active' : '' }}"><i class="ft-layout {{ request()->is('member-grid*') ? 'active' : '' }}"></i><span class="menu-title"

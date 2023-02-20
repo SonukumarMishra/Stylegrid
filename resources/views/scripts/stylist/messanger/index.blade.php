@@ -1205,7 +1205,7 @@
 
                             });
 
-                            if(val.message != ''){
+                            if(val.message != '' && val.message != null){
                                 html += '<p class="col-12 mb-0">'+val.message+'</p>';
                             }
 

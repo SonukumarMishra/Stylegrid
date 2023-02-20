@@ -217,7 +217,8 @@
                     "url" : "{{ route('options.stylist_clients') }}",
                     "data": function ( d ) {
                         d._token = $('meta[name="csrf-token"]').attr('content'),
-                        d.stylegrid_id = $('#stylegrid_id').val()
+                        d.stylegrid_id = $('#stylegrid_id').val(),
+                        d.stylist_id = auth_id
                         // d.member_ids = JSON.stringify(ViewGridRef.selectedClientIds)
                     }, 
                     "dataSrc" : function (json) {
