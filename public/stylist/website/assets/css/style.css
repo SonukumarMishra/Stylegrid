@@ -614,6 +614,7 @@ color: #7A7A7A;
   font-size:16px;
   font-family:'Genos';
   line-height: 1;
+  cursor:  pointer;
  }
  #add-preferred input[type=checkbox] {
   display: none;
@@ -1329,7 +1330,7 @@ color: #7A7A7A;
 .tags-input .tag{
     padding-top:2px ;
     padding-bottom: 2px;
-    border: 2px solid #5f6368;
+    border: 1px solid #5f6368;
     border-radius: 10px;
     padding-left: 7px;
     padding-right: 7px;
@@ -1351,6 +1352,7 @@ color: #7A7A7A;
     padding-right: 4px;
     color: black;
     font-weight: bolder;
+    margin-top: -5px;
 }
 
 .tags-input .autocomplete {

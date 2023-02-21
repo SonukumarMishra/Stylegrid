@@ -371,11 +371,11 @@ function addMember(){
             if(response['stylist_data']['profile_image']!=''){
               image=response['stylist_data']['profile_image'];
             }
-            $('#stylist_image').html('<img src="http://stylist.stylegrid.com/stylist/attachments/profileImage/'+image+'" alt="" style="width:50%;">');
+            $('#stylist_image').html('<img src="http://stylist.stylegrid.com/stylist/attachments/profileImage/'+image+'" alt="" class="img-fluid w-75">');
             $('#stylist_sort_bio').html(response['stylist_data']['short_bio']);
           }else{
             $('#stylist_name').html('We will assign Stylist for you soon.');
-            $('#stylist_image').html('<img src="http://stylist.stylegrid.com/stylist/attachments/profileImage/default_image.png" alt="" style="width:50%;">');
+            $('#stylist_image').html('<img src="http://stylist.stylegrid.com/stylist/attachments/profileImage/default_image.png" alt="" class="img-fluid w-75">');
             $('#stylist_sort_bio').html('need to set default update Sort bio');
           }
         }else{

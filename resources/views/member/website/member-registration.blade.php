@@ -504,9 +504,9 @@
 
                 <div class="row my-4">
 
-                    <div class="col-md-5 text-lg-left text-center" id="stylist_image">
+                    <div class="col-md-5 text-center" id="stylist_image">
 
-                        <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" alt="">
+                        <img src="{{ asset('member/website/assets/images/IMG_0104 1.png') }}" class="w-75 img-fluid" alt="">
 
                     </div>
 

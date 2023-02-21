@@ -134,7 +134,7 @@
                     @csrf
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="select-admin-grid py-1 ">
+                        <div class="select-admin-grid py-1 admin-upload-img-height">
                             <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
                                 <div class="Neon Neon-theme-dragdropbox ">
                                     <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
@@ -144,7 +144,7 @@
                                             <div class="Neon-input-text"></div>
                                             <div class="Neon-input-choose-btn blue" id="add_update_image_preview">
                                                 <div class="text-center">
-                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
+                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview border"></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -459,7 +459,7 @@
                                 home_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 Home_product_counter" id="product'+response['home_products'][i]['id']+'">';
                                 home_html +='<div class="admin-grid" type="button" class="" >'; 
                                 home_html +='<div class="admin-delete px-1"><a href="javascript:void(0)" onClick="removeProduct('+response['home_products'][i]['id']+')"><img  src="'+constants.base_url+'/admin-section/assets/images/delete.png" class="img-fluid" ></a></div>';
-                                home_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['home_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/home/'+response['home_products'][i]['image']+'" class=" border img-fluid"></a>';
+                                home_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['home_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/home/'+response['home_products'][i]['image']+'" class="fashion-img border img-fluid"></a>';
                                 home_html +='</div>';
                                 home_html +='</div>';
                             }
@@ -476,7 +476,7 @@
                                 beauty_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 Beauty_product_counter" id="product'+response['beauty_products'][i]['id']+'">';
                                 beauty_html +='<div class="admin-grid" type="button" class="">'; 
                                 beauty_html +='<div class="admin-delete px-1"><a href="javascript:void(0)" onClick="removeProduct('+response['beauty_products'][i]['id']+')"><img  src="'+constants.base_url+'/admin-section/assets/images/delete.png" class="img-fluid" ></a></div>';
-                                beauty_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['beauty_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/beauty/'+response['beauty_products'][i]['image']+'" class=" border img-fluid"></a>';
+                                beauty_html +='<a href="javascript:void(0)"  onClick="viewProducts('+response['beauty_products'][i]['id']+')"><img src="'+constants.base_url+'/attachments/products/beauty/'+response['beauty_products'][i]['image']+'" class=" fashion-img border img-fluid"></a>';
                                 beauty_html +='</div>';
                                 beauty_html +='</div>';
                             }
@@ -570,7 +570,7 @@
                             $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
                         }else{
                             $('#check_image').val(1);
-                            $('#add_update_image_preview').html('<div class="text-center"><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview"></div>');
+                            $('#add_update_image_preview').html('<div class="text-center"><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview border"></div>');
                         }
                     }else{
                         //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');

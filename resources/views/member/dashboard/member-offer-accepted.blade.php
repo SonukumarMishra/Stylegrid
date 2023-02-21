@@ -8,8 +8,7 @@
         <div class="row mt-md-3">
             <div class="col-8">
                 <h1>Congratulations! You have accepted an offer.</h1>
-                <h3>You are one step closer to receving your dream product. The stylist who is fufilling your+9*869\-*//6
-                    request has been notified and will be in touch shortly. Feel free to drop them a message
+                    <h3>You are one step closer to receving your dream product. The stylist who is fufilling your request has been notified and will be in touch shortly. Feel free to drop them a message
                     now.</h3>
             </div>
             <div class="col-4 quick-link text-right">
