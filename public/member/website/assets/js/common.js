@@ -371,7 +371,7 @@ function addMember(){
             if(response['stylist_data']['profile_image']!=''){
               image=response['stylist_data']['profile_image'];
             }
-            $('#stylist_image').html('<img src="http://stylist.stylegrid.com/stylist/attachments/profileImage/'+image+'" alt="" class="img-fluid w-75">');
+            $('#stylist_image').html('<img src="'+image+'" alt="" class="img-fluid w-75">');
             $('#stylist_sort_bio').html(response['stylist_data']['short_bio']);
           }else{
             $('#stylist_name').html('We will assign Stylist for you soon.');
