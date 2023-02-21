@@ -35,14 +35,12 @@
                     <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                         <input name="source_image" id="source_image" multiple="multiple"  type="file">
                         <div class="Neon-input-dragDrop py-5 px-4">
-                            <div class="Neon-input-inner py-4">
+                            <div class="Neon-input-inner py-4" id="source_image_preview_section">
                                 <div class="Neon-input-text ">
                                     <h3>Upload an image of the product here</h3>
                                 </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('member/dashboard/app-assets/images/icons/plus.png') }}" alt="" id="image_preview"></a>
-                                <div id="image_error" class="error"></div>
-                                <div id="divImageMediaPreview"></div>
-                                <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
                             </div>
+                            <div id="image_error" class="error"></div>
                         </div>
                     </div>
                 </div>

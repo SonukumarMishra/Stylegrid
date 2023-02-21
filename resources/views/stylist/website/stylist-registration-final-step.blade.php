@@ -73,14 +73,15 @@
                         <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                             <input name="profile_image" id="frame-image" multiple="multiple"  type="file">
                             <div class="Neon-input-dragDrop py-5 px-4">
-                                <div class="Neon-input-inner py-4">
+                                <div class="Neon-input-inner py-4" id="profile_image_preview_section">
                                     <div class="Neon-input-text ">
                                         <h3>Upload your profile</br> picture here</h3>
-                                    </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('/stylist/website/assets/images/plus.png') }}" alt="" id="image_preview"></a>
-                                    <div id="image_error" class="error"></div>
-                                    <div id="divImageMediaPreview"></div>
-                                    <a href="javascript:void(0)" style="display: none;" id="image_preview_remove">Remove</a>
+                                    </div>
+                                    <a class="Neon-input-choose-btn blue">
+                                        <img  src="{{ asset('/stylist/website/assets/images/plus.png') }}" alt="" id="image_preview">
+                                    </a>
                                 </div>
+                                <div id="image_error" class="error"></div>
                             </div>
                         </div>
                     </div>

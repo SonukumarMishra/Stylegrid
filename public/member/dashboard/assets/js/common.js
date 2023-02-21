@@ -51,45 +51,57 @@ $(function(){
         }
     })
 
-    $('#image_preview_remove').click(function(){
-        $("#source_image").val('');
-        $('#image_preview_remove').hide();
-        $("#divImageMediaPreview").html('');
-    })
-    $("#source_image").change(function () {
-        $('#image_error').html('');
-        if (typeof (FileReader) != "undefined") {
-            var dvPreview = $("#divImageMediaPreview");
-            dvPreview.html("");            
-           // $($(this)[0].files).each(function () {
-                var file = $(this)[0].files;//$(this); 
-                var ext = $('#source_image').val().split('.').pop().toLowerCase();
-                if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
-                    $('#image_error').html('Invalid Image Format! Image Format Must Be<br> JPG, JPEG, PNG or GIF.');
-                    $("#source_image").val('');
-                    return false;
-                }else{
-                    var image_size = (this.files[0].size);
-                    if(image_size>1000000){
-                        $('#image_error').html('Maximum File Size Limit is 1MB');
-                        $("#source_image").val('');
-                        return false;
-                    }else{
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            var img = $("<img />");
-                            img.attr("style", "width: 150px; height:100px; padding: 10px");
-                            img.attr("src", e.target.result);
-                            dvPreview.append(img);
-                        }
-                        $('#image_preview_remove').show();
-                       reader.readAsDataURL(file[0]);
-                    }
-                     
+$("#source_image").change(function () {
+    if (typeof (FileReader) != "undefined") {
+      $('.error').html('');
+        $('#source_image_preview_section').html('');
+       var dvPreview = $("#source_image_preview_section");
+        $('#image_error').html('');        
+        // $($(this)[0].files).each(function () {
+        var file = $(this)[0].files;//$(this); 
+        var ext = $('#source_image').val().split('.').pop().toLowerCase();
+        if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+            $('#image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
+            var html ='';
+            html +='<div class="Neon-input-text ">';
+            html +='<h3>Upload an image of the</br> product here</h3>';
+            html +='</div>';
+            html +='<a class="Neon-input-choose-btn blue">';
+            html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+            html +='</a>';
+            $("#source_image_preview_section").html(html);
+            $("#source_image").val('');
+            return false;
+        }else{
+            var image_size = (this.files[0].size);
+            if(image_size>5000000){
+                var html ='';
+                html +='<div class="Neon-input-text ">';
+                html +='<h3>Upload an image of the</br> product here</h3>';
+                html +='</div>';
+                html +='<a class="Neon-input-choose-btn blue">';
+                html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+                html +='</a>';
+                $("#source_image_preview_section").html(html);
+                $('#image_error').html('Maximum File Size Limit is 5 MB');
+                $("#source_image").val('');
+                return false;
+            }else{
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                var html ='';
+                html ='<img  src="'+e.target.result+'"/ style="width: 300px; height:300px; padding: 10px">';
+                html +='<div class="text-center">';
+                html +='<a href="javascript:void(0)" onClick="removeImage()" id="image_preview_remove">Remove</a>';
+                html +='</div>';
+                dvPreview.append(html);
                 }
-           // });
+                reader.readAsDataURL(file[0]);
+            }     
         }
-    });
+   // });
+    }
+  });
     $("#deliver_date" ).datepicker({ minDate: 0});
     $('#submit-request-btn').click(function(){
        var status=sourceFormValidation();
@@ -195,6 +207,18 @@ $(function(){
         }
     })
 })
+
+function removeImage(){
+    var html ='';
+     html +='<div class="Neon-input-text ">';
+     html +='<h3>Upload an image of the</br> product here</h3>';
+     html +='</div>';
+     html +='<a class="Neon-input-choose-btn blue">';
+     html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+     html +='</a>';
+     $("#source_image_preview_section").html(html);
+     $("#source_image").val('');
+   }
 
 function sourceFormValidation(){
     $('.error').html('');

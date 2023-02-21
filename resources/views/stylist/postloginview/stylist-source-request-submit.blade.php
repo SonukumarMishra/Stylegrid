@@ -43,7 +43,7 @@
                         <img src="{{asset('stylist/app-assets/images/gallery/TickBox.png')}}" class="img-fluid" alt="">
                     </div>
                     <div class="col-12 text-center mt-3">
-                        <a href="/stylist-sourcing"><button class="back-dashboard px-2">Back to dashboard</button></a>
+                        <a href="/stylist-sourcing"><button class="back-dashboard px-2">Back to sourcing</button></a>
                     </div>
                 </div>
             </div>
