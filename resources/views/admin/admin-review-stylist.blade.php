@@ -24,7 +24,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-6 mt-lg-0 mt-2">
+                    <!-- <div class="col-lg-6 mt-lg-0 mt-2">
                         <div class="row justify-content-lg-end justify-content-center mr-lg-5">
                            <div class="dropdown mx-2">
                                     <button class="sort-by dropdown-toggle px-2 " type="button"
@@ -41,7 +41,7 @@
                                 </div>
                             <button class="filter-by px-2">Filter By</button>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="text-center add-table-border mt-3">
                     <table class="table  w-100 table-responsive" id="stylist_list_table">
@@ -64,6 +64,31 @@
                     </table>
                 </div>
                  
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="cancelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content pt-1">
+                <div class="mr-2">
+    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="message" id="message_box"></div>
+                    <h1 id="alert_message"></h1>
+                    <div class="row justify-content-center mt-2">
+                        <input type="hidden" id="update_status_id" name="update_status_id">
+                        <input type="hidden" id="update_id" name="update_id">
+                        <div><a href="javascript:void(0)"><button class="cancel-btn px-3" type="button" id="update_stylist_status"></button></a></div>
+                        <div><a href=""><button class="back-btn ml-2" type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">Go Back</button></a></div>
+                    </div>
+                </div>
+    
             </div>
         </div>
     </div>
@@ -194,10 +219,10 @@
           "footerCallback": function ( row, data, start, end, display ) {
           }
         });
-         
-    })
-    function updateStylistStatus(id,status){
-        if(id>0){
+         $('#update_stylist_status').click(function(){
+            var id=$('#update_id').val();
+            var status=$('#update_status_id').val();
+            if(id>0){
             $.ajax({
                 url : '/admin-update-stylist-status',
                 method : "POST",
@@ -214,12 +239,27 @@
                         setTimeout(function(){
                             stylist_list_table_html.ajax.reload();
                         }, 500);
+                        $('#cancel').modal('hide');
                     }else{
                         $('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
                     }
                 }
             })
         }
+         })
+    })
+
+    function updateStylistStatus(id,status){
+        if(status==1){
+            $('#update_stylist_status').html('Approve');
+            $('#alert_message').html('Are you sure you&apos;d like to Approve  this Stylist Applications?');
+        }else if(status==2){
+            $('#update_stylist_status').html('Reject');
+            $('#alert_message').html('Are you sure you&apos;d like to Reject  this Stylist Applications?');
+        }
+        $('#update_id').val(id);
+        $('#update_status_id').val(status);
+        $('#cancel').modal('show');
     }
 </script>
  @stop

@@ -176,7 +176,7 @@ class MemberController extends Controller
     public function memberSubmitRequestPost(Request $request){
         if($request->ajax()){
             $member=new Member();
-            if(!$member->sourceNameExistance(['p_name'=>$request->product_name])){
+            if(!$member->sourceNameExistance(['p_name'=>ucfirst($request->product_name)])){
                 $source_image_name='';
                 $source_image= $request->file('source_image');
                 if(!empty($source_image)){
@@ -192,7 +192,7 @@ class MemberController extends Controller
                     $brand_data=$member->addUpdateData(['id'=>0,'name'=>$request->brand,'brand_mg'=>1],'sg_brand');
                     $brand=$brand_data['reference_id'];
                 }
-                $product_name=$request->product_name;
+                $product_name=ucfirst($request->product_name);
                 $product_type=$request->product_type;
                 $product_size=$request->product_size;
                 $country=$request->country;

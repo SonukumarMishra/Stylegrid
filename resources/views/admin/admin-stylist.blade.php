@@ -16,15 +16,13 @@
                 <div class="row mt-3">
                     <div class="col-lg-6">
                         <div class="search-container-member">
-                            <form action="/action_page.php">
+                            <form action="">
                                 <input type="text" placeholder="Search by name..." name="search" id="search-box"
                                     class="px-2 search-top">
-                                <button type="submit"><img src="app-assets/images/icons/Search-right.png"
-                                        alt=""></button>
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-6 mt-lg-0 mt-2">
+                    <!--<div class="col-lg-6 mt-lg-0 mt-2">
                         <div class="row justify-content-lg-end justify-content-center mr-lg-5">
                            <div class="dropdown mx-2">
                                     <button class="sort-by dropdown-toggle px-2 " type="button"
@@ -41,7 +39,7 @@
                                 </div>
                             <button class="filter-by px-2">Filter By</button>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="text-center add-table-border mt-3">
                     <table class="table  w-100 table-responsive" id="stylist_list_table">

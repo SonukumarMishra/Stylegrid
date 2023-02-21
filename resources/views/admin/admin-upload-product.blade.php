@@ -144,7 +144,7 @@
                                             <div class="Neon-input-text"></div>
                                             <div class="Neon-input-choose-btn blue" id="add_update_image_preview">
                                                 <div class="text-center">
-                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview border"></button>
+                                                    <button class="add-item px-1"  type="button"><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview border"></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -370,7 +370,7 @@
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
                     $('#product_image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
                     var html ='';
-                    html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+                    html +='<div class="text-center mt-1"><button class="add-item" type="button">+</button></div>';        
                     $("#add_update_image_preview").html(html);
                     $("#product-image").val('');
                     $('#check_image').val(0);
@@ -379,7 +379,7 @@
                     var image_size = (this.files[0].size);
                     if(image_size>5000000){
                         var html ='';
-                        html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+                        html +='<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>';        
                         $("#add_update_image_preview").html(html);
                         $('#product_image_error').html('Maximum File Size Limit is 5 MB');
                         $("#product-image").val('');
@@ -411,7 +411,7 @@
         $("#product-image").val('');
         $('#image_preview_remove').hide();
         var html ='';
-        html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
+        html +='<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>';        
         $("#add_update_image_preview").html(html);
         $('#check_image').val(0);
     }
@@ -444,7 +444,7 @@
                             fashion_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             fashion_html +='<div class="select-admin-grid py-3 " type="button" type_id="Fashion" class="" onClick="AddProduct(this)">';
                             fashion_html +='<div><h6 class="add-item-here pt-2">Add an item here</h6></div>';
-                            fashion_html +='<div class="text-center mt-1"> <button class="add-item">+</button></div>';
+                            fashion_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
                             fashion_html +='</div>';
                             fashion_html +='</div>';
                             $('#fashion_product_section').html(fashion_html);
@@ -459,8 +459,8 @@
                             }
                             home_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             home_html +='<div class="select-admin-grid py-3 " type="button" type_id="Home" class="" onClick="AddProduct(this)">';
-                            home_html +='<div><h6 class="add-item-here pt-2">Add an item here</h6></div>';
-                            home_html +='<div class="text-center mt-1"> <button class="add-item">+</button></div>';
+                            home_html +='<div><h6 class="add-item-here pt-2" >Add an item here</h6></div>';
+                            home_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
                             home_html +='</div>';
                             home_html +='</div>';
                             $('#home_product_section').html(home_html);
@@ -477,7 +477,7 @@
                             beauty_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             beauty_html +='<div class="select-admin-grid py-3 " type="button" class="" type_id="Beauty" onClick="AddProduct(this)">';
                             beauty_html +='<div><h6 class="add-item-here pt-2">Add an item here</h6></div>';
-                            beauty_html +='<div class="text-center mt-1"> <button class="add-item">+</button></div>';
+                            beauty_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
                             beauty_html +='</div>';
                             beauty_html +='</div>';
                             $('#beauty_product_section').html(beauty_html);
@@ -515,18 +515,8 @@
                 $('#product_type').val($(type).attr('type_id'));
                 $('#upload_product').html('Upload Product');
                 $('#AddProductPopup').modal('show');
-                $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
+                $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>');
                 $('#check_image').val(0);
-
-                /*
-                
-                                                    
-                                                
-                                                <div class="text-center">
-                                                    <button class="add-item px-1" ><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview"></button>
-                                                </div>
-                                                
-                */
             }else{
                 $('#common_message_box').html('<div class="alert alert-danger">You can not upload more than 15 products.</div>')
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -561,7 +551,7 @@
                         
                         if(response['product']['image']==''){
                             $('#check_image').val(0);
-                            $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" >+</button></div>');
+                            $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" type="button">+</button></div>');
                         }else{
                             $('#check_image').val(1);
                             $('#add_update_image_preview').html('<div class="text-center"><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview border"></div>');
