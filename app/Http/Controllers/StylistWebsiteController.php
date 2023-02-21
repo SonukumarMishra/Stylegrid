@@ -96,7 +96,7 @@ class StylistWebsiteController extends Controller
             }
             $save_data=array(
                 'id'=>0,
-                'full_name'=>$request->full_name,
+                'full_name'=>ucfirst($request->full_name),
                 'slug'=>Str::slug($request->full_name, '-'),
                 'email'=>$request->email,
                 'phone'=>$request->phone,
