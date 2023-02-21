@@ -149,9 +149,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="divImageMediaPreview1" class="text-center"></div>
-                                   
+                                </div>                                   
                             </div>
                          <div id="product_image_error" class="error"></div>
                     </div>
@@ -379,20 +377,17 @@
                     return false;
                 }else{
                     var image_size = (this.files[0].size);
-                    if(image_size>3000000){
+                    if(image_size>5000000){
                         var html ='';
                         html +='<div class="text-center mt-1"><button class="add-item">+</button></div>';        
                         $("#add_update_image_preview").html(html);
-                        $('#product_image_error').html('Maximum File Size Limit is 3 MB');
+                        $('#product_image_error').html('Maximum File Size Limit is 5 MB');
                         $("#product-image").val('');
                         $('#check_image').val(0);
                         return false;
                     }else{
                         var reader = new FileReader();
                         reader.onload = function (e) {
-                            //var img = $("<img />");
-                            //img.attr("style", "width: 150px; height:100px; padding: 10px");
-                            //img.attr("src", e.target.result);
                             var html ='';
                             html ='<img  src="'+e.target.result+'"/ style="width: 300px; height:300px; padding: 10px">';
                             html +='<div class="text-center">';
@@ -401,7 +396,6 @@
                             dvPreview.append(html);
                             $('#check_image').val(1);
                         }
-                        //$('#image_preview_remove').show();
                         reader.readAsDataURL(file[0]);
                     }     
                 }
