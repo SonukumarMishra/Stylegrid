@@ -109,7 +109,7 @@
                <table class="w-100">
                   <tr>
                      <td>
-                        <div class="main-grid-div m-1" style="background: url('https://cdn.pixabay.com/photo/2016/10/26/19/00/domain-names-1772243_960_720.jpg')">
+                        <div class="main-grid-div m-1" style="background: url({{asset($style_grid_dtls->feature_image)}})">
                            <h1 class="main-grid-title">STYLEGRID</h1>
                            <h4 class="main-grid-sub-title">{{ $style_grid_dtls->title }}</h4>
                         </div>
