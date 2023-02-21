@@ -140,7 +140,7 @@
                                     <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
                                     <div class="Neon-input-dragDrop">
                                         <div class="Neon-input-inner">
-                                            <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div>
+                                            <!-- <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div> -->
                                             <div class="Neon-input-text"></div>
                                             <div class="Neon-input-choose-btn blue" id="add_update_image_preview">
                                                 <div class="text-center">

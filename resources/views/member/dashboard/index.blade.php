@@ -1,10 +1,10 @@
 @extends('member.dashboard.layouts.default')
 @section('content')
-<style>
+<!-- <style>
     
     #inbox-msg img {
         border-radius: 5px !important;
-    }
+    } -->
 </style>
 <!-- BEGIN: Content-->
 <div class="content-wrapper">

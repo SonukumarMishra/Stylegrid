@@ -81,7 +81,7 @@
         }
 
         var loadingDialogToast = Swal.mixin({
-            title: 'Please wait......',
+            title: '<div class="please-wait">Please wait......</div>',
             showConfirmButton: false,
             allowOutsideClick: false
         });

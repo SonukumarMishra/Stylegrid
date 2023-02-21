@@ -19,9 +19,9 @@
                     <img src="{{ $contact_profile }}" class="img-fluid chat-pic" alt="">
                 </div>
                 <div class="col-10 pl-1">
-                    <div class="d-flex justify-content-between">
-                        <div class="chat-h1">{{ $contact->sender_name }} & {{ $contact->receiver_name }}</div>
-                        <div class="chat-p">{{ $contact->module == config('custom.chat_module.sourcing') ? 'Sourcing' : 'Private' }}</div>
+                    <div class="row justify-content-between">
+                        <div class="chat-h1 col-8">{{ $contact->sender_name }} & {{ $contact->receiver_name }}</div>
+                        <div class="chat-p col-4">{{ $contact->module == config('custom.chat_module.sourcing') ? 'Sourcing' : 'Private' }}</div>
                     </div>
                     <div>
                         <div class="chat-p">

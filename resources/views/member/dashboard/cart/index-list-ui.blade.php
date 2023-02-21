@@ -5,7 +5,7 @@
             <div class="">
                 <div class=" px-md-1 px-1 py-1">
 
-                    <h1><a href="{{ route('member.grid.view', [ 'grid_id' => $grid->stylegrid_id ]) }}">{{ $grid->title }}</a></h1>
+                    <h1><a class="cart-header" href="{{ route('member.grid.view', [ 'grid_id' => $grid->stylegrid_id ]) }}">{{ $grid->title }}</a></h1>
 
                 </div>
 
@@ -16,12 +16,12 @@
                    
                   @foreach ($grid->cart_items_details as $p_key => $p_val)
                      
-                     <div class="row mx-md-2 mx-1 my-1 border-bottom cart-product-div" data-cart-dtls-id="{{ $p_val->cart_dtls_id}}" data-cart-id="{{ $p_val->cart_id}}">
+                     <div class="row mx-md-2 mx-1 my-1 border-bottom cart-product-div pt-2" data-cart-dtls-id="{{ $p_val->cart_dtls_id}}" data-cart-id="{{ $p_val->cart_id}}">
                         <div class="col-9 row">
    
                            <div class="form-group col-4">
    
-                              <h5>Product Name:</h5>
+                              <h5 class="cart-product-name-header">Product Name:</h5>
    
                               <label id="product_name">{{ $p_val->product_name }}</label>
    
@@ -29,7 +29,7 @@
    
                            <div class="form-group col-4">
    
-                              <h5>Product Brand:</h5>
+                              <h5 class="cart-product-name-header">Product Brand:</h5>
    
                               <label id="product_name">{{ $p_val->product_brand }}</label>
    
@@ -37,7 +37,7 @@
    
                            <div class="form-group col-4">
    
-                              <h5>Product Type:</h5>
+                              <h5 class="cart-product-name-header">Product Type:</h5>
    
                               <label id="product_name">{{ $p_val->product_type }}</label>
    
@@ -45,14 +45,14 @@
    
                            <div class="form-group col-4">
    
-                              <h5>Product Price:</h5>
+                              <h5 class="cart-product-name-header">Product Price:</h5>
    
                               <label id="product_name">{{ $p_val->product_price }}</label>
    
                            </div>
                            <div class="form-group col-4">
    
-                              <h5>Product Size:</h5>
+                              <h5 class="cart-product-name-header">Product Size:</h5>
    
                               <label id="product_name">{{ $p_val->product_size }}</label>
    
@@ -65,7 +65,7 @@
                               <img src="{{asset($p_val->product_image)}}" class="img-fluid py-1 img_200" alt="">
                            @endif
                         </div>
-                        <div class="col-1 d-flex align-items-center">
+                        <div class="col-1 d-flex align-items-center justify-content-center">
                            <i class="text-danger fa fa-times fa-3x remove-item-cart-btn" data-cart-dtls-id="{{ $p_val->cart_dtls_id}}" data-cart-id="{{ $p_val->cart_id}}"></i>
                         </div>
                   </div>
@@ -81,7 +81,7 @@
     @if (count($result['list']) == 0 && $result['current_page'] == 1)
         <div class="col-12">
 
-            <h3 class="text-center text-muted">
+            <h3 class="text-center text-muted empty-cart">
 
                 Your cart is empty!
 

@@ -2193,7 +2193,7 @@ hr {
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
-  color: #FFFFFF;
+  color: #000;
 }
 
 #inbox-msg .border {
@@ -3077,3 +3077,47 @@ margin-bottom: 23px; */
   font-family: 'Genos' !important;
   /* color: #000; */
  }
+ .empty-cart{
+  font-family: 'Silk Serif';
+ }
+ .please-wait{
+  font-family: 'Genos';
+ }
+ .gridcreated_j{
+  background: rgba(255,255,255,0.4);
+    width: 35%;
+    padding: 3px 22px;
+}
+.gridcreated_j h4{
+  font-family: 'Genos';
+}
+.stylegrid-bg-img .img-grid-name{
+  background: rgba(0,0,0,0.5);
+    padding-bottom: 8px;
+    padding-left: 10px;
+    font-family: 'Genos';
+}
+.cart-header{
+  color: #04AA6D !important;
+  font-size: 30px !important;
+  font-family: 'Silk Serif Medium' !important;
+  text-transform: capitalize !important;
+}
+.cart-product-name-header{
+  font-size: 23px !important;
+  font-family: 'Genos' !important;
+  text-transform: capitalize !important;
+  color: #000 !important;
+}
+#product_name{
+  font-size: 19px !important;
+  font-family: 'Genos-Light' !important;
+  /* //text-transform: capitalize !important; */
+  /* color: #000 !important; */
+}
+.swal2-title{
+  font-family: 'Silk Serif' !important;
+}
+.swal2-styled.swal2-confirm{
+  background-color: #00A82F !important;
+}
