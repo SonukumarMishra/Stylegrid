@@ -75,7 +75,7 @@
                                         <h3>Upload an image of the product here</h3>
                                     </div>
                                     <a class="Neon-input-choose-btn blue">
-                                        <img  src="{{ asset('member/dashboard/app-assets/images/icons/plus.png') }}" alt="" id="image_preview">
+                                        <img  src="{{ asset('member/dashboard/app-assets/images/icons/plus.png') }}" class="img-fluid" alt="" id="image_preview">
                                     </a>
                                 </div>
                                 <div id="image_error" class="error"></div>

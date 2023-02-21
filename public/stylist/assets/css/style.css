@@ -2208,7 +2208,7 @@ hr {
   font-weight: 500;
   font-size: 12px;
   line-height: 15px;
-  color: #FFFFFF;
+  color: #000;
 }
 
 #inbox-msg .border {
@@ -3028,3 +3028,10 @@ transform: rotate(180deg);
     padding-left: 10px;
     font-family: 'Genos';
 }
+#myModalLabel1{
+  font-family: 'Silk Serif' !important;
+  color: #000 !important;
+}
+.please-wait{
+  font-family: 'Genos';
+ }

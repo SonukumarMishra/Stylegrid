@@ -100,7 +100,7 @@ $("#source_image").change(function () {
             html +='<h3>Upload an image of the</br> product here</h3>';
             html +='</div>';
             html +='<a class="Neon-input-choose-btn blue">';
-            html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+            html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" class="img-fluid" alt="" id="image_preview">';
             html +='</a>';
             $("#source_image_preview_section").html(html);
             $("#source_image").val('');
@@ -113,7 +113,7 @@ $("#source_image").change(function () {
                 html +='<h3>Upload an image of the</br> product here</h3>';
                 html +='</div>';
                 html +='<a class="Neon-input-choose-btn blue">';
-                html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+                html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" class="img-fluid" id="image_preview">';
                 html +='</a>';
                 $("#source_image_preview_section").html(html);
                 $('#image_error').html('Maximum File Size Limit is 5 MB');
@@ -252,7 +252,7 @@ function removeImage(){
     html +='<h3>Upload an image of the</br> product here</h3>';
     html +='</div>';
     html +='<a class="Neon-input-choose-btn blue">';
-    html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
+    html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" class="img-fluid" alt="" id="image_preview">';
     html +='</a>';
     $("#source_image_preview_section").html(html);
     $("#source_image").val('');

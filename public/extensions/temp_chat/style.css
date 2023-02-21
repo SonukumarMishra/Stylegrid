@@ -190,6 +190,7 @@
     line-height: 24px;
     color: #666f80;
     font-family: Avenir;
+    text-transform: capitalize;
 }
 
 .list-msg {

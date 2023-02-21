@@ -38,7 +38,7 @@
                             <div class="Neon-input-inner py-4" id="source_image_preview_section">
                                 <div class="Neon-input-text ">
                                     <h3>Upload an image of the product here</h3>
-                                </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('member/dashboard/app-assets/images/icons/plus.png') }}" alt="" id="image_preview"></a>
+                                </div><a class="Neon-input-choose-btn blue"><img  src="{{ asset('member/dashboard/app-assets/images/icons/plus.png') }}" alt="" class="img-fluid" id="image_preview"></a>
                             </div>
                             <div id="image_error" class="error"></div>
                         </div>
