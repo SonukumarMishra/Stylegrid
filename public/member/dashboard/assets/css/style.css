@@ -2511,6 +2511,7 @@ margin-bottom: 23px; */
   top: 8%;
   height: 30px;
  /* // background-image: url(../images/next.png) !important; */
+ height: 35px;
 }
 
 #demo .carousel-control-next {
@@ -2519,7 +2520,7 @@ margin-bottom: 23px; */
   background-repeat: no-repeat;
   right: 6%;
   top: 8%;
-  height: 27px;
+  height: 32px;
 }
 #demo .carousel-control-next-icon {
   
@@ -3109,7 +3110,7 @@ margin-bottom: 23px; */
   text-transform: capitalize !important;
   color: #000 !important;
 }
-#product_name{
+#product_name, #product_brand, #product_type, #product_price, #product_size{
   font-size: 19px !important;
   font-family: 'Genos-Light' !important;
   /* //text-transform: capitalize !important; */
@@ -3120,4 +3121,29 @@ margin-bottom: 23px; */
 }
 .swal2-styled.swal2-confirm{
   background-color: #00A82F !important;
+}
+.cart-header-modal{
+  font-family: 'Genos';
+}
+.Neon-input-dragDrop_without_border{
+  display: block;
+  width: 343px;
+  margin: 0 auto 25px auto;
+  padding: 25px;
+  color: #8d9499;
+  color: #97A1A8;
+  background: #fff;
+  /* border: 1px solid #000; */
+  text-align: center;
+  -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+  -moz-transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+#image_preview_remove{
+  color: red !important;
+    font-family: 'Genos';
+    font-size: 20px;
+    /* border: 2px solid; */
+    border-radius: 4px;
+    padding: 4px 10px;
 }

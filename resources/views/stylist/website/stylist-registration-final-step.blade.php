@@ -72,8 +72,8 @@
                     <div class="col-lg-6 ">
                         <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                             <input name="profile_image" id="frame-image" multiple="multiple"  type="file">
-                            <div class="Neon-input-dragDrop py-5 px-4">
-                                <div class="Neon-input-inner py-4" id="profile_image_preview_section">
+                            <div class="Neon-input-dragDrop py-5 " id="source_image_preview_section_dynamic_class">
+                                <div class="Neon-input-inner py-4 px-4" id="profile_image_preview_section">
                                     <div class="Neon-input-text ">
                                         <h3>Upload your profile</br> picture here</h3>
                                     </div>

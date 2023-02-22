@@ -60,13 +60,13 @@
 
                         <div class="row  text-aligns-center">
 
-                            <h1 class="col-9">{{$source_data->p_name}}</h1>
+                            <!-- <h1 class="col-9">{{$source_data->p_name}}</h1> -->
 
-                            <h2 class="px-2 mt-1 col-2">{{$source_data->name}}</h2>
+                            <!-- <h2 class="px-2 mt-1 col-2">{{$source_data->name}}</h2> -->
 
-                            <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
+                            <!-- <a href="{{url('/stylist-create-source-request')}}" class=" col-lg-4 text-lg-right text-center mt-2"><button class="request-btn px-3">Make
 
-                                    Request</button></a>
+                                    Request</button></a> -->
 
                         </div>
 
@@ -132,7 +132,8 @@
 
                     <div class="col-lg-6 text-center">
 
-                        <div class="border-right1 my-3">
+                        <!-- <div class="border-right1 my-3"> -->
+                        <div class=" my-3">
 
                             <img src="{{asset('attachments/source/'.$source_data->p_image)}}" class="img-fluid" alt="">
 
@@ -144,9 +145,9 @@
 
                         <div class="p-3">
 
-                            <h1>{{$source_data->p_name}}</h1>
+                            <h1>{{ucfirst($source_data->p_name)}}</h1>
 
-                            <h6>{{$source_data->name}}</h6>
+                            <h6>{{ucfirst($source_data->name)}}</h6>
 
                             <h4 class="mt-3">Required in: {{$source_data->country_name}}</h4>
 

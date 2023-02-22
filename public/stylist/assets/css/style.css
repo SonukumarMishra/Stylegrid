@@ -3035,3 +3035,28 @@ transform: rotate(180deg);
 .please-wait{
   font-family: 'Genos';
  }
+ .Neon-input-dragDrop_without_border{
+  display: block;
+  width: 343px;
+  margin: 0 auto 25px auto;
+  padding: 25px;
+  color: #8d9499;
+  color: #97A1A8;
+  background: #fff;
+  /* border: 1px solid #000; */
+  text-align: center;
+  -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+  -moz-transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+#image_preview_remove{
+  color: red !important;
+    font-family: 'Genos';
+    font-size: 20px;
+    /* border: 2px solid; */
+    border-radius: 4px;
+    padding: 4px 10px;
+}
+ label{
+  color: #000 !important;
+}

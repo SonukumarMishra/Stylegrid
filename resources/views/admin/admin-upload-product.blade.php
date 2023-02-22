@@ -134,16 +134,18 @@
                     @csrf
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="select-admin-grid py-1 admin-upload-img-height">
+                        <div class=" py-1 admin-upload-img-height">
                             <!-- <div><h6 class="add-item-here pt-2">Add an item here</h6></div> -->
                                 <div class="Neon Neon-theme-dragdropbox ">
                                     <input name="product_image" id="product-image" class="file-upload style-grid-block-input-file" multiple="multiple" type="file">
-                                    <div class="Neon-input-dragDrop">
-                                        <div class="Neon-input-inner">
+                                    <div class="Neon-input-dragDrop py-5" id="source_image_preview_section_dynamic_class">
+                                        <div class="Neon-input-inner" id="add_update_image_preview">
                                             <!-- <div class="Neon-input-icon"><i class="fa fa-file-image-o"></i></div> -->
-                                            <div class="Neon-input-text"></div>
-                                            <div class="Neon-input-choose-btn blue" id="add_update_image_preview">
-                                                <div class="text-center">
+                                            <div class="Neon-input-text mt-5">
+                                                <h3>Upload an image of the product here</h3>
+                                            </div>
+                                            <div class="Neon-input-choose-btn blue mb-5" >
+                                                <div class="text-center mb-5">
                                                     <button class="add-item px-1"  type="button"><img id="existing_image" src='{{ asset('admin-section/assets/images/grid.png')}}' class="img-fluid img_preview border"></button>
                                                 </div>
                                             </div>
@@ -360,31 +362,58 @@
         })
         $("#product-image").change(function () {
             if (typeof (FileReader) != "undefined") {
+                $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+                $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+                $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
+                $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop_without_border');
                 $('#add_update_image_preview').html('');
-                $('#image_preview_remove').hide();
-               var dvPreview = $("#add_update_image_preview");
+                var dvPreview = $("#add_update_image_preview");
                 $('#product_image_error').html('');        
                 // $($(this)[0].files).each(function () {
                 var file = $(this)[0].files;//$(this); 
                 var ext = $('#product-image').val().split('.').pop().toLowerCase();
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
                     $('#product_image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
-                    var html ='';
-                    html +='<div class="text-center mt-1"><button class="add-item" type="button">+</button></div>';        
+                    var html='';
+                        html +='<div class="Neon-input-text mt-5 ">';
+                        html +='<h3>Upload an image of the product here</h3>';
+                        html +='</div>'; 
+                        html +='<div class="Neon-input-choose-btn blue" >';
+                        html +='<div class="text-center mb-5">';
+                        html +='<a class="add-item px-1" >';
+                        html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                        html +='</a>';
+                        html +=' </div>';
+                        html +=' </div>';
                     $("#add_update_image_preview").html(html);
                     $("#product-image").val('');
                     $('#check_image').val(0);
-                    return false;
+                    $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+                    $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+                    $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
+                   return false;
                 }else{
                     var image_size = (this.files[0].size);
                     if(image_size>5000000){
-                        var html ='';
-                        html +='<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>';        
+                        var html='';
+                        html +='<div class="Neon-input-text mt-5">';
+                        html +='<h3>Upload an image of the product here</h3>';
+                        html +='</div>'; 
+                        html +='<div class="Neon-input-choose-btn blue" >';
+                        html +='<div class="text-center mb-5">';
+                        html +='<a class="add-item px-1" >';
+                        html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                        html +='</a>';
+                        html +=' </div>';
+                        html +=' </div>';
                         $("#add_update_image_preview").html(html);
                         $('#product_image_error').html('Maximum File Size Limit is 5 MB');
                         $("#product-image").val('');
                         $('#check_image').val(0);
-                        return false;
+                        $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+                        $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+                        $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
+                       return false;
                     }else{
                         var reader = new FileReader();
                         reader.onload = function (e) {
@@ -395,6 +424,9 @@
                             html +='</div>';
                             dvPreview.append(html);
                             $('#check_image').val(1);
+                            $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+                        // $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+                            $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop_without_border');
                         }
                         reader.readAsDataURL(file[0]);
                     }     
@@ -409,12 +441,23 @@
     })
     function removeImage(){
         $("#product-image").val('');
-        $('#image_preview_remove').hide();
-        var html ='';
-        html +='<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>';        
-        $("#add_update_image_preview").html(html);
-        $('#check_image').val(0);
-    }
+       var html='';
+            html +='<div class="Neon-input-text mt-5">';
+            html +='<h3>Upload an image of the product here</h3>';
+            html +='</div>'; 
+            html +='<div class="Neon-input-choose-btn blue" >';
+            html +='<div class="text-center mb-5">';
+            html +='<a class="add-item px-1" >';
+            html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+            html +='</a>';
+            html +=' </div>';
+            html +=' </div>';
+            $("#add_update_image_preview").html(html);
+            $('#check_image').val(0);
+            $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+            $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+            $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
+       }
     var brandList=[];
     function selectBrand(brand_id){
         $('#brand').val(brandList[brand_id]);
@@ -444,7 +487,11 @@
                             fashion_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             fashion_html +='<div class="select-admin-grid py-3 " type="button" type_id="Fashion" class="" onClick="AddProduct(this)">';
                             fashion_html +='<div><h6 class="add-item-here pt-2">Add an item here</h6></div>';
-                            fashion_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
+                            fashion_html +='<div class="text-center mt-1">';
+                            fashion_html +='<a class="add-item px-1" >';
+                            fashion_html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                            fashion_html +='</a>';
+                            fashion_html +='</div>';
                             fashion_html +='</div>';
                             fashion_html +='</div>';
                             $('#fashion_product_section').html(fashion_html);
@@ -460,7 +507,11 @@
                             home_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             home_html +='<div class="select-admin-grid py-3 " type="button" type_id="Home" class="" onClick="AddProduct(this)">';
                             home_html +='<div><h6 class="add-item-here pt-2" >Add an item here</h6></div>';
-                            home_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
+                            home_html +='<div class="text-center mt-1">';
+                            home_html +='<a class="add-item px-1" >';
+                            home_html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                            home_html +='</a>';
+                            home_html +='</div>';
                             home_html +='</div>';
                             home_html +='</div>';
                             $('#home_product_section').html(home_html);
@@ -477,7 +528,11 @@
                             beauty_html +='<div class="col-lg-2 col-md-4 col-6 mb-2 ">';
                             beauty_html +='<div class="select-admin-grid py-3 " type="button" class="" type_id="Beauty" onClick="AddProduct(this)">';
                             beauty_html +='<div><h6 class="add-item-here pt-2">Add an item here</h6></div>';
-                            beauty_html +='<div class="text-center mt-1"> <button class="add-item"  type="button">+</button></div>';
+                            beauty_html +='<div class="text-center mt-1">';
+                            beauty_html +='<a class="add-item px-1" >';
+                            beauty_html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                            beauty_html +='</a>';
+                            beauty_html +='</div>';
                             beauty_html +='</div>';
                             beauty_html +='</div>';
                             $('#beauty_product_section').html(beauty_html);
@@ -515,8 +570,19 @@
                 $('#product_type').val($(type).attr('type_id'));
                 $('#upload_product').html('Upload Product');
                 $('#AddProductPopup').modal('show');
-                $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item"  type="button">+</button></div>');
-                $('#check_image').val(0);
+                var html='';
+            html +='<div class="Neon-input-text mt-5">';
+            html +='<h3>Upload an image of the product here</h3>';
+            html +='</div>'; 
+            html +='<div class="Neon-input-choose-btn blue" >';
+            html +='<div class="text-center mb-5">';
+            html +='<a class="add-item px-1" >';
+            html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+            html +='</a>';
+            html +=' </div>';
+            html +=' </div>';
+            $("#add_update_image_preview").html(html);
+            $('#check_image').val(0);
             }else{
                 $('#common_message_box').html('<div class="alert alert-danger">You can not upload more than 15 products.</div>')
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -550,12 +616,28 @@
                         $('#image_preview_remove').hide();
                         
                         if(response['product']['image']==''){
-                            $('#check_image').val(0);
-                            $('#add_update_image_preview').html('<div class="text-center mt-1"><button class="add-item" type="button">+</button></div>');
+                             $('#check_image').val(0);
+                             var html='';
+                            html +='<div class="Neon-input-text mt-5">';
+                            html +='<h3>Upload an image of the product here</h3>';
+                            html +='</div>'; 
+                            html +='<div class="Neon-input-choose-btn blue" >';
+                            html +='<div class="text-center mb-5">';
+                            html +='<a class="add-item px-1" >';
+                            html +='<img id="existing_image" src="'+constants.base_url+'/admin-section/assets/images/plus.png" class="img-fluid">';
+                            html +='</a>';
+                            html +=' </div>';
+                            html +=' </div>';
+                            $("#add_update_image_preview").html(html);
+                         
                         }else{
-                            $('#check_image').val(1);
+                             $('#check_image').val(1);
                             $('#add_update_image_preview').html('<div class="text-center"><img id="existing_image" src='+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+' class="img-fluid img_preview border"></div>');
+                            $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+                            // $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+                            $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop_without_border');
                         }
+
                     }else{
                         //$('#message_box').html('<div class="alert alert-danger">'+response['message']+'</div>');
                     }
@@ -581,7 +663,12 @@
                         $('#viewProductPopup').modal('show');
                         var product_html='';
                         product_html +='<div class="col-md-6">';
-                        product_html +='<img src="'+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+'" class="  img-fluid">';
+                        if(response['product_image']==''){
+                            product_html +='<img src="'+constants.base_url+'/admin-section/assets/images/dummy.jpg" class="  img-fluid">';
+                        }
+                        else{
+                            product_html +='<img src="'+constants.base_url+'/attachments/products/'+response['product']['type'].toLowerCase()+'/'+response['product']['image']+'" class="  img-fluid">';
+                        }
                         product_html +='</div>';
                         product_html +='<div class="col-md-6 text-center">';
                         product_html +='<h1 class="modal-h1">'+response['product']['brand_name']+'</h1>';

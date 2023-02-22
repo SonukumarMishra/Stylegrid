@@ -34,7 +34,7 @@
                 <div class="col-lg-6 ">
                     <div class="Neon Neon-theme-dragdropbox mt-lg-5">
                         <input name="source_image" id="source_image" multiple="multiple"  type="file">
-                        <div class="Neon-input-dragDrop py-5 px-4">
+                        <div class="Neon-input-dragDrop py-5" id="source_image_preview_section_dynamic_class">
                             <div class="Neon-input-inner py-4" id="source_image_preview_section">
                                 <div class="Neon-input-text ">
                                     <h3>Upload an image of the product here</h3>

@@ -56,7 +56,7 @@
 
                         <div class="col-lg-6">
 
-                            <div class="border-right my-3">
+                            <div class="border-right my-3 text-center">
 
                                 <img src="{{ asset('attachments/source/'.$sourcing_details->p_image) }}" class="img-fluid" alt="">
 
@@ -68,9 +68,9 @@
 
                             <div class="p-3">
 
-                                <h1><?php echo $sourcing_details->p_name;?></h1>
+                                <h1><?php echo ucfirst($sourcing_details->p_name);?></h1>
 
-                                <h6><?php echo $sourcing_details->name;?></h6>
+                                <h6><?php echo ucfirst($sourcing_details->name);?></h6>
 
                                 <h4 class="mt-3">Price: £ {{ isset($sourcing_details->sourcing_accepted_details) && !empty($sourcing_details->sourcing_accepted_details) ? number_format($sourcing_details->sourcing_accepted_details->price,2) : 0.00 }}</h4>
 
@@ -86,7 +86,7 @@
                                         
                                         <div class="mt-2">
 
-                                            <a href="{{ route('member.messanger.index', ['chat_room_id' => $sourcing_details->sourcing_chat_room->chat_room_id])}}" class="accept-btn px-3">Chat with Stylist</a> 
+                                            <a href="{{ route('member.messanger.index', ['chat_room_id' => $sourcing_details->sourcing_chat_room->chat_room_id])}}" class="accept-btn px-3 py-1">Chat with Stylist</a> 
 
                                         </div>
                                         
