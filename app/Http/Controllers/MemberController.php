@@ -30,7 +30,7 @@ class MemberController extends Controller
 
         $auth_id = Session::get("member_id");
         
-        $assigned_stylist = $chat_room_dtls = false;
+        $assigned_stylist = $chat_room_dtls = $products=false;
 
         if($auth_id){
 
@@ -60,9 +60,25 @@ class MemberController extends Controller
                                             ->select('stylist.*', 'room.chat_room_id')
                                             ->first();
             }
+            
+            $member=new Member();
+            $products=$member->getProducts([]);
+            $product_arr['home_products']=[];
+            $product_arr['fashion_products']=[];
+            $product_arr['beauty_products']=[];
+            foreach($products as $product){
+                if($product->type=='Fashion'){
+                    $product_arr['fashion_products'][]=$product;
+                }
+                if($product->type=='Home'){
+                    $product_arr['home_products'][]=$product;
+                }
+                if($product->type=='Beauty'){
+                    $product_arr['beauty_products'][]=$product;
+                }
+            }
         }
-
-        return view('member.dashboard.index', compact('assigned_stylist', 'chat_room_dtls'));
+        return view('member.dashboard.index', compact('assigned_stylist', 'chat_room_dtls','product_arr'));
     
     }
 
@@ -359,7 +375,6 @@ class MemberController extends Controller
         try {
 
             $sourcing_details = SourcingRepo::getSourcingRequestDetails($slug);
-
             return view('member.dashboard.sourcing.view', compact('sourcing_details'));
             
         }catch(\Exception $e){

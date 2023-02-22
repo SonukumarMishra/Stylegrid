@@ -399,89 +399,56 @@
                                 <li class="nav-item ">
                                     <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
                                         aria-selected="true"
-                                        class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
+                                        class="nav-link border-0 cyan-blue  font-weight-bold active">Home</a>
                                 </li>
                                 <li class="nav-item ">
                                     <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
                                         aria-controls="Fashion" aria-selected="false"
-                                        class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
+                                        class="nav-link border-0 cyan-blue font-weight-bold  ">Fashion</a>
                                 </li>
                                 <li class="nav-item ">
                                     <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
                                         aria-controls="Beauty" aria-selected="false"
                                         class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
                                 </li>
-                                <li class="nav-item ">
+                                <!--<li class="nav-item ">
                                     <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
                                         aria-controls="Travel" aria-selected="false"
                                         class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
-                                </li>
+                                </li>-->
 
                             </ul>
                         </div>
                     </div>
                     <div class="row">
                         <div id="TabContent" class="tab-content my-2 w-100">
-                            <div class="tab-pane fade active show" id="Fashion_1" role="tabpanel"
-                                aria-labelledby="Fashion-tab">
+                            <div class="tab-pane fade active show" id="home_1" role="tabpanel"
+                                aria-labelledby="Home-tab">
                                 <div class="row mx-md-0 mx-2">
-                                    <div class="col-md col-6">
-                                        <div class="card">
-                                            <img class="card-img-top"
-                                                src="{{ asset('member/dashboard/app-assets/images/gallery/client-dash-browse1.png') }}"
-                                                alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">BOTTEGA VENETA</h5>
-                                                <p class="card-text">Jodie mini knotted intrecciato leather tote</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-6">
-                                        <div class="card">
-                                            <img class="card-img-top"
-                                                src="{{ asset('member/dashboard/app-assets/images/gallery/client-dash-browse2.png') }}"
-                                                alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">BOTTEGA VENETA</h5>
-                                                <p class="card-text">Cotton-twill jacket</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-6">
-                                        <div class="card">
-                                            <img class="card-img-top"
-                                                src="{{ asset('member/dashboard/app-assets/images/gallery/client-dash-browse3.png') }}"
-                                                alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">BOTTEGA VENETA</h5>
-                                                <p class="card-text">Pleated cotton-twill wide-leg pants</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-6">
-                                        <div class="card">
-                                            <img class="card-img-top"
-                                                src="{{ asset('member/dashboard/app-assets/images/gallery/client-dash-browse4.png') }}"
-                                                alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">LOEWE</h5>
-                                                <p class="card-text">Wool-blend turtleneck sweater
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md col-6">
-                                        <div class="card">
-                                            <img class="card-img-top"
-                                                src="{{ asset('member/dashboard/app-assets/images/gallery/client-dash-browse5.png') }}"
-                                                alt="Card image cap">
-                                            <div class="card-body">
-                                                <h5 class="card-title">LOEWE</h5>
-                                                <p class="card-text"> Wool-blend turtleneck sweater</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    <?php
+                                    if(count($product_arr['home_products'])){
+                                        foreach ($product_arr['home_products'] as $home_products) {
+                                       ?>
+                                       <div class="col-md col-6">
+                                           <div class="card">
+                                               <img class="card-img-top"
+                                               src="{{ asset('attachments/products/home/'.$home_products->image) }}"
+                                               alt="Card image cap">
+                                               <div class="card-body">
+                                                <h5 class="card-title">{{$home_products->brand_name}}</h5>
+                                                <p class="card-text">{{$home_products->name}}</p>
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <?php
+                                    }
+                                    }else{
+                                        ?>
+                                        <h5 class="card-title">Product Not available</h5>
+                                        <?php
+                                    }
+                                       
+                                   ?>
                                 </div>
                                 <div class="d-flex px-2 mt-2">
                                     <div class="show-bg"><img src="{{ asset('member/dashboard/app-assets/images/icons/show-more.svg') }}" alt="">
@@ -489,6 +456,74 @@
                                     <span class="show px-1">See more</span>
                                 </div>
                             </div>
+                            <div class="tab-pane fade" id="Fashion_1" role="tabpanel"
+                                aria-labelledby="Fashion-tab">
+                                <div class="row mx-md-0 mx-2">
+                                    <?php
+                                    if(count($product_arr['fashion_products'])){
+                                        foreach ($product_arr['fashion_products'] as $fashion_products) {
+                                        ?>
+                                        <div class="col-md col-6">
+                                            <div class="card">
+                                                <img class="card-img-top"
+                                                src="{{ asset('attachments/products/fashion/'.$fashion_products->image) }}"
+                                                alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{$fashion_products->brand_name}}</h5>
+                                                    <p class="card-text">{{$fashion_products->name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                        } 
+                                    }else{
+                                        ?>
+                                        <h5 class="card-title">Product Not available</h5>
+                                        <?php
+                                    } 
+                                   ?>
+                                </div>
+                                <div class="d-flex px-2 mt-2">
+                                    <div class="show-bg"><img src="{{ asset('member/dashboard/app-assets/images/icons/show-more.svg') }}" alt="">
+                                    </div>
+                                    <span class="show px-1">See more</span>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="Beauty_1" role="tabpanel"
+                                aria-labelledby="Beauty-tab">
+                                <div class="row mx-md-0 mx-2">
+                                    <?php
+                                    if(count($product_arr['beauty_products'])){
+                                        foreach ($product_arr['beauty_products'] as $beauty_products) {
+                                        ?>
+                                        <div class="col-md col-6">
+                                            <div class="card">
+                                                <img class="card-img-top"
+                                                    src="{{ asset('attachments/products/beauty/'.$beauty_products->image) }}"
+                                                    alt="Card image cap">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{$beauty_products->brand_name}}</h5>
+                                                    <p class="card-text">{{$beauty_products->name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                        }
+                                    }else{
+                                            ?>
+                                            <h5 class="card-title">Product Not available</h5>
+                                            <?php
+                                        }    
+                                   ?>
+                                </div>
+                                <div class="d-flex px-2 mt-2">
+                                    <div class="show-bg"><img src="{{ asset('member/dashboard/app-assets/images/icons/show-more.svg') }}" alt="">
+                                    </div>
+                                    <span class="show px-1">See more</span>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
 
