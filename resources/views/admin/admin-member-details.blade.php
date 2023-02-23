@@ -120,7 +120,7 @@
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Date joined</div>
-                                    <div class="max-info col-8"><?php echo date('m-d-Y',strtotime($member_details->added_date));?></div>
+                                    <div class="max-info col-8"><?php echo date('m/d/Y',strtotime($member_details->added_date));?></div>
                                 </div>
                                 <div class="d-flex mt-2 ml-2">
                                     <div class="max-data col-4">Status</div>

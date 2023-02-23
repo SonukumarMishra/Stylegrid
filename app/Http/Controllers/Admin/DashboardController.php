@@ -113,7 +113,7 @@ class DashboardController extends Controller
                     'shop_style_source'=>$result->shop_style_source,
                     'email'=>$result->email,
                     'phone'=>$result->phone,
-                    'applied_date'=>date('d-m-Y',strtotime($result->added_date)),
+                    'applied_date'=>date('m/d/Y',strtotime($result->added_date)),
                     'spend'=>$result->spend,
                     'subscription'=>$result->subscription,
                     'status'=>$result->status,
@@ -212,7 +212,7 @@ class DashboardController extends Controller
                     }
                     return json_encode([
                         'status'=>1,
-                        'message'=>"Product removed successfullyqqqq!",
+                        'message'=>"Product removed successfully!",
                     ]);
                 }else{
                     return json_encode([
