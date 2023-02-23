@@ -28,19 +28,24 @@
                     <?php
                     }
                 }else{
-                    if($source_row['sourcing_accepted_details']['status']==1){
-                        ?>
-                       <td class="green-color">Accepted</td>
-                        <?php
-                    }else if($source_row['sourcing_accepted_details']['status']==2){
-                    ?>
-                        <td class="red-color">Declined</td>
-                    <?php
-                    }else{
-                        ?>
-                        <td class="red-color">Request Sent</td>
-                        <?php
+
+                    if(isset($source_row['stylist_offer_status'])){
+
+                        if($source_row['stylist_offer_status'] == 0){
+                            ?>
+                            <td class="text-warning">Request Sent</td>
+                            <?php
+                        }else if($source_row['stylist_offer_status'] == 1){
+                            ?>
+                            <td class="text-success">Accepted</td>
+                            <?php
+                        }else if($source_row['stylist_offer_status'] == 2){
+                            ?>
+                            <td class="text-danger">Declined</td>
+                            <?php
+                        }
                     }
+
                     ?> 
                 <?php
                 }

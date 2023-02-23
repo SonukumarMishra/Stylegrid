@@ -93,7 +93,7 @@ class SourcingRepository {
 										->where('sg_sourcing.member_stylist_id', '=', $request->user_id)
 										->pluck('id');
 
-			DB::connection()->enableQueryLog();
+			// DB::connection()->enableQueryLog();
 
 			$list = Sourcing::from('sg_sourcing')
 							->select("sg_sourcing.id", "sg_sourcing.member_stylist_id", "sg_sourcing.member_stylist_type", "sg_sourcing.p_image", "sg_sourcing.p_name", "sg_sourcing.p_slug", "sg_sourcing.p_code", "b.name", "sg_sourcing.p_type", "sg_sourcing.p_size", "c.country_name", "sg_sourcing.p_deliver_date", "sg_sourcing.p_status", 'offer.status as stylist_offer_status')
@@ -126,8 +126,9 @@ class SourcingRepository {
 							->orderBy('sg_sourcing.p_created_date', 'desc')
 							->orderBy("offer_updated_on","DESC")
 							->paginate(10, ['*'], 'page', $page_index);
-			$queries = DB::getQueryLog();
-			Log::info(print_r($queries, true)); 
+							
+			// $queries = DB::getQueryLog();
+			// Log::info(print_r($queries, true)); 
 						  
 			$response_array['list'] = $list;
 
