@@ -1112,17 +1112,17 @@ cursor: pointer;
   margin-left: auto;
   cursor: pointer;
 }
-#add_update_image_preview{
+/* #add_update_image_preview{
   margin-top: 29%;
-}
+} */
 .img_preview {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.admin-upload-img-height{
+/* .admin-upload-img-height{
   height: 85%;
-}
+} */
 #upload-product-form input, #upload-product-form input::placeholder{
   color: #000 !important;
   border-color: #000 !important;
@@ -1308,6 +1308,59 @@ background-color: #fff;
 color: #000000;
 }
 .fashion-img{
-  height: 241px;
+  height: 237px;
   width: 100%;
+}
+.Neon-input-text h3 {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.04em;
+  color: #7A7A7A;
+}
+/* #add_update_image_preview{
+  margin-top: 50%;
+} */
+.Neon-input-dragDrop {
+    display: block;
+    width: 343px;
+    margin: 0 auto 25px auto;
+    padding: 25px;
+    color: #8d9499;
+    color: #97A1A8;
+    background: #fff;
+    border: 1px solid #000;
+    text-align: center;
+    -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+    -moz-transition: box-shadow 0.3s, border-color 0.3s;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+.Neon-input-dragDrop_without_border{
+  display: block;
+  width: 343px;
+  margin: 0 auto 25px auto;
+  padding: 25px;
+  color: #8d9499;
+  color: #97A1A8;
+  background: #fff;
+  /* border: 1px solid #000; */
+  text-align: center;
+  -webkit-transition: box-shadow 0.3s, border-color 0.3s;
+  -moz-transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+#image_preview_remove{
+  color: red !important;
+    font-family: 'Genos';
+    font-size: 20px;
+    /* border: 2px solid; */
+    border-radius: 4px;
+    padding: 4px 10px;
+}
+#delete_product_mssage_box{
+  text-align: center;
+  font-family: 'Genos';
 }

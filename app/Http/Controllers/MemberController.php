@@ -380,6 +380,7 @@ class MemberController extends Controller
         }catch(\Exception $e){
 
             Log::info("sourcingRequestView error - ". $e->getMessage());
+            
             return redirect()->back();
         }
 

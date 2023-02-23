@@ -61,6 +61,10 @@ $(function(){
   
 $("#frame-image").change(function () {
   if (typeof (FileReader) != "undefined") {
+    $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+    $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+    $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop_without_border');
+    $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
     $('.error').html('');
       $('#profile_image_preview_section').html('');
      var dvPreview = $("#profile_image_preview_section");
@@ -79,6 +83,9 @@ $("#frame-image").change(function () {
           html +='</a>';
           $("#profile_image_preview_section").html(html);
           $("#frame-image").val('');
+          $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+          $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+          $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
           return false;
       }else{
           var image_size = (this.files[0].size);
@@ -93,6 +100,9 @@ $("#frame-image").change(function () {
           $("#profile_image_preview_section").html(html);
               $('#image_error').html('Maximum File Size Limit is 5 MB');
               $("#frame-image").val('');
+              $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+              $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+              $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
               return false;
           }else{
               var reader = new FileReader();
@@ -103,6 +113,8 @@ $("#frame-image").change(function () {
               html +='<a href="javascript:void(0)" onClick="removeImage()" id="image_preview_remove">Remove</a>';
               html +='</div>';
               dvPreview.append(html);
+              $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+              $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop_without_border');
               }
               reader.readAsDataURL(file[0]);
           }     
@@ -225,6 +237,9 @@ function removeImage(){
   html +='<img  src="'+constants.base_url+'/stylist/website/assets/images/plus.png" alt="" id="image_preview">';
   html +='</a>';
   $("#profile_image_preview_section").html(html);
+  $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop');
+  $('#source_image_preview_section_dynamic_class').addClass('Neon-input-dragDrop');
+  $('#source_image_preview_section_dynamic_class').removeClass('Neon-input-dragDrop_without_border');
 }
 function showTab(n) {
     var x = document.getElementsByClassName("tab");

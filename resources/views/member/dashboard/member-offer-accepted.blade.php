@@ -47,7 +47,7 @@
                                             <h1 class="mb-0 ml-2">Submit another request</h1>
                                             <p class="mt-1 ml-2">Submit another sourcing request.</p>
                                         </div>
-                                        <div class="col-md-4  text-center mt-lg-2 mb-lg-0 mb-2">
+                                        <div class="col-md-4  text-center mt-lg-2  mb-2">
                                             <a href="#"><button class="go-to-grid-btn mt-4 px-2">Make Request</button></a>
                                         </div>
                                     </div>

@@ -240,7 +240,7 @@
 
                               <div class="form-group">
 
-                                 <h5>Product Name:</h5>
+                                 <h5 class="cart-header-modal">Product Name:</h5>
 
                                  <label id="product_name"></label>
 
@@ -248,7 +248,7 @@
 
                               <div class="form-group">
 
-                                 <h5>Product Brand:</h5>
+                                 <h5 class="cart-header-modal">Product Brand:</h5>
 
                                  <label id="product_brand"></label>
 
@@ -256,7 +256,7 @@
 
                               <div class="form-group">
 
-                                 <h5>Product Type:</h5>
+                                 <h5 class="cart-header-modal">Product Type:</h5>
 
                                  <label id="product_type"></label>
 
@@ -264,7 +264,7 @@
 
                               <div class="form-group">
 
-                                 <h5>Product Price:</h5>
+                                 <h5 class="cart-header-modal">Product Price:</h5>
 
                                  <label>$<span id="product_price"></span></label>
 
@@ -272,7 +272,7 @@
 
                               <div class="form-group">
 
-                                 <h5>Product Size:</h5>
+                                 <h5 class="cart-header-modal">Product Size:</h5>
 
                                  <label id="product_size"></label>
 

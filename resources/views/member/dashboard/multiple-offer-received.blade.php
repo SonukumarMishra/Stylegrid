@@ -176,9 +176,9 @@
 
                                         <div class="offer-slider">Offer #<?php echo $counter;?> of <?php echo count($offer_list);?></div>
 
-                                        <h1><?php echo $offer->p_name;?></h1>
+                                        <h1><?php echo ucfirst($offer->p_name);?></h1>
 
-                                        <h6><?php echo $offer->name;?></h6>
+                                        <h6><?php echo ucfirst($offer->name);?></h6>
 
                                         <h4 class="mt-3">Price offer: £<?php echo number_format($offer->price,2);?></h4>
 
