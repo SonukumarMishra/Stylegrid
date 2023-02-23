@@ -433,7 +433,7 @@ class StylistController extends Controller
         
         try {
 
-            $sourcing_details = SourcingRepo::getSourcingRequestDetails($slug);
+            $sourcing_details = SourcingRepo::getSourcingRequestDetail($slug);
 
             return view('stylist.postloginview.sourcing.view', compact('sourcing_details'));
             

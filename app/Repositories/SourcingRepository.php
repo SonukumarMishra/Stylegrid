@@ -428,9 +428,56 @@ class SourcingRepository {
 		try {
 
 			$result = Sourcing::from('sg_sourcing as sourcing')
+								->select('sourcing.*')
+								->join('sg_brand AS b', 'b.id', '=', 'sourcing.p_brand')
 								->where('sourcing.p_slug', $slug)
 								->with(['sourcing_accepted_details', 'sourcing_chat_room'])
-								->select('sourcing.*')
+								->first();
+					
+			Log::info("data ". print_r($result, true));
+
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error getSourcingRequestDetails ". print_r($e->getMessage(), true));
+
+			return $result;
+
+        }
+
+	}
+
+
+	public static function getSourcingRequestDetail($slug) {
+		
+		$result = false;
+
+		try {
+
+			$result = Sourcing::from('sg_sourcing as sourcing')
+								->select(
+									[
+										"sourcing.id",
+										"sourcing.member_stylist_id",
+										"sourcing.member_stylist_type",
+										"sourcing.p_image",
+										"sourcing.p_name",
+										"sourcing.p_slug",
+										"sourcing.p_code",
+										"sourcing.p_brand",
+										"sourcing.p_type",
+										"sourcing.p_size",
+										"sourcing.p_country_deliver",
+										"sourcing.p_deliver_date",
+										"sourcing.p_status",
+										"sourcing.p_created_date",
+										"b.name as brand_name",
+									]
+								)
+								->join('sg_brand AS b', 'b.id', '=', 'sourcing.p_brand')
+								->where('sourcing.p_slug', $slug)
+								->with(['sourcing_accepted_details', 'sourcing_chat_room'])
 								->first();
 					
 			Log::info("data ". print_r($result, true));

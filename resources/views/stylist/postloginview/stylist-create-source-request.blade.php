@@ -87,7 +87,7 @@
                         <div class="p-3 lg-border-left ">
                                 <div class="form-group">
                                     <label for="">Enter the name of the product here:</label>
-                                    <input type="text" class="form-control submit-input" class="alphaonly" aria-describedby="emailHelp"
+                                    <input type="text" class="form-control submit-input alphaonly"   aria-describedby="emailHelp"
                                         placeholder="Enter product name..."  id="product_name" name="product_name"  maxlength="50" >
                                     <div id="product_name_error" class="error"></div>
                                 </div>

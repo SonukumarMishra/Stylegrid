@@ -374,7 +374,7 @@ class MemberController extends Controller
         
         try {
 
-            $sourcing_details = SourcingRepo::getSourcingRequestDetails($slug);
+            $sourcing_details = SourcingRepo::getSourcingRequestDetail($slug);
             return view('member.dashboard.sourcing.view', compact('sourcing_details'));
             
         }catch(\Exception $e){

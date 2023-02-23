@@ -1,10 +1,13 @@
  
 
 $('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
-    var regEx = /^[a-zA-Z\ s]*$/;
-    if(!$(this).val().match(regEx)){
-       $(this).val('');
-    } 
+    var string=$(this).val();
+    const noSpecialChars = string.replace(/[^a-zA-Z ]/g, '');
+    $(this).val(noSpecialChars);
+    //var regEx = /^[a-zA-Z\ s]*$/;
+   // if(!$(this).val().match(regEx)){
+    // $(this).val('');
+   // } 
   });
 var brandList=[];
 function selectBrand(brand_id){
