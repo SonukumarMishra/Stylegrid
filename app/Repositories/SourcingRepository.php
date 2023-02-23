@@ -101,7 +101,7 @@ class SourcingRepository {
 							->join('sg_country AS c', 'c.id', '=', 'sg_sourcing.p_country_deliver')
 							->join('sg_brand AS b', 'b.id', '=', 'sg_sourcing.p_brand')
 							->leftjoin('sg_sourcing_offer AS offer', function($join) use($request) {
-								$join->on('offer.sourcing_id', '=', 'sg_sourcing.sourcing_id')
+								$join->on('offer.sourcing_id', '=', 'sg_sourcing.id')
 									->where([
 										'offer.stylist_id' => $request->user_id
 									]);
