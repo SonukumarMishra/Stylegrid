@@ -96,10 +96,16 @@ class SourcingRepository {
 			DB::connection()->enableQueryLog();
 
 			$list = Sourcing::from('sg_sourcing')
-							->select("sg_sourcing.id", "sg_sourcing.member_stylist_id", "sg_sourcing.member_stylist_type", "sg_sourcing.p_image", "sg_sourcing.p_name", "sg_sourcing.p_slug", "sg_sourcing.p_code", "b.name", "sg_sourcing.p_type", "sg_sourcing.p_size", "c.country_name", "sg_sourcing.p_deliver_date", "sg_sourcing.p_status")
+							->select("sg_sourcing.id", "sg_sourcing.member_stylist_id", "sg_sourcing.member_stylist_type", "sg_sourcing.p_image", "sg_sourcing.p_name", "sg_sourcing.p_slug", "sg_sourcing.p_code", "b.name", "sg_sourcing.p_type", "sg_sourcing.p_size", "c.country_name", "sg_sourcing.p_deliver_date", "sg_sourcing.p_status", 'offer.status as stylist_offer_status')
 							->addSelect(DB::raw("( SELECT tso.created_at FROM sg_sourcing_offer AS tso WHERE tso.sourcing_id = sg_sourcing.id ORDER BY tso.updated_at DESC LIMIT 1) as offer_updated_on"))
 							->join('sg_country AS c', 'c.id', '=', 'sg_sourcing.p_country_deliver')
 							->join('sg_brand AS b', 'b.id', '=', 'sg_sourcing.p_brand')
+							->leftjoin('sg_sourcing_offer AS offer', function($join) use($request) {
+								$join->on('offer.sourcing_id', '=', 'sg_sourcing.sourcing_id')
+									->where([
+										'offer.stylist_id' => $request->user_id
+									]);
+							})
 							->withCount([ 
 								'sourcing_offers as requested' => function ($query) use($request) {
 									$query->select(
