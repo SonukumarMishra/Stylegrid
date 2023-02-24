@@ -21,6 +21,11 @@ class Sourcing extends Model
         return $this->hasOne(SourcingOffer::class, 'sourcing_id', 'id')->where('sg_sourcing_offer.status', config('custom.sourcing.sourcing_offer_status.accepted'));
     }
 
+    public function sourcing_brand() 
+    {
+        return $this->hasOne(Brand::class, 'id', 'p_brand');
+    }
+
     public function sourcing_chat_room() 
     {
         return $this->hasOne(ChatRoom::class, 'module_ref_id', 'id')->where('sg_chat_room.module', config('custom.chat_module.sourcing'));

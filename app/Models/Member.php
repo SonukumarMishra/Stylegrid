@@ -54,6 +54,25 @@ class Member extends Model
 		}
 	}
 
+	function getProducts($where=[]){
+		$this->db = DB::table('sg_product AS p');
+		$this->db->select([
+			"p.id",
+			"p.name",
+			"p.brand_name",
+			"p.type",
+			"p.size",
+			"p.description",
+			"p.image",
+			"p.status",
+		]);
+		if(count($where)){
+			$this->db->where($where);
+		}
+		$result=$this->db->get();
+		return $result;
+	}
+
 	function checkStylistExistance($where){
 		if(count($where)){
 			$this->db = DB::table('sg_stylist as s');

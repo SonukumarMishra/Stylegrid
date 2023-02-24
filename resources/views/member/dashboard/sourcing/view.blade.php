@@ -68,15 +68,15 @@
 
                             <div class="p-3">
 
-                                <h1><?php echo ucfirst($sourcing_details->p_name);?></h1>
+                                <h1><?php echo ucfirst($sourcing_details->brand_name);?></h1>
 
-                                <h6><?php echo ucfirst($sourcing_details->name);?></h6>
+                                <h6><?php echo ucfirst($sourcing_details->p_name);?></h6>
 
                                 <h4 class="mt-3">Price: £ {{ isset($sourcing_details->sourcing_accepted_details) && !empty($sourcing_details->sourcing_accepted_details) ? number_format($sourcing_details->sourcing_accepted_details->price,2) : 0.00 }}</h4>
 
                                 <h4>Offer Accepted Date: 
                                     
-                                    {{ isset($sourcing_details->sourcing_accepted_details) && !empty($sourcing_details->sourcing_accepted_details) ? date('m-d-Y',strtotime($sourcing_details->sourcing_accepted_details->created_at)) : '' }}
+                                    {{ isset($sourcing_details->sourcing_accepted_details) && !empty($sourcing_details->sourcing_accepted_details) ? date('m/d/Y',strtotime($sourcing_details->sourcing_accepted_details->created_at)) : '' }}
 
                                 </h4>
 
