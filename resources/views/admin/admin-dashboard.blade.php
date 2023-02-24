@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="<?php echo url('admin-review-stylist');?>"><button
-                                                    class="go-to-grid-btn mr-1">Browse</button></a>
+                                                    class="go-to-grid-btn">Browse</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="{{url('/admin-stylist')}}"><button
-                                                    class="go-to-grid-btn mr-1">Browse</button></a>
+                                                    class="go-to-grid-btn">Browse</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="{{url('/admin-member-list')}}"><button
-                                                    class="go-to-grid-btn mr-1">Browse</button></a>
+                                                    class="go-to-grid-btn">Browse</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="<?php echo url('/admin-upload-product');?>"><button
-                                                    class="go-to-grid-btn mr-1">Add Product</button></a>
+                                                    class="go-to-grid-btn">Add Product</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="#"><button
-                                                    class="go-to-grid-btn mr-1">Browse</button></a>
+                                                    class="go-to-grid-btn">Browse</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +130,7 @@
                                         </div>
                                         <div class="col-4 text-center text-md-right pr-2">
                                             <a href="#"><button
-                                                    class="go-to-grid-btn mr-1">View Tickets</button></a>
+                                                    class="go-to-grid-btn">View Tickets</button></a>
                                         </div>
                                     </div>
                                 </div>

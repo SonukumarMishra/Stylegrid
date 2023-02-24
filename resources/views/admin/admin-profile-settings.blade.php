@@ -78,7 +78,7 @@
                                                                     $image='profile-img.png'; 
                                                                 } 
                                                                 ?>
-                                                                <img src="<?php echo  asset('attachments/admin/profile/'.$image)?>" class="img-fluid ml-2"
+                                                                <img src="<?php echo  asset('attachments/admin/profile/'.$image)?>" class="img-fluid"
                                                                 alt="">
                                                             </div>
                                                             <div id="admin_image_error" class="error"></div>
@@ -304,7 +304,7 @@
         $('#admin_image_preview_remove').click(function(){
             $("#admin_image").val('');
             $('#admin_image_preview_remove').hide();
-            $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid ml-2" alt="">');
+            $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
             
         })
     })
