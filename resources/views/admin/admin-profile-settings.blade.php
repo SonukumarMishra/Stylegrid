@@ -69,7 +69,8 @@
                                             <div class="row">
                                                     <div class=" w-25 mt-2 col-lg-4 col-6 mb-2">
                                                         <div class="profile-img-bg">
-                                                         <div class="update-new pr-1"><input type="file" name="admin_image" id="admin_image" class="file-upload style-grid-block-input-file pr-2" >Upload New </div>
+                                                         <div class="update-new pr-1">Upload New </div>
+                                                         <input type="file" name="admin_image" id="admin_image" class="file-upload style-grid-block-input-file pr-2" >
                                                             <div id="admin_selected_image_section">
                                                                 <?php
                                                                 if(is_file('attachments/admin/profile/'.Session::get("admin_data")->image)){
@@ -81,12 +82,16 @@
                                                                 <img src="<?php echo  asset('attachments/admin/profile/'.$image)?>" class="img-fluid"
                                                                 alt="">
                                                             </div>
-                                                            <div id="admin_image_error" class="error"></div>
-                                                            <div class="text-center">
-                                                                <a href="javascript:void(0)" style="display: none;" id="admin_image_preview_remove">Remove</a>
-                                                            </div>
+                                                            <!-- <div id="admin_image_error" class="error">
+                                                               
+                                                            </div> -->
+                                                           
                                                         <div>
+                                                       
                                                     </div>
+                                                    <div class="text-center">
+                                                                <a href="javascript:void(0)" style="" id="image_preview_remove">Remove</a>
+                                                            </div>
                                                 </div>
                                                 </div>
                                             </div>
@@ -231,7 +236,7 @@
                             img.attr("src", e.target.result);
                             dvPreview.append(img);
                         }
-                        $('#admin_image_preview_remove').show();
+                        $('#image_preview_remove').show();
                         reader.readAsDataURL(file[0]);
                     }     
                 }
@@ -301,9 +306,9 @@
             
             
         })
-        $('#admin_image_preview_remove').click(function(){
+        $('#image_preview_remove').click(function(){
             $("#admin_image").val('');
-            $('#admin_image_preview_remove').hide();
+            // $('#image_preview_remove').hide();
             $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
             
         })
