@@ -70,13 +70,14 @@
                                                 Stylist</button></a></div>
                                 </div>
                                 <?php
-                                 if(is_file(public_path().'/stylist/attachments/profileImage/'.$member_details->stylist_profile_image)){
-                                    $image=asset('/stylist/attachments/profileImage/'.$member_details->stylist_profile_image);
+                                //http://local.stylegrid.com/stylist/attachments/profileImage/1665461135.png
+                                 if(is_file(public_path().'/'.$member_details->stylist_profile_image)){
+                                  //  $image=asset('/'.$member_details->stylist_profile_image);
                                 }else{
-                                    $image=asset('/stylist/attachments/profileImage/default_image.png');
+                                   // $image=asset('/stylist/attachments/profileImage/default_image.png');
                                 }
                                 ?>
-                                <div class="text-center"> <a href=""><img src="{{$image}}"
+                                <div class="text-center"> <a href=""><img src="{{$member_details->stylist_profile_image}}"
                                     class="assign-sty-img" alt="" style="height: 100px;width: 100px;"></a>
                                 </div>
                                 <?php
