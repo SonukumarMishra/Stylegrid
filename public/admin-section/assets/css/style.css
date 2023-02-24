@@ -1364,3 +1364,11 @@ color: #000000;
   text-align: center;
   font-family: 'Genos';
 }
+#image_preview_remove{
+  color: red !important;
+    font-family: 'Genos';
+    font-size: 20px;
+    /* border: 2px solid; */
+    border-radius: 4px;
+    padding: 4px 10px;
+}
