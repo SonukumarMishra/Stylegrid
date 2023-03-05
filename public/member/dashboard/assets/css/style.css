@@ -3147,3 +3147,57 @@ margin-bottom: 23px; */
     border-radius: 4px;
     padding: 4px 10px;
 }
+
+/* subscription cards */
+
+.subscription-card{
+    box-shadow: 5px 10px 10px 0px rgb(0 0 0 / 25%);
+    color: #FFFFFF;
+    background-color: #2B2B2B;
+    border-radius: 10px 10px 10px 10px;
+    margin: 15px;
+}
+
+
+.subscription-price-title {
+
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 97.28px;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+
+}
+
+.subscription-price-subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+}
+
+.susbcription-buy-btn{
+
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: 0.7px;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #FFFFFF;
+  border-radius: 5px 5px 5px 5px;
+  padding: 18px 18px 18px 18px;
+
+}
+
+
+.susbcription-hr{
+  margin: 30px 0 30px 0;
+  border: 0.509375px solid #FFFFFF;
+}
+
+.susbcription-list-dtls ul{
+  padding-left: 2rem !important;
+  margin-bottom: 0 !important;
+}

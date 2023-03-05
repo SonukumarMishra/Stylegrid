@@ -35,7 +35,11 @@ return [
    'grid_sent_to_client_success' => 'Grid has been sent successfully.',
    'add_to_cart_success' => 'Product has been added to your cart.',
    'remove_cart_item_success' => 'Product has been removed to your cart.',
-
+   'already_active_subscription_action' => 'You\'re already subscribed!',
+   'already_cancelled_subscription' => 'Subscription has already been canceled.',
+   'subscription_success' => 'Thank you for subscribing!',
+   'cancel_subscription_success' => 'Your subscription has been successfully cancelled.',
+   'unable_to_create_subscription' => 'Unable to create subscription.',
    // notificaions description
 
    'notifications' => [

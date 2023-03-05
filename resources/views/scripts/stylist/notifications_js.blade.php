@@ -63,7 +63,7 @@
                     $('#notifications_container').append(response.data.view);
 
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
                 NotificationRef.isActiveAjax = false;
 

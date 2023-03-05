@@ -130,7 +130,7 @@
                     }
 
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
             }, processExceptions, 'POST');
            
@@ -185,7 +185,7 @@
                     }
 
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
             }, processExceptions, 'POST');
         
