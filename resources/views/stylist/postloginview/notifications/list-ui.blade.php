@@ -9,7 +9,7 @@
                     <div class="d-flex justify-content-between">
 
                         <h1>{{ $item->notification_title }}</h1>
-                        <p class="time">{{ date('m-d-Y', strtotime($item->created_at)) }}</p>
+                        <p class="time">{{ date('m/d/Y', strtotime($item->created_at)) }}</p>
 
                     </div>
                     <div class="d-flex justify-content-between">

@@ -5,6 +5,7 @@ use App\Models\Member;
 use Illuminate\Support\Str;
 use Session;
 use Illuminate\Support\Facades\Mail;
+use App\Repositories\UserRepository as UserRepo;
 use URL;
 use Log;
 
@@ -156,7 +157,10 @@ class StylistWebsiteController extends Controller
                             );
                         $response=$member->addUpdateData($save_data,'sg_stylist'); 
                         if($response['reference_id']){
-                           $member->addUpdateData(['id'=>0,'type_s_m'=>1,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trial'],'sg_member_stylist_subscription');   
+                            // $member->addUpdateData(['id'=>0,'type_s_m'=>1,'member_stylist_id'=>$response['reference_id'],'start_date'=>date('Y-m-d'),'end_date'=>date('Y-m-d',strtotime ('30 day',strtotime(date('Y-m-d')))),'subscription'=>'Trial'],'sg_member_stylist_subscription');   
+                            
+                            UserRepo::assign_subscription_to_user($response['reference_id'], config('custom.user_type.stylist'), config('custom.subscription.types.trial'));
+
                             $favourite_brand_list=explode(',',$request->favourite_brand_list);
                             if(count($favourite_brand_list)>0){
                                 $member->deleteExistingdata(['stylist_id'=>$response['reference_id']],'sg_stylist_brand');

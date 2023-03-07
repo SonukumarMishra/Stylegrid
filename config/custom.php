@@ -55,5 +55,47 @@ return [
         'sourcing_offer_accepted' => 'sourcing_offer_accepted',
         'sourcing_offer_decline' => 'sourcing_offer_decline',
         'sourcing_offer_received' => 'sourcing_offer_received',
+    ],
+
+    'subscription' => [
+        'types' => [
+            'trial' => 'trial',
+            'paid' => 'paid',
+            'free' => 'free'
+        ],
+        'interval' => [
+            'days' => 'days',
+            'month' => 'month',
+            'year' => 'year'   
+        ],
+        'status' => [
+            'active' => 'active',
+            'cancelled' => 'cancelled',
+            'expired' => 'expired'
+        ]
+    ],
+
+
+    'payment_transaction' => [
+        'type_debit' => 'debit',
+        'trans_type' => [
+            'subscription' => 'subscription'
+        ]
+    ],
+    
+    'payment_gatway' => [
+        'stripe' => 'stripe'
+    ],
+    
+    'stripe' => [
+        'publishableKey' => 'pk_test_51MazanGhw3cYT5YK13cQNhHcY7thKoeRMD5QUfveEDFLais19e2bsr40WsSl02FSS3WGYwSvT7KhXgTYUuWeHObV00x7KyKD9d',
+        'subscription_status' => [
+            'active' => 'active',
+            'trialing' => 'trialing',
+            'canceled' => 'canceled',
+            'past_due' => 'past_due',
+            'unpaid' => 'unpaid',
+        ]
     ]
+
 ];

@@ -25,6 +25,11 @@
                     </ul>
                     <ul class="nav navbar-nav float-right">
                         <li class="dropdown dropdown-notification nav-item">
+                            <a class="nav-link nav-link-label" href="{{ route('member.subscription.index') }}">
+                                <img src="{{ asset('/member/dashboard/app-assets/images/icons/subscription.png') }}" title="subscription" height="20" width="20">
+                            </a>
+                        </li>
+                        <li class="dropdown dropdown-notification nav-item">
                             <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
                                 <img src="{{ asset('/member/dashboard/app-assets/images/icons/Bell.svg') }}" alt="">
                               <span class="badge badge-pill badge-danger badge-up notify-badge hidden" id="notify-badge-count"></span>

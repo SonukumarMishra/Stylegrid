@@ -151,6 +151,19 @@ Route::post('/member-notifications', [Member::class, 'notificationsList'])->name
 Route::post('/member-notifications-unread', [Member::class, 'unreadNotificationsList'])->name('member.notifications.unread_list');
 Route::post('/member-notifications-read-all', [Member::class, 'readNotifications'])->name('member.notifications.read_all');
 
+// Subscription
+
+
+Route::group(['prefix' => 'member-subscription', 'as' => 'member.subscription.'], function () {
+  
+    Route::get('/', 'Member\SubscriptionController@index')->name('index');
+    Route::post('list', 'Member\SubscriptionController@getSubscriptionList')->name('list');
+    Route::post('buy', 'Member\SubscriptionController@buySubscription')->name('buy');
+    Route::post('cancel', 'Member\SubscriptionController@cancelSubscription')->name('cancel');
+
+});
+
+
 // Memeber panel chat
 Route::get('/member-messanger/{chat_room_id?}', 'Member\ChatController@index')->name('member.messanger.index');
 Route::post('/member-messanger-auth', 'Member\ChatController@pusherAuth')->name('member.messanger.pusher.auth');

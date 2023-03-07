@@ -79,7 +79,7 @@
                             window.location.href = '{{ route("member.messanger.index") }}';
 
                         } else {
-                            showErrorMessage(response.error);
+                            showErrorMessage(response.message);
                         }
 
 
@@ -128,7 +128,7 @@
                     CartRef.getCartItems();
                     
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
 
 
@@ -165,7 +165,7 @@
                     $('#cart_container').append(response.data.view);
                     
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
                 CartRef.isActiveAjax = false;
 

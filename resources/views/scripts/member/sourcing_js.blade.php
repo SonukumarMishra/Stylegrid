@@ -95,7 +95,7 @@
                     }
 
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
             }, processExceptions, 'POST');
            

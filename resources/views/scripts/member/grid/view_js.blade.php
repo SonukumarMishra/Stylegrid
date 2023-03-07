@@ -168,7 +168,7 @@
                     $('#cart_action_btn').data('action', 'add');
 
                 } else {
-                    showErrorMessage(response.error);
+                    showErrorMessage(response.message);
                 }
 
 

@@ -4,8 +4,11 @@ use Config;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Subscription;
+use App\Models\UserSubscription;
 use App\Repositories\CartRepository as CartRepo;
 use File;
+use Mail;
 use Storage;
 use Hash;
 use DB;
@@ -224,4 +227,66 @@ class Helper
 
     }
 
+    
+    public static function format_number($number){
+        return number_format((float)$number, 2, '.', '');
+    }
+
+    public static function defaultImage(){
+        return url('/') . "/common/images/no_image.jpg";
+    }
+
+    
+    public static function send_email($email, $subject, $page_view, $email_data) {
+
+        if( env('MAIL_USERNAME') &&  env('MAIL_PASSWORD')) {
+
+            try {
+
+                $mail = Mail::send($page_view, array('data' => $email_data), function ($message) use ($email, $subject, $email_data) {
+
+                        $message->to($email)->subject($subject);
+
+                        if(isset($email_data['attachments']) && count($email_data['attachments']) > 0) {
+
+                            foreach($email_data['attachments'] as $file) {
+
+                                if(!empty($file)){
+                                    $message->attach($file->attachment_url);
+                                }
+                            }
+                        }
+
+                });
+
+            } catch(\Exception $e) {
+
+                Log::info('email send error '.print_r($e->getMessage() , true));
+
+            }
+
+        }
+
+    }
+
+    public static function update_active_subscription_count($subscription_id){
+
+        try{
+
+            $total_users = UserSubscription::where([
+                                                'subscription_id' => $subscription_id,
+                                                'subscription_status' => config('custom.subscription.status.active'),
+                                                'is_active' => 1,
+                                            ])->count();
+
+            Subscription::where([
+                'subscription_id' => $subscription_id,
+            ])->update([ 'total_users' => $total_users ]);
+
+        } catch(\Exception $e) {
+
+            Log::info('error update_active_subscription_count error '.print_r($e->getMessage() , true));
+
+        }
+    }
 }

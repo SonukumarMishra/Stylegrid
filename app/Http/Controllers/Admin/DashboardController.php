@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Dashboard;
+use App\Repositories\UserRepository as UserRepo;
 use App\Models\Member;
 use Session;
 use Config;
@@ -58,6 +59,9 @@ class DashboardController extends Controller
         if($request->ajax()){
             $member=new Member();
             $response=$member->addUpdateData(['id'=>$request->member_id,'membership_cancelled'=>1,'reason_of_cancellation'=>$request->reason_for_cancellation,'cancellation_datetime'=>now()],'sg_member');
+            
+            UserRepo::cancel_user_subscription($request, $request->member_id, config('custom.user_type.member'));
+
             if($response['reference_id']>0){
                 $response['status']=1;
                 $response['message']="Membership cancelled successfully";
@@ -73,6 +77,9 @@ class DashboardController extends Controller
         if($request->ajax()){
             $member=new Member();
             $response=$member->addUpdateData(['id'=>$request->stylist_id,'membership_cancelled'=>1,'reason_of_cancellation'=>$request->reason_for_cancellation,'cancellation_datetime'=>now()],'sg_stylist');
+            
+            UserRepo::cancel_user_subscription($request, $request->stylist_id, config('custom.user_type.stylist'));
+
             if($response['reference_id']>0){
                 $response['status']=1;
                 $response['message']="Stylist Membership cancelled successfully";
@@ -113,7 +120,7 @@ class DashboardController extends Controller
                     'shop_style_source'=>$result->shop_style_source,
                     'email'=>$result->email,
                     'phone'=>$result->phone,
-                    'applied_date'=>date('d-m-Y',strtotime($result->added_date)),
+                    'applied_date'=>date('m/d/Y',strtotime($result->added_date)),
                     'spend'=>$result->spend,
                     'subscription'=>$result->subscription,
                     'status'=>$result->status,
@@ -212,7 +219,7 @@ class DashboardController extends Controller
                     }
                     return json_encode([
                         'status'=>1,
-                        'message'=>"Product removed successfullyqqqq!",
+                        'message'=>"Product removed successfully!",
                     ]);
                 }else{
                     return json_encode([

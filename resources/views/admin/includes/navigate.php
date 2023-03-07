@@ -59,10 +59,18 @@
                     </a>
                 </li>
                 <li class="nav-item text-center">
-                    <div class="stylish-img"><img src="<?php echo  asset('admin-section/app-assets/images/gallery/admin-profile-photo.png')?>"
-                            class="img-fluid" alt="">
+                <?php
+                    if(is_file('attachments/admin/profile/'.Session::get("admin_data")->image)){
+                        $image='attachments/admin/profile/'.Session::get("admin_data")->image; 
+                    }else{
+                        $image='admin-section/app-assets/images/gallery/admin-profile-photo.png'; 
+                    }
+                    ?>
+                    <div class="stylish-img"><img src="<?php echo  asset($image)?>"
+                            class="img-fluid" alt="" style="width:111px;">
                     </div>
-                </li>    
+                </li>
+
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
                             <h2 class="stylish-name">Georgia Fox</h2><br>
@@ -99,7 +107,7 @@
                             data-i18n="">Finances</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="<?php echo url('/admin-settings');?>"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Settings</span></a>
+                <li class=" nav-item"><a href="<?php echo url('/admin-settings');?>" <?php if(Request::path()=='admin-settings' || 'admin-profile-settings') { ?>class="active"<?php } ?>><i class="ft-edit <?php if(Request::path()=='admin-settings' || 'admin-profile-settings') { ?>active<?php } ?>"></i><span class="menu-title" data-i18n="">Settings</span></a>
 
                 </li>
                 <li class=" nav-item mt-5"><a href="#"><i class="ft-grid"></i><span class="menu-title"
