@@ -392,9 +392,9 @@ class PaymentRepository {
                         if (!empty($payment_trans_id)) {
 
                             // save invoice pdf
-                            $active_subscription = UserRepo::get_user_subscription($user_data);
+                            $new_subscription = UserRepo::get_user_subscription_dtls_by_id($user_subscription_id);
 
-                            $active_subscription = $active_subscription['data'];
+                            $new_subscription = $new_subscription['data'];
 
                             $pdf_url = '';
 
@@ -404,8 +404,8 @@ class PaymentRepository {
 
                                     set_time_limit(300);
 
-                                    $pdf = PDF::loadView('email_templates.subscription-invoice', [ 'data' => $active_subscription])
-                                                                    ->setOptions(['defaultFont' => 'IBM Plex Sans",Helvetica,Arial,serif', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+                                    $pdf = PDF::loadView('email_templates.subscription-invoice', [ 'data' => $new_subscription])
+                                                ->setOptions(['defaultFont' => 'IBM Plex Sans",Helvetica,Arial,serif', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
 
                                     $default_storage = config('filesystems.default');
 
@@ -441,7 +441,7 @@ class PaymentRepository {
 
                                     $emailData = [];
 
-                                    $emailData['data'] = $active_subscription;
+                                    $emailData['data'] = $new_subscription;
 
                                     $doc_obj = array('attachment_url' => $pdf_url);
 
