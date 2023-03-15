@@ -40,6 +40,9 @@ return [
    'subscription_success' => 'Thank you for subscribing!',
    'cancel_subscription_success' => 'Your subscription has been successfully cancelled.',
    'unable_to_create_subscription' => 'Unable to create subscription.',
+   'stripe_user_not_found' => 'User\'s stripe account not found.',
+   'stripe_payment_method_not_found' => 'User\'s stripe payment method not found.',
+   
    // notificaions description
 
    'notifications' => [

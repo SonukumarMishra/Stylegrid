@@ -121,7 +121,7 @@
 
         }
 
-        window.confirmDialogMessage = function(title_msg, sub_title_msg, confirm_btn_text='Ok',furtherFuntionToCall, target = '') {
+        window.confirmDialogMessage = function(title_msg, sub_title_msg, confirm_btn_text='Ok',furtherFuntionToCall, target = '', cancel_btn_text='Cancel') {
 
             Swal.fire({
                 customClass: {
@@ -132,6 +132,7 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: confirm_btn_text,
+                cancelButtonText: cancel_btn_text,
                 target: (target != '' ? document.getElementById(target) : 'body'),
             }).then((result) => {
 

@@ -99,6 +99,7 @@ class UserRepository {
                 $user_sub->association_type_term = $association_type_term;
                 $user_sub->start_date = isset($start_date) && !empty($start_date) ? date('Y-m-d H:i:s', strtotime($start_date)) : NULL;
                 $user_sub->end_date = isset($end_date) && !empty($end_date) ? date('Y-m-d H:i:s', strtotime($end_date)) : NULL;
+                $user_sub->billing_invoice_date = isset($data['billing_invoice_date']) && !empty($data['billing_invoice_date']) ? date('Y-m-d H:i:s', strtotime($data['billing_invoice_date'])) : NULL;
                 $user_sub->stripe_subscription_id = @$data['stripe_subscription_id'];
                 $user_sub->subscription_status = $subscription_status;
                 $user_sub->save();
@@ -125,16 +126,20 @@ class UserRepository {
 
                     }
 
-                    UserSubscription::where([
-                        'association_id' => $association_id,
-                        'association_type_term' => $association_type_term,
-                    ])
-                    ->where('user_subscription_id', '!=', $user_sub->user_subscription_id)
-                    ->update([ 
-                                'is_active' => 0, 
-                                'subscription_status' => config('custom.subscription.status.cancelled'),
-                                'cancelled_on' => date('Y-m-d H:i:s')
-                            ]);
+                    if($subscription_status == config('custom.subscription.status.active')){
+
+                        // If new plan have active status then cancel past all active subscriptions
+                        
+                        UserSubscription::where([
+                            'association_id' => $association_id,
+                            'association_type_term' => $association_type_term,
+                        ])
+                        ->where('user_subscription_id', '!=', $user_sub->user_subscription_id)
+                        ->update([ 
+                                    'subscription_status' => config('custom.subscription.status.cancelled'),
+                                    'cancelled_on' => date('Y-m-d H:i:s')
+                                ]);
+                    }
 
                     $response_array = array('status' => 1,  'message' => trans('pages.action_success'), 'data' => ['user_subscription_id' => $user_sub->user_subscription_id]);
 
@@ -168,9 +173,9 @@ class UserRepository {
                                             ->where([
                                                 'us.association_id' => $user_data['user_id'],
                                                 'us.association_type_term' => $user_data['user_type'],
-                                                'us.is_active' => 1,
-                                                'us.subscription_status' => config('custom.subscription.status.active')
+                                                'us.is_active' => 1
                                             ])
+                                            ->whereIn('us.subscription_status', [config('custom.subscription.status.active'), config('custom.subscription.status.cancelled')])
                                             ->select('us.*', 'sub.*', 'pay_tra.payment_trans_id', 'pay_tra.trans_status as payment_status', 'us.created_at as invoice_date')
                                             ->first();
                                             
@@ -195,7 +200,8 @@ class UserRepository {
             UserSubscription::where([
                 'association_id' => $association_id,
                 'association_type_term' => $association_type_term,
-                'is_active' => 1
+                'is_active' => 1,
+                'subscription_status' => config('custom.subscription.status.active')
             ])
             ->update([ 
                 'subscription_status' => config('custom.subscription.status.cancelled'),

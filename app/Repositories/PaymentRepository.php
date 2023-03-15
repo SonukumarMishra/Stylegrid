@@ -205,6 +205,10 @@ class PaymentRepository {
         
                 try {
 
+                    $last_active_subscription = UserRepo::get_user_subscription($user_data);
+
+                    $last_active_subscription = $last_active_subscription['data'];
+
                     $billing_date = time();
                     
                     $invoice_date = date('Y-m-d H:i:s');
@@ -217,6 +221,15 @@ class PaymentRepository {
 
                         $invoice_date = date('Y-m-d H:i:s', strtotime($user_details->trial_end_date));
                         
+                    }
+                    
+                    if(isset($last_active_subscription->stripe_subscription_id) && !empty($last_active_subscription->stripe_subscription_id) && $subscription_info->price < $last_active_subscription->price){
+                        
+                        // If user have trial time, that already included in last active subscription 
+
+                        // When user downgrade plan from upgraded plan, that time new subscription should start after completion of current plan. New subscription should not active immediately
+                        $invoice_date = date('Y-m-d H:i:s', strtotime($last_active_subscription->end_date));
+
                     }
 
                     if($subscription_info->interval_type == config('custom.subscription.interval.days')){
@@ -233,11 +246,9 @@ class PaymentRepository {
                         
                     }
 
+                    Log::info("user invoice_date ". $invoice_date);
+
                     $billing_date = strtotime($invoice_date);
-
-                    $last_active_subscription = UserRepo::get_user_subscription($user_data);
-
-                    $last_active_subscription = $last_active_subscription['data'];
 
                     $subscription_result = $stripe->subscriptions->create([
                         'customer' => $user_details['stripe_customer_id'],
@@ -252,29 +263,55 @@ class PaymentRepository {
 
                     if(isset($last_active_subscription->stripe_subscription_id) && !empty($last_active_subscription->stripe_subscription_id)){
 
-                       // When user buy upgrade or downgrade subscription that time cancel active subscription
-
-                       try{
-
-                            $stripe->subscriptions->cancel(
-                                $last_active_subscription->stripe_subscription_id,
-                                []
-                            );     
+                        if(isset($last_active_subscription->stripe_subscription_id) && !empty($last_active_subscription->stripe_subscription_id) && $subscription_info->price < $last_active_subscription->price){
                         
-                            UserSubscription::where([
-                                'user_subscription_id' => $last_active_subscription->user_subscription_id
-                            ])->update([
-                                'subscription_status' => config('custom.subscription.status.cancelled'),
-                                'cancelled_on' => date('Y-m-d H:i:s')
-                            ]);
+                            // When user downgrade plan, that time update current upgraded plan end date and for downgrade plan schedule date to next invoice date and activate that time.
 
-                            \Helper::update_active_subscription_count($last_active_subscription->subscription_id);
+                            try{
 
-                        }catch (\Exception $e) {
-                        
-                            Log::info("error upgrade cancel subscription ". $e->getMessage());
-            
+                                $subscription_cancel_at = date('Y-m-d', strtotime($last_active_subscription->end_date));
+
+                                $stripe->subscriptions->update(
+                                    $last_active_subscription->stripe_subscription_id,
+                                    [
+                                        'cancel_at' => strtotime($subscription_cancel_at)
+                                    ]
+                                );     
+                            
+                            }catch (\Exception $e) {
+                            
+                                Log::info("error update subscription ". $e->getMessage());
+                
+                            }
+                            
+                        }else{
+
+                            // When user buy upgrade plan from downgrade plan  that time cancel active subscription and immadiatly activate latest plan.
+
+                            try{
+
+                                $stripe->subscriptions->cancel(
+                                    $last_active_subscription->stripe_subscription_id,
+                                    []
+                                );     
+                            
+                                UserSubscription::where([
+                                    'user_subscription_id' => $last_active_subscription->user_subscription_id
+                                ])->update([
+                                    'subscription_status' => config('custom.subscription.status.cancelled'),
+                                    'cancelled_on' => date('Y-m-d H:i:s')
+                                ]);
+
+                                \Helper::update_active_subscription_count($last_active_subscription->subscription_id);
+
+                            }catch (\Exception $e) {
+                            
+                                Log::info("error upgrade cancel subscription ". $e->getMessage());
+                
+                            }
+                            
                         }
+                       
                         
                     }
 
@@ -284,21 +321,34 @@ class PaymentRepository {
 
                     if(in_array($subscription_result->status, [ config('custom.stripe.subscription_status.active'), config('custom.stripe.subscription_status.trialing')])){
 
-                        $sub_info_status = config('custom.subscription.status.active');
+                        if(isset($last_active_subscription->stripe_subscription_id) && !empty($last_active_subscription->stripe_subscription_id) && $subscription_info->price < $last_active_subscription->price){
+
+                            $sub_info_status = config('custom.subscription.status.pending');
+
+                        }else{
+
+                            $sub_info_status = config('custom.subscription.status.active');
+
+                        }
 
                     }
 
                     $sub_info = [
-                        'start_date' => date('Y-m-d H:i:s', $subscription_result->start_date),      // subscription response date in timestamp format
+                        'start_date' => date('Y-m-d H:i:s', $subscription_result->current_period_end),      // subscription response date in timestamp format
                         'end_date' => date('Y-m-d H:i:s', strtotime($subscription_end_date)),
+                        'billing_invoice_date' =>  isset($subscription_result->billing_cycle_anchor) && !empty($subscription_result->billing_cycle_anchor) ? date('Y-m-d H:i:s', $subscription_result->billing_cycle_anchor) : '',      // subscription response date in timestamp format
                         'stripe_subscription_id' => $subscription_result->id,
                         'status' => $sub_info_status
                     ];
+                    
+                    Log::info("sub info ". print_r($sub_info, true));
 
                     // Assign subscription to user
                     $user_subscription = UserRepo::assign_subscription_to_user($user_data['user_id'], $user_data['user_type'], config('custom.subscription.types.paid'), $subscription_info->subscription_id, $sub_info);
 
                     if ($user_subscription['status']) {
+
+                        $user_subscription_id = $user_subscription['data']['user_subscription_id'];
 
                         \Helper::update_active_subscription_count($subscription_info->subscription_id);
 
@@ -395,12 +445,23 @@ class PaymentRepository {
                                 }
                             }
 
-                            $payment_trans_ref = PaymentTransaction::find($payment_trans_id);
+                            if(isset($pdf_url) && !empty($pdf_url)){
 
-                            if ($payment_trans_ref) {
-                                $payment_trans_ref->invoice_pdf = $pdf_url;
-                                $payment_trans_ref->save();
+                                $payment_trans_ref = PaymentTransaction::find($payment_trans_id);
+
+                                if ($payment_trans_ref) {
+                                    $payment_trans_ref->invoice_pdf = $pdf_url;
+                                    $payment_trans_ref->save();
+                                }
+    
+                                UserSubscription::where([
+                                    'user_subscription_id' => $user_subscription_id
+                                ])
+                                ->update([ 
+                                    'invoice_pdf' => $pdf_url
+                                ]);
                             }
+
                         }
 
                         $response_array = array('status' => 1,  'message' => trans('pages.action_success'));
@@ -536,38 +597,45 @@ class PaymentRepository {
 
                     try {
 
+                        // When canceling subscription that time, update stripe end date to current active subscription's end date. User will be allow to access till end date of month.
+                        
                         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
                 
-                        $subscribe_cancel = $stripe->subscriptions->cancel(
-                            $user_subscription->stripe_subscription_id,
-                            []
-                        );                        
+                        $subscription_cancel_at = date('Y-m-d', strtotime($user_subscription->end_date));
+
+                        $subscribe_cancel = $stripe->subscriptions->update(
+                                $user_subscription->stripe_subscription_id,
+                                [
+                                    'cancel_at' => strtotime($subscription_cancel_at)
+                                ]
+                        );     
+                                             
         
                         Log::info("stripe cancel subscription ". print_r($subscribe_cancel, true));
 
                         $user_subscription->subscription_status = config('custom.subscription.status.cancelled');
                         $user_subscription->cancelled_on = date('Y-m-d H:i:s');
+                        $user_subscription->reason_of_cancellation = isset($request->reason_for_cancellation) && !empty($request->reason_for_cancellation) ? $request->reason_for_cancellation : '';
                         $user_subscription->save();
 
                         \Helper::update_active_subscription_count($user_subscription->subscription_id);
 
                         // On cancel susbcription time, if user have trial days left then give trail subscription package, otherwise free 
 
-                        if(isset($user_details->trial_end_date) && !empty($user_details->trial_end_date) && date('Y-m-d', strtotime($user_details->trial_end_date)) >= date('Y-m-d')){
+                        // if(isset($user_details->trial_end_date) && !empty($user_details->trial_end_date) && date('Y-m-d', strtotime($user_details->trial_end_date)) >= date('Y-m-d')){
                         
-                            $sub_info = [
-                                'start_date' => date('Y-m-d H:i:s'),      // subscription response date in timestamp format
-                                'end_date' => date('Y-m-d H:i:s', strtotime($user_details->trial_end_date))
-                            ];
+                        //     $sub_info = [
+                        //         'start_date' => date('Y-m-d H:i:s'),      // subscription response date in timestamp format
+                        //         'end_date' => date('Y-m-d H:i:s', strtotime($user_details->trial_end_date))
+                        //     ];
 
-                            UserRepo::assign_subscription_to_user($user_data['user_id'], $user_data['user_type'], config('custom.subscription.types.trial'), '', $sub_info);
+                        //     UserRepo::assign_subscription_to_user($user_data['user_id'], $user_data['user_type'], config('custom.subscription.types.trial'), '', $sub_info);
 
-                        }else{
+                        // }else{
 
-                            UserRepo::assign_subscription_to_user($user_data['user_id'], $user_data['user_type'], config('custom.subscription.types.free'));
+                        //     UserRepo::assign_subscription_to_user($user_data['user_id'], $user_data['user_type'], config('custom.subscription.types.free'));
 
-                        }
-
+                        // }
                       
                         return array('status' => 1, 'message' => trans('pages.cancel_subscription_success'));
 
@@ -640,5 +708,72 @@ class PaymentRepository {
 
         }
 
+    }
+
+    public static function stripe_get_user_default_payment_method($user_data)
+    { 
+      
+        try { 
+
+            $user_details = false;
+
+            if($user_data['user_type'] == config('custom.user_type.member')){
+
+                $user_details =  Member::find($user_data['user_id']);
+
+            }else if($user_data['user_type'] == config('custom.user_type.stylist')){
+
+                $user_details =  Stylist::find($user_data['user_id']);
+                
+            }
+
+            if(!$user_details){
+
+                return array('status' => 0, 'message' => trans('pages.crud_messages.no_data', [ 'attr' => 'user']) );
+        
+            }
+
+            $stripe_customer_id = $user_details->stripe_customer_id;
+
+            if(!empty($stripe_customer_id)){
+
+                try {
+
+                    $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+        
+                    $stripe_customer = $stripe->customers->retrieve($stripe_customer_id);
+    
+                    if($stripe_customer){
+    
+                        $payment_method = $stripe->paymentMethods->retrieve(
+                            $stripe_customer->invoice_settings->default_payment_method,
+                            []
+                          );
+    
+                    }
+
+                    return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => $payment_method ];
+
+    
+                }catch (\Exception $e) {
+                                            
+                    Log::info("error ". $e->getMessage());
+                    return array('status' => 0, 'message' => trans('pages.stripe_payment_method_not_found'), 'error' => $e->getMessage());
+    
+                }
+    
+            }else{
+
+                return array('status' => 0, 'message' => trans('pages.stripe_user_not_found'));
+    
+            }
+        
+        }catch (\Exception $e) {
+                        
+            Log::info("error stripe_get_user_default_payment_method ". $e->getMessage());
+
+            return array('status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage());
+
+        }
     }
 }

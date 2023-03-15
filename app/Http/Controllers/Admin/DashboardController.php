@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Dashboard;
 use App\Repositories\UserRepository as UserRepo;
+use App\Repositories\SubscriptionRepository as SubscriptionRepo;
+use App\Repositories\PaymentRepository as PaymentRepo;
 use App\Models\Member;
 use Session;
 use Config;
@@ -55,7 +57,7 @@ class DashboardController extends Controller
         }
         return redirect("/admin-member-list");
     }
-    public function adminCancelMembership(Request $request){
+    public function adminCancelMembershipOld(Request $request){
         if($request->ajax()){
             $member=new Member();
             $response=$member->addUpdateData(['id'=>$request->member_id,'membership_cancelled'=>1,'reason_of_cancellation'=>$request->reason_for_cancellation,'cancellation_datetime'=>now()],'sg_member');
@@ -72,6 +74,31 @@ class DashboardController extends Controller
             return json_encode($response);
         }
     }
+
+     
+    public function adminCancelMemberMembership(Request $request)
+	{
+        try{
+
+            $user_data = [
+                'user_id' => $request->user_id,
+                'user_type' => $request->user_type
+            ];
+
+            $response_array = PaymentRepo::cancel_stripe_subscription($request, $user_data);
+          
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error adminCancelMemberMembership - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
 
     public function adminCancelStylistMembership(Request $request){
         if($request->ajax()){
@@ -383,4 +410,70 @@ class DashboardController extends Controller
                 ]);
         }
     }  
+
+    public function memberSubscriptionBillingDetails(Request $request)
+	{
+        try{
+
+            $user_data = [
+                'user_id' => $request->user_id,
+                'user_type' => $request->user_type
+            ];
+
+            $result = SubscriptionRepo::get_subscription_billing_details($request, $user_data);
+           
+            $view = '';
+
+            $view = view("admin.member.subscription.billing-content", compact('result'))->render();
+
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                'data' => [
+                                    'view' => $view,
+                                ]  
+                            ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error memberSubscriptionBillingDetails - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
+    public function getMemberSubscriptioninvoiceHistory(Request $request)
+	{
+        try{
+
+            $user_data = [
+                'user_id' => $request->user_id,
+                'user_type' => $request->user_type
+            ];
+
+            $invoice_history = SubscriptionRepo::get_subscription_invoice_history($request, $user_data);
+          
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => $invoice_history['total'],
+                "recordsFiltered" => $invoice_history['total'],
+                "data" => $invoice_history['list'],
+            );
+           
+            return response()->json($response, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error getMemberSubscriptioninvoiceHistory - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
 }

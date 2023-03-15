@@ -162,8 +162,6 @@ class SubscriptionController extends BaseController
 
                         $payment_method_result = PaymentRepo::create_stripe_payment_method($this->auth_user, $stripe_customer_id, $request->payment_method_id);
 
-                        Log::info('payment_method_result '.print_r($payment_method_result, true));
-
                         if($payment_method_result['status'] == 0){
 
                             return response()->json(['status' => 0, 'message' => $payment_method_result['message'] ]);
@@ -233,6 +231,95 @@ class SubscriptionController extends BaseController
         }catch(\Exception $e){
 
             Log::info("error cancelSubscription - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
+    public function subscriptionBillingIndex()
+	{
+        try{
+
+    		return view('member.dashboard.subscription.billing-index');
+
+        }catch(\Exception $e){
+
+            Log::info("subscriptionBillingIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+	}
+
+    public function subscriptionBillingDetails(Request $request)
+	{
+        try{
+
+            $result = SubscriptionRepo::get_subscription_billing_details($request, $this->auth_user);
+           
+            $view = '';
+
+            $view = view("member.dashboard.subscription.billing-content", compact('result'))->render();
+
+            $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                'data' => [
+                                    'view' => $view,
+                                ]  
+                            ];
+
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error subscriptionBillingDetails - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
+    public function getSubscriptioninvoiceHistory(Request $request)
+	{
+        try{
+
+            $invoice_history = SubscriptionRepo::get_subscription_invoice_history($request, $this->auth_user);
+          
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => $invoice_history['total'],
+                "recordsFiltered" => $invoice_history['total'],
+                "data" => $invoice_history['list'],
+            );
+           
+            return response()->json($response, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error getSubscriptioninvoiceHistory - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
+
+            return response()->json($response_array, 200);
+        }
+
+	}
+
+     
+    public function checkAlreadyPurchasedCancelledSubscription(Request $request)
+	{
+        try{
+
+            $response_array = SubscriptionRepo::check_user_already_purchased_cancelled_subscription($request, $this->auth_user);
+          
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e){
+
+            Log::info("error checkAlreadyPurchasedSubscription - ". $e->getMessage());
             
             $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
 

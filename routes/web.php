@@ -160,7 +160,10 @@ Route::group(['prefix' => 'member-subscription', 'as' => 'member.subscription.']
     Route::post('list', 'Member\SubscriptionController@getSubscriptionList')->name('list');
     Route::post('buy', 'Member\SubscriptionController@buySubscription')->name('buy');
     Route::post('cancel', 'Member\SubscriptionController@cancelSubscription')->name('cancel');
-
+    Route::get('billing', 'Member\SubscriptionController@subscriptionBillingIndex')->name('billing.index');
+    Route::post('billing-details', 'Member\SubscriptionController@subscriptionBillingDetails')->name('billing.content');
+    Route::post('invoice/history', 'Member\SubscriptionController@getSubscriptioninvoiceHistory')->name('invoice.history');
+    Route::post('check-already-purchased-cancelled-subscription', 'Member\SubscriptionController@checkAlreadyPurchasedCancelledSubscription')->name('check_already_purchased_cancelled');
 });
 
 
@@ -193,11 +196,13 @@ Route::get('/admin-logout', [AdminLogin::class, 'adminLogout']);
 Route::get('/admin-dashboard', [AdminDashboard::class, 'adminDashboard']);
 Route::get('/admin-member-list', [AdminDashboard::class, 'adminMemberList']);
 Route::post('/admin-member-list-ajax', [AdminDashboard::class, 'adminMemberListAjax']);
-Route::get('/admin-member-details/{title}', [AdminDashboard::class, 'adminMemberDetails']);
+Route::get('/admin-member-details/{title}', [AdminDashboard::class, 'adminMemberDetails'])->name('admin.member.view');
+Route::post('admin-member-details/subscription-billing-details', [AdminDashboard::class, 'memberSubscriptionBillingDetails'])->name('admin.member.subscription.billing');
+Route::post('admin-member-details/subscription-invoice-history', [AdminDashboard::class, 'getMemberSubscriptioninvoiceHistory'])->name('admin.member.subscription.invoice.history');
 Route::get('/admin-stylist', [AdminDashboard::class, 'adminStylist']);
 Route::post('/admin-stylist-list-ajax', [AdminDashboard::class, 'adminStylistListAjax']);
 Route::get('/admin-stylist-details/{title}', [AdminDashboard::class, 'adminStylistDetails']);
-Route::post('/admin-cancel-membership', [AdminDashboard::class, 'adminCancelMembership']);
+Route::post('/admin-cancel-member-membership', [AdminDashboard::class, 'adminCancelMemberMembership'])->name('admin.member.subscription.cancel');
 Route::post('/admin-cancel-stylist-membership', [AdminDashboard::class, 'adminCancelStylistMembership']);
 Route::get('/admin-member-order-details/{title}', [AdminDashboard::class, 'adminMemberOrderDetails']);
 Route::get('/admin-stylist-order-details/{title}', [AdminDashboard::class, 'adminStylistOrderDetails']);

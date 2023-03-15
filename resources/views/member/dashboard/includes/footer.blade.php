@@ -100,6 +100,7 @@
 <script src="{{ asset('member/dashboard/app-assets/js/core/libraries/jquery_ui_1_13.min.js') }}"></script>
 <script src="{{ asset('member/dashboard/app-assets/js/core/libraries/bootstrap_3.4.min.js') }}"></script>
 <script src="{{ asset('member/dashboard/app-assets/js/core/libraries/jquery_validate_1_19_5.min.js') }}" ></script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="{{ asset('extensions/toastr/js/toastr.min.js') }}"></script>
 <script src="{{ asset('extensions/toastr/js/toastr.js') }}"></script>
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>

@@ -2,13 +2,19 @@
 
 @section('content')
 
+    <style>
+
+      h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, li{
+          font-family: 'Silk Serif';
+      }
+    </style>
+    
     <div class="content-wrapper">
 
       <div class="content-body">
 
          <div class="flex-column-reverse flex-md-row mt-lg-3 row">
 
-               <div class="col-md-8">
 
                   <div class="col-md-8">
 
@@ -16,7 +22,10 @@
                     <h3>Upgrade to Premium & Get more Features!</h3>
                   </div>
                   
-                </div>
+                  <div class="col-4 text-right">
+                      <a href="{{ route('member.subscription.billing.index')}}" class="h4 text-primary">View Billing History <i class="ft-arrow-up-right"></i></a>
+                  </div>
+
 
                </div>
 
