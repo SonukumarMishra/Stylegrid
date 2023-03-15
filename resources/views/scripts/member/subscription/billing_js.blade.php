@@ -124,6 +124,19 @@
                             }
                         },
                         { "data": "subscription_name" },
+                        { "data": "subscription_type",
+                            "render": function ( data, type, row ) {
+
+                                var html = '';
+
+                                if(row.subscription_type == '{{config("custom.subscription.types.trial")}}'){
+                                    html = 'Trial';
+                                }else if(row.subscription_type == '{{config("custom.subscription.types.paid")}}'){
+                                    html = 'Paid';
+                                }
+                                return html;
+                            }
+                        },
                         { "data": "price",
                             "render": function ( data, type, row ) {
                                 return '£'+row.price;
@@ -165,6 +178,26 @@
                                     
                                     html += '<span class="text-warning">Pending</span>';
 
+                                }
+
+                                return html;
+                            }
+                        },
+                        { "data": "is_paid",
+                            "render": function ( data, type, row ) {
+                                var html = '';
+
+                                if(row.subscription_type == '{{config("custom.subscription.types.paid")}}'){
+                                    if(row.is_paid == 1){
+                                        
+                                        html += 'Paid';
+
+                                    }else if(row.is_paid == 0){
+                                        
+                                        html += 'Pending';
+
+                                    }
+                                    
                                 }
 
                                 return html;

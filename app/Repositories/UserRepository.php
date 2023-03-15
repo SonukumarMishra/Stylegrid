@@ -102,6 +102,7 @@ class UserRepository {
                 $user_sub->billing_invoice_date = isset($data['billing_invoice_date']) && !empty($data['billing_invoice_date']) ? date('Y-m-d H:i:s', strtotime($data['billing_invoice_date'])) : NULL;
                 $user_sub->stripe_subscription_id = @$data['stripe_subscription_id'];
                 $user_sub->subscription_status = $subscription_status;
+                $user_sub->is_paid = isset($data['is_paid']) ? $data['is_paid'] : 0;
                 $user_sub->save();
 
                 if($user_sub){
@@ -173,9 +174,9 @@ class UserRepository {
                                             ->where([
                                                 'us.association_id' => $user_data['user_id'],
                                                 'us.association_type_term' => $user_data['user_type'],
-                                                'us.is_active' => 1
+                                                'us.is_active' => 1,
+                                                'us.subscription_status' => config('custom.subscription.status.active')
                                             ])
-                                            ->whereIn('us.subscription_status', [config('custom.subscription.status.active'), config('custom.subscription.status.cancelled')])
                                             ->select('us.*', 'sub.*', 'pay_tra.payment_trans_id', 'pay_tra.trans_status as payment_status', 'us.created_at as invoice_date')
                                             ->first();
                                             

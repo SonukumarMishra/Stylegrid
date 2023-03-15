@@ -135,6 +135,8 @@
 
                     <th>Plan</th>
 
+                    <th>Type</th>
+
                     <th>Amount</th>
 
                     <th>Start Date</th>
@@ -146,6 +148,8 @@
                     <th>Cancellation Reason</th>
 
                     <th>Status</th>
+                    
+                    <th>Payment Status</th>
 
                     <th>Invoice</th>
 

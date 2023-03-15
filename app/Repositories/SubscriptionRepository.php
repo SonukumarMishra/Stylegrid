@@ -31,22 +31,22 @@ class SubscriptionRepository {
 			if(isset($auth_user) && !empty($auth_user)){
 
 				$main_query = Subscription::from('sg_subscriptions as sub')
-									->select('sub.*', 'user_sub.user_subscription_id', 'user_sub.subscription_id as user_main_subscription_id', 'user_sub.end_date as subscription_end_date')
-									->leftjoin('sg_user_subscriptions as user_sub', function($join) use($auth_user) {
-										$join->on('user_sub.subscription_id', '=', 'sub.subscription_id')
+											->select('sub.*', 'user_sub.user_subscription_id', 'user_sub.subscription_id as user_main_subscription_id', 'user_sub.end_date as subscription_end_date', 'user_sub.is_auto_payment', 'user_sub.is_paid', 'user_sub.subscription_status')
+											->leftjoin('sg_user_subscriptions as user_sub', function($join) use($auth_user) {
+												$join->on('user_sub.subscription_id', '=', 'sub.subscription_id')
+													->where([
+														'user_sub.is_active' => 1,
+														'user_sub.association_id' => $auth_user['user_id'],
+														'user_sub.association_type_term' => $auth_user['user_type'],
+														'user_sub.subscription_status' => config('custom.subscription.status.active')
+													]);
+											})
 											->where([
-												'user_sub.is_active' => 1,
-												'user_sub.association_id' => $auth_user['user_id'],
-												'user_sub.association_type_term' => $auth_user['user_type']
+												'sub.is_active' => 1,
+												'sub.subscription_user' => $auth_user['user_type'],
 											])
-											->whereIn('user_sub.subscription_status', [config('custom.subscription.status.active'), config('custom.subscription.status.cancelled')]);
-									})
-									->where([
-										'sub.is_active' => 1,
-										'sub.subscription_user' => $auth_user['user_type'],
-									])
-									->whereIn('sub.subscription_type', [config('custom.subscription.types.paid')])
-									->orderBy('sub.order_no', 'asc');
+											->whereIn('sub.subscription_type', [config('custom.subscription.types.paid')])
+											->orderBy('sub.order_no', 'asc');
 											
 				$list = $main_query->paginate($limit, ['*'], 'page', $page_index);
 
@@ -115,7 +115,7 @@ class SubscriptionRepository {
 			if(isset($auth_user) && !empty($auth_user)){
 
 				$main_query = UserSubscription::from('sg_user_subscriptions as user_sub')
-												->select('user_sub.*', 'sub.subscription_name', 'sub.price')
+												->select('user_sub.*', 'sub.subscription_name', 'sub.price', 'sub.subscription_type')
 												->join('sg_subscriptions as sub', function($join) use($auth_user) {
 													$join->on('sub.subscription_id', '=', 'user_sub.subscription_id');
 												})
@@ -166,20 +166,25 @@ class SubscriptionRepository {
 													'us.association_type_term' => $user_data['user_type'],
 													'us.is_active' => 1
 												])
+												->where('us.subscription_status', '!=', config('custom.subscription.status.cancelled'))
 												->select('us.*', 'sub.*', 'us.created_at as invoice_date')
 												->first();
 												
 			if($subscription){
 				
-				if($subscription->subscription_status == config('custom.subscription.status.pending')){
+				if(in_array($subscription->subscription_status, [config('custom.subscription.status.pending')])){
 
 					$result['data']['subscription_purchased'] = 1;
 
-				}else if($subscription->subscription_status == config('custom.subscription.status.cancelled')){
+				}else if($subscription->subscription_status == config('custom.subscription.status.active')){
 
-					$result['data']['subscription_cancelled'] = 1;
-
+					if($subscription->is_auto_payment == 0){
+						$result['data']['subscription_cancelled'] = 1;
+					}else{
+						$result['data']['subscription_purchased'] = 1;
+					}
 				}
+
 			}
 
 			$result['status'] = 1;							

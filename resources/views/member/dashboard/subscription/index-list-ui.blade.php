@@ -32,18 +32,26 @@
                </div>
 
                <div class="col-12 row p-0 m-0">
-                  
+                 
                   @if ($val->subscription_type == config('custom.subscription.types.paid') && $val->subscription_id == $val->user_main_subscription_id && $val->subscription_status == config('custom.subscription.status.active'))
                   
-                     <button class="susbcription-buy-btn w-100 cancel-subscription" data-sub-name="{{ $val->subscription_name }}" data-sub-end-date="{{ date('m/d/Y', strtotime($val->subscription_end_date)) }}"  data-user-subscription-id="{{ $val->user_subscription_id }}">Cancel</button>
+                     @if ($val->is_auto_payment == 0)
+      
+                        <button class="susbcription-buy-btn w-100" disabled>Cancelled</button>
+                     
+                     @else 
 
+                        <button class="susbcription-buy-btn w-100 cancel-subscription" data-sub-name="{{ $val->subscription_name }}" data-sub-end-date="{{ date('m/d/Y', strtotime($val->subscription_end_date)) }}"  data-user-subscription-id="{{ $val->user_subscription_id }}">Cancel</button>
+
+                     @endif
+                  
                   @elseif($val->subscription_type == config('custom.subscription.types.paid') )
                   
                      <button class="susbcription-buy-btn w-100 buy-subscription" data-title="{{ $val->subscription_name }}" data-subscription-id="{{ $val->subscription_id }}" data-interval-type="{{ $val->interval_type }}" data-price="{{ $val->price }}">Buy</button>
                      
                   @elseif($val->subscription_type == config('custom.subscription.types.free'))
                   
-                     <button class="susbcription-buy-btn w-100" data-subscription-id="{{ $val->subscription_id }}" disabled>
+                     <button class="susbcription-buy-btn w-100" disabled>
                         @if ($val->subscription_id == $val->user_main_subscription_id)
                            Activate
                         @else 

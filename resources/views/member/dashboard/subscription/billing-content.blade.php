@@ -6,7 +6,7 @@
 
     @endphp
 
-    @if (isset($subscription_dtls) && count(get_object_vars($subscription_dtls)))
+    @if (isset($subscription_dtls) && is_object($subscription_dtls) && count(get_object_vars($subscription_dtls)))
         
         <div class="col-lg-6">
 
@@ -39,9 +39,9 @@
                 </div>
                 <div class="card-footer d-flex justify-content-between p-1">
 
-                    @if ($subscription_dtls->subscription_type == config('custom.subscription.types.paid'))
+                    @if ($subscription_dtls->subscription_type == config('custom.subscription.types.paid') && $subscription_dtls->subscription_status == config('custom.subscription.status.active'))
 
-                        @if ($subscription_dtls->subscription_status == config('custom.subscription.status.cancelled'))
+                        @if ($subscription_dtls->is_auto_payment == 0)
                             
                             <a class="light-outline-btn font-weight-bold text-danger border-danger" href="#" disabled>Cancelled</a>
 
@@ -67,7 +67,7 @@
 
     @endphp
     
-    @if (isset($payment_method)  && count(get_object_vars($payment_method)))
+    @if (isset($payment_method) && is_object($payment_method) && count(get_object_vars($payment_method)))
      
         <div class="col-lg-6">
 
@@ -150,6 +150,8 @@
 
                     <th>Plan</th>
 
+                    <th>Type</th>
+
                     <th>Amount</th>
 
                     <th>Start Date</th>
@@ -161,6 +163,8 @@
                     <th>Cancellation Reason</th>
 
                     <th>Status</th>
+                    
+                    <th>Payment Status</th>
 
                     <th>Invoice</th>
 

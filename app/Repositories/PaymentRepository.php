@@ -10,6 +10,7 @@ use App\Models\UserSubscription;
 use App\Models\PaymentTransaction;
 use App\Repositories\UserRepository as UserRepo;
 use Validator;
+use Storage;
 use Helper;
 use Log;
 use Stripe;
@@ -298,6 +299,7 @@ class PaymentRepository {
                                 UserSubscription::where([
                                     'user_subscription_id' => $last_active_subscription->user_subscription_id
                                 ])->update([
+                                    'is_auto_payment' => 0,
                                     'subscription_status' => config('custom.subscription.status.cancelled'),
                                     'cancelled_on' => date('Y-m-d H:i:s')
                                 ]);
@@ -315,7 +317,7 @@ class PaymentRepository {
                         
                     }
 
-                    Log::info("stripe subscription - ". print_r($subscription_result, true));
+                    Log::info("stripe last_active_subscription - ". print_r($last_active_subscription, true));
 
                     $sub_info_status = strtolower($subscription_result->status);
 
@@ -333,12 +335,19 @@ class PaymentRepository {
 
                     }
 
+                    $is_paid = 0;
+
+                    if(@$subscription_result->status == config('custom.stripe.subscription_status.active')){
+                        $is_paid = 1;
+                    }
+
                     $sub_info = [
                         'start_date' => date('Y-m-d H:i:s', $subscription_result->current_period_end),      // subscription response date in timestamp format
                         'end_date' => date('Y-m-d H:i:s', strtotime($subscription_end_date)),
                         'billing_invoice_date' =>  isset($subscription_result->billing_cycle_anchor) && !empty($subscription_result->billing_cycle_anchor) ? date('Y-m-d H:i:s', $subscription_result->billing_cycle_anchor) : '',      // subscription response date in timestamp format
                         'stripe_subscription_id' => $subscription_result->id,
-                        'status' => $sub_info_status
+                        'status' => $sub_info_status,
+                        'is_paid' => $is_paid
                     ];
                     
                     Log::info("sub info ". print_r($sub_info, true));
@@ -354,6 +363,7 @@ class PaymentRepository {
 
                         $payment_trans_id = '';
                         
+                        
                         $payment_trans_data = [
                             'association_id' => $user_data['user_id'],
                             'association_type_term' => $user_data['user_type'],
@@ -368,7 +378,8 @@ class PaymentRepository {
                             'gatway_subscription_price_id' => @$subscription_result->plan->id,
                             'trans_ref_association_type_term' => config('custom.payment_transaction.trans_type.subscription'),
                             'trans_ref_association_id' => $user_subscription['data']['user_subscription_id'],
-                            'trans_status' => @$subscription_result->status
+                            'trans_status' => @$subscription_result->status,
+                            'is_paid' => $is_paid
                         ];
 
                         // Save payment transaction details
@@ -522,6 +533,7 @@ class PaymentRepository {
                 $transaction->trans_currency = @$data['trans_currency'];
                 $transaction->trans_mode = @$data['trans_mode'];
                 $transaction->trans_type = @$data['trans_type'];
+                $transaction->is_paid = isset($data['is_paid']) ? $data['is_paid'] : 0;
                 $transaction->payment_gatway = @$data['payment_gatway'];
                 $transaction->gatway_subscription_id = @$data['gatway_subscription_id'];
                 $transaction->gatway_subscription_package_id = @$data['gatway_subscription_package_id'];
@@ -613,7 +625,7 @@ class PaymentRepository {
         
                         Log::info("stripe cancel subscription ". print_r($subscribe_cancel, true));
 
-                        $user_subscription->subscription_status = config('custom.subscription.status.cancelled');
+                        $user_subscription->is_auto_payment = 0;
                         $user_subscription->cancelled_on = date('Y-m-d H:i:s');
                         $user_subscription->reason_of_cancellation = isset($request->reason_for_cancellation) && !empty($request->reason_for_cancellation) ? $request->reason_for_cancellation : '';
                         $user_subscription->save();
