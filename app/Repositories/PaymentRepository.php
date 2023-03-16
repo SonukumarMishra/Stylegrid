@@ -404,8 +404,7 @@ class PaymentRepository {
 
                                     set_time_limit(300);
 
-                                    $pdf = PDF::loadView('email_templates.subscription-invoice', [ 'data' => $new_subscription])
-                                                ->setOptions(['defaultFont' => 'IBM Plex Sans",Helvetica,Arial,serif', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+                                    $pdf = PDF::loadView('pdf_templates.subscription-invoice-pdf', [ 'data' => $new_subscription, 'user' => $user_details ]);
 
                                     $default_storage = config('filesystems.default');
 
