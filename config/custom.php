@@ -69,6 +69,7 @@ return [
             'year' => 'year'   
         ],
         'status' => [
+            'pending' => 'pending',
             'active' => 'active',
             'cancelled' => 'cancelled',
             'expired' => 'expired'
@@ -96,6 +97,14 @@ return [
             'past_due' => 'past_due',
             'unpaid' => 'unpaid',
         ]
+    ],
+
+    'card_brand' => [
+        'visa' => 'visa',
+        'mastercard' => 'mastercard',
+        'amex' => 'amex',
+        'discover' => 'discover',
+        'jcb' => 'jcb'
     ]
 
 ];

@@ -10,6 +10,7 @@ use App\Repositories\CartRepository as CartRepo;
 use File;
 use Mail;
 use Storage;
+use DateTime;
 use Hash;
 use DB;
 use URL;
@@ -289,4 +290,15 @@ class Helper
 
         }
     }
+
+    public static function get_days_from_dates($start_input, $end_input){
+        
+        $start_date = new DateTime($start_input);
+        $end_date = new DateTime($end_input);
+
+        $days = $start_date->diff($end_date)->format("%r%a");
+
+        return $days;
+    }
+
 }

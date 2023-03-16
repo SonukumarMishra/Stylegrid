@@ -22,6 +22,8 @@
     <!-- END: Custom CSS-->
 
     {{-- Extensions --}}
+    
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{ asset('extensions/toastr/css/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/sweetalert/css/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/fontawesome/css/all.min.css') }}">
