@@ -36,6 +36,7 @@
                                 </div>
                             </div>
                         </div>
+  
                     </div>
                     <div class="col-lg-4  mt-lg-0 mt-2 col-12">
                         <div class="grid-img2">
@@ -61,7 +62,10 @@
                         <div class="grid-img3">
                             <div class="layer-1">
                                 <div class=" bottom-text w-100">
-                                    <div class="">
+   
+   
+   
+                                <div class="">
                                         <h2 class="pl-1 ">Member overview</h2>
                                     </div>
                                     <div class="row align-items-baseline">

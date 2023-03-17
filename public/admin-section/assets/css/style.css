@@ -595,6 +595,9 @@ padding: 0.2rem 0.6rem;
   text-align: center;
    color: #000000;
 }
+.dataTables_wrapper .dataTables_info{
+  margin-left: 5px !important;
+}
 .max-info{
   font-family: 'Silk Serif Medium';
 font-style: normal;

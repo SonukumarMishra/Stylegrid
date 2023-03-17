@@ -3157,10 +3157,12 @@ margin-bottom: 23px; */
     border-radius: 10px 10px 10px 10px;
     margin: 15px;
 }
-
+.subscription-header, .subscription-subtitle{
+  font-family: 'Genos' !important;
+}
 
 .subscription-price-title {
-
+font-family: 'Genos';
   font-size: 64px;
   font-weight: 500;
   line-height: 97.28px;
@@ -3174,10 +3176,11 @@ margin-bottom: 23px; */
   font-weight: 300;
   line-height: 18px;
   letter-spacing: 0.5px;
+  font-family: 'Genos';
 }
 
 .susbcription-buy-btn{
-
+  font-family: 'Genos';
   font-size: 24px;
   font-weight: 600;
   line-height: 30px;
@@ -3198,10 +3201,13 @@ margin-bottom: 23px; */
 }
 
 .susbcription-list-dtls ul{
+  font-family: 'Genos';
   padding-left: 2rem !important;
   margin-bottom: 0 !important;
 }
-
+.susbcription-list-dtls ul li{
+  font-family: 'Genos' !important;
+}
 .sub-card-box{
   box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
   border-radius: 10px;
@@ -3220,4 +3226,15 @@ margin-bottom: 23px; */
 
 .active-sub-card-img{
   width: 90px;
+}
+.view-billing-history{
+  font-family: 'Silk Serif Medium' !important;
+  color: #00A82F !important;
+  font-size: 18px !important;
+}
+#payment_modal_title, .ElementsApp, .ElementsApp .InputElement{
+  font-family: 'Silk Serif Medium' !important;
+}
+#subscription-buy-form input{
+  font-family: 'Silk Serif Medium' !important;
 }
