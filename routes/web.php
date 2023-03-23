@@ -101,6 +101,7 @@ use App\Http\Controllers\CommonController;
  Route::get('/stylist-sourcing/{title}', [Stylist::class, 'sourcingRequestView'])->name('stylist.sourcing.view');
  Route::get('/stylist-offer-accepted', [Stylist::class, 'stylistOfferAcceptedSuccessful']);
  Route::post('/stylist-decline-offer', [Stylist::class, 'stylistDeclineOffer']);
+ Route::post('/stylist-sourcing-generate-invoice', [Stylist::class, 'sourcingRequestGenerateInvoice'])->name('stylist.sourcing.generate_invoice');
 
  Route::get('/stylist-notifications', [Stylist::class, 'notificationsIndex'])->name('stylist.notifications.index');
  Route::post('/stylist-notifications', [Stylist::class, 'notificationsList'])->name('stylist.notifications.list');
@@ -141,7 +142,7 @@ Route::post('member-grid/product-details', 'Member\GridController@getStyleGridPr
 
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
 Route::get('/member-orders', [Member::class, 'memberOrders']);
-Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest']);
+Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest'])->name('member.create_sourcing_request');
 Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);
 
@@ -176,6 +177,13 @@ Route::post('/member-messanger-room-messages', 'Member\ChatController@getChatRoo
 Route::post('/member-messanger-read', 'Member\ChatController@updateChatMessageReadStatus')->name('member.messanger.read.message');
 Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineStatus')->name('member.messanger.online.status');
   
+// Stripe 
+
+
+Route::post('/stripe-create-payment-intent', 'PaymentGatwayController@stripe_create_payment_intent')->name('stripe_create_payment_intent');
+
+Route::post('/stripe-confirm-payment-intent', 'PaymentGatwayController@stripe_confirm_payment_intent')->name('stripe_confirm_payment_intent');
+
 // member cart 
 
 Route::group(['prefix' => 'member-cart', 'as' => 'member.cart.'], function () {

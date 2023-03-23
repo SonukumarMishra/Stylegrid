@@ -131,6 +131,72 @@
         </div>
     </div>
     
+    <div class="modal" id="sourcing_invoice_modal" tabindex="-1" role="dialog" style="top: 5% !important;">
+
+        <div class="modal-dialog" role="document">
+    
+            <div class="modal-content pt-1">
+    
+                <div class="mr-2">
+    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    
+                        <span aria-hidden="true">&times;</span>
+    
+                    </button>
+    
+                </div>
+    
+                <div class="modal-body py-2">
+    
+                    <h1 class="text-center modal-submit-request" id="modal_sourcing_invoice_title"></h1>
+    
+                    <div id="browse-soursing" class="mt-2">
+    
+                        <form action="#" method="POST" id="sourcing_invoice_frm">
+    
+                            <input type="hidden" name="sourcing_id">
+    
+                            <div class="row align-items-center">
+    
+                                <div class="col-lg-12">
+    
+                                    <div class="form-group">
+    
+                                        <label for="">Enter invoice Amount:</label>
+    
+                                        <input type="number" name="invoice_amount" min="0" class="form-control submit-input"
+    
+                                             placeholder="Enter invoice amount..." required>
+                                    </div>
+    
+                                </div>
+    
+                            </div>
+    
+                            <div class="row justify-content-center">
+    
+                                <button class="submit-request" id="sourcing_invoice_frm_btn">Generate</button>
+    
+                                <button class="back-btn ml-2" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+    
+                            </div>
+    
+                        </form>
+    
+                    </div>
+    
+    
+                </div>
+    
+    
+    
+            </div>
+    
+        </div>
+    
+    </div>
+
     {{-- page scripts --}}
     @section('page-scripts')
 

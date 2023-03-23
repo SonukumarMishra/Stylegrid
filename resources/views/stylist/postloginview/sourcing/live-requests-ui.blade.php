@@ -2,6 +2,7 @@
 @if (count($list))
 
     @foreach ($list as $key => $source_row)
+
         <tr>
             <td class="d-flex">
                 <span class="dot"></span>
@@ -29,21 +30,34 @@
                     }
                 }else{
 
-                    if(isset($source_row['stylist_offer_status'])){
+                    if($source_row['p_status'] == config('custom.sourcing.status.invoice_generated')){
 
-                        if($source_row['stylist_offer_status'] == 0){
-                            ?>
-                            <td class="text-warning">Request Sent</td>
-                            <?php
-                        }else if($source_row['stylist_offer_status'] == 1){
-                            ?>
-                            <td class="text-success">Accepted</td>
-                            <?php
-                        }else if($source_row['stylist_offer_status'] == 2){
-                            ?>
-                            <td class="text-danger">Declined</td>
-                            <?php
+                        ?>
+
+                            <td class="green-color"><?php echo $source_row['p_status'];?></td>
+                            
+                        <?php
+
+                    }else{
+
+                        if(isset($source_row['stylist_offer_status'])){
+
+                            if($source_row['stylist_offer_status'] == 0){
+                                ?>
+                                <td class="text-warning">Request Sent</td>
+                                <?php
+                            }else if($source_row['stylist_offer_status'] == 1){
+                                ?>
+                                <td class="text-success">Accepted</td>
+                                <?php
+                            }else if($source_row['stylist_offer_status'] == 2){
+                                ?>
+                                <td class="text-danger">Declined</td>
+                                <?php
+                            }
                         }
+
+
                     }
 
                     ?> 
@@ -52,19 +66,29 @@
                 ?>
                 
                 <td>
-                    <?php
-                    if(!$source_row['requested']){
-                        if($source_row['p_status']=='Fulfilled'){
-                        ?>
-                        <button class=" ticket-btn">Ticket Closed </button>
+                    @if ($source_row['p_status']=='Fulfilled' && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
+                    
+                        <button class="generate-invoice-btn" style="width: 100%; height: 25px; font-size:14px;" data-title="Invoice of {{$source_row['p_name']}}" data-sourcing-id="{{ $source_row['id'] }}" data-amount="{{ @$source_row['sourcing_accepted_details']->price }}">Generate Invoice</button>
+
+                    @else 
+
                         <?php
-                        }else{
-                        ?>
-                        <a href="{{url('stylist-fulfill-source-request/'.$source_row['p_slug'])}}"><button class="px-2">Fufill</button></a>
-                        <?php
+                        if(!$source_row['requested']){
+                            if($source_row['p_status']=='Fulfilled'){
+                            ?>
+                            <button class=" ticket-btn">Ticket Closed </button>
+                            <?php
+                            }else{
+                            ?>
+                            <a href="{{url('stylist-fulfill-source-request/'.$source_row['p_slug'])}}"><button class="px-2">Fufill</button></a>
+                            <?php
+                            }
                         }
-                    }
-                    ?>
+                        ?>
+                        
+                    @endif
+
+                   
                 </td>
         </tr>
     @endforeach

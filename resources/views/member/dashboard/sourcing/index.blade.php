@@ -26,23 +26,11 @@
 
                     <h3>Check the status on your existing sourcing requests or submit a new request.</h3>
 
-                    <?php
-
-                    if($day_left>-1){
-
-                    ?>
-
                     <div class="mt-3">
 
-                        <a href="member-submit-request"><button class="make-request">Make New Request</button></a>
+                        <a href="{{ route('member.create_sourcing_request') }}"><button class="make-request">Make New Request</button></a>
 
                     </div>
-
-                    <?php
-
-                    }
-
-                    ?>
 
                 </div>
 
@@ -258,16 +246,63 @@
 
     </div>
 
+    <div class="modal" id="sourcing_payment_invoice_modal" tabindex="-1" role="dialog" style="top: 5% !important;">
 
+        <div class="modal-dialog" role="document">
+    
+            <div class="modal-content pt-1">
+    
+                <div class="mr-2">
+    
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    
+                        <span aria-hidden="true">&times;</span>
+    
+                    </button>
+    
+                </div>
+    
+                <div class="modal-body py-2">
+    
+                    <h1 class="text-center modal-submit-request" id="modal_sourcing_payment_invoice_title"></h1>
+    
+                    <div id="browse-soursing" class="mt-3">
+    
+                        
+                        <input type="hidden" name="sourcing_id">
+
+                        <form id="payment-form">
+                            <div id="payment-element">
+                                <!-- Elements will create form elements here -->
+                            </div>
+                            
+                            <button class="submit-request mt-2" id="sourcing_payment_invoice_frm_btn">Pay</button>
+
+                            <div id="error-message">
+                                <!-- Display error message to your customers here -->
+                            </div>
+                        </form>
+    
+                    </div>
+    
+    
+                </div>
+    
+    
+    
+            </div>
+    
+        </div>
+    
+    </div>
 
     {{-- page scripts --}}
 
     @section('page-scripts')
 
-
+        <script src="https://js.stripe.com/v3/"></script>
 
         @include('scripts.member.sourcing_js')
-
 
 
     @endsection

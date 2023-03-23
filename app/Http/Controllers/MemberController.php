@@ -134,16 +134,7 @@ class MemberController extends Controller
         try {
 
             $member = new Member();
-
-            $source_applicable = $member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
-            
-            if($source_applicable){
-                $day_left=$source_applicable->day_left;
-            }else{
-                $day_left=-1; 
-            }
-           
-            return view('member.dashboard.sourcing.index', compact('day_left'));
+            return view('member.dashboard.sourcing.index');
             
         }catch(\Exception $e){
 
@@ -176,17 +167,24 @@ class MemberController extends Controller
     }
 
     public function memberSubmitRequest(Request $request){
+        
         $member=new Member();
-        $source_applicable=$member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
-        if($source_applicable){
-            $day_left=$source_applicable->day_left;
-            if($day_left<0){
-                return redirect("/member-sourcing");
-            }
-            $country_list=$member->getCountryList();
-            $brand_list=$member->getBrandList();
-            return view('member.dashboard.member-submit-request',compact('country_list','brand_list'));
-        }
+
+        $country_list=$member->getCountryList();
+        $brand_list=$member->getBrandList();
+        return view('member.dashboard.member-submit-request',compact('country_list','brand_list'));
+
+        
+        // $source_applicable=$member->sourceApplicable(['ms.member_stylist_id'=>Session::get("member_id"),'ms.type_s_m'=>0]);
+        
+        // if($source_applicable){
+        //     $day_left=$source_applicable->day_left;
+        
+        //     if($day_left<0){
+        //         return redirect("/member-sourcing");
+        //     }
+           
+        // }
     }
 
     public function memberSubmitRequestPost(Request $request){

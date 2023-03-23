@@ -78,7 +78,46 @@
                 }
 
             });
+
+            $('body').on('click', '.generate-invoice-btn', function (e) {
+                e.preventDefault();
+                
+                $('#modal_sourcing_invoice_title').html($(this).data('title'));
+                $('#sourcing_invoice_frm input[name="sourcing_id"]').val($(this).data('sourcing-id'));
+                $('#sourcing_invoice_frm input[name="invoice_amount"]').val($(this).data('amount'));
+                $('#sourcing_invoice_modal').modal('show');
+
+            });
+
             
+            $('body').on('click', '#sourcing_invoice_frm_btn', function(e) {
+
+                e.preventDefault();
+
+                if($("#sourcing_invoice_frm").valid()){
+
+                    var formData = new FormData();            
+                    formData.append('association_id', auth_id);
+                    formData.append('association_type_term', auth_user_type);
+                    formData.append('invoice_amount', $('#sourcing_invoice_frm input[name="invoice_amount"]').val());
+                    formData.append('sourcing_id', $('#sourcing_invoice_frm input[name="sourcing_id"]').val());
+
+                    window.getResponseInJsonFromURL('{{ route("stylist.sourcing.generate_invoice") }}', formData, (response) => {
+                    
+                        if (response.status == '1') {
+
+                            $('#sourcing_invoice_modal').modal('hide');
+                            showSuccessMessage(response.message);
+                            SourcingRef.getLiveRequests();
+
+                        } else {
+                            showErrorMessage(response.message);
+                        }
+                    }, processExceptions, 'POST');
+                    
+                }
+            });
+
         }
                 
         SourcingRef.getLiveRequests = function(e) {

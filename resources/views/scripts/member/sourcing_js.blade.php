@@ -22,6 +22,15 @@
         };
         
         SourcingRef.liveRequestsCurrentPage = 1;
+        SourcingRef.liveRequestsList = 1;
+
+        SourcingRef.stripeRef = Stripe('{{ config("custom.stripe.publishableKey")}}');
+
+        // SourcingRef.stripeElementstyle = {
+        //     base: {
+        //         color: "#32325d",
+        //     }
+        // };
 
         SourcingRef.initEvents = function() {
 
@@ -44,11 +53,94 @@
                 SourcingRef.liveRequestsCurrentPage = $(this).attr('data-page');
                 SourcingRef.getLiveRequests();
             });
+
+            
+            $('body').on('click', '.pay-invoice-btn', function (e) {
+
+                e.preventDefault();
+
+                var sourcing_id = $(this).data('sourcing-id');
+                var amount = $(this).data('amount');
+                
+                var sourcing_dtls = getDetailsFromObjectByKey(SourcingRef.liveRequestsList, sourcing_id, 'id');
+                
+                if(sourcing_dtls.sourcing_invoice != undefined && sourcing_dtls.sourcing_invoice != ''){
+
+                    $('#modal_sourcing_payment_invoice_title').html('Pay invoice for '+sourcing_dtls.p_name);
+
+                    SourcingRef.getStripePaymentIntent(amount);
+
+                }
+                
+            });
+
+            $('body').on('click', '#sourcing_payment_invoice_frm_btn', function (e) {
+                e.preventDefault();
+                SourcingRef.confirmStripePaymentIntent();
+            });
             
         }
+       
         
-        
+        SourcingRef.getStripePaymentIntent = function(amount) {
+
+            var formData = new FormData();            
+            formData.append('amount', amount);
+
+            window.getResponseInJsonFromURL('{{ route("stripe_create_payment_intent") }}', formData, (response) => {
+               
+               $('#live_requests_tbl_container').html('');
+               
+               if (response.status == '1') {
+
+                    SourcingRef.clientSecret = response.data.client_secret;
+
+                    SourcingRef.renderInvoiceCheckoutUI();
+
+               } else {
+                   showErrorMessage(response.message);
+                   return false;
+               }
+           }, processExceptions, 'POST');
+
+        }
+
+        SourcingRef.renderInvoiceCheckoutUI = function(e) {
+
+            var options = {
+                clientSecret: SourcingRef.clientSecret,
+                // Fully customizable with appearance API.
+                appearance: {/*...*/},
+            };
+
+            const elements = SourcingRef.stripeRef.elements(options);
+            SourcingRef.paymentElement = elements.create('payment');
+            SourcingRef.paymentElement.mount('#payment-element');
+
+            $('#sourcing_payment_invoice_modal').modal('show');
+
+        }
+
+        SourcingRef.confirmStripePaymentIntent = function() {
+
+            SourcingRef.stripeRef
+                .confirmCardPayment(SourcingRef.clientSecret, {
+                    payment_method: {
+                        card: SourcingRef.paymentElement,
+                        // billing_details: {
+                        //     name: 'Jenny Rosen',
+                        // },
+                    },
+                })
+                .then(function(result) {
+                    console.log(result);
+                    // Handle result.error or result.paymentIntent
+                });
+
+        }
+
         SourcingRef.getLiveRequests = function(e) {
+            
             var formData = new FormData();            
             formData.append('user_id', auth_id);
             formData.append('page', SourcingRef.liveRequestsCurrentPage);
@@ -68,7 +160,6 @@
                         pagination_html += '<nav>';
                         pagination_html += '<ul class="pagination">';
 
-                            
                         $.each(response.data.json.list.links, function(indexInArray, list) {
 
                             var url_page = '';
@@ -94,8 +185,11 @@
 
                     }
 
+                    SourcingRef.liveRequestsList = response.data.json.list.data;
+
                 } else {
                     showErrorMessage(response.message);
+                    return false;
                 }
             }, processExceptions, 'POST');
            

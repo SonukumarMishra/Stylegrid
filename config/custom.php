@@ -28,6 +28,11 @@ return [
     ],
 
     'sourcing' => [
+        'status' => [
+            'Pending' => 'Pending',
+            'Fulfilled' => 'Fulfilled',
+            'invoice_generated' => 'Invoice Generated'
+        ],
         'sourcing_user_type' => [
             'stylist' => 1,
             'member' => 0
@@ -36,7 +41,10 @@ return [
             'pending' => 0,
             'accepted' => 1,
             'decline' => 2
-        ]
+        ],
+        'invoice_status' => [
+            'invoice_generated' => 'invoice_generated'
+        ],
     ],
 
     'cart' => [
@@ -55,6 +63,7 @@ return [
         'sourcing_offer_accepted' => 'sourcing_offer_accepted',
         'sourcing_offer_decline' => 'sourcing_offer_decline',
         'sourcing_offer_received' => 'sourcing_offer_received',
+        'sourcing_invoice_generated' => 'sourcing_invoice_generated',
     ],
 
     'subscription' => [

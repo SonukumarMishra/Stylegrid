@@ -445,4 +445,20 @@ class StylistController extends Controller
 
     }
 
+    public function sourcingRequestGenerateInvoice(Request $request){
+        
+        try {
+
+            $result = SourcingRepo::generateSourcingInvoice($request);
+
+            return response()->json($result, 200);
+            
+        }catch(\Exception $e){
+
+            Log::info("sourcingRequestGenerateInvoice error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+    }
+
 }

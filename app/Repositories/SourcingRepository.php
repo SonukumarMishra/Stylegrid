@@ -8,6 +8,7 @@ use App\Models\Stylist;
 use App\Models\Member;
 use App\Models\Sourcing;
 use App\Models\SourcingOffer;
+use App\Models\SourcingInvoice;
 use App\Repositories\CommonRepository as CommonRepo;
 use Validator;
 use Helper;
@@ -57,7 +58,8 @@ class SourcingRepository {
 									$query->where('status', 2)
 										->select(\DB::raw("COUNT(id)"));
 								}
-								])
+							])
+							->with('sourcing_invoice')
 							->groupBy("sg_sourcing.id")
 							->orderBy('sg_sourcing.p_created_date', 'desc')
 							->orderBy("offer_updated_on","DESC")
@@ -441,8 +443,6 @@ class SourcingRepository {
 								->with(['sourcing_accepted_details', 'sourcing_chat_room'])
 								->first();
 					
-			Log::info("data ". print_r($result, true));
-
 			return $result;
 
 		}catch(\Exception $e) {
@@ -500,4 +500,92 @@ class SourcingRepository {
         }
 
 	}
+
+	public static function generateSourcingInvoice($request) {
+		
+		$result = ['status' => 0, 'message' => trans('pages.something_wrong')];
+
+		try {
+
+			$sourcing_dtls = Sourcing::from('sg_sourcing')
+										->where('sg_sourcing.id', '=' , $request->sourcing_id)
+										->first();
+
+			if($sourcing_dtls){
+
+				$sourcing_invoice = SourcingInvoice::from('sg_sourcing_invoices as invoice')
+													->where([
+														'invoice.sourcing_id' => $request->sourcing_id,
+														'invoice.is_active' => 1
+													])
+													->first();
+
+				if(!$sourcing_invoice){
+					
+					$sourcing_invoice = new SourcingInvoice;
+					$sourcing_invoice->sourcing_id = $request->sourcing_id;
+					$sourcing_invoice->association_id = $request->association_id;
+					$sourcing_invoice->association_type_term = $request->association_type_term;
+					$sourcing_invoice->invoice_amount = $request->invoice_amount;
+					$sourcing_invoice->invoice_status = config('custom.sourcing.invoice_status.invoice_generated');
+					$sourcing_invoice->save();
+
+					if($sourcing_invoice){
+
+						Sourcing::where([
+							'id' => $request->sourcing_id
+						])->update([
+							'p_status' => config('custom.sourcing.status.invoice_generated')
+						]);
+
+						$notify_users = [[
+							'association_id' => $sourcing_dtls->member_stylist_id,
+							'association_type_term' => $sourcing_dtls->member_stylist_type == 1 ? config('custom.user_type.stylist') : config('custom.user_type.member')
+						]];
+
+						if(count($notify_users)){
+
+							$notification_obj = [
+								'type' => config('custom.notification_types.sourcing_invoice_generated'),
+								'title' => trans('pages.notifications.sourcing_invoice_generated_title'),
+								'description' => trans('pages.notifications.sourcing_invoice_generated_des', ['product_title' => $sourcing_dtls->p_name]),
+								'data' => [
+									'sourcing_id' => $sourcing_dtls->id,
+								],
+								'users' => $notify_users
+							];
+
+							CommonRepo::save_notification($notification_obj);
+
+						}
+
+						$result['status'] = 1;
+						$result['message'] = trans('pages.sourcing_invoice_generated');
+		
+					}
+
+				}else{
+
+					$result['message'] = trans('pages.sourcing_invoice_already_generated');
+
+				}
+
+			}else{
+
+				$result['message'] = trans('pages.crud.no_data', ['attr' => 'Sourcing request']);
+
+			}
+
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error generateSourcingInvoice ". print_r($e->getMessage(), true));
+
+			return $result;
+
+        }
+
+	}
+
 }

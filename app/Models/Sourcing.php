@@ -31,4 +31,9 @@ class Sourcing extends Model
         return $this->hasOne(ChatRoom::class, 'module_ref_id', 'id')->where('sg_chat_room.module', config('custom.chat_module.sourcing'));
     }
 
+    public function sourcing_invoice() 
+    {
+        return $this->hasOne(SourcingInvoice::class, 'sourcing_id', 'id');
+    }
+
 }
