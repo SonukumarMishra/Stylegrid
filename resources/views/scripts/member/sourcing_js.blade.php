@@ -25,12 +25,14 @@
         SourcingRef.liveRequestsList = 1;
 
         SourcingRef.stripeRef = Stripe('{{ config("custom.stripe.publishableKey")}}');
+        
+        SourcingRef.sourcingInvoiceAmount = 0;
 
-        // SourcingRef.stripeElementstyle = {
-        //     base: {
-        //         color: "#32325d",
-        //     }
-        // };
+        SourcingRef.stripeElementstyle = {
+            base: {
+                color: "#32325d",
+            }
+        };
 
         SourcingRef.initEvents = function() {
 
@@ -66,36 +68,64 @@
                 
                 if(sourcing_dtls.sourcing_invoice != undefined && sourcing_dtls.sourcing_invoice != ''){
 
-                    $('#modal_sourcing_payment_invoice_title').html('Pay invoice for '+sourcing_dtls.p_name);
+                    $('#modal_sourcing_payment_invoice_title').html('Pay invoice for '+sourcing_dtls.p_name+' - £'+amount);
+                    
+                    SourcingRef.sourcingInvoiceAmount = amount;
 
-                    SourcingRef.getStripePaymentIntent(amount);
+                    SourcingRef.renderInvoiceCheckoutUI();
 
                 }
                 
             });
 
-            $('body').on('click', '#sourcing_payment_invoice_frm_btn', function (e) {
-                e.preventDefault();
-                SourcingRef.confirmStripePaymentIntent();
+            $("#sourcing_payment_invoice_frm").submit(function(event) {
+
+                event.preventDefault();
+
+                if(SourcingRef.cardElement._complete == false){
+
+                    showErrorMessage("Please fill all card details.");
+
+                    return false;
+
+                }else{
+
+                    showSpinner('#sourcing_payment_invoice_frm_btn', 'sm', 'light', 'span');
+
+                    SourcingRef.stripeRef
+                        .createToken(SourcingRef.cardElement)
+                        .then(function(result) {
+                            console.log(result);
+                            // Handle result.error or result.paymentMethod
+                            if(result.hasOwnProperty("token")){
+
+                                SourcingRef.getStripePaymentResponse(result.token.id);
+                                
+                            }else{
+                                showErrorMessage(result.error);
+                                hideSpinner('#sourcing_payment_invoice_frm_btn');
+                            }
+
+                        });
+                }
+
             });
             
         }
        
-        
-        SourcingRef.getStripePaymentIntent = function(amount) {
+        SourcingRef.getStripePaymentResponse = function(payment_method_token) {
 
             var formData = new FormData();            
-            formData.append('amount', amount);
+            formData.append('amount', SourcingRef.sourcingInvoiceAmount);
+            formData.append('payment_method_token', payment_method_token);
 
-            window.getResponseInJsonFromURL('{{ route("stripe_create_payment_intent") }}', formData, (response) => {
-               
-               $('#live_requests_tbl_container').html('');
+            window.getResponseInJsonFromURL('{{ route("stripe_charge_payment") }}', formData, (response) => {
                
                if (response.status == '1') {
 
-                    SourcingRef.clientSecret = response.data.client_secret;
+                    SourcingRef.getLiveRequests();
 
-                    SourcingRef.renderInvoiceCheckoutUI();
+                    $('#sourcing_payment_invoice_modal').modal('hide');
 
                } else {
                    showErrorMessage(response.message);
@@ -107,35 +137,50 @@
 
         SourcingRef.renderInvoiceCheckoutUI = function(e) {
 
-            var options = {
-                clientSecret: SourcingRef.clientSecret,
-                // Fully customizable with appearance API.
-                appearance: {/*...*/},
-            };
-
-            const elements = SourcingRef.stripeRef.elements(options);
-            SourcingRef.paymentElement = elements.create('payment');
-            SourcingRef.paymentElement.mount('#payment-element');
-
+            $('#card-ui-element').html("");
+                            
             $('#sourcing_payment_invoice_modal').modal('show');
 
-        }
+            showSpinner('#card-ui-element');
 
-        SourcingRef.confirmStripePaymentIntent = function() {
+            SourcingRef.stripeElements = SourcingRef.stripeRef.elements();
 
-            SourcingRef.stripeRef
-                .confirmCardPayment(SourcingRef.clientSecret, {
-                    payment_method: {
-                        card: SourcingRef.paymentElement,
-                        // billing_details: {
-                        //     name: 'Jenny Rosen',
-                        // },
-                    },
-                })
-                .then(function(result) {
-                    console.log(result);
-                    // Handle result.error or result.paymentIntent
-                });
+            SourcingRef.cardElement = SourcingRef.stripeElements.create('card',  {
+                                                        style: {
+                                                            base: {
+                                                                color: "#2E4836",
+                                                                fontWeight: 500,
+                                                                fontFamily: '"Comfortaa", cursive, "Times New Roman", Times, serif',
+                                                                fontSize: "16px",
+                                                                fontSmoothing: "antialiased",
+                                                                "::placeholder": {
+                                                                    color: "#2E4836"
+                                                                }
+                                                            },
+                                                            invalid: {
+                                                                color: "#fa755a",
+                                                                iconColor: '#fa755a'
+                                                            }
+                                                        }
+                                                    } );
+
+                                                    // Add an instance of the card Element into the `card-ui-element` <div>.
+            SourcingRef.cardElement.mount('#card-ui-element');
+
+            SourcingRef.cardElement.on('change', function(event) {
+                var displayError = document.getElementById('card-errors');
+                if (event.error) {
+                    displayError.textContent = event.error.message;
+                } else {
+                    displayError.textContent = '';
+                }
+            });
+
+            SourcingRef.cardElement.on('ready', function(event) {
+            
+                hideSpinner('#card-ui-element');
+                
+            });
 
         }
 

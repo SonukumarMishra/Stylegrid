@@ -16,9 +16,9 @@ use Storage;
 class PaymentGatwayController extends BaseController
 {
    
-	public function stripe_create_payment_intent(Request $request){
+	public function stripe_charge_payment(Request $request){
       
-        $response_array = PaymentRepo::stripe_create_payment_intent($request);
+        $response_array = PaymentRepo::stripe_charge_payment($request);
 
         return response()->json($response_array, 200);
                       

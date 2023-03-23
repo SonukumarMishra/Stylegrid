@@ -788,54 +788,30 @@ class PaymentRepository {
         }
     }
 
-    public static function stripe_create_payment_intent($request)
+    public static function stripe_charge_payment($request)
     { 
       
         try { 
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
     
-            $paymentIntent  = $stripe->paymentIntents->create([
+            $paymentIntent  = $stripe->charges->create([
                                     'amount' => ($request->amount * 100),       // e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency
                                     'currency' => 'usd',
-                                    // 'automatic_payment_methods' => [
-                                    //     'enabled' => true,
-                                    // ],
-                                    'payment_method_types' => [
-                                        "card"
-                                    ]
+                                    'source' => $request->payment_method_token
                                 ]);
 
+                                Log::info("data ". print_r($paymentIntent, true));
+
             return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => ['client_secret' => $paymentIntent->client_secret] ];
         
         }catch (\Exception $e) {
                         
-            Log::info("error stripe_create_payment_intent ". $e->getMessage());
+            Log::info("error stripe_charge_payment ". $e->getMessage());
 
             return array('status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage());
 
         }
     }
 
-    public static function stripe_confirm_payment_intent($request)
-    { 
-      
-        try { 
-
-            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
-    
-            $paymentIntent  = $stripe->paymentIntents->confirm(
-                $request->payment_intent_token
-            );
-
-            return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => ['client_secret' => $paymentIntent->client_secret] ];
-        
-        }catch (\Exception $e) {
-                        
-            Log::info("error stripe_create_payment_intent ". $e->getMessage());
-
-            return array('status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage());
-
-        }
-    }
 }

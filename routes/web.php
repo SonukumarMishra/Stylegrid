@@ -180,9 +180,7 @@ Route::post('/member-online-status-save', 'Member\ChatController@updateOnlineSta
 // Stripe 
 
 
-Route::post('/stripe-create-payment-intent', 'PaymentGatwayController@stripe_create_payment_intent')->name('stripe_create_payment_intent');
-
-Route::post('/stripe-confirm-payment-intent', 'PaymentGatwayController@stripe_confirm_payment_intent')->name('stripe_confirm_payment_intent');
+Route::post('/stripe-create-charge-payment', 'PaymentGatwayController@stripe_charge_payment')->name('stripe_charge_payment');
 
 // member cart 
 

@@ -266,22 +266,26 @@
     
                     <h1 class="text-center modal-submit-request" id="modal_sourcing_payment_invoice_title"></h1>
     
-                    <div id="browse-soursing" class="mt-3">
+                    <div id="browse-soursing" class="m-2 mt-3">
     
-                        
-                        <input type="hidden" name="sourcing_id">
+                        <form id="sourcing_payment_invoice_frm" action="#" method="post">
 
-                        <form id="payment-form">
-                            <div id="payment-element">
-                                <!-- Elements will create form elements here -->
-                            </div>
-                            
-                            <button class="submit-request mt-2" id="sourcing_payment_invoice_frm_btn">Pay</button>
+                            <input type="hidden" name="sourcing_id">
 
-                            <div id="error-message">
-                                <!-- Display error message to your customers here -->
+                            <div id="card-ui-element">
+                              <!-- Elements will create input elements here -->
                             </div>
-                        </form>
+                          
+                            <!-- We'll put the error messages in this element -->
+                            <div id="card-errors" class="text-danger mt-1" role="alert"></div>
+                          
+                            <div class="row justify-content-end mt-3">
+            
+                              <button class="submit-request" id="sourcing_payment_invoice_frm_btn">Buy</button>
+            
+                            </div>
+            
+                          </form>
     
                     </div>
     
