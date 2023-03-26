@@ -384,4 +384,21 @@ class MemberController extends Controller
 
     }
 
+    
+    public function paySourcingInvoice(Request $request) {
+       
+        try{
+
+            $response_array = SourcingRepo::paySourcingInvoice($request);
+            
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
+
+
 }

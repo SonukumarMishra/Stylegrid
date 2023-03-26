@@ -4,7 +4,7 @@
     @foreach ($list as $key => $source_row)
         <tr>
             <td class="d-flex"><span class="dot"></span>
-                @if ($source_row['p_status']=='Fulfilled' && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
+                @if (in_array($source_row['p_status'], [ config('custom.sourcing.status.Fulfilled'), config('custom.sourcing.status.invoice_paid') ]) && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
                     <a href="{{ route('member.sourcing.view', ['title' => $source_row['p_slug']])}}">{{$source_row['p_name']}}</a>
                 @else
                     {{$source_row['p_name']}}
@@ -20,7 +20,12 @@
             @if ($source_row['p_status'] == config('custom.sourcing.status.invoice_generated'))
             
                 <td class="green-color">{{$source_row['p_status']}}</td>
-                <td><button class="pay-invoice-btn" style="width: 100%; height: 25px; font-size:14px;" data-amount="{{ @$source_row['sourcing_invoice']->invoice_amount }}" data-sourcing-id="{{ $source_row['id'] }}">Pay Invoice</button></td>
+                <td><button class="pay-invoice-btn" style="width: 100%; height: 25px; font-size:14px;" data-amount="{{ @$source_row['sourcing_invoice']->invoice_amount }}" data-invoice-id="{{ @$source_row['sourcing_invoice']->sourcing_invoice_id }}" data-sourcing-id="{{ $source_row['id'] }}">Pay Invoice</button></td>
+
+            @elseif ($source_row['p_status'] == config('custom.sourcing.status.invoice_paid'))
+            
+                <td class="green-color">{{$source_row['p_status']}}</td>
+                <td></td>
 
             @elseif ($source_row['total_offer']>0 && $source_row['p_status']!='Fulfilled')
                

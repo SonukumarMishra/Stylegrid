@@ -6,7 +6,7 @@
         <tr>
             <td class="d-flex">
                 <span class="dot"></span>
-                @if ($source_row['p_status']=='Fulfilled' && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
+                @if (in_array($source_row['p_status'], [ config('custom.sourcing.status.Fulfilled'), config('custom.sourcing.status.invoice_paid') ]) && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
                     <a href="{{ route('stylist.sourcing.view', ['title' => $source_row['p_slug']])}}">{{$source_row['p_name']}}</a>
                 @else
                     {{$source_row['p_name']}}
@@ -30,7 +30,7 @@
                     }
                 }else{
 
-                    if($source_row['p_status'] == config('custom.sourcing.status.invoice_generated')){
+                    if(in_array($source_row['p_status'], [ config('custom.sourcing.status.invoice_generated'), config('custom.sourcing.status.invoice_paid') ])){
 
                         ?>
 

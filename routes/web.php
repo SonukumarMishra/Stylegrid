@@ -131,6 +131,7 @@ Route::get('/offer-received/{title}', [Member::class, 'memberOfferReceived']);
 Route::get('/member-sourcing/{title}', [Member::class, 'sourcingRequestView'])->name('member.sourcing.view');
 Route::get('/member-offer-accepted', [Member::class, 'memberOfferAcceptedSuccessful']);
 Route::post('/member-accept-offer', [Member::class, 'memberAcceptOffer']);
+Route::post('/member-pay-sourcing-invoice', [Member::class, 'paySourcingInvoice'])->name('member.pay_sourcing_invoice');
 Route::post('/member-decline-offer', [Member::class, 'memberDeclineOffer']);
 Route::get('/member-submit-request-complete', [Member::class, 'memberSubmitRequestComplete']);
 

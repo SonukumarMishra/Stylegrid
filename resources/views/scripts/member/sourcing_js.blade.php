@@ -27,6 +27,8 @@
         SourcingRef.stripeRef = Stripe('{{ config("custom.stripe.publishableKey")}}');
         
         SourcingRef.sourcingInvoiceAmount = 0;
+        SourcingRef.sourcingId = 0;
+        SourcingRef.sourcingInvoiceId = 0;
 
         SourcingRef.stripeElementstyle = {
             base: {
@@ -72,6 +74,10 @@
                     
                     SourcingRef.sourcingInvoiceAmount = amount;
 
+                    SourcingRef.sourcingId = sourcing_id;
+                    
+                    SourcingRef.sourcingInvoiceId = $(this).data('invoice-id');
+
                     SourcingRef.renderInvoiceCheckoutUI();
 
                 }
@@ -99,7 +105,7 @@
                             // Handle result.error or result.paymentMethod
                             if(result.hasOwnProperty("token")){
 
-                                SourcingRef.getStripePaymentResponse(result.token.id);
+                                SourcingRef.checkoutStripePayment(result.token.id);
                                 
                             }else{
                                 showErrorMessage(result.error);
@@ -113,18 +119,24 @@
             
         }
        
-        SourcingRef.getStripePaymentResponse = function(payment_method_token) {
+        SourcingRef.checkoutStripePayment = function(payment_method_token) {
 
             var formData = new FormData();            
             formData.append('amount', SourcingRef.sourcingInvoiceAmount);
             formData.append('payment_method_token', payment_method_token);
-
-            window.getResponseInJsonFromURL('{{ route("stripe_charge_payment") }}', formData, (response) => {
+            formData.append('sourcing_id', SourcingRef.sourcingId);
+            formData.append('sourcing_invoice_id', SourcingRef.sourcingInvoiceId);
+            formData.append('user_id', auth_id);
+            formData.append('user_type', auth_user_type);
+            
+            window.getResponseInJsonFromURL('{{ route("member.pay_sourcing_invoice") }}', formData, (response) => {
                
+                hideSpinner('#sourcing_payment_invoice_frm_btn');
+
                if (response.status == '1') {
 
+                    showSuccessMessage(response.message);
                     SourcingRef.getLiveRequests();
-
                     $('#sourcing_payment_invoice_modal').modal('hide');
 
                } else {
@@ -164,7 +176,7 @@
                                                         }
                                                     } );
 
-                                                    // Add an instance of the card Element into the `card-ui-element` <div>.
+            // Add an instance of the card Element into the `card-ui-element` <div>.
             SourcingRef.cardElement.mount('#card-ui-element');
 
             SourcingRef.cardElement.on('change', function(event) {

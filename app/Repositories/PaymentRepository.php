@@ -791,19 +791,21 @@ class PaymentRepository {
     public static function stripe_charge_payment($request)
     { 
       
+        $result = array('status' => 0, 'message' => trans('pages.something_wrong'));
+
         try { 
 
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
     
-            $paymentIntent  = $stripe->charges->create([
+            $payment_result = $stripe->charges->create([
                                     'amount' => ($request->amount * 100),       // e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency
                                     'currency' => 'usd',
                                     'source' => $request->payment_method_token
                                 ]);
 
-                                Log::info("data ". print_r($paymentIntent, true));
-
-            return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => ['client_secret' => $paymentIntent->client_secret] ];
+            Log::info("payment_result ". print_r($payment_result, true));
+           
+            return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => ['payment_dtls' => $payment_result] ];
         
         }catch (\Exception $e) {
                         
