@@ -12,6 +12,7 @@ use App\Models\StyleGrids;
 use App\Models\StyleGridDetails;
 use App\Models\StyleGridProductDetails;
 use App\Models\StyleGridClients;
+use App\Models\Cart;
 use App\Repositories\GridRepository as GridRepo;
 use Validator,Redirect;
 use Config;
@@ -116,15 +117,35 @@ class GridController extends BaseController
 	{
         try{
 
+            $user_data = $this->auth_user;
+
+            $cart_id = NULL;
+
+            $user_grid_cart_dtls = Cart::where([
+                                            'association_id' => $user_data['auth_id'],
+                                            'association_type_term' => $user_data['auth_user'],
+                                            'module_id' => $request->stylegrid_id,
+                                            'module_type' => config('custom.cart.module_type.stylegrid'),
+                                            'is_active' => 1
+                                        ])
+                                        ->first();
+
+            if($user_grid_cart_dtls){
+                
+                $cart_id = $user_grid_cart_dtls->cart_id;
+
+            }
+
             $details = StyleGridProductDetails::from('sg_stylegrid_product_details as product')
                                                 ->where([
                                                     'product.stylegrid_id' => $request->stylegrid_id,
                                                     'product.stylegrid_product_id' => $request->stylegrid_product_id
                                                 ])
-                                                ->leftjoin('sg_cart_details as cart_item', function($join) {
+                                                ->leftjoin('sg_cart_details as cart_item', function($join) use($cart_id) {
                                                     $join->on('cart_item.item_id', '=', 'product.stylegrid_product_id')
                                                         ->where([
-                                                            'cart_item.item_type' => config('custom.cart.item_type.stylegrid_product')
+                                                            'cart_item.item_type' => config('custom.cart.item_type.stylegrid_product'),
+                                                            'cart_id' => $cart_id
                                                         ]);
                                                 })
                                                 ->select('product.*', DB::raw('(CASE WHEN cart_item.cart_dtls_id IS NOT NULL THEN 1 ELSE 0 END) AS is_cart_item'), 'cart_item.cart_id', 'cart_item.cart_dtls_id')

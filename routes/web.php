@@ -108,6 +108,10 @@ use App\Http\Controllers\CommonController;
  Route::post('/stylist-notifications-unread', [Stylist::class, 'unreadNotificationsList'])->name('stylist.notifications.unread_list');
  Route::post('/stylist-notifications-read-all', [Stylist::class, 'readNotifications'])->name('stylist.notifications.read_all');
  
+ Route::get('/stylist-payment', [Stylist::class, 'paymentsIndex'])->name('stylist.payment.index');
+ Route::get('/stylist-payment-create', [Stylist::class, 'paymentsCreatePaymentIndex'])->name('stylist.payment.create');
+ Route::post('/stylist-payment/get-member-temp-invoice-items', [Stylist::class, 'getMemberTempInvoiceItems'])->name('stylist.payment.member_temp_items');
+
  //stylist section End
  ///member Section Start
 Route::post('/add-member', [Website::class, 'addMember']);
