@@ -67,6 +67,8 @@ return [
         'sourcing_offer_received' => 'sourcing_offer_received',
         'sourcing_invoice_generated' => 'sourcing_invoice_generated',
         'sourcing_invoice_paid' => 'sourcing_invoice_paid',
+        'product_invoice_generated' => 'product_invoice_generated',
+        'product_invoice_paid' => 'product_invoice_paid',
     ],
 
     'subscription' => [
@@ -93,7 +95,8 @@ return [
         'type_debit' => 'debit',
         'trans_type' => [
             'subscription' => 'subscription',
-            'sourcing' => 'sourcing'
+            'sourcing' => 'sourcing',
+            'product_invoice' => 'product_invoice'
         ]
     ],
     
@@ -123,6 +126,14 @@ return [
         'amex' => 'amex',
         'discover' => 'discover',
         'jcb' => 'jcb'
-    ]
+    ],
+
+    'product_invoice' => [
+        'status' => [
+            'pending' => 'pending',
+            'paid' => 'paid',
+            'failed' => 'failed'
+        ],
+    ],
 
 ];

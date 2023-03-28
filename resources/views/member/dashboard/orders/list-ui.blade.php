@@ -1,4 +1,5 @@
 
+
 @if (count($list))
 
     @foreach ($list as $key => $row)
@@ -6,7 +7,7 @@
         <tr>
         
             <td>{{$row->invoice_no}}</td>
-            <td>{{$row->member_name}}</td>
+            <td>{{$row->stylist_name}}</td>
             <td>{{$row->no_of_items}}</td>
             <td>£{{$row->invoice_amount}}</td>
             <td>{{ isset($row->invoice_paid_on) && !empty($row->invoice_paid_on) ? date('m-d-Y', strtotime($row->invoice_paid_on)) : '' }}</td>
@@ -18,6 +19,11 @@
                     <span class="text-success">Paid</span>
                 @endif
             </td>
+            @if ($row->invoice_status == config('custom.product_invoice.status.pending'))
+
+            <td><button class="pay-invoice-btn" style="width: 100%; height: 25px; font-size:14px;" data-amount="{{ @$row->invoice_amount }}" data-invoice-id="{{ @$row->product_invoice_id }}" data-title="{{ $row->invoice_no }}">Pay Invoice</button></td>
+
+            @endif
         </tr>
 
     @endforeach

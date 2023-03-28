@@ -130,9 +130,6 @@ class SourcingRepository {
 							->orderBy("offer_updated_on","DESC")
 							->paginate(10, ['*'], 'page', $page_index);
 							
-			// $queries = DB::getQueryLog();
-			// Log::info(print_r($queries, true)); 
-						  
 			$response_array['list'] = $list;
 
 			return $response_array;

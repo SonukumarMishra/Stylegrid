@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Subscription;
 use App\Models\UserSubscription;
+use App\Models\ProductInvoice;
 use App\Repositories\CartRepository as CartRepo;
 use File;
 use Mail;
@@ -299,6 +300,23 @@ class Helper
         $days = $start_date->diff($end_date)->format("%r%a");
 
         return $days;
+    }
+
+    
+    public static function generate_product_invoice_no(){
+        
+        $last_invoice = ProductInvoice::orderBy('product_invoice_id', 'desc')->first();
+
+        $invoice_no = 1;
+        
+        if($last_invoice){
+            
+            $invoice_no = $last_invoice->product_invoice_id + 1;
+
+        }
+
+        return 'IN'.date('mdY').sprintf('%010d', $invoice_no);
+        
     }
 
 }

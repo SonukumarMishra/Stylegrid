@@ -47,7 +47,7 @@
    
                               <h5 class="cart-product-name-header">Product Price:</h5>
    
-                              <label id="product_name">{{ $p_val->product_price }}</label>
+                              <label id="product_name">£{{ $p_val->product_price }}</label>
    
                            </div>
                            <div class="form-group col-4">

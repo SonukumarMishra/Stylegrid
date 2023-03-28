@@ -8,6 +8,7 @@ use Helper;
 use App\Models\StyleGrids;
 use App\Models\StyleGridDetails;
 use App\Models\StyleGridClients;
+use App\Models\ProductInvoice;
 use App\Models\StyleGridProductDetails;
 use DB;
 use Log;
@@ -172,4 +173,44 @@ class GridRepository {
 
 	}
 
+	public static function getUserProductPaymentsJson($request) {
+		
+		$response_array = [ 'list' => [] ];
+
+		try {
+
+			$page_index = isset($request->page) ? $request->page : 1;
+			
+			$list = ProductInvoice::from('sg_product_invoices as invoice')
+									->select("invoice.*", 'stylist.full_name as stylist_name', 'member.full_name as member_name')
+									->leftjoin('sg_stylist AS stylist', 'stylist.id', '=', 'invoice.stylist_id')
+									->leftjoin('sg_member AS member', 'member.id', '=', 'invoice.member_id')
+									->orderBy('invoice.product_invoice_id', 'desc');
+				
+			if(isset($request->stylist_id) && !empty($request->stylist_id)){
+				
+				$list = $list->where('invoice.stylist_id', $request->stylist_id);
+
+			}
+			
+			if(isset($request->member_id) && !empty($request->member_id)){
+
+				$list = $list->where('invoice.member_id', $request->member_id);
+			
+			}
+			$list = $list->paginate(10, ['*'], 'page', $page_index);
+
+			$response_array['list'] = $list;
+
+			return $response_array;
+					
+		}catch(\Exception $e) {
+
+            Log::info("error getUserProductPaymentsJson ". print_r($e->getMessage(), true));
+			$response_array['error'] = $e->getMessage();
+			return $response_array;
+
+        }
+
+	}
 }

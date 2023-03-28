@@ -45,27 +45,27 @@
 
                     <div class="col-12 p-0 mt-2">
                         <div class="text-center ml-2 add-table-border">
-                            <table class="table w-100 table-responsive" id="live_requests_tbl">
+                            <table class="table w-100 table-responsive" id="payment_list_tbl">
                                 <thead>
                                     <tr>
-                                        <th scope="col" class="text-left pl-4">PRODUCT NAME</th>
-                                        <th scope="col">Size</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Brand</th>
-                                        <th scope="col">Destination</th>
-                                        <th scope="col">Due Date</th>
+                                        <th scope="col">Invoice No</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">No of Items</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Paid On</th>
+                                        <th scope="col">Created On</th>
                                         <th scope="col">Status</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
-                                <tbody id="live_requests_tbl_container">
+                                <tbody id="payment_list_tbl_container">
                                    
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="float-right mt-2" id="live_requests_pagination_container">
+                        <div class="float-right mt-2" id="payment_list_pagination_container">
 
                         </div>
                     </div>
