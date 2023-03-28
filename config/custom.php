@@ -28,6 +28,12 @@ return [
     ],
 
     'sourcing' => [
+        'status' => [
+            'Pending' => 'Pending',
+            'Fulfilled' => 'Fulfilled',
+            'invoice_generated' => 'Invoice Generated',
+            'invoice_paid' => 'Invoice Paid'
+        ],
         'sourcing_user_type' => [
             'stylist' => 1,
             'member' => 0
@@ -36,7 +42,11 @@ return [
             'pending' => 0,
             'accepted' => 1,
             'decline' => 2
-        ]
+        ],
+        'invoice_status' => [
+            'invoice_generated' => 'invoice_generated',
+            'invoice_paid' => 'invoice_paid'
+        ],
     ],
 
     'cart' => [
@@ -55,6 +65,8 @@ return [
         'sourcing_offer_accepted' => 'sourcing_offer_accepted',
         'sourcing_offer_decline' => 'sourcing_offer_decline',
         'sourcing_offer_received' => 'sourcing_offer_received',
+        'sourcing_invoice_generated' => 'sourcing_invoice_generated',
+        'sourcing_invoice_paid' => 'sourcing_invoice_paid',
     ],
 
     'subscription' => [
@@ -80,7 +92,8 @@ return [
     'payment_transaction' => [
         'type_debit' => 'debit',
         'trans_type' => [
-            'subscription' => 'subscription'
+            'subscription' => 'subscription',
+            'sourcing' => 'sourcing'
         ]
     ],
     
@@ -96,6 +109,11 @@ return [
             'canceled' => 'canceled',
             'past_due' => 'past_due',
             'unpaid' => 'unpaid',
+        ],
+        'charge_status' => [
+            'succeeded' => 'succeeded',
+            'pending' => 'pending',
+            'failed' => 'failed'
         ]
     ],
 

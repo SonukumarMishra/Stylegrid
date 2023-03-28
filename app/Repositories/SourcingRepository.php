@@ -8,7 +8,9 @@ use App\Models\Stylist;
 use App\Models\Member;
 use App\Models\Sourcing;
 use App\Models\SourcingOffer;
+use App\Models\SourcingInvoice;
 use App\Repositories\CommonRepository as CommonRepo;
+use App\Repositories\PaymentRepository as PaymentRepo;
 use Validator;
 use Helper;
 use DB;
@@ -57,7 +59,8 @@ class SourcingRepository {
 									$query->where('status', 2)
 										->select(\DB::raw("COUNT(id)"));
 								}
-								])
+							])
+							->with('sourcing_invoice')
 							->groupBy("sg_sourcing.id")
 							->orderBy('sg_sourcing.p_created_date', 'desc')
 							->orderBy("offer_updated_on","DESC")
@@ -438,11 +441,9 @@ class SourcingRepository {
 								->select('sourcing.*')
 								->join('sg_brand AS b', 'b.id', '=', 'sourcing.p_brand')
 								->where('sourcing.p_slug', $slug)
-								->with(['sourcing_accepted_details', 'sourcing_chat_room'])
+								->with(['sourcing_accepted_details', 'sourcing_chat_room', 'sourcing_invoice'])
 								->first();
 					
-			Log::info("data ". print_r($result, true));
-
 			return $result;
 
 		}catch(\Exception $e) {
@@ -500,4 +501,239 @@ class SourcingRepository {
         }
 
 	}
+
+	public static function generateSourcingInvoice($request) {
+		
+		$result = ['status' => 0, 'message' => trans('pages.something_wrong')];
+
+		try {
+
+			$sourcing_dtls = Sourcing::from('sg_sourcing')
+										->where('sg_sourcing.id', '=' , $request->sourcing_id)
+										->first();
+
+			if($sourcing_dtls){
+
+				$sourcing_invoice = SourcingInvoice::from('sg_sourcing_invoices as invoice')
+													->where([
+														'invoice.sourcing_id' => $request->sourcing_id,
+														'invoice.is_active' => 1
+													])
+													->first();
+
+				if(!$sourcing_invoice){
+					
+					$sourcing_invoice = new SourcingInvoice;
+					$sourcing_invoice->sourcing_id = $request->sourcing_id;
+					$sourcing_invoice->association_id = $request->association_id;
+					$sourcing_invoice->association_type_term = $request->association_type_term;
+					$sourcing_invoice->invoice_amount = $request->invoice_amount;
+					$sourcing_invoice->invoice_status = config('custom.sourcing.invoice_status.invoice_generated');
+					$sourcing_invoice->save();
+
+					if($sourcing_invoice){
+
+						Sourcing::where([
+							'id' => $request->sourcing_id
+						])->update([
+							'p_status' => config('custom.sourcing.status.invoice_generated')
+						]);
+
+						$notify_users = [[
+							'association_id' => $sourcing_dtls->member_stylist_id,
+							'association_type_term' => $sourcing_dtls->member_stylist_type == 1 ? config('custom.user_type.stylist') : config('custom.user_type.member')
+						]];
+
+						if(count($notify_users)){
+
+							$notification_obj = [
+								'type' => config('custom.notification_types.sourcing_invoice_generated'),
+								'title' => trans('pages.notifications.sourcing_invoice_generated_title'),
+								'description' => trans('pages.notifications.sourcing_invoice_generated_des', ['product_title' => $sourcing_dtls->p_name]),
+								'data' => [
+									'sourcing_id' => $sourcing_dtls->id,
+								],
+								'users' => $notify_users
+							];
+
+							CommonRepo::save_notification($notification_obj);
+
+						}
+
+						$result['status'] = 1;
+						$result['message'] = trans('pages.sourcing_invoice_generated');
+		
+					}
+
+				}else{
+
+					$result['message'] = trans('pages.sourcing_invoice_already_generated');
+
+				}
+
+			}else{
+
+				$result['message'] = trans('pages.crud.no_data', ['attr' => 'Sourcing request']);
+
+			}
+
+			return $result;
+
+		}catch(\Exception $e) {
+
+            Log::info("error generateSourcingInvoice ". print_r($e->getMessage(), true));
+
+			return $result;
+
+        }
+
+	}
+
+	public static function paySourcingInvoice($request) {
+		
+		$response_array = ['status' => 0, 'message' => trans('pages.something_wrong')];
+
+		try {
+
+			$sourcing_dtls = Sourcing::find($request->sourcing_id);
+			
+			if(!$sourcing_dtls){
+				
+				$response_array['message'] = trans('pages.crud.no_data', ['attr' => 'Sourcing request']);
+				return $response_array;
+			}
+
+			$sourcing_invoice = SourcingInvoice::find($request->sourcing_invoice_id);
+			
+			if(!$sourcing_invoice){
+				
+				$response_array['message'] = trans('pages.crud.no_data', ['attr' => 'Sourcing invoice']);
+				return $response_array;
+			}
+
+			$payment_result = PaymentRepo::stripe_charge_payment($request);
+            
+			if($payment_result['status']){
+
+				$payment_dtls = $payment_result['data']['payment_dtls'];
+
+				$payment_status = $payment_dtls->status;
+
+				$payment_trans_data = [
+					'association_id' => @$request->user_id,
+					'association_type_term' => @$request->user_type,
+					'trans_amount' => @$request->amount,
+					'trans_type' => config('custom.payment_transaction.type_debit'),
+					'payment_gatway' => config('custom.payment_gatway.stripe'),
+					'trans_ref_association_type_term' => config('custom.payment_transaction.trans_type.sourcing'),
+					'trans_ref_association_id' => @$sourcing_dtls->id,
+					'trans_status' => @$payment_status,
+					'is_paid' => @$payment_status == config('custom.stripe.charge_status.succeeded') ? 1 : 0
+				];
+
+				if(in_array($payment_status, [ config('custom.stripe.charge_status.succeeded'), config('custom.stripe.charge_status.pending')])){
+
+					$payment_trans_data['trans_id'] = @$payment_dtls->id;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->currency;
+					$payment_trans_data['trans_mode'] = @$payment_dtls->source->object;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
+
+					// Save payment transaction details
+					$payment_trans_result = PaymentRepo::save_payment_transaction($payment_trans_data);
+					
+					$payment_trans_id = '';
+
+					if($payment_trans_result['status']){
+						$payment_trans_id = $payment_trans_result['data']['payment_trans_id'];
+					}
+					
+					$sourcing_invoice->invoice_paid_on = date('Y-m-d H:i:s');
+					$sourcing_invoice->payment_trans_id = $payment_trans_id;
+					$sourcing_invoice->invoice_status = config('custom.sourcing.invoice_status.invoice_paid');
+					$sourcing_invoice->save();
+
+					$sourcing_dtls->p_status = config('custom.sourcing.status.invoice_paid');
+					$sourcing_dtls->save();
+
+					// Save invoice pdf 
+
+					// send notification to stylist for payment 
+					
+					$sourcing_user = '';
+
+					if($sourcing_dtls->member_stylist_type == 1){
+
+						$sourcing_user = Stylist::find($sourcing_dtls->member_stylist_id);
+
+					}else{
+
+						$sourcing_user = Member::find($sourcing_dtls->member_stylist_id);
+					}
+
+					if(!empty($sourcing_user)){
+
+						$notify_users = [[
+							'association_id' => $sourcing_invoice->association_id,
+							'association_type_term' => $sourcing_invoice->association_type_term
+						]];
+	
+						if(count($notify_users)){
+	
+							$notification_obj = [
+								'type' => config('custom.notification_types.sourcing_invoice_paid'),
+								'title' => trans('pages.notifications.sourcing_invoice_paid_title'),
+								'description' => trans('pages.notifications.sourcing_invoice_paid_des', [
+									'user' => @$sourcing_user->full_name,
+									'amount' => \Helper::format_number(@$request->amount),
+									'product_title' => $sourcing_dtls->p_name]),
+								'data' => [
+									'sourcing_id' => $sourcing_dtls->id,
+								],
+								'users' => $notify_users
+							];
+	
+							CommonRepo::save_notification($notification_obj);
+	
+						}
+
+					}
+					
+					$response_array['status'] = 1;
+					$response_array['message'] = trans('pages.sourcing_invoice_payment_success');
+
+				}else if(in_array($payment_status, [ config('custom.stripe.charge_status.failed')])){
+
+					$response_array['message'] = trans('pages.sourcing_invoice_payment_success');
+
+					$payment_trans_data['trans_error_code'] = @$payment_dtls->failure_code;
+					$payment_trans_data['trans_error_description'] = @$payment_dtls->failure_message;
+					$payment_trans_data['trans_error_reason'] = @$payment_dtls->failure_message;
+
+					PaymentRepo::save_payment_transaction($payment_trans_data);
+
+				}
+
+			}else{
+
+				$response_array['message'] = $payment_result['error'];
+
+			}
+
+			Log::info("all paySourcingInvoice ". print_r($response_array, true));
+
+			return $response_array;
+
+		}catch(\Exception $e) {
+
+            Log::info("error paySourcingInvoice ". print_r($e->getMessage(), true));
+			
+			$response_array['error'] = $e->getMessage();
+
+			return $response_array;
+
+        }
+
+	}
+
 }

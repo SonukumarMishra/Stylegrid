@@ -223,4 +223,34 @@ class UserRepository {
 	
 	}
 
+    public static function get_user_subscription_dtls_by_id($user_subscription_id){
+
+        $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'data' => []];
+
+        try {
+
+            $subscription = UserSubscription::from('sg_user_subscriptions as us')
+                                            ->join('sg_subscriptions as sub','sub.subscription_id','=','us.subscription_id')
+                                            ->leftJoin('sg_payment_transactions as pay_tra', function($join) {
+                                                $join->on('pay_tra.trans_ref_association_id','=','us.user_subscription_id')
+                                                    ->where('pay_tra.trans_ref_association_type_term', config('custom.payment_transaction.trans_type.subscription'));
+                                            })
+                                            ->where([
+                                                'us.user_subscription_id' => $user_subscription_id
+                                            ])
+                                            ->select('us.*', 'sub.*', 'pay_tra.payment_trans_id', 'pay_tra.trans_status as payment_status', 'us.created_at as invoice_date')
+                                            ->first();
+                                            
+            $response_array = ['status' => 1, 'data' => $subscription ? $subscription : (object)[] ];
+
+            return $response_array;
+
+        } catch (\Exception $e) {
+           
+            Log::info("error get_user_subscription_dtls_by_id - ". $e->getMessage());
+
+            return $response_array;
+        }
+    }
+
 }

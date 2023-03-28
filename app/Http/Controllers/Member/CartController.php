@@ -12,6 +12,7 @@ use App\Models\StyleGrids;
 use App\Models\ChatRoom;
 use App\Models\Cart;
 use App\Models\CartDetails;
+use App\Models\MemberTempInvoiceItems;
 use App\Repositories\CartRepository as CartRepo;
 use App\Repositories\ChatRepository as ChatRepo;
 use Validator,Redirect;
@@ -170,14 +171,23 @@ class CartController extends BaseController
             $remove_cart_items_ids = [];
 
             $items = CartDetails::from('sg_cart_details as item')
+                                ->join('sg_cart as cart', function($join) {
+                                    $join->on('cart.cart_id', '=', 'item.cart_id')
+                                        ->where([
+                                            'cart.module_type' => config('custom.cart.module_type.stylegrid')
+                                        ]);
+                                })
+                                ->leftjoin('sg_stylegrids as grid', function($join) {
+                                    $join->on('grid.stylegrid_id', '=', 'cart.module_id');
+                                })
+                                ->leftjoin('sg_stylegrid_product_details as product', 'product.stylegrid_product_id', '=', 'item.item_id')
                                 ->whereIn('item.cart_dtls_id', $cart_items_ids)
                                 ->where([
                                             'item.is_active' => 1
                                         ])
-                                ->leftjoin('sg_stylegrid_product_details as product', 'product.stylegrid_product_id', '=', 'item.item_id')
-                                ->select('product.stylist_id', 'product.product_name', 'product.product_image', 'item.cart_dtls_id')
+                                ->select('product.stylist_id', 'product.product_name', 'product.product_image', 'product.product_price', 'item.cart_dtls_id', 'item.item_id as stylegrid_product_id', 'grid.stylegrid_id')
                                 ->get();
-
+            
             $chat_room = ChatRoom::from('sg_chat_room as room')
                                     ->select("room.*")
                                     ->where(function ($q) use($auth_user) {
@@ -212,7 +222,7 @@ class CartController extends BaseController
 
                     foreach ($items as $key => $value) {
                 
-                        // $product_ext = pathinfo('https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
+                        $product_ext = pathinfo('https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
                         $product_ext = asset($value->product_image);
 
                         $message_obj = [
@@ -221,8 +231,8 @@ class CartController extends BaseController
                                             ]),
                                             'media_files' => json_encode([
                                                 [
-                                                    'media_source' => asset($value->product_image), 
-                                                    // 'media_source' => 'https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
+                                                    // 'media_source' => asset($value->product_image), 
+                                                    'media_source' => 'https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
                                                     'is_url' => true,
                                                     'media_name' => $value->product_name.'_'.time().'.'.$product_ext,
                                                     'id' => 1,
@@ -253,10 +263,18 @@ class CartController extends BaseController
                             Log::info("error save_chat_room_details - ". $e->getMessage());
 
                         }
-                
-                    }
 
-                   
+                        // save to member temp invoice table
+                        $temp_invoice_item = new MemberTempInvoiceItems();
+                        $temp_invoice_item->association_id = $auth_user['user_id'];
+                        $temp_invoice_item->association_type_term = $auth_user['user_type'];
+                        $temp_invoice_item->stylegrid_id = $value->stylegrid_id;
+                        $temp_invoice_item->stylegrid_product_id = $value->stylegrid_product_id;
+                        $temp_invoice_item->amount = $value->product_price;
+                        $temp_invoice_item->save();
+                        
+                    }
+                    
                     // Remove from cart 
 
                     if(count($remove_cart_items_ids) > 0){

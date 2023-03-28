@@ -84,6 +84,7 @@
                             $('#payment_modal_title').html('Buy '+$(this).data('title')+' Subscription - £'+$(this).data('price')+' /'+$(this).data('interval-type'));
 
                             $('#card-ui-element').html("");
+                            
                             $('#stylegrid_item_frm_btn').show();
                             
                             $('#payment_modal').modal('show');

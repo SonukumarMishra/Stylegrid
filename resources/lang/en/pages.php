@@ -42,7 +42,10 @@ return [
    'unable_to_create_subscription' => 'Unable to create subscription.',
    'stripe_user_not_found' => 'User\'s stripe account not found.',
    'stripe_payment_method_not_found' => 'User\'s stripe payment method not found.',
-   
+   'sourcing_invoice_already_generated' => 'Invoice already generated.',
+   'sourcing_invoice_generated' => 'Sourcing invoice successfully generated.',
+   'sourcing_invoice_payment_success' => 'Your payment has been processed successfully.',
+
    // notificaions description
 
    'notifications' => [
@@ -58,6 +61,12 @@ return [
 
       'sourcing_offer_decline_title' => 'Offer decline!',
       'sourcing_offer_decline_des' => 'Offer decline for :product_title',
+
+      'sourcing_invoice_generated_title' => 'New request received!',
+      'sourcing_invoice_generated_des' => 'You have received invoice for :product_title.',
+
+      'sourcing_invoice_paid_title' => 'New request received!',
+      'sourcing_invoice_paid_des' => ':user has paid £:amount for :product_title.',
    ]
 ];
 ?>

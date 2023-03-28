@@ -77,6 +77,20 @@
 
                                 <div class="w-100">
 
+                                    @if (isset($sourcing_details->sourcing_invoice) && !empty($sourcing_details->sourcing_invoice))
+                                        
+                                        <h4>Invoice Generated On: {{ date('m/d/Y', strtotime($sourcing_details->sourcing_invoice->created_at)) }}</h4>
+                                        <h4>Invoice Paid On: {{ isset($sourcing_details->sourcing_invoice->invoice_paid_on) && !empty($sourcing_details->sourcing_invoice->invoice_paid_on) ? date('m/d/Y', strtotime($sourcing_details->sourcing_invoice->invoice_paid_on)) : '-' }}</h4>
+                                        <h4>Invoice Status: 
+                                            @if ($sourcing_details->sourcing_invoice->invoice_status == config('custom.sourcing.invoice_status.invoice_generated'))
+                                                Pending
+                                            @elseif ($sourcing_details->sourcing_invoice->invoice_status == config('custom.sourcing.invoice_status.invoice_paid'))
+                                                Paid
+                                            @endif
+                                        </h4>
+
+                                    @endif
+
                                     @if (isset($sourcing_details->sourcing_chat_room) && !empty($sourcing_details->sourcing_chat_room))
                                         
                                         <div class="mt-2">

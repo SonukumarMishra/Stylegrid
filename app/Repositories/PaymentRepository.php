@@ -404,8 +404,7 @@ class PaymentRepository {
 
                                     set_time_limit(300);
 
-                                    $pdf = PDF::loadView('email_templates.subscription-invoice', [ 'data' => $new_subscription])
-                                                ->setOptions(['defaultFont' => 'IBM Plex Sans",Helvetica,Arial,serif', 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true]);
+                                    $pdf = PDF::loadView('pdf_templates.subscription-invoice-pdf', [ 'data' => $new_subscription, 'user' => $user_details ]);
 
                                     $default_storage = config('filesystems.default');
 
@@ -788,4 +787,33 @@ class PaymentRepository {
 
         }
     }
+
+    public static function stripe_charge_payment($request)
+    { 
+      
+        $result = array('status' => 0, 'message' => trans('pages.something_wrong'));
+
+        try { 
+
+            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+    
+            $payment_result = $stripe->charges->create([
+                                    'amount' => ($request->amount * 100),       // e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency
+                                    'currency' => 'usd',
+                                    'source' => $request->payment_method_token
+                                ]);
+
+            Log::info("payment_result ". print_r($payment_result, true));
+           
+            return ['status' => 1, 'message' => trans('pages.action_success'), 'data' => ['payment_dtls' => $payment_result] ];
+        
+        }catch (\Exception $e) {
+                        
+            Log::info("error stripe_charge_payment ". $e->getMessage());
+
+            return array('status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage());
+
+        }
+    }
+
 }

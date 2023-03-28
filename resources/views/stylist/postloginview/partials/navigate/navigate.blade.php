@@ -108,7 +108,7 @@
                 <li class=" nav-item"><a href="{{ route('stylist.grid.index') }}" class="{{ request()->is('stylist-grid*') ? 'active' : '' }}"><i class="ft-monitor {{ request()->is('stylist-grid*') ? 'active' : '' }}"></i><span
                             class="menu-title" data-i18n="">Grids</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-layout"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('stylist.payment.index') }}" class="{{ request()->is('stylist-payment*') ? 'active' : '' }}"><i class="ft-layout  {{ request()->is('stylist-payment*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Payments</span></a>
 
                 </li>

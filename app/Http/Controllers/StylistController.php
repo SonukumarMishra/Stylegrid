@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Member;
 use App\Models\Stylist;
+use App\Models\MemberTempInvoiceItems;
 use Illuminate\Support\Str;
 use App\Repositories\SourcingRepository as SourcingRepo;
 use App\Repositories\CommonRepository as CommonRepo;
@@ -443,6 +444,120 @@ class StylistController extends Controller
             return redirect()->back();
         }
 
+    }
+
+    public function sourcingRequestGenerateInvoice(Request $request){
+        
+        try {
+
+            $result = SourcingRepo::generateSourcingInvoice($request);
+
+            return response()->json($result, 200);
+            
+        }catch(\Exception $e){
+
+            Log::info("sourcingRequestGenerateInvoice error - ". $e->getMessage());
+            return redirect()->back();
+        }
+
+    }
+
+    
+    public function paymentsIndex()
+    {
+        try {
+
+            return view('stylist.postloginview.payments.index');
+            
+        }catch(\Exception $e){
+
+            Log::info("paymentsIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }    
+    
+    public function paymentsCreatePaymentIndex()
+    {
+        try {
+
+            $customers = Member::select("member.full_name AS label", 'member.id as value')
+                            ->from('sg_member as member')
+                            ->where([
+                                    'member.status' => 1,
+                                    'member.verified' => 1,
+                            ])
+                            ->where('member.assigned_stylist', Session::get("stylist_id"))
+                            ->get();
+
+
+            return view('stylist.postloginview.payments.create', compact('customers'));
+            
+        }catch(\Exception $e){
+
+            Log::info("paymentsCreatePaymentIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }    
+
+    public function getMemberTempInvoiceItems(Request $request)
+    {
+        try {
+
+            $page_index = (int)$request->input('start') > 0 ? ($request->input('start') / $request->input('length')) + 1 : 1;
+
+            $limit = (int)$request->input('length') > 0 ? $request->input('length') : config('custom.default_page_limit');
+            $columnIndex = $request->input('order')[0]['column']; // Column index
+            $columnName = $request->input('columns')[$columnIndex]['data']; // Column name
+            $columnSortOrder = $request->input('order')[0]['dir']; // asc or desc value
+
+            $main_query = MemberTempInvoiceItems::select('temp_item.temp_invoice_item_id', 'grid.stylegrid_id', 'grid.title as stylegrid_title', 'temp_item.amount', 'product.product_name')
+                                                ->from('sg_member_temp_invoice_items as temp_item')
+                                                ->where([
+                                                        'temp_item.association_id' => $request->member_id,
+                                                        'temp_item.association_type_term' => config('custom.user_type.member'),
+                                                ])
+                                                ->join('sg_stylegrids as grid', function($join) {
+                                                    $join->on('grid.stylegrid_id', '=', 'temp_item.stylegrid_id');
+                                                })
+                                                ->leftjoin('sg_stylegrid_product_details as product', 'product.stylegrid_product_id', '=', 'temp_item.stylegrid_product_id')
+                                                ->orderBy('temp_item.temp_invoice_item_id', 'desc');
+          
+            if(!empty($request->input('search.value'))){
+
+                $search = $request->input('search.value'); 
+            
+                $main_query = $main_query->where(function ($query) use ($search) {
+                                            $query->where('grid.title', 'LIKE',"%{$search}%")
+                                                ->orwhere('product.product_name', 'LIKE',"%{$search}%");
+                                        });
+            
+            }
+             
+            $list = $main_query->paginate($limit, ['*'], 'page', $page_index);
+
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => $list->total(),
+                "recordsFiltered" => $list->total(),
+                "data" => $list->getCollection(),
+            );
+           
+            return response()->json($response, 200);
+ 
+        }catch(\Exception $e) {
+
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => 0,
+                "recordsFiltered" => 0,
+                "data" => [],
+            );
+
+            Log::info("error getMemberTempInvoiceItems ". print_r($e->getMessage(), true));
+        
+            return response()->json($response, 200);
+
+        }
     }
 
 }
