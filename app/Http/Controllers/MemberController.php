@@ -5,8 +5,10 @@ use App\Models\Member;
 use App\Models\ChatRoom;
 use App\Models\Stylist;
 use Illuminate\Support\Str;
+use App\Repositories\PaymentRepository as PaymentRepo;
 use App\Repositories\SourcingRepository as SourcingRepo;
 use App\Repositories\CommonRepository as CommonRepo;
+use App\Repositories\GridRepository as GridRepo;
 use DB;
 use Log;
 use Session;
@@ -89,7 +91,7 @@ class MemberController extends Controller
 
     public function memberOrders()
     {
-        return view('member.dashboard.member-orders');
+        return view('member.dashboard.orders.index');
     }
 
     public function memberSourcingOld()
@@ -400,5 +402,44 @@ class MemberController extends Controller
         }
     }
 
+    public function getMemberOrdersJson(Request $request)
+    {
+        $result = GridRepo::getUserProductPaymentsJson($request);
+        
+        $view = '';
+
+        if(isset($result['list'])){
+
+            $list = $result['list'];
+            
+            $view = view("member.dashboard.orders.list-ui", compact('list'))->render();
+
+        }
+        
+        // response.data.data.links
+        $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                            'data' => [
+                                'view' => $view,
+                                'json' => $result
+                            ]  
+                          ];
+
+        return response()->json($response_array, 200);
+    }
+
+    public function payMemberOrderInvoice(Request $request) {
+       
+        try{
+
+            $response_array = PaymentRepo::payMemberOrderInvoice($request);
+            
+            return response()->json($response_array, 200);
+
+        }catch(\Exception $e) {   
+
+            return response()->json(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+
+        }
+    }
 
 }

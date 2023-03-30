@@ -25,13 +25,13 @@
                         
                     <div class="row w-100">
 
-                        <div class="col-12 row mt-2">
+                        <div class="col-12 row d-flex align-items-center">
                         
                             <div class="col-md-10">
                                 
                                 <div class="form-group">
-                                    {{-- <label for="formGroupExampleInput">Select Customer</label> --}}
-                                    <select class="form-control" id="customer_id" required>
+                                    <label for="formGroupExampleInput">Customer</label>
+                                    <select class="form-control" name="member_id" id="member_id" required>
                                         <option value="">Select Customer</option>
                                         @if (isset($customers) && count($customers))
                                             @foreach ($customers as $item)
@@ -43,6 +43,9 @@
 
                             </div>
                                 
+                            <input type="hidden" name="invoice_amount">
+                            <input type="hidden" name="items">
+                            <input type="hidden" name="stylist_id" >
                             <div class="col-md-2">
 
                                 <button class="make-request px-2" id="select_customer_items_btn">Select Items</button>
@@ -52,12 +55,14 @@
 
                         </div>
 
+                        <div class="col-12 mt-2" id="items-list-container">
+                        </div>
+
                     </div>
 
                     <div class="row col-12 d-flex justify-content-end">
-
-                        <button class="submit-request" id="invoice_frm_btn">Generate Invoice</button>
-    
+                        <h4 class="mr-3 mb-0 b">Total Amount: £<span id="total_invoice">0.00</span></h4>
+                        <button class="submit-request" id="invoice_frm_btn">Generate Invoice</button>    
                     </div>
                 
                 </form>
@@ -104,7 +109,7 @@
     
                             <div class="row col-12 d-flex justify-content-end">
     
-                                <button class="submit-request" id="send_grid_btn">Save</button>
+                                <button class="submit-request" id="select_temp_items_btn">Save</button>
     
                             </div>
                             

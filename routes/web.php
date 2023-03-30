@@ -111,6 +111,8 @@ use App\Http\Controllers\CommonController;
  Route::get('/stylist-payment', [Stylist::class, 'paymentsIndex'])->name('stylist.payment.index');
  Route::get('/stylist-payment-create', [Stylist::class, 'paymentsCreatePaymentIndex'])->name('stylist.payment.create');
  Route::post('/stylist-payment/get-member-temp-invoice-items', [Stylist::class, 'getMemberTempInvoiceItems'])->name('stylist.payment.member_temp_items');
+ Route::post('/stylist-payment/create-product-invoice', [Stylist::class, 'createProductInvoice'])->name('stylist.payment.create_product_invoice');
+ Route::post('/stylist-payment/list-json', [Stylist::class, 'getProductPaymentsJson'])->name('stylist.payment.list');
 
  //stylist section End
  ///member Section Start
@@ -147,6 +149,8 @@ Route::post('member-grid/product-details', 'Member\GridController@getStyleGridPr
 
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
 Route::get('/member-orders', [Member::class, 'memberOrders']);
+Route::post('/member-orders/list-json', [Member::class, 'getMemberOrdersJson'])->name('member.orders.list');
+Route::post('/member-orders/pay-invoice', [Member::class, 'payMemberOrderInvoice'])->name('member.order.pay_invoice');
 Route::get('/member-submit-request', [Member::class, 'memberSubmitRequest'])->name('member.create_sourcing_request');
 Route::post('/get-brands-list', [Website::class, 'getBrandList']);
 Route::post('/member-submit-request-post', [Member::class, 'memberSubmitRequestPost']);

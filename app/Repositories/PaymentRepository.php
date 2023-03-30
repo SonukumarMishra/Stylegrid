@@ -8,7 +8,9 @@ use App\Models\Stylist;
 use App\Models\Subscription;
 use App\Models\UserSubscription;
 use App\Models\PaymentTransaction;
+use App\Models\ProductInvoice;
 use App\Repositories\UserRepository as UserRepo;
+use App\Repositories\CommonRepository as CommonRepo;
 use Validator;
 use Storage;
 use Helper;
@@ -815,5 +817,127 @@ class PaymentRepository {
 
         }
     }
+
+    
+	public static function payMemberOrderInvoice($request) {
+		
+		$response_array = ['status' => 0, 'message' => trans('pages.something_wrong')];
+
+		try {
+
+			$sourcing_invoice = ProductInvoice::find($request->product_invoice_id);
+			
+			if(!$sourcing_invoice){
+				
+				$response_array['message'] = trans('pages.crud.no_data', ['attr' => 'Sourcing invoice']);
+				return $response_array;
+			}
+
+			$payment_result = self::stripe_charge_payment($request);
+            
+			if($payment_result['status']){
+
+				$payment_dtls = $payment_result['data']['payment_dtls'];
+
+				$payment_status = $payment_dtls->status;
+
+				$payment_trans_data = [
+					'association_id' => @$request->user_id,
+					'association_type_term' => @$request->user_type,
+					'trans_amount' => @$request->amount,
+					'trans_type' => config('custom.payment_transaction.type_debit'),
+					'payment_gatway' => config('custom.payment_gatway.stripe'),
+					'trans_ref_association_type_term' => config('custom.payment_transaction.trans_type.product_invoice'),
+					'trans_ref_association_id' => @$sourcing_invoice->product_invoice_id,
+					'trans_status' => @$payment_status,
+					'is_paid' => @$payment_status == config('custom.stripe.charge_status.succeeded') ? 1 : 0
+				];
+
+				if(in_array($payment_status, [ config('custom.stripe.charge_status.succeeded'), config('custom.stripe.charge_status.pending')])){
+
+					$payment_trans_data['trans_id'] = @$payment_dtls->id;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->currency;
+					$payment_trans_data['trans_mode'] = @$payment_dtls->source->object;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
+					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
+
+					// Save payment transaction details
+					$payment_trans_result = self::save_payment_transaction($payment_trans_data);
+					
+					$payment_trans_id = '';
+
+					if($payment_trans_result['status']){
+						$payment_trans_id = $payment_trans_result['data']['payment_trans_id'];
+					}
+					
+					$sourcing_invoice->invoice_paid_on = date('Y-m-d H:i:s');
+					$sourcing_invoice->payment_trans_id = $payment_trans_id;
+					$sourcing_invoice->invoice_status = config('custom.product_invoice.status.paid');
+					$sourcing_invoice->save();
+
+					// Save invoice pdf 
+
+					// send notification to stylist for payment 
+					
+
+					$notify_users = [[
+                        'association_id' => $sourcing_invoice->stylist_id,
+                        'association_type_term' => config('custom.user_type.stylist')
+                    ]];
+
+                    if(count($notify_users)){
+
+                        $notification_obj = [
+                            'type' => config('custom.notification_types.product_invoice_paid'),
+                            'title' => trans('pages.notifications.product_invoice_paid_title'),
+                            'description' => trans('pages.notifications.product_invoice_paid_des', [
+                                'amount' => \Helper::format_number(@$request->amount),
+                                'title' => $sourcing_invoice->invoice_no]),
+                            'data' => [
+                                'product_invoice_id' => $sourcing_invoice->product_invoice_id,
+                            ],
+                            'users' => $notify_users
+                        ];
+
+                        CommonRepo::save_notification($notification_obj);
+
+                    }
+
+					$response_array['status'] = 1;
+					$response_array['message'] = trans('pages.sourcing_invoice_payment_success');
+
+				}else if(in_array($payment_status, [ config('custom.stripe.charge_status.failed')])){
+
+					$response_array['message'] = trans('pages.sourcing_invoice_payment_success');
+
+					$payment_trans_data['trans_error_code'] = @$payment_dtls->failure_code;
+					$payment_trans_data['trans_error_description'] = @$payment_dtls->failure_message;
+					$payment_trans_data['trans_error_reason'] = @$payment_dtls->failure_message;
+
+					self::save_payment_transaction($payment_trans_data);
+
+				}
+
+			}else{
+
+				$response_array['message'] = $payment_result['error'];
+
+			}
+
+			Log::info("all payMemberOrderInvoice ". print_r($response_array, true));
+
+			return $response_array;
+
+		}catch(\Exception $e) {
+
+            Log::info("error payMemberOrderInvoice ". print_r($e->getMessage(), true));
+			
+			$response_array['error'] = $e->getMessage();
+
+			return $response_array;
+
+        }
+
+	}
 
 }
