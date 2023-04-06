@@ -534,8 +534,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="client-raise-bg raise-bg px-md-3 px-2 py-2">
-                                <h1 class=""> Wool-blend turtleneck sweater</h1>
-
+                                <!-- <h1 class=""> Wool-blend turtleneck sweater</h1> -->
+                                <h1 class="">Reward Points</h1>
                                 <div class="row">
                                     <div class="col">
                                         <p class="">Earnt every time you spend, check what your rewards points are

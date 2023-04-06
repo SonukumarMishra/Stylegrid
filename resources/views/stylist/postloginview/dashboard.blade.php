@@ -1378,7 +1378,7 @@
 
         <!---------------footer----------->
 
-        <div id="footer" class="mt-1 py-1">
+        <!-- <div id="footer" class="mt-1 py-1">
 
             <div class="text-center py-4">
 
@@ -1390,7 +1390,7 @@
 
                 <div class="col">
 
-                    <!-- Links -->
+                    <!-- Links --
 
                     <h5 class="text-uppercase text-md-left text-center my-2">SHOPPING ONLINE</h5>
 
@@ -1442,7 +1442,7 @@
 
                 <div class="col">
 
-                    <!-- Links -->
+                    <!-- Links --
 
                     <h5 class="text-uppercase text-md-left text-center my-2">SHOP</h5>
 
@@ -1494,7 +1494,7 @@
 
                 <div class="col">
 
-                    <!-- Links -->
+                    <!-- Links --
 
                     <h5 class="text-uppercase text-md-left text-center my-2">STYLE</h5>
 
@@ -1546,7 +1546,7 @@
 
                 <div class="col">
 
-                    <!-- Links -->
+                    <!-- Links --
 
                     <h5 class="text-uppercase text-md-left text-center my-2">SOURCE</h5>
 
@@ -1598,7 +1598,7 @@
 
                 <div class="col">
 
-                    <!-- Links -->
+                    <!-- Links --
 
                     <h5 class="text-uppercase text-md-left text-center my-2">CUSTOMER SERVICE</h5>
 
@@ -1776,7 +1776,7 @@
 
             </div>
 
-        </div>
+        </div> -->
 
         <!---------------end of footer----------->
 
