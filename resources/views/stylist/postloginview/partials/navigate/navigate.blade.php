@@ -138,7 +138,7 @@
                 <li class=" nav-item"><a href="{{ route('stylist.notifications.index') }}" class="{{ request()->is('stylist-notifications*') ? 'active' : '' }}"><i class="ft-layers {{ request()->is('stylist-notifications*') ? 'active' : '' }}"></i><span class="menu-title"
                     data-i18n="">Notifications</span></a>
                     
-                <li class=" nav-item"><a href="{{url('stylist-logout')}}" class="{{ request()->is('stylist-logout*') ? 'active' : '' }}"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign
+                <!-- <li class=" nav-item"><a href="{{url('stylist-logout')}}" class="{{ request()->is('stylist-logout*') ? 'active' : '' }}"><i class="ft-sidebar"></i><span class="menu-title" data-i18n="">Sign -->
                     <li class=" nav-item"><a href="{{url('stylist-logout')}}" class="{{ request()->is('stylist-logout*') ? 'active' : '' }}"><i class="ft-sidebar "></i><span class="menu-title" data-i18n="">Sign
                             Out</span></a>
 
