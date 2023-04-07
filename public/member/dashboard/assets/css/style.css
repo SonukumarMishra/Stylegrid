@@ -1693,9 +1693,11 @@ hr {
   background: #EDEDED;
   border-radius: 4.21053px 0px 4.21053px 4.21053px;
 }
-
+.datepicker table tr td, .datepicker table tr th{
+  font-family: 'Genos' !important;
+}
 .dropdown-menu {
-  background: #3361FF;
+  /* background: #3361FF; */
   border-bottom: 0.5px solid #D2D2D2;
   border-radius: 2.81579px 2.81579px 0px 0px;
 }

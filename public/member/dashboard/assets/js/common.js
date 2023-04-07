@@ -320,3 +320,11 @@ $(document).ready(function(){
 $('#demo.carousel.slide').carousel({
     interval: false,
   });
+
+  $(function () {
+    $('.datepicker').datepicker({
+      language: "es",
+      autoclose: true,
+      format: "dd/mm/yyyy"
+    });
+  });

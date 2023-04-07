@@ -86,7 +86,18 @@
                             </div>
                             <div class="form-group">
                                 <label for="">When do you require the product by?</label>
-                                <input type="text"  onpaste="return false;" onkeydown="return false;" class="form-control submit-input" id="deliver_date" name="deliver_date" placeholder="Enter due date...">
+                                <!-- <input type="text"  onpaste="return false;" onkeydown="return false;" class="form-control submit-input" id="deliver_date" name="deliver_date" placeholder="Enter due date...">
+                                 -->
+                                  <!-- Date Picker -->
+        <div class="form-group mb-4">
+          <div class="datepicker date input-group">
+            <input type="text" placeholder="Enter due date..." class="form-control" id="deliver_date">
+            <div class="input-group-append">
+              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+            </div>
+          </div>
+        </div>
+        <!-- // Date Picker -->
                                 <div id="deliver_date_error" class="error"></div>
                             </div>
                             <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
