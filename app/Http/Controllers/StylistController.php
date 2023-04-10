@@ -6,6 +6,7 @@ use App\Models\Stylist;
 use App\Models\ProductInvoice;
 use App\Models\MemberTempInvoiceItems;
 use App\Models\ProductInvoiceItems;
+use App\Models\StyleGridProductDetails;
 use Illuminate\Support\Str;
 use App\Repositories\SourcingRepository as SourcingRepo;
 use App\Repositories\CommonRepository as CommonRepo;
@@ -502,7 +503,7 @@ class StylistController extends Controller
         }
     }    
 
-    public function getMemberTempInvoiceItems(Request $request)
+    public function getMemberTempInvoiceItemsOld(Request $request)
     {
         try {
 
@@ -571,6 +572,75 @@ class StylistController extends Controller
         }
     }
 
+    public function getMemberTempInvoiceItems(Request $request)
+    {
+        try {
+
+            $page_index = (int)$request->input('start') > 0 ? ($request->input('start') / $request->input('length')) + 1 : 1;
+
+            $limit = (int)$request->input('length') > 0 ? $request->input('length') : config('custom.default_page_limit');
+            $columnIndex = $request->input('order')[0]['column']; // Column index
+            $columnName = $request->input('columns')[$columnIndex]['data']; // Column name
+            $columnSortOrder = $request->input('order')[0]['dir']; // asc or desc value
+
+            $main_query = StyleGridProductDetails::select('grid.stylegrid_id', 'product.stylegrid_product_id', 'grid.title as stylegrid_title', 'product.product_price as amount', 'product.product_name', 'product.product_brand', 'product.product_type', 'product.product_size', 'product.product_image')
+                                                ->from('sg_stylegrid_product_details as product')
+                                                ->where([
+                                                        'product.created_by' => $request->user_id
+                                                ])
+                                                ->join('sg_stylegrids as grid', function($join) {
+                                                    $join->on('grid.stylegrid_id', '=', 'product.stylegrid_id');
+                                                })
+                                                // ->leftjoin('sg_stylegrid_product_details as product', 'product.stylegrid_product_id', '=', 'temp_item.stylegrid_product_id')
+                                                ->orderBy('product.stylegrid_product_id', 'desc');
+          
+          
+            $temp_invoice_item_ids = json_decode($request->temp_invoice_item_ids, true);
+
+            if(isset($temp_invoice_item_ids) && is_array($temp_invoice_item_ids)){
+
+                $main_query = $main_query->whereNotIn('product.stylegrid_product_id', $temp_invoice_item_ids);
+
+            }
+
+            if(!empty($request->input('search.value'))){
+
+                $search = $request->input('search.value'); 
+            
+                $main_query = $main_query->where(function ($query) use ($search) {
+                                            $query->where('grid.title', 'LIKE',"%{$search}%")
+                                                ->orwhere('product.product_name', 'LIKE',"%{$search}%");
+                                        });
+            
+            }
+             
+            $list = $main_query->paginate($limit, ['*'], 'page', $page_index);
+
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => $list->total(),
+                "recordsFiltered" => $list->total(),
+                "data" => $list->getCollection(),
+            );
+           
+            return response()->json($response, 200);
+ 
+        }catch(\Exception $e) {
+
+            $response = array(
+                "draw" => (int)$request->input('draw'),
+                "recordsTotal" => 0,
+                "recordsFiltered" => 0,
+                "data" => [],
+            );
+
+            Log::info("error getMemberTempInvoiceItems ". print_r($e->getMessage(), true));
+        
+            return response()->json($response, 200);
+
+        }
+    }
+
     public function createProductInvoice(Request $request) {
 		
 		$result = ['status' => 0, 'message' => trans('pages.something_wrong')];
@@ -591,7 +661,7 @@ class StylistController extends Controller
 
             if($invoice){
                 
-                $remove_temp_ids = [];
+                // $remove_temp_ids = [];
 
                 foreach ($items as $key => $value) {
                     
@@ -602,15 +672,15 @@ class StylistController extends Controller
                     $invoice_item->price = $value['amount'];
                     $invoice_item->save();
                     
-                    $remove_temp_ids[] = $value['temp_invoice_item_id'];
+                    // $remove_temp_ids[] = $value['temp_invoice_item_id'];
 
                 }
 
-                if(count($remove_temp_ids)){
+                // if(count($remove_temp_ids)){
 
-                    MemberTempInvoiceItems::whereIn('temp_invoice_item_id', $remove_temp_ids)->delete();
+                //     MemberTempInvoiceItems::whereIn('temp_invoice_item_id', $remove_temp_ids)->delete();
 
-                }
+                // }
 
                 $notify_users = [[
                     'association_id' => $request->member_id,

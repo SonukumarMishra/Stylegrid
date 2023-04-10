@@ -76,7 +76,7 @@
 
                     PaymentRef.selectedInvoiceItemsIds.push(this.value);
 
-                    var temp_dtls = getDetailsFromObjectByKey(PaymentRef.allTempInvoiceItems, this.value, 'temp_invoice_item_id');
+                    var temp_dtls = getDetailsFromObjectByKey(PaymentRef.allTempInvoiceItems, this.value, 'stylegrid_product_id');
                     
                     if(temp_dtls != undefined && temp_dtls != ''){
 
@@ -254,7 +254,8 @@
                     "url" : "{{ route('stylist.payment.member_temp_items') }}",
                     "data": function ( d ) {
                         d._token = $('meta[name="csrf-token"]').attr('content'),
-                        d.member_id = PaymentRef.selectedMemberId
+                        d.member_id = PaymentRef.selectedMemberId,
+                        d.user_id = auth_id,
                         d.temp_invoice_item_ids = JSON.stringify(PaymentRef.selectedInvoiceItemsIds)
                     }, 
                     "dataSrc" : function (json) {
@@ -266,7 +267,7 @@
                         {
                             "data": "value",
                             render: function(e, t, a, s) {
-                                return "display" === t && (e = '<div class="checkbox"><input type="checkbox" value="'+a.temp_invoice_item_id+'" class="dt-checkboxes invoice-item-checkbox"><label></label></div>'),
+                                return "display" === t && (e = '<div class="checkbox"><input type="checkbox" value="'+a.stylegrid_product_id+'" class="dt-checkboxes invoice-item-checkbox"><label></label></div>'),
                                 e
                             },
                             checkboxes: {
@@ -279,7 +280,11 @@
                                 return row.product_name+' - '+row.stylegrid_title;
                             }
                         },
-                        { "data": "amount" },
+                        { "data": "amount",
+                            "render": function ( data, type, row ) {
+                                return parseFloat(row.amount);
+                            }
+                        }
                 ],
                 columnDefs: [
                     {
