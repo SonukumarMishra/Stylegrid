@@ -194,7 +194,7 @@
 
                         <label for="style">
 
-                            <div class="text-center"><img src="{{ asset('member/website/assets/images/style.png') }}" class="img-fluid" alt="">
+                            <div class="text-center"><img src="{{ asset('member/website/assets/images/style.png') }}" class="img-fluid" alt="" style="height:156px">
 
                                 <h2 class="mt-2">Style</h2>
 
@@ -318,7 +318,7 @@
 
                         <div class="text-center">
 
-                            <img src="{{ asset('member/website/assets/images/non-binary.png') }}" class="img-fluid" alt="">
+                            <img src="{{ asset('member/website/assets/images/non-binary.png') }}" class="img-fluid mb-4" alt="">
 
                             <h2 class="mt-2 mb-4">Non Binary</h2>
 

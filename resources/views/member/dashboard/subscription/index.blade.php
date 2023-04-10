@@ -13,17 +13,17 @@
 
       <div class="content-body">
 
-         <div class="flex-column-reverse flex-md-row mt-lg-3 row">
+         <!-- <div class="flex-column-reverse flex-md-row mt-lg-3 row"> -->
 
-
-                  <div class="col-md-8">
+         <div class=" flex-md-row mt-lg-3 row">
+                  <div class="col-8">
 
                     <h1>Choose Your Right Plan</h1>
                     <h3>Upgrade to Premium & Get more Features!</h3>
                   </div>
                   
-                  <div class="col-4 text-right">
-                      <a href="{{ route('member.subscription.billing.index')}}" class="h4 text-primary">View Billing History <i class="ft-arrow-up-right"></i></a>
+                  <div class="col-4 text-right mt-2">
+                      <a href="{{ route('member.subscription.billing.index')}}" class="h4  view-billing-history">View Billing History <i class="ft-arrow-up-right"></i></a>
                   </div>
 
 

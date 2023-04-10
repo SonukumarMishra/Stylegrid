@@ -191,7 +191,9 @@
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque, eveniet
                                         earum. Sed accusantium eligendi molestiae quo hic velit nobis et, tempora
                                         placeat ratione rem blanditiis voluptates vel ipsam? Facilis, earum!</p>
-                                </div>
+                                9863962
+                            +
+                        .</div>
                             </div>
                         </div>
                         <!-- /.col-md-8 -->
@@ -222,16 +224,12 @@
                 if ($.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
                     $('#admin_image_error').html('Invalid Image Format! Image Format Must Be JPG, JPEG, PNG or GIF.');
                     $("#admin_image").val('');
-                    $('#image_preview_remove').hide();
-                    $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
                     return false;
                 }else{
                     var image_size = (this.files[0].size);
                     if(image_size>3000000){
                         $('#admin_image_error').html('Maximum File Size Limit is 3 MB');
                         $("#admin_image").val('');
-                        $('#image_preview_remove').hide();
-                        $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
                         return false;
                     }else{
                         var reader = new FileReader();
@@ -313,7 +311,7 @@
         })
         $('#image_preview_remove').click(function(){
             $("#admin_image").val('');
-            $('#image_preview_remove').hide();
+            // $('#image_preview_remove').hide();
             $("#admin_selected_image_section").html('<img src="'+constants.base_url+'/admin-section/assets/images/profile-img.png" class="img-fluid" alt="">');
             
         })

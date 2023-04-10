@@ -9,15 +9,15 @@
 
 @if (count($result['list']))
 
-   <div class="row col-12 justify-content-center">
+   <div class="d-md-flex  justify-content-center">
    
       @foreach ($result['list'] as $key => $val)
          
-         <div class="subscription-card col-3">
+         <div class="subscription-card col-md-5 col-lg-4 col-11">
             
             <div class="card-body">
-               <h2 class="text-left text-white mb-3 mt-2">{{ $val->subscription_name }}</h2>
-               <h6 class="card-subtitle mb-1 text-white">{{ $val->short_details }}</h6>
+               <h2 class="text-left text-white mb-3 mt-2 subscription-header">{{ $val->subscription_name }}</h2>
+               <h6 class="card-subtitle mb-1 text-white subscription-subtitle">{{ $val->short_details }}</h6>
                
                <div class="sub-price-container d-flex align-items-center mb-1 justify-content-center">
 
