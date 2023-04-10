@@ -1164,7 +1164,7 @@ select{
     left: -9px;
 }
 
-/***************admin css ****************/
+/*************** admin css ****************/
 .admin-search-img {
   position: absolute;
   top: 59% !important;
@@ -1175,7 +1175,7 @@ select{
 
 #admin-login-form input{
   border: 1px solid white !important;
-color: #fff;
+  color: #fff;
 }
 .cart-header{
   color: #04AA6D !important;

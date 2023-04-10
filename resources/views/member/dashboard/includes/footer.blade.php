@@ -106,7 +106,8 @@
 <script src="{{ asset('extensions/sweetalert/js/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
-
+ <!-- Datepicker -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
 <!-- END: Theme JS-->
     <script>
 
