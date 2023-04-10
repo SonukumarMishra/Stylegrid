@@ -107,7 +107,7 @@
 <script src="{{ asset('extensions/moment/js/moment.min.js') }}"></script>
 <script src="{{ asset('extensions/fontawesome/js/all.min.js') }}"></script>
  <!-- Datepicker -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <!-- END: Theme JS-->
     <script>
 

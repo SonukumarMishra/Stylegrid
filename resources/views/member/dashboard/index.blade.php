@@ -65,8 +65,7 @@
                                             <p class="">Check out this weeks drops in fashion and home.</p>
                                         </div>
                                         <div class="text-lg-left text-right pl-0 col-4 mt-5">
-                                            <a href="#"> <button
-                                                    class=" px-2 grey-bg">Browse</button></a>
+                                            <a href="https://stylegrid.com/shop-2-2/" target="_blank"> <button class=" px-2 grey-bg">Browse</button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -244,7 +243,7 @@
                                                         <h1>The best bedroom pieces<br> from Soho Home</h1>
                                                     </div>
                                                     <div class="text-right col-4 mt-5 pt-md-2">
-                                                        <button class=" px-3 grey-bg browse-btn-1">Browse</button>
+                                                       <a href="https://stylegrid.com/editorial" target="_blank"><button class=" px-3 grey-bg browse-btn-1">Browse</button></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -633,7 +632,7 @@
                 </div>
                 <!-------------------end of payment-center-box=-------------->
                 <!------------------refer-client------------->
-                <div id="refer-client" class="mt-3">
+                {{-- <div id="refer-client" class="mt-3">
                     <div class="row py-5 px-md-4">
                         <div class="col-lg-6">
 
@@ -649,7 +648,7 @@
                     <div class="row justify-content-lg-end justify-content-left pr-lg-2">
                         <h2 class="pr-md-5 pl-md-0 pl-3 pb-2">Terms & Condtions apply.</h2>
                     </div>
-                </div>
+                </div> --}}
                 <!------------------end of refer-client------------->
 
             </div>

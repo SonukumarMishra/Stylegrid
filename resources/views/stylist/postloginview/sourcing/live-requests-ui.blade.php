@@ -78,7 +78,7 @@
                             ?>
                             <button class=" ticket-btn">Ticket Closed </button>
                             <?php
-                            }else{
+                            }else if(!in_array($source_row['p_status'], [ config('custom.sourcing.status.invoice_generated'), config('custom.sourcing.status.invoice_paid') ])){
                             ?>
                             <a href="{{url('stylist-fulfill-source-request/'.$source_row['p_slug'])}}"><button class="px-2">Fufill</button></a>
                             <?php

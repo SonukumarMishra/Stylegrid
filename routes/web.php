@@ -87,12 +87,12 @@ use App\Http\Controllers\CommonController;
  Route::post('/stylist-reset-password-post', [StylistWebsite::class, 'stylistResetPasswordPost']);
  Route::get('/stylist-dashboard', [Stylist::class, 'stylistDashboard'])->name('stylist.dashboard');;
  Route::get('/stylist-logout', [StylistWebsite::class, 'stylistLogout']);
- Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing']);
+ Route::get('/stylist-sourcing', [Stylist::class, 'stylistSourcing'])->name('stylist.sourcing.index');
  Route::post('/stylist-sourcing-requests-json', [Stylist::class, 'getStylistSourcingRequests'])->name('stylist.sourcing.requests');
  Route::get('/stylist-fulfill-source-request/{title}', [Stylist::class, 'stylistFulfillSourceRequest']);
  Route::post('/stylist-fulfill-source-request-post', [Stylist::class, 'stylistFulfillSourceRequestPost']);
  Route::get('/stylist-source-request-submit', [Stylist::class, 'stylistSourceRequestSubmit']);
- Route::get('/stylist-create-source-request', [Stylist::class, 'stylistCreateSourceRequest']);
+ Route::get('/stylist-create-source-request', [Stylist::class, 'stylistCreateSourceRequest'])->name('stylist.sourcing.create');
  Route::post('/get-stylist-brands', [Website::class, 'getStylistBrandList']);
  Route::post('/stylist-submit-request-post', [Stylist::class, 'stylistSubmitRequestPost']);
  Route::get('/stylist-submit-request-complete', [Stylist::class, 'stylistSubmitRequestComplete']);
@@ -113,6 +113,10 @@ use App\Http\Controllers\CommonController;
  Route::post('/stylist-payment/get-member-temp-invoice-items', [Stylist::class, 'getMemberTempInvoiceItems'])->name('stylist.payment.member_temp_items');
  Route::post('/stylist-payment/create-product-invoice', [Stylist::class, 'createProductInvoice'])->name('stylist.payment.create_product_invoice');
  Route::post('/stylist-payment/list-json', [Stylist::class, 'getProductPaymentsJson'])->name('stylist.payment.list');
+
+ 
+  Route::get('/stylist-clients', [Stylist::class, 'clientIndex'])->name('stylist.client.index');
+  Route::post('/stylist-client-list-ajax', [Stylist::class, 'getClientsJson'])->name('stylist.client.list');
 
  //stylist section End
  ///member Section Start

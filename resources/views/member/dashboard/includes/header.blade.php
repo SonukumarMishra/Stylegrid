@@ -63,7 +63,7 @@
                                 <span class="badge badge-pill badge-danger badge-up cart-badge-count" style="display:{{ $header_cart_count == 0 ? 'none' : 'block'}};">{{ $header_cart_count }}</span>
                             </a>
                         </li>       
-                        <li>
+                        {{-- <li>
                             <div class="search-container">
                                 <form action="/action_page.php">
                                     <input type="text" placeholder="Search anything" name="search "
@@ -72,7 +72,7 @@
                                             alt=""></button>
                                 </form>
                             </div>
-                        </li>
+                        </li> --}}
     
                     </ul>
                 </div>

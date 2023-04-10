@@ -11,6 +11,7 @@ use App\Models\SourcingOffer;
 use App\Models\SourcingInvoice;
 use App\Repositories\CommonRepository as CommonRepo;
 use App\Repositories\PaymentRepository as PaymentRepo;
+use Carbon\Carbon;
 use Validator;
 use Helper;
 use DB;
@@ -139,6 +140,36 @@ class SourcingRepository {
             Log::info("error getStylistSourcingLiveRequests ". print_r($e->getMessage(), true));
 			$response_array['error'] = $e->getMessage();
 			return $response_array;
+
+        }
+
+	}
+
+	public static function getStylistSourcingLiveRequestsWeeklyCount($request) {
+		
+		$total_count = 0;
+
+		try {
+
+			$my_requests_ids = Sourcing::from('sg_sourcing')
+										->where('sg_sourcing.member_stylist_type', '=' , config('custom.sourcing.sourcing_user_type.stylist'))
+										->where('sg_sourcing.member_stylist_id', '=', $request->user_id)
+										->pluck('id');
+
+			$total_count = Sourcing::from('sg_sourcing')
+							->whereNotIn('sg_sourcing.id', $my_requests_ids)
+							->whereBetween('sg_sourcing.created_at', 
+								[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]
+							)
+							->count("sg_sourcing.id");
+							
+			return $total_count;
+					
+		}catch(\Exception $e) {
+
+            Log::info("error getStylistSourcingLiveRequestsWeeklyCount ". print_r($e->getMessage(), true));
+	
+			return $total_count;
 
         }
 

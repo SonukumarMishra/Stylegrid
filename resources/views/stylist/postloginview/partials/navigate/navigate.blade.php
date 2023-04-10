@@ -114,7 +114,7 @@
                             data-i18n="">Payments</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-zap"></i><span class="menu-title"
+                <li class=" nav-item"><a href="{{ route('stylist.client.index') }}" class="{{ request()->is('stylist-client*') ? 'active' : '' }}"><i class="ft-zap {{ request()->is('stylist-client*') ? 'active' : '' }}"></i><span class="menu-title"
                             data-i18n="">Clients</span></a>
 
                 </li>

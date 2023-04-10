@@ -98,59 +98,51 @@
 
                             <div class="col-6">
 
-                                <div id="twoPagecarousel" class="carousel slide " data-ride="carousel">
-
-
-
-                                    <!-- <ol class="carousel-indicators">
-
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-
-                            </ol> -->
+                                <div id="twoPagecarousel" id="grids-carousel" class="carousel slide " data-ride="carousel">
 
                                     <div class="carousel-inner">
 
+                                        @if (count($grids))
 
+                                            @foreach ($grids as $g_key => $grid)
 
-                                        <div class="carousel-item active">
+                                                <div class="carousel-item {{ $g_key == 0 ? 'active' : ''}}">
 
-                                            <div class="">
+                                                    <div class="">
 
-                                                <div class="caro1">
+                                                        <div class="stylegrid-bg-img caro1" style="background: url({{asset($grid->feature_image)}})">
 
-                                                    <div class="layer"></div>
-
-                                                </div>
-
-                                                <h2 class="px-2 py-2">Pablo’s <br>Ibiza Grid</h2>
-
-                                                <div class="carousel-caption d-none d-md-block text-left">
-
-
-
-                                                    <h5 class="mt-1">Your Recent Grids</h5>
-
-                                                    <div class="row">
-
-                                                        <div class="col-7">
-
-                                                            <p class="">Jump to your most recently created StyleGrids.
-
-                                                            </p>
+                                                            <div class="layer"></div>
 
                                                         </div>
 
-                                                        <div class="text-right col-5">
+                                                        <h2 class="px-2 py-2">{{ strtok($grid->title, " ") }}<br>{{ strstr($grid->title," ") }}</h2>
 
-                                                         <a href="{{url('stylist/grid/index')}}">
+                                                        <div class="carousel-caption d-none d-md-block text-left">
 
-                                                               <button class="px-2 grey-bg">Go to Grid</button>
+                                                            <h5 class="mt-1">Your Recent Grids</h5>
 
-                                                            </a>
+                                                            <div class="row">
+
+                                                                <div class="col-7">
+
+                                                                    <p class="">Jump to your most recently created StyleGrids.
+
+                                                                    </p>
+
+                                                                </div>
+
+                                                                <div class="text-right col-5">
+
+                                                                <a href="{{ route('stylist.grid.view', [ 'grid_id' => $grid->stylegrid_id ]) }}">
+
+                                                                    <button class="px-2 grey-bg">Go to Grid</button>
+
+                                                                    </a>
+
+                                                                </div>
+
+                                                            </div>
 
                                                         </div>
 
@@ -158,25 +150,9 @@
 
                                                 </div>
 
-                                            </div>
-
-                                        </div>
-
-
-
-                                        <!-- <div class="carousel-item ">
-
-                                            <div class="">
-
-                                                <div class="caro1">
-
-                                                    <div class="layer"></div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div> -->
+                                            @endforeach
+                                     
+                                        @endif
 
                                     </div>
 
@@ -230,13 +206,13 @@
 
                                         <div class="col-7 pr-0">
 
-                                            <a href=""><button class="btn">Raise Invoice</button></a>
+                                            <a href="{{ route('stylist.payment.index') }}"><button class="btn">Raise Invoice</button></a>
 
                                             <h2>This month’s sales</h2>
 
-                                            <h3>£28,782.92</h3>
+                                            <h3>£{{ number_format(@$monthly_product_invoice_dtls->total_invoice_amount, 2) }}</h3>
 
-                                            <h4>+£6,288,12 (32.11%)</h4>
+                                            {{-- <h4>+£6,288,12 (32.11%)</h4> --}}
 
                                         </div>
 
@@ -268,13 +244,13 @@
 
                                         <div class="col-7 pr-0">
 
-                                            <a href="client-page.html"><button class="btn">Browse</button></a>
+                                            <a href="{{ route('stylist.client.index') }}"><button class="btn">Browse</button></a>
 
                                             <h2>Current clients</h2>
 
-                                            <h3>29</h3>
+                                            <h3>{{ @$clients_dtls->client_count}}</h3>
 
-                                            <h4>+10 this month</h4>
+                                            {{-- <h4>+10 this month</h4> --}}
 
                                         </div>
 
@@ -306,9 +282,7 @@
 
                                             <p>Make or fufill luxury item source requests.</p>
 
-
-
-                                            <a href="sourcing.html"><button class="btn">Explore</button></a>
+                                            <a href="{{ route('stylist.sourcing.create') }}"><button class="btn">Explore</button></a>
 
                                         </div>
 
@@ -806,65 +780,11 @@
 
                                 <h1>Browse Sourcing Requests</h1>
 
-                                <h2 class="px-2 mt-1">1,092 requests this week</h2>
+                                <h2 class="px-2 mt-2">{{ $weekly_total_sourcing }} requests this week</h2>
 
-                                <a href="" class="browse-btn mt-2"><button class="browse px-2">Browse all
-
-                                        requests</button></a>
+                                <a href="{{ route('stylist.sourcing.index') }}" class="browse-btn mt-1"><button class="browse px-2">Browse all requests</button></a>
 
                             </div>
-
-                        </div>
-
-                        <!-- Pills navs -->
-
-                        <div class="col-lg-4 d-flex justify-content-end">
-
-                            <ul id="myTab_1" role="tablist" class="nav nav-tabs   flex-sm-row text-center  rounded-nav">
-
-                                <li class="nav-item ">
-
-                                    <a id="home-tab" data-toggle="tab" href="#home_1" role="tab" aria-controls="home"
-
-                                        aria-selected="true"
-
-                                        class="nav-link border-0 cyan-blue  font-weight-bold">Home</a>
-
-                                </li>
-
-                                <li class="nav-item ">
-
-                                    <a id="Fashion-tab" data-toggle="tab" href="#Fashion_1" role="tab"
-
-                                        aria-controls="Fashion" aria-selected="false"
-
-                                        class="nav-link border-0 cyan-blue font-weight-bold active ">Fashion</a>
-
-                                </li>
-
-                                <li class="nav-item ">
-
-                                    <a id="Beauty-tab" data-toggle="tab" href="#Beauty_1" role="tab"
-
-                                        aria-controls="Beauty" aria-selected="false"
-
-                                        class="nav-link border-0 cyan-blue font-weight-bold ">Beauty</a>
-
-                                </li>
-
-                                <li class="nav-item ">
-
-                                    <a id="Travel-tab" data-toggle="tab" href="#Travel_1" role="tab"
-
-                                        aria-controls="Travel" aria-selected="false"
-
-                                        class="nav-link border-0 cyan-blue font-weight-bold">Travel</a>
-
-                                </li>
-
-
-
-                            </ul>
 
                         </div>
 
@@ -900,125 +820,85 @@
 
                                                 <th scope="col">Status</th>
 
-                                                <th scope="col"></th>
-
                                             </tr>
 
                                         </thead>
 
                                         <tbody>
 
-                                            <tr>
+                                            @if (count($sourcing_list['list']))
 
-                                                <td class="d-flex"><span class="dot"></span>Hermes Mini Kelly 22
+                                                @foreach ($sourcing_list['list'] as $key => $source_row)
 
-                                                </td>
+                                                    <tr>
+                                                        <td class="d-flex">
+                                                            <span class="dot"></span>
+                                                            @if (in_array($source_row['p_status'], [ config('custom.sourcing.status.Fulfilled'), config('custom.sourcing.status.invoice_paid') ]) && isset($source_row['sourcing_accepted_details']) && !empty($source_row['sourcing_accepted_details']))
+                                                                <a href="{{ route('stylist.sourcing.view', ['title' => $source_row['p_slug']])}}">{{$source_row['p_name']}}</a>
+                                                            @else
+                                                                {{$source_row['p_name']}}
+                                                            @endif            
+                                                        </td>
+                                                        <td>{{$source_row['p_size']}}</td>
+                                                        <td>{{$source_row['p_type']}}</td>
+                                                        <td>{{$source_row['name']}}</td>
+                                                        <td>{{$source_row['country_name']}}</td>
+                                                        <td>{{date('m/d/Y',strtotime($source_row['p_deliver_date']))}}</td>
+                                                        <?php
+                                                            if(!$source_row['requested']){
+                                                                if($source_row['p_status']=='Pending'){
+                                                                    ?>
+                                                                    <td class="green-color">Open</td>
+                                                                    <?php
+                                                                }else{
+                                                                    ?>
+                                                                    <td><?php echo $source_row['p_status'];?></td>
+                                                                <?php
+                                                                }
+                                                            }else{
 
-                                                <td>N/A</td>
+                                                                if(in_array($source_row['p_status'], [ config('custom.sourcing.status.invoice_generated'), config('custom.sourcing.status.invoice_paid') ])){
 
-                                                <td>@Beg</td>
+                                                                    ?>
 
-                                                <td>Hermes</td>
+                                                                        <td class="green-color"><?php echo $source_row['p_status'];?></td>
+                                                                        
+                                                                    <?php
 
-                                                <td>UAE</td>
+                                                                }else{
 
-                                                <td>31/09/22</td>
+                                                                    if(isset($source_row['stylist_offer_status'])){
 
-                                                <td class="green-color">Open</td>
-
-                                                <td><button class="px-2">Fufill</button></td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td class="d-flex"><span class="dot"></span>Hermes Mini Kelly 22
-
-                                                </td>
-
-                                                <td>N/A</td>
-
-                                                <td>@Beg</td>
-
-                                                <td>Hermes</td>
-
-                                                <td>UAE</td>
-
-                                                <td>31/09/22</td>
-
-                                                <td class="green-color">Open</td>
-
-                                                <td><button class="px-2">Fufill</button></td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td class="d-flex"><span class="dot"></span>Hermes Mini Kelly 22
-
-                                                </td>
-
-                                                <td>N/A</td>
-
-                                                <td>@Beg</td>
-
-                                                <td>Hermes</td>
-
-                                                <td>UAE</td>
-
-                                                <td>31/09/22</td>
-
-                                                <td class="green-color">Open</td>
-
-                                                <td><button class="px-2">Fufill</button></td>
-
-                                            </tr>
-
-                                            <tr>
-
-                                                <td class="d-flex"><span class="dot"></span>Hermes Mini Kelly 22
-
-                                                </td>
-
-                                                <td>N/A</td>
-
-                                                <td>@Beg</td>
-
-                                                <td>Hermes</td>
-
-                                                <td>UAE</td>
-
-                                                <td>31/09/22</td>
-
-                                                <td class="green-color">Open</td>
-
-                                                <td><button class="px-2">Fufill</button></td>
-
-                                            </tr>
-
-                                            <tr style="border-bottom: 0px !important;">
-
-                                                <td class="d-flex"><span class="dot"></span>Hermes Mini Kelly 22
-
-                                                </td>
-
-                                                <td>N/A</td>
-
-                                                <td>@Beg</td>
-
-                                                <td>Hermes</td>
-
-                                                <td>UAE</td>
-
-                                                <td>31/09/22</td>
-
-                                                <td class="blue-color">Fufilled</td>
-
-                                                <td><button class=" ticket-btn">Ticket Closed </button></td>
-
-                                            </tr>
+                                                                        if($source_row['stylist_offer_status'] == 0){
+                                                                            ?>
+                                                                            <td class="text-warning">Request Sent</td>
+                                                                            <?php
+                                                                        }else if($source_row['stylist_offer_status'] == 1){
+                                                                            ?>
+                                                                            <td class="text-success">Accepted</td>
+                                                                            <?php
+                                                                        }else if($source_row['stylist_offer_status'] == 2){
+                                                                            ?>
+                                                                            <td class="text-danger">Declined</td>
+                                                                            <?php
+                                                                        }
+                                                                    }
 
 
+                                                                }
+
+                                                                ?> 
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                            
+                                                    </tr>
+                                                @endforeach
+                                            @else 
+                                                    <tr>
+                                                        <td colspan="6" style="text-align:center">No Source Found</td>
+                                                    </tr>
+                                            @endif
 
                                         </tbody>
 
@@ -1032,7 +912,7 @@
 
                                     </div>
 
-                                    <span class="show px-1">See more</span>
+                                    <a href="{{ route('stylist.sourcing.index') }}"><span class="show px-1">See more</span></a>
 
                                 </div>
 
@@ -1072,13 +952,13 @@
 
                                             <div class="col">
 
-                                                <a href=""><button class="btn">Explore</button></a>
+                                                <a href="{{ route('stylist.payment.index') }}"><button class="btn">Explore</button></a>
 
                                                 <h2 class="pt-2">Orders this month</h2>
 
-                                                <h3>237</h3>
+                                                <h3>{{ @$monthly_product_invoice_dtls->invoice_count }}</h3>
 
-                                                <h4>+39 this month</h4>
+                                                {{-- <h4>+39 this month</h4> --}}
 
                                             </div>
 
@@ -1176,7 +1056,7 @@
 
                                     </div>
 
-                                    <div class="my-2">
+                                    {{-- <div class="my-2">
 
                                         <div class="raise-bg px-1 py-1">
 
@@ -1212,7 +1092,7 @@
 
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                 </div>
 

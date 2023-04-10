@@ -193,6 +193,9 @@
         DashboardRef.initEvents = function() {
 
 
+            // $('#grids-carousel').carousel({
+            //     interval: false,
+            // });
 
             channel.bind("messaging", function (data) {
 

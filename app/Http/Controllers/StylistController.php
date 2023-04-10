@@ -11,8 +11,10 @@ use Illuminate\Support\Str;
 use App\Repositories\SourcingRepository as SourcingRepo;
 use App\Repositories\CommonRepository as CommonRepo;
 use App\Repositories\GridRepository as GridRepo;
+use App\Models\StyleGrids;
 use Session;
 use Log;
+use DB;
 
 /*
 @author-Sunil Kumar Mishra
@@ -31,7 +33,43 @@ class StylistController extends Controller
     }
     
     public function stylistDashboard(Request $request){
-        return view('stylist.postloginview.dashboard');
+
+        $request = new \Illuminate\Http\Request();
+
+        // $myRequest = new \Illuminate\Http\Request();
+        $request->setMethod('POST');
+
+        $request->request->add(['user_id' => Session::get("stylist_id")]);
+
+        $grids = StyleGrids::from('sg_stylegrids as grid')
+                            ->select('grid.*')
+                            ->where([
+                                'grid.is_active' => 1,
+                                'grid.stylist_id' => Session::get("stylist_id")
+                            ])
+                            ->orderBy('grid.stylegrid_id', 'desc')
+                            ->take(5)
+                            ->get();
+
+        $currentMonth = date('m');
+
+        $monthly_product_invoice_dtls = ProductInvoice::from('sg_product_invoices as invoice')
+                                                        ->where('invoice.stylist_id', Session::get("stylist_id"))
+                                                        ->where('invoice.is_active', 1)
+                                                        ->whereRaw('MONTH(invoice.created_at) = ?',[$currentMonth])
+                                                        ->select( DB::raw('COUNT(invoice.product_invoice_id) AS invoice_count'),  DB::raw('SUM(invoice.invoice_amount) AS total_invoice_amount'))
+                                                        ->first();
+
+        $sourcing_list = SourcingRepo::getStylistSourcingLiveRequests($request);
+
+        $weekly_total_sourcing = SourcingRepo::getStylistSourcingLiveRequestsWeeklyCount($request);
+                    
+        $clients_dtls = DB::table('sg_member AS m')
+                            ->select(DB::raw('COUNT(m.id) AS client_count'))
+                            ->where('m.assigned_stylist', Session::get("stylist_id"))
+                            ->first();
+
+        return view('stylist.postloginview.dashboard', compact('grids', 'monthly_product_invoice_dtls', 'sourcing_list', 'weekly_total_sourcing', 'clients_dtls'));
     }
 
     public function stylistSourcingOld()
@@ -731,6 +769,57 @@ class StylistController extends Controller
             $list = $result['list'];
             
             $view = view("stylist.postloginview.payments.list-ui", compact('list'))->render();
+
+        }
+        
+        // response.data.data.links
+        $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                            'data' => [
+                                'view' => $view,
+                                'json' => $result
+                            ]  
+                          ];
+
+        return response()->json($response_array, 200);
+    }
+
+      
+    public function clientIndex()
+    {
+        try {
+
+            return view('stylist.postloginview.client.index');
+            
+        }catch(\Exception $e){
+
+            Log::info("clientIndex error - ". $e->getMessage());
+            return redirect()->back();
+        }
+    }  
+
+    public function getClientsJson(Request $request)
+    {
+        $result = [ 'list' => [] ];
+        
+        $page_index = isset($request->page) ? $request->page : 1;
+			
+        $list = DB::table('sg_member AS m')
+                    ->select(["m.id", "m.full_name", "m.gender", "c.country_name", "m.email", "m.membership_cancelled", "m.phone", "m.id as spend", \DB::raw("DATE_FORMAT(m.added_date, '%m/%d/%Y %H:%i') as added_date"), "m.slug"])
+                    ->join('sg_country as c', 'c.id', '=', 'm.country_id')
+                    ->where('m.assigned_stylist', $request->stylist_id)
+                    ->orderBy('m.id', 'desc');
+            
+        $list = $list->paginate(10, ['*'], 'page', $page_index);
+
+        $result['list'] = $list;
+
+        $view = '';
+
+        if(isset($result['list'])){
+
+            $list = $result['list'];
+            
+            $view = view("stylist.postloginview.client.list-ui", compact('list'))->render();
 
         }
         
