@@ -86,7 +86,8 @@
                        
                         ?>
                         <!-- <img src="{{ $image }}" class="img-fluid sidemnu_img_avtar" alt=""> -->
-                        <img src="{{ $image }}" class="img-fluid" alt="">
+                        
+                        <img src="{{ $image }}" class="img-fluid sidemnu_img_avtar" alt="">
                     </div>
 
                 <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span

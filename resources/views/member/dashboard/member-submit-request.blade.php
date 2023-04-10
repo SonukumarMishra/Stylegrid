@@ -91,7 +91,7 @@
                                   <!-- Date Picker -->
         <div class="form-group mb-4">
           <div class="datepicker date input-group">
-            <input type="text" placeholder="Enter due date..." class="form-control" id="deliver_date">
+            <input type="text" placeholder="Enter due date..." class="form-control submit-input" id="deliver_date" onpaste="return false;" onkeydown="return false;" name="deliver_date">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fa fa-calendar"></i></span>
             </div>

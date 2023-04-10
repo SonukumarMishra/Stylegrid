@@ -118,7 +118,7 @@ $("#source_image").change(function () {
    // });
     }
   });
-    $("#deliver_date" ).datepicker({ minDate: 0});
+    $("#deliver_date" ).datepicker({ startDate: new Date()});
     $('#submit-request-btn').click(function(){
        var status=sourceFormValidation();
         if(status){
@@ -321,10 +321,11 @@ $('#demo.carousel.slide').carousel({
     interval: false,
   });
 
-  $(function () {
-    $('.datepicker').datepicker({
-      language: "es",
-      autoclose: true,
-      format: "dd/mm/yyyy"
-    });
-  });
+//   $(function () {
+//     $('.datepicker').datepicker({
+//       language: "es",
+//       autoclose: true,
+//       format: "dd/mm/yyyy",
+//       minDate: 0
+//     });
+//   });
