@@ -36,7 +36,7 @@
 
          <!-- Revenue, Hit Rate & Deals -->
 
-         <div class="flex-column-reverse flex-md-row mt-lg-3 row">
+         <!--div class="flex-column-reverse flex-md-row mt-lg-3 row">
 
             <div class="col-md-8">
 
@@ -70,7 +70,7 @@
 
             </div>
 
-         </div>
+         </div-->
 
          <!-------------------- fulfil souring request--------->
 
@@ -80,17 +80,18 @@
 
                <div class="col-lg-12">
 
-                  <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}})">
-
-                       <div class="gridcreated_j">
-
-                          <h1>STYLEGRID</h1>
+                  <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}});position:relative;display: flex;align-items: center;">
+					
+					<div class="layer"></div>
+                       <div class="gridcreated_j" style="background:none;width:100%;">
+				
+                         
 
                           <div class="row">
 
                              <div class="col-lg-12  align-items-center">
-
-                                <h4>{{ $style_grid_dtls->title }}</h4>
+                              <h1 style="color:white;font-size: 52px;">{{ $style_grid_dtls->title }}</h1>
+                              <h4 style="color:white;">STYLEGRID</h4>
 
                              </div>
 
@@ -266,7 +267,7 @@
 
                                  <h5 class="cart-header-modal">Product Price:</h5>
 
-                                 <label>$<span id="product_price"></span></label>
+                                 <label>£ &nbsp;<span id="product_price"></span></label>
 
                               </div>
 

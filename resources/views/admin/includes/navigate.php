@@ -20,10 +20,10 @@
 
 
                     </ul>
-                    <ul class="style-logo mx-auto list-unstyled d-flex">
-                        <li><a href=""><img src="<?php echo   asset('admin-section/app-assets/images/icons/logo.png')?>" alt="" class="logo1"></a></li>
-                        <!-- <li><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/logo.png')?>" alt=""
-                                    class="logo2 pl-1 d-lg-block d-none my-1"></a></li> -->
+                    <ul class="style-logo mr-auto ml-5 list-unstyled d-flex">
+                        <li class="ml-5"><a href="" class="ml-4"><img src="<?php echo   asset('admin-section/app-assets/images/icons/logo.png')?>" alt="" class="logo1 ml-5"></a></li>
+                        <li><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/STYLEGRID-LOGO.png')?>" alt=""
+                                    class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
                         <li>
@@ -67,16 +67,16 @@
                     }
                     ?>
                     <div class="stylish-img"><img src="<?php echo  asset($image)?>"
-                            class="img-fluid" alt="" style="width:111px;">
+                            class="img-fluid sidemnu_img_avtar" alt="" style="width:111px;">
                     </div>
                 </li>
 
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
                             <h2 class="stylish-name">Georgia Fox</h2><br>
 
                         </span></a> </li>
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center"><span class="menu-title profession"
                             data-i18n="">Admin</span></a> </li>
 
                 <li class=" nav-item mt-5">
@@ -124,7 +124,7 @@
             </ul>
             <div class="row mx-1 py-1 social-media-border my-4">
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/Instagram.png')?>" alt=""></a></div>
-                <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/facebook.png')?>" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/Facebook.png')?>" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/Twitter Squared.png')?>" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/TikTok.png')?>" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="<?php echo  asset('admin-section/app-assets/images/icons/LinkedIn.png')?>" alt=""></a></div>

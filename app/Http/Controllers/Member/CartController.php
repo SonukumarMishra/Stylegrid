@@ -222,7 +222,7 @@ class CartController extends BaseController
 
                     foreach ($items as $key => $value) {
                 
-                        // $product_ext = pathinfo('https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
+                        // $product_ext = pathinfo('https://demo.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
                         $product_ext = asset($value->product_image);
 
                         $message_obj = [
@@ -232,7 +232,7 @@ class CartController extends BaseController
                                             'media_files' => json_encode([
                                                 [
                                                     'media_source' => asset($value->product_image), 
-                                                    // 'media_source' => 'https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
+                                                    // 'media_source' => 'https://demo.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
                                                     'is_url' => true,
                                                     'media_name' => $value->product_name.'_'.time().'.'.$product_ext,
                                                     'id' => 1,

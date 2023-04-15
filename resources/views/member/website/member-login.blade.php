@@ -32,7 +32,7 @@
                         </a></div>
                         <div class="text-center mt-4"><a href="javascript:void(0);"><button type="button" class="sign-in px-3" id="member-login-btn">Sign In</button></a>
                         </div>
-                        <div class="mt-4"><h5 class="click-to-signin">if you are a stylist,<a href="https://stylist.stylegrid.com/stylist-login" class="text-dark"><u> please click here to <br>sign in.</u></a></h5></div>
+                        <div class="mt-4"><h5 class="click-to-signin">if you are a stylist,<a href="https://demo.stylegrid.com/stylist-login" class="text-dark"><u> please click here to <br>sign in.</u></a></h5></div>
                     </form>
                 </div>
             </div>

@@ -19,8 +19,8 @@
     
     
                     </ul>
-                    <ul class="style-logo mx-auto list-unstyled d-flex">
-                        <li><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/logo.png') }}" alt="" class="logo1"></a></li>
+                    <ul class="style-logo mr-auto ml-5 list-unstyled d-flex">
+                        <li class="ml-5"><a href="" class="ml-4"><img src="{{ asset('member/dashboard/app-assets/images/icons/logo.png') }}" alt="" class="logo1 ml-5"></a></li>
                           <li><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/STYLEGRID-LOGO.png') }}" alt="" class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
@@ -60,7 +60,7 @@
                             @endphp
                             <a class="nav-link nav-link-label" href="{{ route('member.cart.index') }}">                               
                                 <img src="{{ asset('member/dashboard/app-assets/images/gallery/Shopping Bag.png') }}" height="20" width="20" alt="">
-                                <span class="badge badge-pill badge-danger badge-up cart-badge-count" style="display:{{ $header_cart_count == 0 ? 'none' : 'block'}};">{{ $header_cart_count }}</span>
+                                <span class="badge badge-pill badge-danger badge-up cart-badge-count" style="display:{{ $header_cart_count == 0 ? 'none' : 'block'}}; top: 10px; font-size: 10px !important;">{{ $header_cart_count }}</span>
                             </a>
                         </li>       
                         {{-- <li>

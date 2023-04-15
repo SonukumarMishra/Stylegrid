@@ -1,8 +1,8 @@
-$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+/*$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
   var string=$(this).val();
   const noSpecialChars = string.replace(/[^a-zA-Z ]/g, '');
   $(this).val(noSpecialChars); 
-});
+});*/
 function makeTrim(x) {
     if (x) {
         return x.replace(/^\s+|\s+$/gm, '');

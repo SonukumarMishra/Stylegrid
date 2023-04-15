@@ -219,6 +219,7 @@ body{
 
 .quick-link {
   /* margin-top: 44px; */
+  display:none;
 }
 
 .margin-top-text {
@@ -2992,7 +2993,7 @@ transform: rotate(180deg);
 
 .sidemnu_img_avtar{
   height: 110px;
-  width: 105px;
+  width: 110px;
   object-fit: cover;
 }
 .header-notification{
@@ -3030,7 +3031,7 @@ transform: rotate(180deg);
   font-family: 'Genos';
 }
 .stylegrid-bg-img .img-grid-name{
-  background: rgba(0,0,0,0.5);
+  /*background: rgba(0,0,0,0.5);*/
     padding-bottom: 8px;
     padding-left: 10px;
     font-family: 'Genos';
@@ -3066,4 +3067,29 @@ transform: rotate(180deg);
 }
  label{
   color: #000 !important;
+}
+
+.cart-header{
+  color: #04AA6D !important;
+  font-size: 30px !important;
+  font-family: 'Silk Serif Medium' !important;
+  text-transform: capitalize !important;
+}
+.total_invoice{
+  font-family: 'Silk Serif' !important;
+}
+.cart-product-name-header{
+  font-size: 23px !important;
+  font-family: 'Genos' !important;
+  text-transform: capitalize !important;
+  color: #000 !important;
+}
+#product_name{
+  font-family: 'Genos' !important;
+}
+#total_invoice{
+  font-family: 'Serif Silk' !important;
+}
+.menu-collapsed .sidemnu_img_avtar{
+  height: 59px;
 }

@@ -58,8 +58,8 @@
                 </div>
 
              </div>
-
-             <div class="col-md-4 quick-link text-right">
+      
+             <div class="col-md-4 quick-link text-right" style="display:block;">
 
                 {{-- <span class="mr-5"><a hrf="">Quick Link</a></span> --}}
 
@@ -91,9 +91,26 @@
 
                 <div class="col-lg-12">
 
-                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}})">
+                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}});position:relative;display: flex;align-items: center;">
 
-                        <div class="gridcreated_j">
+                        
+					<div class="layer"></div>
+                       <div class="gridcreated_j" style="background:none;width:100%;">
+				
+
+                          <div class="row">
+
+                             <div class="col-lg-12  align-items-center">
+                              <h1 style="color:white;font-size: 52px;">{{ $style_grid_dtls->title }}</h1>
+
+                                <h4 style="color:white;">STYLEGRID</h4>
+
+                             </div>
+
+                          </div>
+
+                       </div> 
+						<!--div class="gridcreated_j">
 
                            <h1>STYLEGRID</h1>
 
@@ -107,7 +124,7 @@
 
                            </div>
 
-                        </div> 
+                        </div--> 
 
                    </div>
 
@@ -221,11 +238,11 @@
 
                       </button>
 
-                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background:#1897dcfa !important;">
 
-                         <a class="dropdown-item border-bottom-1" id="export_pdf_btn" href="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}" data-action="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}">Export as PDF</a>
+                         <a class="dropdown-item border-bottom-1" style="font-size:18px !important;" id="export_pdf_btn" href="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}" data-action="{{ route('stylist.grid.download.pdf', ['grid_id' => $style_grid_dtls->stylegrid_id]) }}">Export as PDF</a>
 
-                         <a class="dropdown-item" href="#" id="copy_link_btn" data-copy-content="{{ Request::url() }}">Copy Link</a>
+                         <a class="dropdown-item" href="#" style="font-size:18px !important;" id="copy_link_btn" data-copy-content="{{ Request::url() }}">Copy Link</a>
 
                       </div>
 
@@ -313,7 +330,7 @@
 
                               <h5>Product Price:</h5>
 
-                              <label>$<span id="product_price"></span></label>
+                              <label>£ &nbsp;<span id="product_price"></span></label>
 
                           </div>
 

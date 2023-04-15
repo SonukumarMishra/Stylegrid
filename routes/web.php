@@ -135,7 +135,7 @@ Route::get('/member-account-verification/{title}', [Website::class, 'memberAccou
 //Route::get('/search-product/{title}','ProductController@searchProduct');
 
 Route::get('/member-dashboard', [Member::class, 'memberDashboard']);
-Route::get('/member-sourcing', [Member::class, 'memberSourcing']);
+Route::get('/member-sourcing', [Member::class, 'memberSourcing'])->name('member.sourcing.index');
 Route::post('/member-sourcing-live-requests-json', [Member::class, 'getMemberSourcingLiveRequests'])->name('member.sourcing.live.requests');
 Route::get('/offer-received/{title}', [Member::class, 'memberOfferReceived']);
 Route::get('/member-sourcing/{title}', [Member::class, 'sourcingRequestView'])->name('member.sourcing.view');
