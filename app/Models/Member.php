@@ -280,13 +280,15 @@ class Member extends Model
 
 			if($sourcing_dtls && $sourcing_offer_dtls){
 				
+				$chat_room_id = '';
+
 				$sourcing_stylist = Stylist::where([
 														'id' => $sourcing_offer_dtls->stylist_id
 													])
 											->select('gender', 'dummy_name', 'full_name')							
 											->first();
 
-				if($sourcing_dtls->member_stylist_type == 0 ){
+				if($sourcing_dtls->member_stylist_type == config('custom.sourcing.sourcing_user_type.member') ){
 					// 0 means memeber user 
 
 					$auth_user = [
@@ -297,6 +299,19 @@ class Member extends Model
 						'auth_user' => 'member',
 						'user_type' => 'member'
 					];
+
+					// If member accepting thier default stylist offer then just stylist and member's chat room, no need to create new temp chat for sourcing.
+
+					$member_default_chat_room = ChatRepo::getMemberDefaultStylistChatRoom(Session::get("member_id"), 'member');
+					
+					if(isset($member_default_chat_room['status'])){
+
+						if(isset($member_default_chat_room['data']['chat_room']) && !empty($member_default_chat_room['data']['chat_room'])){
+
+							$chat_room_id = @$member_default_chat_room['data']['chat_room']->chat_room_id;
+
+						}
+					}
 
 				}else{
 					// 1 means stylist user 
@@ -331,9 +346,12 @@ class Member extends Model
 					'module' => config('custom.chat_module.sourcing'),
 					'module_ref_id' => $sourcing_dtls->id,
 					'auth_user' => $auth_user,
-					'message_obj' => $message_obj
+					'message_obj' => $message_obj,
+					'chat_room_id' => $chat_room_id
 				];
 				
+				Log::info("chat room ". print_r($chat_room_id, true));
+
 				ChatRepo::save_chat_room_details([$chat_room]);
 
 			}

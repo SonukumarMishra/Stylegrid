@@ -185,13 +185,13 @@
 
                                                     </div>
 
-                                                    <a class="Neon-input-choose-btn blue mt-2">
-
-                                                        <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
+                                                    <a class="Neon-input-choose-btn blue mt-2"> <img src="{{asset('stylist/app-assets/images/icons/plus.png')}}" class="feature-image-src img_preview"></a>
 
                                                 </div>
 
                                             </div>
+
+                                            <img src="{{asset('stylist/app-assets/images/icons/Empty-Trash.png')}}" class="img-fluid delete-grid-feature-img d-none" data-index="0" style="position: absolute;top: 0;" alt=""/>
 
                                             <p style="font-family: 'Genos';">Image size recommendadtion is 1170px X 570px(min) </p>
 

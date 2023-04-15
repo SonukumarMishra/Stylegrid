@@ -384,8 +384,6 @@ class SourcingRepository {
 												->select('offer.*', 'source.p_name')
 												->first();
 												
-					Log::info("offer detls ". print_r($offer_dtls, true));
-
 					if($offer_dtls){
 
 						$payload_data['notify_user_id'] = $offer_dtls->stylist_id;
@@ -437,8 +435,6 @@ class SourcingRepository {
 								],
 								'users' => $notify_users
 							];
-		
-							Log::info("data obj ". print_r($notification_obj, true));
 
 							CommonRepo::save_notification($notification_obj);
 	

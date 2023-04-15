@@ -44,7 +44,7 @@
 
             });
 
-            $('body').on('click', '#send_items_tochat_btn', function(e) {
+            $('body').on('click', '.send_items_tochat_btn', function(e) {
 
                 e.preventDefault();
                
@@ -64,6 +64,7 @@
                     var formData = new FormData();
                     formData.append('cart_dtls_ids', JSON.stringify(cart_dtls_ids));
                     formData.append('cart_id', cart_id);
+                    formData.append('action_type', $(this).data('action'));
 
                     window.getResponseInJsonFromURL('{{ route("member.cart.send_to_messanger") }}', formData, (response) => {
 
@@ -177,11 +178,11 @@
         
                 if(CartRef.cartItemsCount > 0){
 
-                    $('#send_items_tochat_btn').show();
+                    $('.send_items_tochat_btn').show();
 
                 }else{
 
-                    $('#send_items_tochat_btn').hide();
+                    $('.send_items_tochat_btn').hide();
                     
                 }
         }

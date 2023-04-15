@@ -114,8 +114,6 @@
 
             $('body').on('click', '.delete-grid-item-block-btn', function(e) {
 
-
-
                 e.preventDefault();
 
                 var item_index = $(this).data('inner-index');
@@ -146,6 +144,43 @@
 
             });
 
+            $('body').on('click', '.delete-grid-feature-img', function(e) {
+
+                e.preventDefault();
+
+                var grid_index = $(this).data('index');
+            
+                if(grid_index == 0){
+                
+                    CreateGridRef.styleGridJson['main_grid']['feature_image'] = '';
+                
+                    $('.style-grid-main-feature-image-block').addClass('p_25');
+
+                    $('.style-grid-main-feature-image-title').html('Add your feature image here...');
+
+                    $(".feature-image-src").attr('src', "{{ asset('stylist/app-assets/images/icons/plus.png')}}");
+
+                }else{
+
+                    var obj_index = CreateGridRef.styleGridJson.grids.findIndex(x => x.stylegrid_index == grid_index);
+
+                    if(obj_index != -1){
+
+                        CreateGridRef.styleGridJson.grids[obj_index]['feature_image'] = '';
+
+                    }
+                    
+                    $('.style-grid-feature-image-block[data-index="'+grid_index+'"]').addClass('p_25');
+
+                    $(".feature-image-title[data-index='"+grid_index+"']").html('Add your feature image here...');
+
+                    $(".grid-feature-image-src[data-index='"+grid_index+"']").attr('src', "{{ asset('stylist/app-assets/images/icons/plus.png')}}");
+
+
+                }
+
+                $(".delete-grid-feature-img[data-index='"+grid_index+"']").addClass('d-none');
+            });
 
 
             $('body').on('click', '.grid-item-inner-input-block', function(e) {
@@ -213,7 +248,7 @@
 
 
 
-                if (item_block_count < 7) {
+                if (item_block_count < 8) {
 
                 
 
@@ -609,6 +644,8 @@
 
                                     $('.feature-image-title[data-index="'+parent_index+'"]').html('');
 
+                                    $(".delete-grid-feature-img[data-index='"+parent_index+"']").removeClass('d-none');
+
                                 }
 
 
@@ -622,6 +659,8 @@
                                 $('.style-grid-main-feature-image-title').html('');
 
                                 $('.style-grid-main-feature-image-block').removeClass('border-2 border-danger p_25');
+
+                                $(".delete-grid-feature-img[data-index='0']").removeClass('d-none');
 
                             }
 
@@ -839,6 +878,8 @@
 
             html+= '               </div>';
 
+            html+= '               <img src="{{ asset('stylist/app-assets/images/icons/Empty-Trash.png')}}" class="img-fluid delete-grid-feature-img d-none" data-index="'+index+'" style="position: absolute;top: 0;" alt=""/>';
+
             //html+= '               <p>Image size recommendation is 1170px X 570px(Min) </p>';
 
             html+= '               </div>';
@@ -945,7 +986,7 @@
 
 
 
-            if (total_block_count == 6) {
+            if (total_block_count == 8) {
 
                 $('.add-item-block-btn[data-index="'+parent_index+'"]').hide();
 

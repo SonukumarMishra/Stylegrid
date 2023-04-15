@@ -123,11 +123,18 @@
 
                            <div class="row">
 
-                               <div class="col-8">
+                              <div class="col-10">
 
-                                   <h1>STYLEGRID {{ $g_key+1 }}</h1>
+                                 <h1>STYLEGRID {{ $g_key+1 }}</h1>
 
-                               </div>
+                              </div>
+
+                              <div class="col-2">
+
+                                 <button class="submit-request" style="width:210px;" id="cart_action_btn" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span id="cart_btn_title"> Add To Cart</span></button>
+
+
+                              </div>
 
                            </div>
 

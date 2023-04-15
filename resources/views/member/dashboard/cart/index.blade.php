@@ -33,7 +33,8 @@
 
                <div class="row col-12 d-flex justify-content-end">
 
-                    <button class="submit-request" id="send_items_tochat_btn" style="display:none;">Chat To Stylist</button>
+                    <button class="submit-request mr-2 send_items_tochat_btn" data-action="request_product" style="display:none;">Request to Buy</button>
+                    <button class="submit-request send_items_tochat_btn"  data-action="request_more_details" style="display:none;">Request more details</button>
 
                 </div>
                 

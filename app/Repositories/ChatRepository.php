@@ -718,4 +718,42 @@ class ChatRepository {
         }
 
 	}
+
+	public static function getMemberDefaultStylistChatRoom($user_id, $user_type) {
+
+		try {
+
+			$chat_room_dtls = ChatRoom::from('sg_chat_room as room')
+								->select("room.*")
+								->where(function ($q) use($user_id, $user_type) {
+
+									$q->where(function ($q1) use($user_id, $user_type) {
+										$q1->where('room.sender_id', $user_id)
+											->where('room.sender_user', $user_type);
+									})
+									->orwhere(function ($q2) use($user_id, $user_type) {
+										$q2->where('room.receiver_id', $user_id)
+											->where('room.receiver_user', $user_type);
+									});
+								})
+								->where('room.module', config('custom.chat_module.private'))
+								->first();
+
+			
+			$response_array = array('status' => 1, 'message' => trans('pages.action_success'), 'data' => [ 'chat_room' => $chat_room_dtls] );
+
+			return $response_array;
+
+					
+		}catch(\Exception $e) {
+
+            Log::info("error getMemberDefaultStylistChatRoom ". print_r($e->getMessage(), true));
+
+			$response_array = array('status' => 0,  'message' => $e->getMessage() );
+
+			return $response_array;
+
+        }
+
+	}
 }
