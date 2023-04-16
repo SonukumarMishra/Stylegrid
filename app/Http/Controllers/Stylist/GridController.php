@@ -18,7 +18,9 @@ use Config;
 use Storage;
 use Helper;
 use Dompdf\Dompdf;
+use Image;
 use PDF;
+use File;
 
 class GridController extends BaseController
 {
@@ -91,6 +93,45 @@ class GridController extends BaseController
                             $style_grid->feature_image = $feature_image;
                             $style_grid->save();
     
+                            try{
+
+                                $file_ext = pathinfo($feature_image, PATHINFO_EXTENSION);
+
+                                $thumb_file_name = 'FI_thumb_'.time().'.'.$file_ext;
+                                // Create thumbnail image
+    
+                                $default_storage = config('filesystems.default');
+    
+                                if($default_storage == 'public'){
+    
+                                    $thumb_directory = 'stylist/stylegrids/'.$stylegrid_id.'/thumbnail/';
+    
+                                    if(!File::isDirectory($thumb_directory)){
+                    
+                                        File::makeDirectory($thumb_directory, 0777, true, true);
+                    
+                                    }
+                                }
+                                
+                                // open an image file
+                                $feature_img = Image::make($style_grid_request->main_grid->feature_image);
+    
+                                // resize image instance
+                                $feature_img->resize(1170, 570);
+    
+                                $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/thumbnail/').$thumb_file_name;
+    
+                                // save image in desired format
+                                $feature_img->save($destinationPathThumbnail);
+    
+                                $style_grid->feature_thumb_img = 'stylist/stylegrids/'.$stylegrid_id.'/thumbnail/'.$thumb_file_name;
+                                $style_grid->save();
+                                
+                            }catch(\Exception $e){
+    
+                                Log::info("error thumb upload ". $e->getMessage());
+    
+                            }
                         }
     
                     }catch(\Exception $e){
@@ -128,6 +169,46 @@ class GridController extends BaseController
                 
                                         $style_grid_dtls->feature_image = $grid_feature_image;
                                         $style_grid_dtls->save();
+
+                                        try{
+
+                                            $file_ext = pathinfo($grid_feature_image, PATHINFO_EXTENSION);
+            
+                                            $thumb_file_name = 'FI_thumb_'.time().'.'.$file_ext;
+                                            // Create thumbnail image
+                
+                                            $default_storage = config('filesystems.default');
+                
+                                            if($default_storage == 'public'){
+                
+                                                $thumb_directory = 'stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/thumbnail/';
+                
+                                                if(!File::isDirectory($thumb_directory)){
+                                
+                                                    File::makeDirectory($thumb_directory, 0777, true, true);
+                                
+                                                }
+                                            }
+                                            
+                                            // open an image file
+                                            $grid_feature_img = Image::make($grid_value->feature_image);
+                
+                                            // resize image instance
+                                            $grid_feature_img->resize(400, 400);
+                
+                                            $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/thumbnail/').$thumb_file_name;
+                
+                                            // save image in desired format
+                                            $grid_feature_img->save($destinationPathThumbnail);
+                
+                                            $style_grid_dtls->feature_thumb_img = 'stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/thumbnail/'.$thumb_file_name;
+                                            $style_grid_dtls->save();
+                                            
+                                        }catch(\Exception $e){
+                
+                                            Log::info("error thumb upload ". $e->getMessage());
+                
+                                        }
                 
                                     }
                 
@@ -169,6 +250,46 @@ class GridController extends BaseController
                             
                                                     $product_dtls->product_image = $product_image;
                                                     $product_dtls->save();
+
+                                                    try{
+
+                                                        $file_ext = pathinfo($product_image, PATHINFO_EXTENSION);
+                        
+                                                        $thumb_file_name = 'PI_thumb_'.time().'.'.$file_ext;
+                                                        // Create thumbnail image
+                            
+                                                        $default_storage = config('filesystems.default');
+                            
+                                                        if($default_storage == 'public'){
+                            
+                                                            $thumb_directory = 'stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/products/'.$stylegrid_product_id.'/thumbnail/';
+                            
+                                                            if(!File::isDirectory($thumb_directory)){
+                                            
+                                                                File::makeDirectory($thumb_directory, 0777, true, true);
+                                            
+                                                            }
+                                                        }
+                                                        
+                                                        // open an image file
+                                                        $grid_feature_img = Image::make($product_value->product_image);
+                            
+                                                        // resize image instance
+                                                        $grid_feature_img->resize(250, 250);
+                            
+                                                        $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/products/'.$stylegrid_product_id.'/thumbnail/').$thumb_file_name;
+                            
+                                                        // save image in desired format
+                                                        $grid_feature_img->save($destinationPathThumbnail);
+                            
+                                                        $product_dtls->product_thumb_img = 'stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/products/'.$stylegrid_product_id.'/thumbnail/'.$thumb_file_name;
+                                                        $product_dtls->save();
+                                                        
+                                                    }catch(\Exception $e){
+                            
+                                                        Log::info("error thumb upload ". $e->getMessage());
+                            
+                                                    }
                             
                                                 }
 
