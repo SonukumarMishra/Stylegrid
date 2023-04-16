@@ -117,7 +117,10 @@ class GridController extends BaseController
                                 $feature_img = Image::make($style_grid_request->main_grid->feature_image);
     
                                 // resize image instance
-                                $feature_img->resize(1170, 570);
+                                // $feature_img->resize(1170, 570);
+                                $feature_img->resize(1170, null, function ($constraint) {
+                                    $constraint->aspectRatio();
+                                });
     
                                 $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/thumbnail/').$thumb_file_name;
     
@@ -194,7 +197,10 @@ class GridController extends BaseController
                                             $grid_feature_img = Image::make($grid_value->feature_image);
                 
                                             // resize image instance
-                                            $grid_feature_img->resize(400, 400);
+                                            // $grid_feature_img->resize(400, 400);
+                                            $grid_feature_img->resize(400, null, function ($constraint) {
+                                                $constraint->aspectRatio();
+                                            });
                 
                                             $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/thumbnail/').$thumb_file_name;
                 
@@ -275,7 +281,10 @@ class GridController extends BaseController
                                                         $grid_feature_img = Image::make($product_value->product_image);
                             
                                                         // resize image instance
-                                                        $grid_feature_img->resize(250, 250);
+                                                        // $grid_feature_img->resize(250, 250);
+                                                        $grid_feature_img->resize(250, null, function ($constraint) {
+                                                            $constraint->aspectRatio();
+                                                        });
                             
                                                         $destinationPathThumbnail = public_path('stylist/stylegrids/'.$stylegrid_id.'/grids/'.$stylegrid_dtls_id.'/products/'.$stylegrid_product_id.'/thumbnail/').$thumb_file_name;
                             

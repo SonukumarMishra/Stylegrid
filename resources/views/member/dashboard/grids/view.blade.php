@@ -131,7 +131,7 @@
 
                               <div class="col-2">
 
-                                 {{-- <button class="submit-request grid_cart_action_btn" style="width:210px;" data-index="{{ $g_key }}" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span class="grid_cart_btn_title" data-index="{{ $g_key }}" > Add To Cart</span></button> --}}
+                                 {{-- <button class="submit-request grid_cart_action_btn" style="width:210px;" data-index="{{ $g_key }}" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span class="grid_cart_btn_title" data-index="{{ $g_key }}" > Add All To Cart</span></button> --}}
 
 
                               </div>
@@ -160,7 +160,7 @@
 
 
 
-                                                   <img class="stylegrid-product-img" src="{{ isset($item->product_thumb_img) && !empty($item->product_thumb_img) ? asset($item->product_thumb_img) : asset($item->product_image)}}" alt=" " />
+                                                   <img class="stylegrid-product-img1" src="{{ isset($item->product_thumb_img) && !empty($item->product_thumb_img) ? asset($item->product_thumb_img) : asset($item->product_image)}}" alt=" " />
 
 
 
@@ -184,7 +184,7 @@
 
                                <div class="col-lg-5 px-2">
 
-                                   <img src="{{ isset($grid->feature_thumb_img) && !empty($grid->feature_thumb_img) ? asset($grid->feature_thumb_img) : asset($grid->feature_image) }}" class="img-fluid w-100 height_500 img_preview" alt="">
+                                   <img src="{{ isset($grid->feature_thumb_img) && !empty($grid->feature_thumb_img) ? asset($grid->feature_thumb_img) : asset($grid->feature_image) }}" class="img-fluid w-100 height_5001 img_preview" alt="">
 
                                </div>
 

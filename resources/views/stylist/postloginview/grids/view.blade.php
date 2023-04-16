@@ -180,7 +180,7 @@
 
 
 
-                                                    <img class="stylegrid-product-img" src="{{ isset($item->product_thumb_img) && !empty($item->product_thumb_img) ? asset($item->product_thumb_img) : asset($item->product_image)}}" alt=" " />
+                                                    <img class="stylegrid-product-img1" src="{{ isset($item->product_thumb_img) && !empty($item->product_thumb_img) ? asset($item->product_thumb_img) : asset($item->product_image)}}" alt=" " />
 
 
 
@@ -204,7 +204,7 @@
 
                                 <div class="col-lg-5 px-2">
 
-                                    <img src="{{ isset($grid->feature_thumb_img) && !empty($grid->feature_thumb_img) ? asset($grid->feature_thumb_img) : asset($grid->feature_image) }}" class="img-fluid w-100 height_500 img_preview" alt="">
+                                    <img src="{{ isset($grid->feature_thumb_img) && !empty($grid->feature_thumb_img) ? asset($grid->feature_thumb_img) : asset($grid->feature_image) }}" class="img-fluid w-100 height_5001 img_preview" alt="">
 
                                 </div>
 
