@@ -593,7 +593,9 @@ select.form-control {
   transform: scale(1, 1);
   opacity: 1;
   display: block;
-  z-index: 990; }
+  z-index: 990; 
+      background-color: #3a2efc;
+  }
 
 .dropdown-toggle::after {
   font-size: 0.8rem;

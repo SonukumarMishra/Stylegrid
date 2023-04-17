@@ -1396,3 +1396,11 @@ color: #000000;
 .active-sub-card-img{
   width: 90px;
 }
+.menu-collapsed .sidemnu_img_avtar{
+height:59px;
+}
+.sidemnu_img_avtar{
+height:110px;
+width:110px;
+object-fit:cover;
+}

@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="row col-12 d-flex justify-content-end">
-                        <h4 class="mr-3 mb-0 b">Total Amount: £<span id="total_invoice">0.00</span></h4>
+                        <h4 class="mr-3 mb-0 b total_invoice">Total Amount: £<span id="total_invoice">0.00</span></h4>
                         <button class="submit-request" id="invoice_frm_btn">Generate Invoice</button>    
                     </div>
                 

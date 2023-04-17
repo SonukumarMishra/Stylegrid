@@ -3,8 +3,8 @@
         <div class="main-menu-content">
 
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <a class="nav-link close-navbar text-right pr-2 d-lg-none d-block"><i class="ft-x"></i></a>
-                <li class="nav-item"><a href=""><i class="box-shadow mr-5">
+                <!-- <a class="nav-link close-navbar text-right pr-2 d-lg-none d-block"><i class="ft-x"></i></a> -->
+                <!--li class="nav-item"><a href=""><i class="box-shadow mr-5">
                     <img src="{{ asset('/member/dashboard/app-assets/images/icons/User.svg') }}"
                                 alt=""><img src="{{ asset('/member/dashboard/app-assets/images/icons/Bell.svg') }}" alt=""
                                 style="margin-left: 3px"></i><span class="menu-title">
@@ -12,19 +12,19 @@
                                 <img src="{{ asset('/member/dashboard/app-assets/images/icons/Help.svg') }}" style="margin-left: 3px" alt=""></i>
                         </span>
                     </a>
-                </li>
+                </li-->
 
-                <li class="nav-item text-center">
+                <li class="nav-item text-center" style="margin-top: 50px;">
                     <div class="stylish-img">
-                        <img src="{{ asset('common/images/default_user.jpeg') }}" class="img-fluid" alt="">
+                        <img src="{{ asset('common/images/default_user.jpeg') }}" class="img-fluid sidemnu_img_avtar" alt="">
                     </div>
 
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
                             <h2 class="stylish-name">{{Session::get('member_data')->name}}</h2><br>
 
                         </span></a> </li>
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center"><span class="menu-title profession"
                             data-i18n="">Member</span></a> </li>
                 </li>
                 <!-- <li class="nav-item"><a href="" class="py-1 pl-5 text-center"><span
@@ -56,7 +56,7 @@
                             data-i18n="">Settings</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Style
+                <li class=" nav-item"><a href="https://stylegrid.com/editorial/" target="_blank"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Style
                             News</span></a>
 
                 </li>
@@ -80,7 +80,7 @@
             </ul>
             <div class="row mx-1 py-1 social-media-border my-4">
                 <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Instagram.png') }}" alt=""></a></div>
-                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/facebook.png') }}" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Facebook.png') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Twitter Squared.png') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/TikTok.png') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/LinkedIn.png') }}" alt=""></a></div>

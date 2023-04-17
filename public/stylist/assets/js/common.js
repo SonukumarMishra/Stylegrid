@@ -1,8 +1,8 @@
-$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
+/*$('.alphaonly').bind('keyup blur keydown onpaste',function(){ 
     var string=$(this).val();
       const noSpecialChars = string.replace(/[^a-zA-Z ]/g, '');
       $(this).val(noSpecialChars); 
-  });
+  });*/
 var brandList=[];
 function selectBrand(brand_id){
     $('#brand').val(brandList[brand_id]);

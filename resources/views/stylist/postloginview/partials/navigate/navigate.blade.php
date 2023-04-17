@@ -18,8 +18,8 @@
     
     
                     </ul>
-                    <ul class="style-logo mx-auto list-unstyled d-flex">
-                        <li><a href=""><img src="{{ asset('stylist/app-assets/images/icons/logo.png') }}" alt="" class="logo1"></a></li>
+                    <ul class="style-logo mr-auto ml-5 list-unstyled d-flex">
+                        <li class="ml-5"><a href="" class="ml-4"><img src="{{ asset('stylist/app-assets/images/icons/logo.png') }}" alt="" class="logo1 ml-5"></a></li>
                           <li><a href=""><img src="{{ asset('stylist/app-assets/images/icons/STYLEGRID-LOGO.png') }}" alt="" class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
@@ -44,7 +44,7 @@
                               </li>
                             </ul>
                         </li> 
-                        <li>
+                        <!--li>
                             <div class="search-container">
                                 <form action="/action_page.php">
                                     <input type="text" placeholder="Search anything" name="search "
@@ -53,7 +53,7 @@
                                             alt=""></button>
                                 </form>
                             </div>
-                        </li>
+                        </li-->
     
                     </ul>
                 </div>
@@ -65,16 +65,16 @@
 
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <a class="nav-link close-navbar text-right pr-2 d-lg-none d-block"><i class="ft-x"></i></a>
-                <li class="nav-item"><a href=""><i class="box-shadow mr-5"><img src="{{ asset('stylist/app-assets/images/icons/User.svg') }}"
+                <!--li class="nav-item"><a href=""><i class="box-shadow mr-5"><img src="{{ asset('stylist/app-assets/images/icons/User.svg') }}"
                                 alt=""><img src="{{ asset('stylist/app-assets/images/icons/Bell.svg') }}" alt=""
                                 style="margin-left: 3px"></i><span class="menu-title">
                             <i class="box-shadow ml-5"><img src="{{ asset('stylist/app-assets/images/icons/Gear.svg') }}" alt="">
                                 <img src="{{ asset('stylist/app-assets/images/icons/Help.svg') }}" style="margin-left: 3px" alt=""></i>
                         </span>
                     </a>
-                </li>
+                </li-->
 
-                <li class="nav-item text-center">
+                <li class="nav-item text-center" style="margin-top: 50px;">
                     <div class="stylish-img">
                         <?php 
                         if(Session::get('stylist_data')->profile_image != ''){
@@ -90,15 +90,15 @@
                         <img src="{{ $image }}" class="img-fluid sidemnu_img_avtar" alt="">
                     </div>
 
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center" style="line-height: 0px;"><span
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center" style="line-height: 0px;"><span
                             class="menu-title" data-i18n="">
                             <h2 class="stylish-name">{{Session::get('stylist_data')->name}}</h2><br>
 
                         </span></a> </li>
-                <li class="nav-item"><a href="" class="py-0 pl-5 text-center"><span class="menu-title profession"
+                <li class="nav-item"><a href="" class="py-0 pl-3 text-center"><span class="menu-title profession"
                             data-i18n="">Stylist</span></a> </li>
                 </li>
-                <li class="nav-item"><a href="" class="py-1 pl-5 text-center"><span class="menu-title profession"
+                <li class="nav-item"><a href="" class="py-1 pl-3 text-center"><span class="menu-title profession"
                             data-i18n=""><img src="{{ asset('stylist/app-assets/images/gallery/check-mark.png') }}" alt=""></span></a> </li>
                 </li>
                 <li class=" nav-item mt-5"><a href="/stylist-dashboard" class="{{ request()->is('stylist-dashboard*') ? 'active' : '' }}"><i class="ft-home {{ request()->is('stylist-dashboard*') ? 'active' : '' }}"></i><span class="menu-title"
@@ -125,7 +125,7 @@
                             data-i18n="">Settings</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Style
+                <li class=" nav-item"><a href="https://stylegrid.com/editorial/" target="_blank"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Style
                             News</span></a>
 
                 </li>
@@ -148,14 +148,22 @@
                 
 
             </ul>
-            <div class="row mx-1 py-1 social-media-border my-4">
+
+             <div class="row mx-1 py-1 social-media-border my-4">
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Instagram.png') }}" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Facebook.png') }}" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/Twitter Squared.png') }}" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/TikTok.png') }}" alt=""></a></div>
+                <div class="mx-auto"><a href=""><img src="{{ asset('member/dashboard/app-assets/images/icons/LinkedIn.png') }}" alt=""></a></div>
+            </div>
+            <!--div class="row mx-1 py-1 social-media-border my-4">
                 <div class="mx-auto"><a href=""><img src="{{ asset('stylist/app-assets/images/icons/call.svg') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('stylist/app-assets/images/icons/email.svg') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('stylist/app-assets/images/icons/telegram.svg') }}" alt=""></a></div>
                
                 <div class="mx-auto"><a href=""><img src="{{ asset('stylist/app-assets/images/icons/action.svg') }}" alt=""></a></div>
                 <div class="mx-auto"><a href=""><img src="{{ asset('stylist/app-assets/images/icons/whatsap.png') }}" alt=""></a></div>
-            </div>
+            </div-->
             <div class="text-center my-2 term-policies"><span>Terms & Conditions</span><br>
                 <span>Policies</span>
             </div>
