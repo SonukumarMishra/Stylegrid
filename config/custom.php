@@ -69,6 +69,7 @@ return [
         'sourcing_invoice_paid' => 'sourcing_invoice_paid',
         'product_invoice_generated' => 'product_invoice_generated',
         'product_invoice_paid' => 'product_invoice_paid',
+        'grid_viewed_by_member' => 'grid_viewed_by_member',
     ],
 
     'subscription' => [

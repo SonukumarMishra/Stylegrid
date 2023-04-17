@@ -17,6 +17,7 @@ use App\Repositories\CartRepository as CartRepo;
 use App\Repositories\ChatRepository as ChatRepo;
 use Validator,Redirect;
 use Config;
+use DB;
 use Storage;
 use Helper;
 use PDF;
@@ -220,49 +221,62 @@ class CartController extends BaseController
 
                 if(!empty($receiver_id)){
 
+                    $message = '';
+
+                    if($request->action_type == 'request_more_details'){
+                        $message = 'Can I have more details on these items please?';
+                    }else{
+
+                        $grid_titles = CartDetails::from('sg_cart_details as item')
+                                                    ->join('sg_cart as cart', function($join) {
+                                                        $join->on('cart.cart_id', '=', 'item.cart_id')
+                                                            ->where([
+                                                                'cart.module_type' => config('custom.cart.module_type.stylegrid')
+                                                            ]);
+                                                    })
+                                                    ->whereIn('item.cart_dtls_id', $cart_items_ids)
+                                                    ->leftjoin('sg_stylegrids as grid', function($join) {
+                                                        $join->on('grid.stylegrid_id', '=', 'cart.module_id');
+                                                    })
+                                                    ->groupBy('grid.stylegrid_id')
+                                                    ->pluck('grid.title')
+                                                    ->toArray();
+                                                    
+                        $message = 'I\'d like to purchase this item from ';
+
+                        if(count($grid_titles)){
+                            
+                            $message .= implode(", ", $grid_titles).'.';
+                        }
+                        
+                    }
+
+                    $media_files = [];
+
+                    $message_obj = [
+                        'type' => 'file',
+                        'receiver_id' => $receiver_id,
+                        'receiver_user' => config('custom.user_type.stylist'),
+                    ];
+
                     foreach ($items as $key => $value) {
                 
-                        // $product_ext = pathinfo('https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
+                        // $product_ext = pathinfo('https://demo.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
                         $product_ext = asset($value->product_image);
 
-                        $message_obj = [
-                                            'message' => trans('pages.product_chat_default_message', [
-                                                'product' => $value && $value->product_name != null ? $value->product_name : '',
-                                            ]),
-                                            'media_files' => json_encode([
-                                                [
-                                                    'media_source' => asset($value->product_image), 
-                                                    // 'media_source' => 'https://stylist.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
-                                                    'is_url' => true,
-                                                    'media_name' => $value->product_name.'_'.time().'.'.$product_ext,
-                                                    'id' => 1,
-                                                    'file_formate' => $product_ext
-                                                ]
-                                            ]),
-                                            'type' => 'file',
-                                            'receiver_id' => $receiver_id,
-                                            'receiver_user' => config('custom.user_type.stylist'),
-                                        ];
+                        array_push($media_files, 
+                        [
+                            'media_source' => asset($value->product_image), 
+                            // 'media_source' => 'https://demo.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg',
+                            'is_url' => true,
+                            'media_name' => $value->product_name.'_'.time().'.'.$product_ext,
+                            'id' => $key,
+                            'file_formate' => $product_ext
+                        ]);
                         
-                        // Create chat contact
-                        $send_chat_room = [
-                            'chat_room_id' => $chat_room->chat_room_id,
-                            'auth_user' => $auth_user,
-                            'message_obj' => $message_obj
-                        ];
-                        
-             
-                        try{
-                            
-                            ChatRepo::save_chat_room_details([$send_chat_room]);
+                       
+                        array_push($remove_cart_items_ids, $value->cart_dtls_id);
 
-                            array_push($remove_cart_items_ids, $value->cart_dtls_id);
-
-                        }catch(\Exception $e){
-
-                            Log::info("error save_chat_room_details - ". $e->getMessage());
-
-                        }
 
                         // save to member temp invoice table
                         $temp_invoice_item = new MemberTempInvoiceItems();
@@ -273,6 +287,26 @@ class CartController extends BaseController
                         $temp_invoice_item->amount = $value->product_price;
                         $temp_invoice_item->save();
                         
+                    }
+                    
+                    $message_obj['media_files'] = json_encode($media_files);
+                    $message_obj['message'] = $message;
+ 
+                    try{
+                        
+                            // Create chat contact
+                        $send_chat_room = [
+                            'chat_room_id' => $chat_room->chat_room_id,
+                            'auth_user' => $auth_user,
+                            'message_obj' => $message_obj
+                        ];
+                        
+                        ChatRepo::save_chat_room_details([$send_chat_room]);
+
+                    }catch(\Exception $e){
+
+                        Log::info("error save_chat_room_details - ". $e->getMessage());
+
                     }
                     
                     // Remove from cart 

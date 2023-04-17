@@ -73,6 +73,10 @@ return [
 
       'product_invoice_paid_title' => 'Product invoice paid!',
       'product_invoice_paid_des' => 'Customer has paid £:amount for :title.',
+
+      'grid_viewed_by_member_title' => 'Stylegrid has been viewed!',
+      'grid_viewed_by_member_des' => ':title has been viewed by the :user.',
+
    ]
 ];
 ?>

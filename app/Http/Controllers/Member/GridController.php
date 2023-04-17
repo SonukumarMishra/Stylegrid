@@ -14,6 +14,7 @@ use App\Models\StyleGridProductDetails;
 use App\Models\StyleGridClients;
 use App\Models\Cart;
 use App\Repositories\GridRepository as GridRepo;
+use App\Repositories\CommonRepository as CommonRepo;
 use Validator,Redirect;
 use Config;
 use Storage;
@@ -100,6 +101,44 @@ class GridController extends BaseController
          
             if($style_grid_dtls){
 
+                // Notify stylist if memebr showing first time
+
+                $is_notify_stylist = StyleGridClients::from('sg_grid_clients as client')
+                                                        ->where([
+                                                            'client.stylegrid_id' => $grid_id,
+                                                            'client.member_id' => Session::get("member_id"),
+                                                            'client.is_read' => 0
+                                                        ])
+                                                        ->join('sg_stylegrids as grid', 'grid.stylegrid_id', '=', 'client.stylegrid_id')
+                                                        ->leftjoin('sg_member as member', 'member.id', '=', 'client.member_id')
+                                                        ->select('grid.stylist_id', 'client.member_id', 'client.stylegrid_id', 'grid.title', 'member.full_name as member_name', 'client.grid_client_id')
+                                                        ->first();
+
+                if($is_notify_stylist){
+
+                    $notify_users = [
+                        [
+                            'association_id' => $is_notify_stylist->stylist_id,
+                            'association_type_term' => config('custom.user_type.stylist')
+                        ]
+                    ];
+
+                    $notification_obj = [
+                        'type' => config('custom.notification_types.grid_viewed_by_member'),
+                        'title' => trans('pages.notifications.grid_viewed_by_member_title'),
+                        'description' => trans('pages.notifications.grid_viewed_by_member_des', ['title' => $is_notify_stylist->title, 'user' => $is_notify_stylist->member_name]),
+                        'data' => [
+                            'stylegrid_id' => $is_notify_stylist->stylegrid_id,
+                        ],
+                        'users' => $notify_users
+                    ];
+
+                    CommonRepo::save_notification($notification_obj);
+
+                    StyleGridClients::where(['grid_client_id' => $is_notify_stylist->grid_client_id])->update(['is_read' => 1]);
+
+                }
+
                 return view('member.dashboard.grids.view', compact('style_grid_dtls'));
 
             }else{
@@ -109,6 +148,9 @@ class GridController extends BaseController
             }
 
         }catch(\Exception $e){
+            
+            Log::info("view error ". print_r($e->getMessage(), true));
+
             return redirect()->route('member.grid.index')->with(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
         }
 	}

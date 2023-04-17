@@ -51,6 +51,23 @@
 
             });
 
+            $('body').on('click', '.grid_cart_action_btn', function(e) {
+
+                e.preventDefault();
+
+                if($(this).data('action') == 'remove'){
+
+                    ViewGridRef.removeCartItem({
+                        cart_id :  $(this).data('cart-id'),
+                        cart_dtls_id : $(this).data('cart-dtls-id'),
+                    });
+                
+                }else{
+                    ViewGridRef.addToCartItem();
+                }
+
+            });
+
         }
 
         ViewGridRef.bindGridItemDetailsModal = function(stylegrid_id, stylegrid_product_id) {

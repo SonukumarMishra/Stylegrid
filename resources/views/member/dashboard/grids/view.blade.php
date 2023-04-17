@@ -81,6 +81,7 @@
                <div class="col-lg-12">
 
                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}});position:relative;display: flex;align-items: center;">
+                  <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{isset($style_grid_dtls->feature_thumb_img) && !empty($style_grid_dtls->feature_thumb_img) ? asset($style_grid_dtls->feature_thumb_img) : asset($style_grid_dtls->feature_image) }});position:relative;display: flex;align-items: center;">
 					
 					<div class="layer"></div>
                        <div class="gridcreated_j" style="background:none;width:100%;">
@@ -123,11 +124,18 @@
 
                            <div class="row">
 
-                               <div class="col-8">
+                              <div class="col-10">
 
-                                   <h1>STYLEGRID {{ $g_key+1 }}</h1>
+                                 <h1>STYLEGRID {{ $g_key+1 }}</h1>
 
-                               </div>
+                              </div>
+
+                              <div class="col-2">
+
+                                 {{-- <button class="submit-request grid_cart_action_btn" style="width:210px;" data-index="{{ $g_key }}" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span class="grid_cart_btn_title" data-index="{{ $g_key }}" > Add All To Cart</span></button> --}}
+
+
+                              </div>
 
                            </div>
 
@@ -153,7 +161,7 @@
 
 
 
-                                                   <img class="stylegrid-product-img" src="{{asset($item->product_image)}}" alt=" " />
+                                                   <img class="stylegrid-product-img1" src="{{ isset($item->product_thumb_img) && !empty($item->product_thumb_img) ? asset($item->product_thumb_img) : asset($item->product_image)}}" alt=" " />
 
 
 
@@ -177,7 +185,7 @@
 
                                <div class="col-lg-5 px-2">
 
-                                   <img src={{asset($grid->feature_image)}} class="img-fluid w-100 height_500 img_preview" alt="">
+                                   <img src="{{ isset($grid->feature_thumb_img) && !empty($grid->feature_thumb_img) ? asset($grid->feature_thumb_img) : asset($grid->feature_image) }}" class="img-fluid w-100 height_5001 img_preview" alt="">
 
                                </div>
 
