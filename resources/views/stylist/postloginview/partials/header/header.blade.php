@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('extensions/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('extensions/temp_chat/style.css') }}">
     <!-- datepicker styles -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{asset('stylist/app-assets/css/bootstrap-datepicker3.min.css')}}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
     
