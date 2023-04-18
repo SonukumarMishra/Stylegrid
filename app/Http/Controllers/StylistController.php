@@ -804,7 +804,7 @@ class StylistController extends Controller
         $page_index = isset($request->page) ? $request->page : 1;
 			
         $list = DB::table('sg_member AS m')
-                    ->select(["m.id", "m.full_name", "m.gender", "c.country_name", "m.email", "m.membership_cancelled", "m.phone", "m.id as spend", \DB::raw("DATE_FORMAT(m.added_date, '%m/%d/%Y %H:%i') as added_date"), "m.slug"])
+                    ->select(["m.id", "m.full_name", "m.gender", "c.country_name", "m.email", "m.membership_cancelled", "m.phone", "m.id as spend", \DB::raw("DATE_FORMAT(m.added_date, '%m/%d/%Y %H:%i') as added_date"), "m.slug", "m.default_stylist_total_payment"])
                     ->join('sg_country as c', 'c.id', '=', 'm.country_id')
                     ->where('m.assigned_stylist', $request->stylist_id)
                     ->orderBy('m.id', 'desc');

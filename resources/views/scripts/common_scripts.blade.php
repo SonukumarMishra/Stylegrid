@@ -189,11 +189,11 @@
         }
 
       
-        window.getDetailsFromObjectByKey = function(obj, id, key) {
+        window.getDetailsFromObjectByKey = function(obj, value, key) {
 
             for (var data in obj) {
                 var e = obj[data];
-                if (e[key] == id) {
+                if (e[key] == value) {
                     return e;
                 }
             }

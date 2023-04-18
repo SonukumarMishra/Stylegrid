@@ -106,7 +106,18 @@ class CartRepository {
 			if($cart){
 
 				$items = json_decode($request->items, true);
+				$item_ids = json_decode($request->item_ids, true);
 				
+				if(count($item_ids)){
+					// Delete dupliocate records for same id for same user
+					CartDetails::where([
+						'cart_id' => $cart->cart_id
+					])
+					->whereIn('item_id', $item_ids)
+					->delete();
+
+				}
+
 				if(is_array($items) && count($items)){
 
 					foreach ($items as $key => $value) {

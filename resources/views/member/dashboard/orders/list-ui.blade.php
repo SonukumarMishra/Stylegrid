@@ -9,7 +9,7 @@
             <td>{{$row->invoice_no}}</td>
             <td>{{$row->stylist_name}}</td>
             <td>{{$row->no_of_items}}</td>
-            <td>£{{$row->invoice_amount}}</td>
+            <td>£{{\Helper::format_number($row->invoice_amount)}}</td>
             <td>{{ isset($row->invoice_paid_on) && !empty($row->invoice_paid_on) ? date('m-d-Y', strtotime($row->invoice_paid_on)) : '' }}</td>
             <td>{{ date('m-d-Y', strtotime($row->created_at)) }}</td>
             <td>
