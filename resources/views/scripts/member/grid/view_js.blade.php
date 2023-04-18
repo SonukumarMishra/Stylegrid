@@ -21,10 +21,11 @@
             }
         };
         
-        ViewGridRef.styleGridJson = @json($style_grid_dtls);
+        ViewGridRef.styleGridJson = '';
        
         ViewGridRef.initEvents = function() {
 
+            ViewGridRef.getStylegrid();
 
             $('body').on('click', '.grid-item-inner-input-block', function(e) {
 
@@ -42,7 +43,7 @@
 
                     ViewGridRef.removeCartItem({
                         cart_id :  $(this).data('cart-id'),
-                        cart_dtls_id : $(this).data('cart-dtls-id'),
+                        cart_dtls_id : [ $(this).data('cart-dtls-id') ],
                     });
                    
                 }else{
@@ -55,16 +56,18 @@
 
                 e.preventDefault();
 
+                var stylegrid_dtls_id = $(this).data('stylegrid-dtls-id');
+                
                 if($(this).data('action') == 'remove'){
 
-                    // ViewGridRef.removeCartItem({
-                    //     cart_id :  $(this).data('cart-id'),
-                    //     cart_dtls_id : $(this).data('cart-dtls-id'),
-                    // });
+                    ViewGridRef.removeCartItem({
+                        cart_id :  $(this).data('cart-id'),
+                        cart_dtls_id : $(this).data('cart-dtls-ids'),
+                    }, true, '.grid_cart_action_btn[data-stylegrid-dtls-id="'+stylegrid_dtls_id+'"]');
                 
                 }else{
 
-                    var stylegrid_dtls_id = $(this).data('stylegrid-dtls-id');
+                   
                     var obj_index = ViewGridRef.styleGridJson.grids.findIndex(x => x.stylegrid_dtls_id == stylegrid_dtls_id);
 
                     if(obj_index != -1){
@@ -202,13 +205,12 @@
                     showSuccessMessage(response.message);
                     manageCartBadgeCount(response.data.cart_items_count);    
                     if(is_all_items == false){
-
-                                       
+   
                         ViewGridRef.bindGridItemDetailsModal($('#grid_id').val(), $('#cart_item_id').val());
                         $('#cart_action_btn').prop('disabled', true);
 
                     }else{
-
+                        ViewGridRef.getStylegrid();
                     }
                 }
 
@@ -216,19 +218,27 @@
             
         }
 
-        ViewGridRef.removeCartItem = function(data) {
-        
-            showSpinner('#cart_action_btn', 'sm', 'light', 'span');
+        ViewGridRef.removeCartItem = function(data, is_all_items = false, spinner_selector='') {
+       
+            if(is_all_items == false){
+                showSpinner('#cart_action_btn', 'sm', 'light', 'span');
+            }else{
+                showSpinner(spinner_selector, 'sm', 'light', 'span');
+            }
 
             var formData = new FormData();            
             formData.append('user_id', auth_id);
             formData.append('user_type', auth_user_type);
             formData.append('cart_id', data.cart_id);
-            formData.append('cart_dtls_id', data.cart_dtls_id);
+            formData.append('cart_dtls_id', JSON.stringify(data.cart_dtls_id));
             
             window.getResponseInJsonFromURL('{{ route("member.cart.remove") }}', formData, (response) => {
 
-                hideSpinner('#cart_action_btn', 'sm');
+                if(is_all_items == false){
+                    hideSpinner('#cart_action_btn', 'sm');
+                }else{
+                    hideSpinner(spinner_selector);
+                }
 
                 if (response.status == '1') {
 
@@ -236,11 +246,14 @@
                     
                     manageCartBadgeCount(response.data.cart_items_count);
 
-                    $('#cart_action_btn').data('cart-id', '');
-                    $('#cart_action_btn').data('cart-dtls-id', '');
-                    $('#cart_btn_title').text('Add To Cart');
-                    $('#cart_action_btn').data('action', 'add');
-
+                    if(is_all_items == false){
+                        $('#cart_action_btn').data('cart-id', '');
+                        $('#cart_action_btn').data('cart-dtls-id', '');
+                        $('#cart_btn_title').text('Add To Cart');
+                        $('#cart_action_btn').data('action', 'add');
+                    }else{
+                        ViewGridRef.getStylegrid();
+                    }
                 } else {
                     showErrorMessage(response.message);
                 }
@@ -250,6 +263,31 @@
         
         };
         
+        ViewGridRef.getStylegrid = function(e) {
+        
+            var formData = new FormData();            
+            formData.append('stylegrid_id', $('#stylegrid_id').val());
+            
+            $('#create-grid').html('');
+
+            showSpinner('#create-grid');
+
+            window.getResponseInJsonFromURL('{{ route("member.grid_dtls_json") }}', formData, (response) => {
+
+                hideSpinner('#create-grid');
+
+                if (response.status == '1') {
+
+                    $('#create-grid').append(response.data.view);
+                    ViewGridRef.styleGridJson = response.data.style_grid_dtls;
+                    
+                } else {
+                    showErrorMessage(response.message);
+                }
+               
+            }, processExceptions, 'POST');
+        
+        };
 
         ViewGridRef.processExceptions = function(e) {
             showErrorMessage(e);

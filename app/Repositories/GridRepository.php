@@ -10,6 +10,8 @@ use App\Models\StyleGridDetails;
 use App\Models\StyleGridClients;
 use App\Models\ProductInvoice;
 use App\Models\StyleGridProductDetails;
+use App\Models\Cart;
+use App\Models\CartDetails;
 use DB;
 use Log;
 
@@ -87,7 +89,7 @@ class GridRepository {
 
 	}
 
-	public static function get_stylegrid_details($grid_id) {
+	public static function get_stylegrid_details($grid_id, $user_data=[]) {
 
 		$result = false;
 
@@ -96,6 +98,17 @@ class GridRepository {
 			$style_grid_dtls = StyleGrids::find($grid_id);
 			
 			if($style_grid_dtls){
+
+				$user_grid_cart_dtls = Cart::where([
+												'association_id' => $user_data['auth_id'],
+												'association_type_term' => $user_data['auth_user'],
+												'module_id' => $grid_id,
+												'module_type' => config('custom.cart.module_type.stylegrid'),
+												'is_active' => 1
+											])
+											->first();
+
+				$style_grid_dtls->in_cart_exists = $user_grid_cart_dtls ? 1 : 0;
 
                 $style_grid_dtls->grids = StyleGridDetails::where([
                                                 'stylegrid_id' => $style_grid_dtls->stylegrid_id,
@@ -112,6 +125,37 @@ class GridRepository {
                                                                 ])
 																->get();
 
+						$style_grid_dtls->grids[$key]['grid_all_items_exists_cart'] = 0;
+						$style_grid_dtls->grids[$key]['cart_dtls_ids'] = [];
+						$style_grid_dtls->grids[$key]['cart_id'] = '';
+						
+						if($style_grid_dtls->in_cart_exists){
+
+							$style_grid_dtls->grids[$key]['cart_id'] = $user_grid_cart_dtls->cart_id;
+							
+							$product_ids = StyleGridProductDetails::where([
+																	'stylegrid_dtls_id' => $value->stylegrid_dtls_id,
+																	'is_active' => 1
+																])
+																->get()
+																->pluck('stylegrid_product_id')
+																->toArray();
+
+							$cart_items_count = CartDetails::where('cart_id', $user_grid_cart_dtls->cart_id)
+															->whereIn('item_id', $product_ids)
+															->where('item_type', config('custom.cart.item_type.stylegrid_product'))
+															->get()
+															->pluck('cart_dtls_id')
+															->toArray();
+
+							if(count($product_ids) == count($cart_items_count)){
+
+								$style_grid_dtls->grids[$key]['grid_all_items_exists_cart'] = 1;
+								$style_grid_dtls->grids[$key]['cart_dtls_ids'] = $cart_items_count;
+							
+							}
+
+						}
 
                     }
                 }
@@ -167,7 +211,7 @@ class GridRepository {
 
 		}catch(\Exception $e) {
 
-            Log::info("error get_stylegrid_details ". print_r($e->getMessage(), true));
+            Log::info("error get_stylegrid_product_details ". print_r($e->getMessage(), true));
 			return $result;
         }
 

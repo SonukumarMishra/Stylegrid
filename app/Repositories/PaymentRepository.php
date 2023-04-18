@@ -9,6 +9,7 @@ use App\Models\Subscription;
 use App\Models\UserSubscription;
 use App\Models\PaymentTransaction;
 use App\Models\ProductInvoice;
+use App\Models\ProductInvoiceItems;
 use App\Repositories\UserRepository as UserRepo;
 use App\Repositories\CommonRepository as CommonRepo;
 use Validator;
@@ -825,7 +826,12 @@ class PaymentRepository {
 
 		try {
 
-			$sourcing_invoice = ProductInvoice::find($request->product_invoice_id);
+            $sourcing_invoice = ProductInvoice::from('sg_product_invoices as invoice')
+                                            ->where('invoice.product_invoice_id', $request->product_invoice_id)
+                                            ->leftjoin('sg_stylist as stylist', 'stylist.id', '=', 'invoice.stylist_id')
+                                            ->leftjoin('sg_member as member', 'member.id', '=', 'invoice.member_id')
+                                            ->select('invoice.*', 'stylist.full_name as stylist_name', 'stylist.email as stylist_email', 'member.full_name as member_name', 'member.email as member_email')
+                                            ->first();
 			
 			if(!$sourcing_invoice){
 				
@@ -875,7 +881,7 @@ class PaymentRepository {
 
                     // Update to member total payment for default stylist
 
-                    $member_details =  Member::find($request->user_id);
+                    $member_details = Member::find($request->user_id);
 
                     if($member_details){
                        
@@ -885,6 +891,53 @@ class PaymentRepository {
                     }
                    
 					// Save invoice pdf 
+
+                    $pdf_url = '';
+
+                    try {
+
+                        // if (app()->environment('local')) {
+
+                            set_time_limit(300);
+
+                            $invoice_dtls = $sourcing_invoice;
+                           
+                            $invoice_items = ProductInvoiceItems::from('sg_product_invoices_items as item')
+                                                                ->leftjoin('sg_stylegrid_product_details as product', 'product.stylegrid_product_id', '=', 'item.stylegrid_product_id')
+                                                                ->where('item.product_invoice_id', $sourcing_invoice->product_invoice_id)
+                                                                ->select('product.product_name', 'product.product_brand', 'product.product_type', 'product.product_size', 'product.product_image', 'item.price')
+                                                                ->get();
+                                                                
+
+                            $pdf = PDF::loadView('pdf_templates.product-invoice-pdf', compact('invoice_dtls', 'invoice_items'));
+
+                            $default_storage = config('filesystems.default');
+
+                            $default_storage_driver = config('filesystems.disks.'.$default_storage.'.driver');
+
+                            $pdf_path = 'uploads/invoices/Order_In_'.time().'.pdf';
+
+                            $cloudResponse = Storage::disk($default_storage_driver)->put($pdf_path, $pdf->output());
+
+                            if($cloudResponse){
+
+                                $pdf_url = $pdf_path;
+                                
+                                $sourcing_invoice->invoice_pdf = $pdf_path;
+                                
+                                $sourcing_invoice->save();
+
+                                // if($default_storage != 'public'){
+
+                                //     $pdf_url = Storage::url($pdf_path);
+
+                                // }
+                            }
+                        // }
+
+                    } catch(\Exception $e) {
+                        Log::info("error invoice pdf ". $e->getMessage());
+                    }
 
 					// send notification to stylist for payment 
 					

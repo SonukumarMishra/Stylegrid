@@ -149,6 +149,7 @@ Route::get('/member-submit-request-complete', [Member::class, 'memberSubmitReque
 Route::get('/member-grid', 'Member\GridController@index')->name('member.grid.index');
 Route::post('/member-grid/list', 'Member\GridController@getStyleGridList')->name('member.grid.list');
 Route::get('member-grid/view/{grid_id}', 'Member\GridController@view')->name('member.grid.view');
+Route::post('/member-grid-details-json', 'Member\GridController@getGridDetailsJson')->name('member.grid_dtls_json');
 Route::post('member-grid/product-details', 'Member\GridController@getStyleGridProductDetails')->name('member.grid.product');
 
 Route::get('/member-grid-details', [Member::class, 'memberGridDetails']);
