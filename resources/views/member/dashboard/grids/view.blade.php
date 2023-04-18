@@ -80,7 +80,6 @@
 
                <div class="col-lg-12">
 
-                  <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{asset($style_grid_dtls->feature_image)}});position:relative;display: flex;align-items: center;">
                   <div class="stylegrid-bg-img mx-lg-4 mx-2 mt-3 px-lg-4 px-2 py-2 height_570" style="background: url({{isset($style_grid_dtls->feature_thumb_img) && !empty($style_grid_dtls->feature_thumb_img) ? asset($style_grid_dtls->feature_thumb_img) : asset($style_grid_dtls->feature_image) }});position:relative;display: flex;align-items: center;">
 					
 					<div class="layer"></div>
@@ -323,6 +322,5 @@
 
 
 @stop
-
 
 
