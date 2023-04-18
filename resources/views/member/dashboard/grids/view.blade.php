@@ -131,7 +131,7 @@
 
                               <div class="col-2">
 
-                                 {{-- <button class="submit-request grid_cart_action_btn" style="width:210px;" data-index="{{ $g_key }}" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span class="grid_cart_btn_title" data-index="{{ $g_key }}" > Add All To Cart</span></button> --}}
+                                 <button class="submit-request grid_cart_action_btn" style="width:210px;" data-stylegrid-dtls-id={{ $grid->stylegrid_dtls_id}} data-index="{{ $g_key }}" data-action="add"><span id="cart_icon"><i class="fa-solid fa-cart-shopping"></i></span>&nbsp; <span class="grid_cart_btn_title" data-index="{{ $g_key }}" > Add All To Cart</span></button>
 
 
                               </div>

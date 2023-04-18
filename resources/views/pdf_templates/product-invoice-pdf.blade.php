@@ -1,203 +1,185 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta name="x-apple-disable-message-reformatting" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aloha!</title>
 
-        <title></title>
-        @include('common.pdf_common_styles')
-        <style>
+<style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+    .invoice-box table td.pt{
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+    .invoice-box table tr.top table td {
+        /* padding-bottom: 20px; */
+    }
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+    .invoice-box table tr.heading td {
+        /* background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold; */
+        
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+        padding-top: 20px;
+        
+    }
+    .invoice-box table tr.item td {
+        border-bottom: 1px solid #eee;
+    }
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+    /** RTL **/
+    .invoice-box.rtl {
+        direction: rtl;
+        font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    }
+    .invoice-box.rtl table {
+        text-align: right;
+    }
+    .invoice-box.rtl table tr td:nth-child(2) {
+        text-align: left;
+    }
 
-            body {
-               margin: 0;
-               font-family: "Silk Serif", -apple-system, BlinkMacSystemFont, "Genos", 'Roboto', "Genos-Light", 'Silk Serif Medium', 'Avenir';
-               font-size: 1rem;
-               font-weight: 400;
-               line-height: 1.45;
-               color: #6b6f80;
-               text-align: left;
-               background-color: #F9FAFD;
-            }
+    .tr_border{
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+</style>
 
-            @page { 
-                size: landscape;
-                margin: 0px;
-            }
-            table,
-            td,
-            div,
-            h1,
-            p {
-                font-family: Arial, sans-serif;
-                font-size: 14px;
-            }
-            th {
-                border: 0;
-            }
 
-            @media print {
-             
-                body {
-                    font-size: 10px !important;
-                }
-    
-                p {
-                    font-size: 10px !important;
-                } 
-            }
-
-        </style>
-    </head>
-    <body style="margin: 0; padding: 0;">
-        <table cellspacing="0" border="0" cellpadding="0" width="100%" bgcolor="#f2f3f8"
-            style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
+</head>
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
             <tr>
+                <td colspan="2" class="title">
+                    <img src="https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg" style="width: 25%; max-width: 200px" />
+                </td>
                 <td>
-                    <table style="background-color: #f2f3f8; max-width:670px;  margin:0 auto;" width="100%" border="0"
-                        align="center" cellpadding="0" cellspacing="0">
-                        <tr>
-                            <td style="height:80px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="height:20px;">&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"
-                                    style="max-width:670px;background:#fff; border-radius:3px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
-                                    <tr>
-                                        <td style="height:40px;">&nbsp;</td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td style="padding:0 35px;">
-                                            <p>
-                                                <img src="{{ asset('common/images/logo_icon.png') }}" style="height: 22px;margin-right: 5px;" />
-                                                <img src="{{ asset('common/images/STYLEGRID-LOGO.png') }}" />
-                                            </p>
-                                            <h1
-                                                style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;'Montserrat', sans-serif">
-                                                Welcome To {{ env('APP_NAME')}}</h1>
-                                            <p
-                                                style="text-align: left;font-size: 18px;line-height: 24px;font-weight: 600;">
-                                                Hi {{ @$user->full_name}} , </p>
-                                            <p style="color: #2a292b;font-size: 16px;line-height: 24px;margin: 0;text-align: left;">
-                                                Thank you for subscribing to {{ @$data->subscription_name }}. Your subscription has been activated till {{ date('m-d-Y', strtotime(@$data->end_date)) }}.
-                                            </p>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="padding:0 35px;">
-
-                                            <table style="margin-top:10px;">
-                                                <tr>
-                                                    <td width="300">
-                                                        <img src="{{url('/') . "/common/images/calender.jpg"}}" alt="" style="object-fit: cover;" height="80" width="80" onerror="this.src = '{{\Helper::defaultImage()}}';">
-                                                    </td>
-                                                    <td width="300">
-                                                        <img src="{{url('/') . "/common/images/star.png"}}" alt="" style="object-fit: cover;" height="60" width="60" onerror="this.src = '{{\Helper::defaultImage()}}';">
-                                                    </td>
-                                                    <td width="300">
-                                                        <img src="{{url('/') . "/common/images/dollar.jpg"}}" alt="" style="object-fit: cover;" height="80" width="80" onerror="this.src = '{{\Helper::defaultImage()}}';">
-                                                    </td>
-                                                </tr>
-                                            </table>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="padding:0 35px;">
-                                            <table style="">
-                                                <tr>
-                                                    <td width="300" style="font-weight: 600;"># Invoice Date</td>
-                                                    <td width="300" style="font-weight: 600;"># Plan</td>
-                                                    <td width="300" style="font-weight: 600;"># Amount</td>
-                                                </tr>
-
-                                                <tr>
-                                                    <td width="300" style="">{{ date('m-d-Y', strtotime(@$data->invoice_date)) }}</td>
-                                                    <td width="300" style="">{{ @$data->subscription_name }}</td>
-                                                    <td width="300" style="">£{{ \Helper::format_number(@$data->price) }}</td>
-                                                </tr>
-
-                                            </table>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td style="padding:0 35px;">
-                                            <table style="margin-top:20px;">
-                                                <tr height="40" style="background-color:#10464640">
-                                                    <td width="300" height="25" style="font-weight: 600;">Description</td>
-                                                    <td width="300" height="25" style="font-weight: 600;">Validity</td>
-                                                    <td width="300" height="25" style="font-weight: 600;">Amount</td>
-                                                </tr>
-
-                                                <tr height="35" style="background-color:#5f707014">
-                                                    <td width="300" style="">{{ @$data->subscription_name }}</td>
-                                                    <td width="300" style="">{{ date('m-d-Y', strtotime(@$data->start_date)) }} - {{ date('m-d-Y', strtotime(@$data->end_date)) }}</td>
-                                                    <td width="300" style="">£{{ \Helper::format_number(@$data->price) }}</td>
-                                                </tr>
-
-                                                <tr height="35">
-                                                    <td width="300" style=""></td>
-                                                    <td width="300" style="font-weight: 600;">TOTAL</td>
-                                                    <td width="300" style="background-color:#10464640;font-weight: 600;">£{{ \Helper::format_number(@$data->price) }}</td>
-                                                </tr>
-
-                                            </table>
-
-                                        </td>
-                                    </tr>
-
-                                    {{-- <tr>
-                                        <td style="padding:0 35px;">
-                                            <table style="margin-top:20px;">
-                                                <tr height="40" style="background-color:#5f707014">
-                                                    <td width="300" height="25">
-                                                        <span style="font-weight:600;">Payment Status:</span>
-                                                        <span style="color:green; margin-left:10px;">PAID</span>
-                                                    </td>
-                                                    <td width="300" height="25">
-                                                        <span style="font-weight:600;">Transaction ID:</span>
-                                                        <span style="font-weight:0; margin-left:10px;">#{{ @$data->payment_trans_id }}</span>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr> --}}
-
-                                    <tr>
-                                        <td style="height:40px;">&nbsp;</td>
-                                    </tr>
-
-
-                                </table>
-                            </td>
-                        </tr>
-
-
-
-
-                        <tr>
-                            <td style="height:20px;">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td style="height:80px;">&nbsp;</td>
-                        </tr>
+                    <table style="text-align:left;padding-left: 40%;">
+                        <tr><td>INVOICE #000123</td></tr>
+                        <tr><td>ISSUED: 01/01/2023</td></tr>
+                        <tr><td>REF: SG-MM-001</td></tr>
                     </table>
                 </td>
             </tr>
+            <tr class="information">
+                <td class="pt">
+                    <b><u>BILL TO:</u></b><br />
+                    12345 Sunny Road<br />
+                    Sunnyville, CA 12345
+                </td>
+                <td class="pt" style="text-align:left;padding-left: 20%;">
+                    <b><u>STYLIST:</u></b><br />
+                    John Doe<br />
+                    john@example.com
+                </td>
+                <td class="pt" style="float: right;padding-left: 40%;">
+                    <b><u>PAYABLE TO:</u></b><br />
+                    John Doe<br />
+                    john@example.com
+                </td>
+            </tr>
+            <tr class="heading">
+                <td>Description</td>
+                <td style="padding-left: 50%;">QTY</td>
+                <td style="padding-left: 80%;">Total</td>
+            </tr>
+                <tr class="details" style="padding-top: 20px;">
+                <td>Check</td>
+                <td style="padding-left: 50%;">1000</td>
+                <td style="padding-left: 80%;">1000</td>
+            </tr>
+            <tr class="details">
+                <td>Check</td>
+                <td style="padding-left: 50%;">1000</td>
+                <td style="padding-left: 80%;">1000</td>
+            </tr>
+           <tr class="heading">
+                <td colspan="2">Total</td>
+                <td style="text-align: start;">2,548</td>
+            </tr>
+            <tr class="top" style="float: unset;">
+                <td colspan="2"></td>
+                <td style="padding-top:20px;">
+                    <table style="border-top: 1px solid black;border-bottom: 1px solid black;">
+                        <tr style="float: right;">
+                            <td> Total amount: </td>
+                            <td> 3434554 </td>
+                        </tr>  
+                               
+                        <tr style="float: right;">
+                            <td> shipping:  </td>
+                            <td>   3434554 </td>
+                        </tr>  
+                               
+                        <tr style="float: right;">
+                            <td> tax: </td>
+                            <td> 3434554 </td>
+                        </tr>  
+                              
+                        <tr style="float: right;">
+                            <td><span style="color: green;">amount rate: </span></td>
+                            <td><span style="color: green;">  3434554 </span> </td>
+                        </tr> 
+                    </table>
+                </td>
+            </tr>
+            <tr class="">
+                 <td colspan="2"></td>
+                 <td style="padding-top:20px;"><img src="https://images.pexels.com/photos/1337380/pexels-photo-1337380.jpeg" style="width: 25%; max-width: 200px" /></td>
+             </tr>
         </table>
-       
-    </body>
-
+    </div>
+</body>
 </html>

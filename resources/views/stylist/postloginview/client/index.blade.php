@@ -49,6 +49,7 @@
                                         <th scope="col">Location</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
+                                        <th scope="col">Payment</th>
                                         <th scope="col">Date Joined</th>
                                     </tr>
                                 </thead>

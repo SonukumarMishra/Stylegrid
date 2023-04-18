@@ -858,8 +858,6 @@ class PaymentRepository {
 					$payment_trans_data['trans_id'] = @$payment_dtls->id;
 					$payment_trans_data['trans_currency'] = @$payment_dtls->currency;
 					$payment_trans_data['trans_mode'] = @$payment_dtls->source->object;
-					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
-					$payment_trans_data['trans_currency'] = @$payment_dtls->id;
 
 					// Save payment transaction details
 					$payment_trans_result = self::save_payment_transaction($payment_trans_data);
@@ -875,6 +873,17 @@ class PaymentRepository {
 					$sourcing_invoice->invoice_status = config('custom.product_invoice.status.paid');
 					$sourcing_invoice->save();
 
+                    // Update to member total payment for default stylist
+
+                    $member_details =  Member::find($request->user_id);
+
+                    if($member_details){
+                       
+                        $member_details->default_stylist_total_payment += $request->amount;
+                        $member_details->save();
+
+                    }
+                   
 					// Save invoice pdf 
 
 					// send notification to stylist for payment 
