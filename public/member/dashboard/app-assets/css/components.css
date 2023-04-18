@@ -1142,9 +1142,9 @@ background-clip: text;
 }
 
 .main-menu .main-menu-content {
-  height: -webkit-calc(100% - 0rem);
-  height: -moz-calc(100% - 0rem);
-  height: calc(100% - 0rem);
+  height: -webkit-calc(100% - 0rem) !important;
+  height: -moz-calc(100% - 0rem) !important;
+  height: calc(100% - 0rem) !important;
   position: relative;
   clear: both;
 }

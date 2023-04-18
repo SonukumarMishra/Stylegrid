@@ -3093,3 +3093,119 @@ transform: rotate(180deg);
 .menu-collapsed .sidemnu_img_avtar{
   height: 59px;
 }
+/****************new sourcing page********************/
+.grid-list-view {}
+
+.grid-view,
+.list-view {
+  font-family: 'Genos';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  width: 55px;
+  height: 19px;
+  line-height: 12px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 0.5px solid #000000;
+  border-radius: 2px;
+  color: #000000;
+}
+
+.list-view {
+  background: #EDEDED;
+  border-radius: 2px;
+  border: 0;
+}
+.new-sourcing-active-req-img-border{
+  border-width: 0.27px 0.27px 0.27px 0px;
+  border-color: #000;
+}
+.new-sourcing-active-req-img-border1{
+  border-width: 0.27px 0.27px 0.27px 0.27px;
+  border-color: #000;
+  border: 0.27px solid lightgrey;
+}
+.open-text {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12.3747px;
+  line-height: 20px;
+
+  color: #00A82F;
+}
+
+.active-request-product-name {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12.3747px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.active-request-product-type {
+  font-family: 'Silk Serif';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 10.6069px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #000000;
+}
+
+.active-request-product-fulfill,.active-request-product-fulfilled,.active-request-product-pending {
+  background: #00A82F;
+  border-radius: 1.9539px;
+  width: 91px;
+  height: 19px;
+  font-family: 'Genos';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13.2586px;
+  line-height: 16px;
+  text-align: center;
+  color: #FFFFFF;
+  border:0;
+}
+.active-request-product-fulfilled{
+  background-color: #3361FF !important;
+}
+.active-request-product-pending{
+  background: #F89500;
+border-radius: 1.9539px;
+}
+
+.owl-carousel .nav-btn{
+  height: 47px;
+  position: absolute;
+  width: 26px;
+  cursor: pointer;
+  top: -56px !important;
+}
+
+.owl-carousel .owl-prev.disabled,
+.owl-carousel .owl-next.disabled{
+pointer-events: none;
+opacity: 0.2;
+}
+
+.owl-carousel .prev-slide{
+  background: url(../images/arrow-left-long-solid.svg);
+  /* left: -33px; */
+  background-repeat: no-repeat;
+  right: 62px;
+ }
+.owl-carousel .next-slide{
+  background: url(../images/arrow-right-long-solid.svg) ;
+  right: 0px;
+  background-repeat: no-repeat;
+  }
+/* .owl-carousel .prev-slide:hover{
+ background-position: 0px -53px;
+}
+.owl-carousel .next-slide:hover{
+background-position: -24px -53px;
+}  */
