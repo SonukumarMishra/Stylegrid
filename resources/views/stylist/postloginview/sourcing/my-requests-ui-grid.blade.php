@@ -2,26 +2,11 @@
 @if (count($list))
 
     @foreach ($list as $key => $source_row)
-    <!-- <div class="px-0 mb-3">
-                                            <div class="card">
-                                                <div>
-                                                    <img src="./assets/images/watch.png"
-                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
-                                                </div>
-                                                <div class="p-1">
-                                                    <div class="open-text">Open</div>
-                                                    <div class="active-request-product-name ">DAY DATE YELLOW GOLD</div>
-                                                    <div class="active-request-product-type">ROLEX</div>
-                                                    <a href="#" class=""><button
-                                                            class="active-request-product-fulfill mt-1">VIEW
-                                                            OFFER</button></a>
-                                                </div>
-                                            </div>
-                                        </div> -->
+
         <div class="col-3 px-0 mb-3">
             <div class="card">
             
-                <img src="{{ asset('attachments/source/'.$source_row->p_image) }}" class=" img-fluid new-sourcing-active-req-img-border1" alt="">
+                <img src="{{ asset('attachments/source/'.$source_row->p_image) }}" class="card-img-top img_preview img-fluid new-sourcing-active-req-img-border1 w-100" alt="">
             
                 <div class="p-1">
                     <div class="open-text">
