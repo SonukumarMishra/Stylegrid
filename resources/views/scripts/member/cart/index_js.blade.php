@@ -117,7 +117,7 @@
             formData.append('user_id', auth_id);
             formData.append('user_type', auth_user_type);
             formData.append('cart_id', cart_id);
-            formData.append('cart_dtls_id', cart_dtls_id);
+            formData.append('cart_dtls_id', JSON.stringify([cart_dtls_id]));
             
             window.getResponseInJsonFromURL('{{ route("member.cart.remove") }}', formData, (response) => {
 
