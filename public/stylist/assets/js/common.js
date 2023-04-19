@@ -351,11 +351,22 @@ function lettersOnly(evt) {
         return false;
   }
 
- 
-//   $(function () {
-//     $('.datepicker').datepicker({
-//       language: "es",
-//       autoclose: true,
-//       format: "dd/mm/yyyy"
-//     });
-//   });
+    $(document).ready(function () {
+        $('.owl-carousel').owlCarousel({
+            autoplay: false,
+            loop: true,
+            navText: ["<div class='nav-btn prev-slide'></div>", "<div class='nav-btn next-slide'></div>"],
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    });
