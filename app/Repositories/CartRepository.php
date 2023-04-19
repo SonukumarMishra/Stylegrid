@@ -149,11 +149,13 @@ class CartRepository {
 
 		try{
 			
+			$cart_dtls_id = json_decode($request->cart_dtls_id);
+
 			CartDetails::where([
 							'cart_id' => $request->cart_id,
-							'cart_dtls_id' => $request->cart_dtls_id,
 							'is_active' => 1
 						])
+						->whereIn('cart_dtls_id', $cart_dtls_id)
 						->delete();
 
 			$existing_cart_items_count = CartDetails::where([

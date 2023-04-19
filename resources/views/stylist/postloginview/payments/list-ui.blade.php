@@ -18,6 +18,15 @@
                     <span class="text-success">Paid</span>
                 @endif
             </td>
+            @if ($row->invoice_status == config('custom.product_invoice.status.paid'))
+
+                @if (isset($row->invoice_pdf) && !empty($row->invoice_pdf))
+            
+                    <td><a href="{{ asset($row->invoice_pdf) }}" target="_blank" class="pay-invoice-btn1" style="width: 100%; height: 25px; font-size:16px;">View Invoice</a></td>                    
+                
+                @endif
+
+            @endif
         </tr>
 
     @endforeach

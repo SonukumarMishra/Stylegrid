@@ -93,19 +93,46 @@ class GridController extends BaseController
 	}
     
 
-    public function view($grid_id)
+    public function view($stylegrid_id)
 	{
         try{
 
-            $style_grid_dtls = GridRepo::get_stylegrid_details($grid_id);
+            return view('member.dashboard.grids.view', compact('stylegrid_id'));
+
+        }catch(\Exception $e){
+            
+            Log::info("view error ". print_r($e->getMessage(), true));
+
+            return redirect()->route('member.grid.index')->with(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+        }
+	}
+
+    public function getGridDetailsJson(Request $request)
+	{
+        try{
+
+            $user_data = $this->auth_user;
+
+            $style_grid_dtls = GridRepo::get_stylegrid_details($request->stylegrid_id, $user_data);
          
             if($style_grid_dtls){
+
+                $user_grid_cart_dtls = Cart::where([
+                                            'association_id' => $user_data['auth_id'],
+                                            'association_type_term' => $user_data['auth_user'],
+                                            'module_id' => $request->stylegrid_id,
+                                            'module_type' => config('custom.cart.module_type.stylegrid'),
+                                            'is_active' => 1
+                                        ])
+                                        ->first();
+
+                $style_grid_dtls->in_cart_exists = $user_grid_cart_dtls ? 1 : 0;
 
                 // Notify stylist if memebr showing first time
 
                 $is_notify_stylist = StyleGridClients::from('sg_grid_clients as client')
                                                         ->where([
-                                                            'client.stylegrid_id' => $grid_id,
+                                                            'client.stylegrid_id' => $request->stylegrid_id,
                                                             'client.member_id' => Session::get("member_id"),
                                                             'client.is_read' => 0
                                                         ])
@@ -139,21 +166,31 @@ class GridController extends BaseController
 
                 }
 
-                return view('member.dashboard.grids.view', compact('style_grid_dtls'));
+                $view = '';
 
-            }else{
+                $view = view("member.dashboard.grids.view-details", compact('style_grid_dtls'))->render();
 
-                return redirect()->route('member.grid.index')->with(['status' => 0, 'message' => trans('pages.crud.no_data', ['attr' => 'grid'])]);
+                $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
+                                    'data' => [
+                                        'view' => $view,
+                                        'style_grid_dtls' => $style_grid_dtls
+                                    ]  
+                                ];
+    
+                return response()->json($response_array, 200);
 
             }
 
         }catch(\Exception $e){
             
-            Log::info("view error ". print_r($e->getMessage(), true));
+            Log::info("error getGridDetailsJson - ". $e->getMessage());
+            
+            $response_array = ['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage() ];
 
-            return redirect()->route('member.grid.index')->with(['status' => 0, 'message' => trans('pages.something_wrong'), 'error' => $e->getMessage()]);
+            return response()->json($response_array, 200);
         }
 	}
+
 
     public function getStyleGridProductDetails(Request $request)
 	{

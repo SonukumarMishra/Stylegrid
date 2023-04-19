@@ -315,7 +315,7 @@ class Helper
 
         }
 
-        return 'IN'.date('mdY').sprintf('%010d', $invoice_no);
+        return date('mdY').sprintf('%04d', $invoice_no);
         
     }
 

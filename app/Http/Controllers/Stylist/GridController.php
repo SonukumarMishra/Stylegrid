@@ -372,7 +372,9 @@ class GridController extends BaseController
 	{
         try{
 
-            $style_grid_dtls = GridRepo::get_stylegrid_details($grid_id);
+            $user_data = $this->auth_user;
+
+            $style_grid_dtls = GridRepo::get_stylegrid_details($grid_id, $user_data);
 
             if($style_grid_dtls){
 
