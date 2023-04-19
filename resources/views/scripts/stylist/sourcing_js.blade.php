@@ -23,6 +23,7 @@
         
         SourcingRef.liveRequestsCurrentPage = 1;
         SourcingRef.myRequestsCurrentPage = 1;
+        SourcingRef.activeViewType = 'grid';
 
         SourcingRef.initEvents = function() {
 
@@ -89,6 +90,26 @@
 
             });
 
+            $('body').on('click', '.page-view-btn', function(e) {
+
+                e.preventDefault();
+                
+                if($(this).data('action') == 'grid'){
+
+                    SourcingRef.activeViewType = 'grid';
+                    $('#grid-view-container').show();
+                    $('#list-view-container').hide();
+                    
+                }else{
+
+                    SourcingRef.activeViewType = 'list';
+                    $('#grid-view-container').hide();
+                    $('#list-view-container').show();
+                    
+                }
+                
+
+            });
             
             $('body').on('click', '#sourcing_invoice_frm_btn', function(e) {
 
@@ -130,11 +151,13 @@
 
             window.getResponseInJsonFromURL('{{ route("stylist.sourcing.requests") }}', formData, (response) => {
                
-                $('#live_requests_tbl_container').html('');
+                $('#list_live_requests_tbl_container').html('');
+                $('#grid_live_requests_tbl_container').html('');
                 
                 if (response.status == '1') {
 
-                    $('#live_requests_tbl_container').html(response.data.view);
+                    $('#list_live_requests_tbl_container').html(response.data.list_view);
+                    $('#grid_live_requests_tbl_container').html(response.data.grid_view);
 
                     if(response.data.json.list.links != undefined){
 
@@ -185,11 +208,13 @@
 
             window.getResponseInJsonFromURL('{{ route("stylist.sourcing.requests") }}', formData, (response) => {
             
-                $('#my_requests_tbl_container').html('');
-                
+                $('#list_my_requests_tbl_container').html('');
+                $('#grid_my_requests_tbl_container').html('');
+
                 if (response.status == '1') {
 
-                    $('#my_requests_tbl_container').html(response.data.view);
+                    $('#list_my_requests_tbl_container').html(response.data.list_view);
+                    $('#grid_my_requests_tbl_container').html(response.data.grid_view);
 
                     if(response.data.json.list.links != undefined){
 

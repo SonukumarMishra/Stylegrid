@@ -145,16 +145,20 @@ class StylistController extends Controller
             $result = SourcingRepo::getStylistSourcingLiveRequests($request);
 
         }
-        $view = '';
+
+        $list_view = '';
+        $grid_view = '';
 
         if(isset($result['list'])){
 
             $list = $result['list'];
             
             if($request->type == 'my_sources'){
-                $view = view("stylist.postloginview.sourcing.my-requests-ui", compact('list'))->render();
+                $list_view = view("stylist.postloginview.sourcing.my-requests-ui", compact('list'))->render();
+                $grid_view = view("stylist.postloginview.sourcing.my-requests-ui-grid", compact('list'))->render();
             }else{
-                $view = view("stylist.postloginview.sourcing.live-requests-ui", compact('list'))->render();
+                $list_view = view("stylist.postloginview.sourcing.live-requests-ui", compact('list'))->render();
+                $grid_view = view("stylist.postloginview.sourcing.live-requests-ui-grid", compact('list'))->render();
             }
 
         }
@@ -162,7 +166,8 @@ class StylistController extends Controller
         // response.data.data.links
         $response_array = [ 'status' => 1, 'message' => trans('pages.action_success'), 
                             'data' => [
-                                'view' => $view,
+                                'list_view' => $list_view,
+                                'grid_view' => $grid_view,
                                 'json' => $result
                             ]  
                           ];
