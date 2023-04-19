@@ -89,16 +89,22 @@
                                 <!-- <input type="text"  onpaste="return false;" onkeydown="return false;" class="form-control submit-input" id="deliver_date" name="deliver_date" placeholder="Enter due date...">
                                  -->
                                   <!-- Date Picker -->
-        <div class="form-group mb-4">
-          <div class="datepicker date input-group">
-            <input type="text" placeholder="Enter due date..." class="form-control submit-input" id="deliver_date" onpaste="return false;" onkeydown="return false;" name="deliver_date">
-            <div class="input-group-append">
-              <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-            </div>
-          </div>
-        </div>
-        <!-- // Date Picker -->
+                                <div class="form-group">
+                                <div class="datepicker date input-group">
+                                    <input type="text" placeholder="Enter due date..." class="form-control submit-input" id="deliver_date" onpaste="return false;" onkeydown="return false;" name="deliver_date">
+                                    <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                                </div>
+                                <!-- // Date Picker -->
                                 <div id="deliver_date_error" class="error"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Enter any additional details and specifications:</label>
+                                <textarea  class="form-control submit-input"  col="50" rows="5"
+                                    placeholder="Enter any additional..." id="additional_info_member" name="additional_info_member">
+                                </textarea>
                             </div>
                             <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
                     </div>
