@@ -28,7 +28,7 @@
 
                 </div>
 
-                <div class="col-md-4 quick-link text-right">
+                <div class="col-md-4 quick-link text-right d-none">
 
                     <span class="mr-5"><a hrf="">Quick Link</a></span>
 
@@ -172,6 +172,22 @@
                                         class="w-100 form-control submit-input" maxlength="6">
 
                                         <div id="source_price_error" class="error"></div>
+
+                                </div>
+                                    <div class="mt-2">
+                                     <label for=""> Add any additional information and specs about what you can supply.</label>
+
+                                    </div>
+                               
+                                <div class="w-100">
+
+                                    <textarea  placeholder="Enter Additional Informtaion...." id="additional_info_stylist" name="additional_info"
+
+                                        class="w-100 form-control additional_info_stylist" col="50" rows="5">
+                                        </textarea>
+                                        <div id="additional_info_error" class="error"></div>
+                                        
+                                        
 
                                 </div>
 

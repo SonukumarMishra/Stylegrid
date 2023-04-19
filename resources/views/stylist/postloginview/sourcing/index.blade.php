@@ -37,12 +37,97 @@
 
                     <div class="row w-100" id="new-sourcing-page">
                         <div class="container-fluid">
-                            <div class="row p-2">
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="owl-carousel row" id="grid_my_requests_tbl_container">
+                                    <div class="owl-carousel d-flex" id="grid_my_requests_tbl_container">
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-md-12">
+                                    <div class="owl-carousel row">
+                                        <div class=" px-0 mb-3">
+                                            <div class="card">
+                                                <div>
+                                                    <img src="http://127.0.0.1:8000/attachments/source/723675662.jpeg"
+                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
+                                                </div>
+                                                <div class="p-1">
+                                                    <div class="open-text">Open</div>
+                                                    <div class="active-request-product-name ">DAY DATE YELLOW GOLD</div>
+                                                    <div class="active-request-product-type">ROLEX</div>
+                                                    <a href="#" class=""><button
+                                                            class="active-request-product-fulfill mt-1">VIEW
+                                                            OFFER</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="px-0 mb-3">
+                                            <div class="card">
+                                                <div>
+                                                    <img src="http://127.0.0.1:8000/attachments/source/723675662.jpeg"
+                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
+                                                </div>
+                                                <div class="p-1">
+                                                    <div class="open-text">Open</div>
+                                                    <div class="active-request-product-name ">EMBROIDERED BOMBER</div>
+                                                    <div class="active-request-product-type">MAD HAPPY</div>
+                                                    <a href="#" class=""><button
+                                                            class="active-request-product-fulfill mt-1">VIEW
+                                                            OFFER</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="px-0 mb-3">
+                                            <div class="card">
+                                                <div>
+                                                    <img src="http://127.0.0.1:8000/attachments/source/723675662.jpeg"
+                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
+                                                </div>
+                                                <div class="p-1">
+                                                    <div class="open-text">Open</div>
+                                                    <div class="active-request-product-name ">PRINTED T-SHIRT</div>
+                                                    <div class="active-request-product-type">CELINE</div>
+                                                    <a href="#" class=""><button
+                                                            class="active-request-product-pending mt-1">PENDING</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" px-0 mb-3">
+                                            <div class="card">
+                                                <div>
+                                                    <img src="http://127.0.0.1:8000/attachments/source/723675662.jpeg"
+                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
+                                                </div>
+                                                <div class="p-1">
+                                                    <div class="open-text">Open</div>
+                                                    <div class="active-request-product-name ">TAPERED CARGO PANTS</div>
+                                                    <div class="active-request-product-type">BRUNELLO CUCINELLI</div>
+                                                    <a href="#" class=""><button
+                                                            class="active-request-product-pending mt-1">PENDING</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="px-0 mb-3">
+                                            <div class="card">
+                                                <div>
+                                                    <img src="http://127.0.0.1:8000/attachments/source/723675662.jpeg"
+                                                        class="img-fluid new-sourcing-active-req-img-border1" alt="">
+                                                </div>
+                                                <div class="p-1">
+                                                    <div class="open-text">Open</div>
+                                                    <div class="active-request-product-name ">DAY DATE YELLOW GOLD</div>
+                                                    <div class="active-request-product-type">ROLEX</div>
+                                                    <a href="#" class=""><button
+                                                            class="active-request-product-fulfill mt-1">VIEW
+                                                            OFFER</button></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -55,8 +140,9 @@
                         <div class="container-fluid">
                             <div class="row p-2">
                                 <div class="col-md-12">
-                                    <div class="owl-carousel row" id="grid_live_requests_tbl_container">
-                                    </div>
+                                    <!-- <div class="owl-carousel row" id="grid_live_requests_tbl_container"> -->
+                                    <div class=" row" id="grid_live_requests_tbl_container">    
+                                </div>
                                 </div>
                             </div>
                         </div>

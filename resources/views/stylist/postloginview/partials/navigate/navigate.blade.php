@@ -127,7 +127,7 @@
                 </li>
                 <li class=" nav-item"><a href="https://stylegrid.com/editorial/" target="_blank"><i class="ft-edit"></i><span class="menu-title" data-i18n="">Style
                             News</span></a>
-
+                            <!-- <button class="refer-btn  px-2 ml-2" data-toggle="modal" data-target="#referModal">Refer Clients</button> -->
                 </li>
                 <li class=" nav-item"><a href="#"><i class="ft-grid"></i><span class="menu-title"
                             data-i18n="">Refer</span></a>
