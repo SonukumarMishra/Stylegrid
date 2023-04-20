@@ -26,7 +26,7 @@
                                 <?php
                             }else{
                                 ?>
-                                <button class="active-request-product-fulfill mt-1"><?php echo $source_row['p_status'];?></button>
+                                {{-- <button class="active-request-product-fulfill mt-1"><?php echo $source_row['p_status'];?></button> --}}
                             <?php
                             }
                         }else{
@@ -35,7 +35,7 @@
 
                                 ?>
 
-                                    <button class="active-request-product-fulfilled mt-1"><?php echo $source_row['p_status'];?></button>
+                                    <button class="active-request-product-fulfilled mt-1" style="width:150px;"><?php echo $source_row['p_status'];?></button>
                                     
                                 <?php
 
