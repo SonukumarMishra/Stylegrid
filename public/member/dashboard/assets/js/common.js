@@ -316,10 +316,14 @@ $(document).ready(function(){
     $('.carousel').carousel({
         interval: false,
       });
+      $('#referModalclick').click(function(){
+        $('#referModal').modal('show');
+    })
+    $('#demo.carousel.slide').carousel({
+        interval: false,
+      });
 });
-$('#demo.carousel.slide').carousel({
-    interval: false,
-  });
+
 
 //   $(function () {
 //     $('.datepicker').datepicker({

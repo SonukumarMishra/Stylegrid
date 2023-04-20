@@ -60,7 +60,7 @@
                             News</span></a>
 
                 </li>
-                <li class=" nav-item"><a href="#"><i class="ft-grid"></i><span class="menu-title"
+                <li class=" nav-item"><a href="javascript:void(0)" id="referModalclick"><i class="ft-grid"></i><span class="menu-title"
                             data-i18n="">Refer</span></a>
 
                 </li>
@@ -91,3 +91,29 @@
         </div>
     </div>
     <!-- END: Main Menu-->
+    <!-- Refer Client Modal -->
+<div class="modal fade" id="referModal" tabindex="-1" role="dialog" aria-labelledby="referModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="">
+            <div class="modal-content">
+                <div class="modal-header">
+                        <button type="button" class="close mt-1" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                        <h5 class="modal-title text-center refer-modal-title" id="referModalLabel">Refer and save!</h5>
+                        <p class="px-4">Share your unique referral code to your network and receive a month free for each sign up.</p>
+                </div>
+                <div class="modal-footer pt-0 ">
+                    <div class="container text-center pb-3">
+                        <input type="text" id="copy-refer-code" value="Unique code to go here" readonly/>
+                        <button onclick="copy('copy-refer-code')" class="pl-0 copy-refer-code">Copy</button>
+                        <div class="share-power mt-2">Share the power of StyleGrid today!</div>
+                    </div>
+                   
+                </div>
+                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+    </div>
+</div>
