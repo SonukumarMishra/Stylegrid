@@ -3280,3 +3280,7 @@ top: 97px !important;
  #sourceConfirmationPopUp {
   top: 35% !important;
 }
+.fade:not(.show) {
+  opacity: 1;
+ 
+}

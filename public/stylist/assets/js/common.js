@@ -369,4 +369,9 @@ function lettersOnly(evt) {
                 }
             }
         })
+
+        $('#referModalclick').click(function(){
+            $('#referModal').modal('show');
+        })
     });
+   
