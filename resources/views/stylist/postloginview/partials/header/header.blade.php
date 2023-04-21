@@ -38,8 +38,8 @@
      <link rel="stylesheet" href="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/owlcarousel/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/owlcarousel/assets/owl.theme.default.css') }}">
     -->
-    <link rel="stylesheet" href="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/owlcarousel/assets/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/owlcarousel/assets/owl.theme.default.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">

@@ -184,6 +184,8 @@
 
                                         <h4>Shipping date: <?php echo date('m/d/Y',strtotime($offer->p_deliver_date));?></h4>
 
+                                        <h4>Details: {{ $offer->offer_details }}</h4>
+                                        
                                         <h4>Condition: New</h4>
 
     

@@ -153,6 +153,8 @@
 
                             <h4>Date required: {{date('m/d/Y',strtotime($source_data->p_deliver_date))}}</h4>
 
+                            <h4>Detaile: {{ $source_data->p_details }}</h4>
+
                             <h4>Condition requested: New</h4>
 
                             <form id="stylist-fulfill-source-request-form" class="mt-3">
@@ -181,10 +183,7 @@
                                
                                 <div class="w-100">
 
-                                    <textarea  placeholder="Enter Additional Informtaion...." id="additional_info_stylist" name="additional_info"
-
-                                        class="w-100 form-control additional_info_stylist" col="50" rows="5">
-                                        </textarea>
+                                    <textarea  placeholder="Enter Additional Informtaion...." id="additional_info_stylist" name="offer_details" class="w-100 form-control additional_info_stylist" col="50" rows="5"> </textarea>
                                         <div id="additional_info_error" class="error"></div>
                                         
                                         

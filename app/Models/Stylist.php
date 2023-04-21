@@ -24,6 +24,7 @@ class Stylist extends Model
 				"so.sourcing_id",
 				"so.sourcing_id",
 				"so.stylelist_id",
+				"so.offer_details",
 				"so.price",
 				"so.status",
 				//\DB::raw("COUNT(so.id) as total_offer"),
@@ -52,6 +53,7 @@ class Stylist extends Model
 			"c.country_name",
 			"s.p_deliver_date",
             "s.p_status",
+			"s.p_details",
 			\DB::raw("COUNT(so.id) as total_offer"),
 		]);
 		$this->db->join('sg_country AS c', 'c.id', '=', 's.p_country_deliver');
@@ -86,6 +88,7 @@ class Stylist extends Model
 				"so.sourcing_id",
 				"so.stylelist_id",
 				"so.price",
+				"so.offer_details",
 				"so.status",
 				"s.p_image",
 				"s.p_name",

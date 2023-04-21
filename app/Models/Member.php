@@ -180,6 +180,7 @@ class Member extends Model
 				"so.sourcing_id",
 				"so.stylist_id",
 				"so.price",
+				"so.offer_details",
 				"so.status",
 			]);
 			$this->db->join('sg_sourcing AS s', 's.id', '=', 'so.sourcing_id');
@@ -230,6 +231,7 @@ class Member extends Model
 				"so.sourcing_id",
 				"so.stylist_id",
 				"so.price",
+				"so.offer_details",
 				"so.status",
 				"s.p_image",
 				"s.p_name",

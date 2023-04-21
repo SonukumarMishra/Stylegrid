@@ -201,6 +201,7 @@ class StylistController extends Controller
                     'sourcing_id'=>$request->source_id,
                     'stylist_id'=>Session::get("stylist_id"),
                     'price'=>$request->source_price,
+                    'offer_details'=>$request->offer_details,
                     'offer_date'=>now()
                 ),'sg_sourcing_offer');
                 if($response['reference_id']>0){
