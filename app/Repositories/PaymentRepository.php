@@ -320,6 +320,8 @@ class PaymentRepository {
                         
                     }
 
+                    Log::info("stripe subscription_result - ". print_r($subscription_result, true));
+                    
                     Log::info("stripe last_active_subscription - ". print_r($last_active_subscription, true));
 
                     $sub_info_status = strtolower($subscription_result->status);

@@ -3284,3 +3284,96 @@ top: 97px !important;
   opacity: 1;
  
 }
+
+
+/* subscription cards */
+
+.subscription-card{
+  box-shadow: 5px 10px 10px 0px rgb(0 0 0 / 25%);
+  color: #FFFFFF;
+  background-color: #2B2B2B;
+  border-radius: 10px 10px 10px 10px;
+  margin: 15px;
+}
+
+.subscription-header, .subscription-subtitle{
+  font-family: 'Genos' !important;
+}
+
+.subscription-price-title {
+  font-family: 'Genos';
+  font-size: 64px;
+  font-weight: 500;
+  line-height: 97.28px;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+
+}
+
+.subscription-price-subtitle {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 18px;
+  letter-spacing: 0.5px;
+  font-family: 'Genos';
+}
+
+.susbcription-buy-btn{
+  font-family: 'Genos';
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: 0.7px;
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #FFFFFF;
+  border-radius: 5px 5px 5px 5px;
+  padding: 18px 18px 18px 18px;
+
+}
+
+
+.susbcription-hr{
+  margin: 30px 0 30px 0;
+  border: 0.509375px solid #FFFFFF;
+}
+
+.susbcription-list-dtls ul{
+  font-family: 'Genos';
+  padding-left: 2rem !important;
+  margin-bottom: 0 !important;
+}
+.susbcription-list-dtls ul li{
+  font-family: 'Genos' !important;
+}
+.sub-card-box{
+  box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+  border-radius: 10px;
+}
+
+.light-outline-btn{
+  box-shadow: rgb(0 0 0 / 2%) 0px 1px 3px 0px, rgb(27 31 35 / 15%) 0px 0px 0px 1px;
+  border-radius: 5px;
+  padding: 8px 16px;
+}
+
+.active-sub-card-price-title{
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.active-sub-card-img{
+  width: 90px;
+}
+.view-billing-history{
+  font-family: 'Silk Serif Medium' !important;
+  color: #00A82F !important;
+  font-size: 18px !important;
+}
+#payment_modal_title, .ElementsApp, .ElementsApp .InputElement{
+  font-family: 'Silk Serif Medium' !important;
+}
+#subscription-buy-form input{
+  font-family: 'Silk Serif Medium' !important;
+}

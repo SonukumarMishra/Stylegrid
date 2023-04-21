@@ -74,7 +74,7 @@
       @endforeach
 
    </div>
-
+   
 @else
    <div class="col-12">
 

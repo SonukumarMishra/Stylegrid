@@ -118,6 +118,19 @@ use App\Http\Controllers\CommonController;
   Route::get('/stylist-clients', [Stylist::class, 'clientIndex'])->name('stylist.client.index');
   Route::post('/stylist-client-list-ajax', [Stylist::class, 'getClientsJson'])->name('stylist.client.list');
 
+  
+  Route::group(['prefix' => 'stylist-subscription', 'as' => 'stylist.subscription.'], function () {
+    
+    Route::get('/', 'Stylist\SubscriptionController@index')->name('index');
+    Route::post('list', 'Stylist\SubscriptionController@getSubscriptionList')->name('list');
+    Route::post('buy', 'Stylist\SubscriptionController@buySubscription')->name('buy');
+    Route::post('cancel', 'Stylist\SubscriptionController@cancelSubscription')->name('cancel');
+    Route::get('billing', 'Stylist\SubscriptionController@subscriptionBillingIndex')->name('billing.index');
+    Route::post('billing-details', 'Stylist\SubscriptionController@subscriptionBillingDetails')->name('billing.content');
+    Route::post('invoice/history', 'Stylist\SubscriptionController@getSubscriptioninvoiceHistory')->name('invoice.history');
+    Route::post('check-already-purchased-cancelled-subscription', 'Stylist\SubscriptionController@checkAlreadyPurchasedCancelledSubscription')->name('check_already_purchased_cancelled');
+  });
+
  //stylist section End
  ///member Section Start
 Route::post('/add-member', [Website::class, 'addMember']);

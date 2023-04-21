@@ -23,6 +23,13 @@
                           <li><a href=""><img src="{{ asset('stylist/app-assets/images/icons/STYLEGRID-LOGO.png') }}" alt="" class="logo2 pl-1 d-lg-block d-none my-1"></a></li>
                     </ul>
                     <ul class="nav navbar-nav float-right">
+
+                        <li class="dropdown dropdown-notification nav-item">
+                            <a class="nav-link nav-link-label" href="{{ route('stylist.subscription.index') }}">
+                                <img src="{{ asset('/member/dashboard/app-assets/images/icons/subscription.png') }}" title="subscription" height="20" width="20">
+                            </a>
+                        </li>
+                        
                         <li class="dropdown dropdown-notification nav-item">
                             <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
                                 <img src="{{ asset('stylist/app-assets/images/icons/Bell.svg') }}" alt="">
