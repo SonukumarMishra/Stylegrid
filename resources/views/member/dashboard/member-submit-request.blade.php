@@ -102,9 +102,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Enter any additional details and specifications:</label>
-                                <textarea  class="form-control submit-input"  col="50" rows="5"
-                                    placeholder="Enter any additional..." id="additional_info_member" name="additional_info_member">
-                                </textarea>
+                                <textarea class="form-control" name="p_details" placeholder="Enter any additional..." col="50" rows="5"></textarea>
                             </div>
                             <button type="button" class="submit-request px-3  mt-2" id="submit-request-btn">Submit request</button>
                     </div>

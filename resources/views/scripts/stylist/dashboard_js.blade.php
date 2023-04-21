@@ -193,6 +193,8 @@
         DashboardRef.initEvents = function() {
 
 
+            $(".owl-carousel").owlCarousel();
+            
             // $('#grids-carousel').carousel({
             //     interval: false,
             // });

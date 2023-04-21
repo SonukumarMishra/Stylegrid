@@ -206,15 +206,32 @@
             formData.append('page', SourcingRef.myRequestsCurrentPage);
             formData.append('type', 'my_sources');
 
+            $('#grid_my_requests_tbl_container').html('');
+            showSpinner('#grid_my_requests_tbl_container');
+
             window.getResponseInJsonFromURL('{{ route("stylist.sourcing.requests") }}', formData, (response) => {
             
                 $('#list_my_requests_tbl_container').html('');
-                $('#grid_my_requests_tbl_container').html('');
-
+                
                 if (response.status == '1') {
 
                     $('#list_my_requests_tbl_container').html(response.data.list_view);
+                    hideSpinner('#grid_my_requests_tbl_container');
+
                     $('#grid_my_requests_tbl_container').html(response.data.grid_view);
+
+                    if ($('#grid_my_requests_tbl_container').hasClass('slick-initialized')) {
+                        $('#grid_my_requests_tbl_container').slick('unslick');
+                    }
+
+                    $('#grid_my_requests_tbl_container').slick({
+                        dots: true,
+                        arrows: true,
+                        infinite: true,
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                        autoplay: true,
+                    });
 
                     if(response.data.json.list.links != undefined){
 

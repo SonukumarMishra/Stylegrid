@@ -221,6 +221,7 @@ class MemberController extends Controller
                     'p_brand'=>$brand,
                     'p_type'=>$product_type,
                     'p_size'=>$product_size,
+                    'p_details'=>$request->p_details,
                     'p_code'=>'',
                     'p_status'=>'Pending',
                     'p_country_deliver'=>$country,

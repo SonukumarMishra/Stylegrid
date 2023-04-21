@@ -108,6 +108,7 @@
 <!--------owl carousel--------->
 <!-- <script src="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/vendors/jquery.min.js') }}"></script> -->
 <script src="{{ asset('stylist/app-assets/OwlCarousel/docs/assets/owlcarousel/owl.carousel.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
 <script>
 
     var constants = {

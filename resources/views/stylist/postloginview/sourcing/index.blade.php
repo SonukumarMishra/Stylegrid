@@ -1,5 +1,18 @@
 @include('stylist.postloginview.partials.header.header')
 @include('stylist.postloginview.partials.navigate.navigate')
+<style>
+    .slick-prev:before, .slick-next:before { 
+        color:#2E4836 !important;
+    }
+    .slick-prev{
+        left: -10px !important;
+    }
+
+    .slick-next{
+        right: -10px !important;
+    }
+
+</style>
 <!-- BEGIN: Content-->
 <div class="app-content content bg-white">
     <div class="content-wrapper">
@@ -38,12 +51,11 @@
                     <div class="row w-100" id="new-sourcing-page">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="owl-carousel d-flex" id="grid_my_requests_tbl_container">
-                                    </div>
+                                <div class="col-md-12 w-100 p-2" id="grid_my_requests_tbl_container">
+                                    
                                 </div>
                             </div>
-                            <!-- <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <div class="owl-carousel row">
                                         <div class=" px-0 mb-3">
@@ -127,7 +139,7 @@
 
                                     </div>
                                 </div>
-                            </div> -->
+                            </div> --}}
                         </div>
                     </div>
 
