@@ -429,9 +429,9 @@
                                         foreach ($product_arr['home_products'] as $home_products) {
                                        ?>
                                        <!-- <div class="col-md col-6"> -->
-                                       <div class="col-md-2">
+                                       <div class="col-md-3">
                                            <div class="card">
-                                               <img class="card-img-top img-fluid"
+                                               <img class="card-img-top img-fluid w-100"
                                                src="{{ asset('attachments/products/home/'.$home_products->image) }}"
                                                alt="Card image cap">
                                                <div class="card-body">
@@ -444,7 +444,9 @@
                                     }
                                     }else{
                                         ?>
-                                        <h5 class="card-title">Product Not available</h5>
+                                        <div class="col-12 d-flex justify-content-center">
+                                            <h5 class="card-title text-center">Product Not available</h5>
+                                        </div>
                                         <?php
                                     }
                                        
@@ -464,9 +466,9 @@
                                         foreach ($product_arr['fashion_products'] as $fashion_products) {
                                         ?>
                                         <!-- <div class="col-md col-6"> -->
-                                        <div class="col-md-2">
+                                        <div class="col-md-3">
                                             <div class="card">
-                                                <img class="card-img-top img-fluid"
+                                                <img class="card-img-top img-fluid w-100"
                                                 src="{{ asset('attachments/products/fashion/'.$fashion_products->image) }}"
                                                 alt="Card image cap">
                                                 <div class="card-body">
@@ -499,9 +501,9 @@
                                         foreach ($product_arr['beauty_products'] as $beauty_products) {
                                         ?>
                                         <!-- <div class="col-md col-6"> -->
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                             <div class="card">
-                                                <img class="card-img-top img-fluid"
+                                                <img class="card-img-top img-fluid w-100"
                                                     src="{{ asset('attachments/products/beauty/'.$beauty_products->image) }}"
                                                     alt="Card image cap">
                                                 <div class="card-body">

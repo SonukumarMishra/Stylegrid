@@ -8,8 +8,10 @@ use App\Repositories\UserRepository as UserRepo;
 use App\Repositories\SubscriptionRepository as SubscriptionRepo;
 use App\Repositories\PaymentRepository as PaymentRepo;
 use App\Models\Member;
+use Log;
 use Session;
 use Config;
+use Image;
 use Illuminate\Support\Facades\File; 
 
 /*
@@ -284,9 +286,64 @@ class DashboardController extends Controller
             $product_image_name='';
                 $product_image= $request->file('product_image');
                  if(!empty($product_image)){
-                    $new_name = rand() . '.' . $product_image->getClientOriginalExtension();
-                    $product_image->move(public_path('attachments/products/'.strtolower($request->product_type)), $new_name);
-                    $product_image_name=$new_name;
+
+                    try{
+
+                        $new_name = rand() . '.' . $product_image->getClientOriginalExtension();
+                        $product_image->move(public_path('attachments/products/'.strtolower($request->product_type)), $new_name);
+                        $product_image_name=$new_name;
+
+                        try{
+
+                            Log::info("test ". public_path('attachments/products/'.strtolower($request->product_type).'/'.$new_name));
+                            $file_ext = $product_image->getClientOriginalExtension();
+    
+                            $thumb_file_name = 'FI_thumb_'.time().'.'.$file_ext;
+                            // Create thumbnail image
+    
+                            $default_storage = config('filesystems.default');
+    
+                            if($default_storage == 'public'){
+    
+                                $thumb_directory = 'attachments/products/'.strtolower($request->product_type).'/';
+    
+                                if(!File::isDirectory($thumb_directory)){
+                
+                                    File::makeDirectory($thumb_directory, 0777, true, true);
+                
+                                }
+                            }
+                            
+                            // open an image file
+                            $thumb_temp_img = Image::make(public_path('attachments/products/'.strtolower($request->product_type).'/'.$new_name));
+    
+                            // resize image instance
+                            // $thumb_temp_img->resize(350, 570);
+                            $thumb_temp_img->resize(350, null, function ($constraint) {
+                                $constraint->aspectRatio();
+                            });
+    
+                            $destinationPathThumbnail = public_path('attachments/products/'.strtolower($request->product_type)).'/'.$thumb_file_name;
+    
+                            // save image in desired format
+                            $thumb_temp_img->save($destinationPathThumbnail);
+
+                            // $style_grid->thumb_temp_thumb_img = 'stylist/stylegrids/'.$stylegrid_id.'/thumbnail/'.$thumb_file_name;
+                            // $style_grid->save();
+                            
+                        }catch(\Exception $e){
+    
+                            Log::info("error thumb upload ". $e->getMessage());
+    
+                        }
+    
+                    }catch(\Exception $e){
+
+                        Log::info("error upload ". $e->getMessage());
+
+                    }
+                    
+                    
                 }
                 if($request->id>0){
                    
@@ -299,7 +356,7 @@ class DashboardController extends Controller
                         }
                        }else{
                         $product_image_name=$product[0]->image;
-                    } 
+                        } 
                     }
                 }
                 if(empty($product_image_name)){
