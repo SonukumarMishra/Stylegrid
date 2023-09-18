@@ -262,7 +262,7 @@ class CartController extends BaseController
                     foreach ($items as $key => $value) {
                 
                         // $product_ext = pathinfo('https://demo.stylegrid.com/stylist/stylegrids/4/grids/5/products/9/PI_1673934650.jpeg', PATHINFO_EXTENSION);
-                        $product_ext = asset($value->product_image);
+                        $product_ext = pathinfo(asset($value->product_image), PATHINFO_EXTENSION);
 
                         array_push($media_files, 
                         [

@@ -57,7 +57,7 @@
                         
                     </div>
                     <div class="row justify-content-center">
-                        <a href="index.html"><button class="back-to-client-dash">Back to dashboard</button></a>
+                        <a href="{{route('member.sourcing.index')}}"><button class="back-to-client-dash">Back to dashboard</button></a>
                     </div>
                 </div>
     </div>
